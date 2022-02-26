@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{7F6D919E-E5AC-4CF5-B2D8-3390835AFBD8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrossPlatformDesktop", "CrossPlatformDesktop\CrossPlatformDesktop.csproj", "{01CDB644-335E-4AF4-9453-FD9184B899AA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContentEditor", "ContentEditor\ContentEditor.csproj", "{309369D7-BF06-403E-8A4A-90B855E53E8D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7F6D919E-E5AC-4CF5-B2D8-3390835AFBD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F6D919E-E5AC-4CF5-B2D8-3390835AFBD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F6D919E-E5AC-4CF5-B2D8-3390835AFBD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F6D919E-E5AC-4CF5-B2D8-3390835AFBD8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01CDB644-335E-4AF4-9453-FD9184B899AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01CDB644-335E-4AF4-9453-FD9184B899AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01CDB644-335E-4AF4-9453-FD9184B899AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01CDB644-335E-4AF4-9453-FD9184B899AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{309369D7-BF06-403E-8A4A-90B855E53E8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{309369D7-BF06-403E-8A4A-90B855E53E8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{309369D7-BF06-403E-8A4A-90B855E53E8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{309369D7-BF06-403E-8A4A-90B855E53E8D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
