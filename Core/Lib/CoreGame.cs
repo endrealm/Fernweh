@@ -13,6 +13,7 @@ namespace Core
         private readonly Vector2 _baseScreenSize = new Vector2(398, 224);
         private OrthographicCamera _camera;
 
+        private SpriteFont _font;
         public CoreGame()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -48,6 +49,7 @@ namespace Core
 
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            _font = Content.Load<SpriteFont>("Fonts/TinyUnicode");
         }
 
         protected override void Update(GameTime gameTime)
@@ -68,6 +70,11 @@ namespace Core
             // Draw game here
             _spriteBatch.End();
 
+            _spriteBatch.Begin(transformMatrix: _camera.GetViewMatrix(new Vector2()), samplerState: SamplerState.PointClamp);
+            // Draw UI here
+            _spriteBatch.DrawString(_font, "test string", new Vector2(10, 10), Color.White);
+            _spriteBatch.End();
+            
             base.Draw(gameTime);
         }
     }
