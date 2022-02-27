@@ -64,8 +64,18 @@ namespace Core
         protected override void Draw(GameTime gameTime)
         {
             var backgroundColor = new Color(31, 14, 28);
+            
+            // width of text area
+            var chatWidth = _baseScreenSize.X * .35f;
+            
             GraphicsDevice.Clear(Color.CornflowerBlue); // todo: replace by backgroundColor
-
+            
+            // rectangle culling mask in world space
+            var worldCulling = new RectangleF(
+                    _camera.ScreenToWorld(new Vector2()) + new Vector2(chatWidth, 0), 
+                    new Size2(_baseScreenSize.X - chatWidth, _baseScreenSize.Y)
+                );
+            
             var transformMatrix = _camera.GetViewMatrix();
             _spriteBatch.Begin(transformMatrix: transformMatrix, samplerState: SamplerState.PointClamp);
             // Draw game here
@@ -73,7 +83,7 @@ namespace Core
 
             _spriteBatch.Begin(transformMatrix: _camera.GetViewMatrix(new Vector2()), samplerState: SamplerState.PointClamp);
             // Draw UI here
-            _spriteBatch.FillRectangle(new Vector2(), new Size2(_baseScreenSize.X * .35f, _baseScreenSize.Y), backgroundColor);
+            _spriteBatch.FillRectangle(new Vector2(), new Size2(chatWidth, _baseScreenSize.Y), backgroundColor);
             _spriteBatch.DrawString(_font, "test string", new Vector2(10, 10), Color.White);
             _spriteBatch.End();
             
