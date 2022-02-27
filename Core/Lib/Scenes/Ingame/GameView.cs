@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Core.Scenes.Ingame;
 
-public class GameView: IRenderer<IngameRenderContext>, ILoadable
+public class GameView: IRenderer<IngameRenderContext>, IUpdate<IngameUpdateContext>, ILoadable
 {
     public void Render(SpriteBatch spriteBatch, IngameRenderContext context)
     {
@@ -14,6 +14,11 @@ public class GameView: IRenderer<IngameRenderContext>, ILoadable
     public void Load(ContentManager content)
     {
         
+        
+    }
+
+    public void Update(float deltaTime, IngameUpdateContext context)
+    {
         
     }
 }

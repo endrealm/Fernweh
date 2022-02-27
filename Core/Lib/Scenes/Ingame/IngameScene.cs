@@ -16,13 +16,19 @@ public class IngameScene: Scene
         _chatView.Load(content);
     }
 
+    public override void Update(float deltaTime, TopLeveUpdateContext context)
+    {
+        _gameView.Update(deltaTime, new IngameUpdateContext());
+        _chatView.Update(deltaTime, new IngameUpdateContext());
+    }
+
     public override void Render(SpriteBatch spriteBatch, TopLevelRenderContext context)
     {
         context.GraphicsDevice.Clear(Color.CornflowerBlue);
         var backgroundColor = new Color(31, 14, 28);
             
         // width of text area
-        var chatWidth = context.BaseScreenSize.X * .35f;
+        var chatWidth = (int) (context.BaseScreenSize.X * .35f);
             
             
         // rectangle culling mask in world space
