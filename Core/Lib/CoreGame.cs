@@ -76,6 +76,7 @@ namespace Core
 
         public void LoadScene(Scene scene)
         {
+            _activeScene?.Unload(); // Unload old scene if exists
             scene.InjectSceneManager(this);
             scene.Load(Content);
             _activeScene = scene;

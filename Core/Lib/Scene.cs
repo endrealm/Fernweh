@@ -16,4 +16,5 @@ public abstract class Scene: IRenderer<TopLevelRenderContext>, IUpdate<TopLeveUp
     public virtual void Render(SpriteBatch spriteBatch, TopLevelRenderContext context) {}
     public virtual void Update(float deltaTime, TopLeveUpdateContext context) {}
     public virtual void Load(ContentManager content) {}
+    public virtual void Unload() {}
 }

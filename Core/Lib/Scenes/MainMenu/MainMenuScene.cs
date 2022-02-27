@@ -3,7 +3,6 @@ using Core.Scenes.Ingame;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using MonoGame.Extended;
 
 namespace Core.Scenes.MainMenu;
 
@@ -51,14 +50,12 @@ public class MainMenuScene: Scene
     {
         context.GraphicsDevice.Clear(Color.CornflowerBlue);
         
-        // Matrix is used to preserve screen spaced values
-        // Point clamp renders pixel perfect -> no blurry edges
         spriteBatch.Begin(
-            transformMatrix: context.Camera.GetViewMatrix(new Vector2()), 
-            samplerState: SamplerState.PointClamp, 
-            blendState: BlendState.NonPremultiplied,
-            sortMode: SpriteSortMode.Immediate
-            );
+            transformMatrix: context.Camera.GetViewMatrix(new Vector2()), // preserve screen spaced values
+            samplerState: SamplerState.PointClamp, // renders pixel perfect -> no blurry edges
+            blendState: BlendState.NonPremultiplied, // Support alpha transparency
+            sortMode: SpriteSortMode.Immediate // no clue, but doesnt do any harm?
+        );
         
         const string message = "Press any button to continue";
         var measurement = _font.MeasureString(message);
