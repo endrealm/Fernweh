@@ -60,7 +60,16 @@ public class StaticLetterAnimationEffect: ILetterAnimationEffect
         var remaining = message;
         var accumulator = "";
         var results = new List<string>();
-        var width = Math.Max(_component.Width, _component.MaxWidth);
+
+        float width;
+        if (_component.Width < 0 || _component.MaxWidth < 0)
+        {
+            width = Math.Max(_component.Width, _component.MaxWidth);
+        }
+        else
+        {
+            width = Math.Min(_component.Width, _component.MaxWidth);
+        }
         
         while (remaining.Length > 0)
         {
