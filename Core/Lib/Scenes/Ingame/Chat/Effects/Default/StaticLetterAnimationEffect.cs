@@ -92,9 +92,8 @@ public class StaticLetterAnimationEffect: ILetterAnimationEffect
     public void Render(SpriteBatch spriteBatch, ChatRenderContext context)
     {
         var heightOffset = 0f;
-        for (var i = 0; i < _lines.Count; i++)
+        foreach (var line in _lines)
         {
-            var line = _lines[i];
             spriteBatch.DrawString(_component.Font, line, context.Position + new Vector2(0, heightOffset), _component.TextColor);
             heightOffset += _component.Font.MeasureString(line).Y;
         }
