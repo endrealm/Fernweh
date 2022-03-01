@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Core.Scenes.Ingame.Chat;
 
-public class TextComponent: BaseComponent
+public class TextComponent: BaseComponent, IChatInlineComponent
 {
     private readonly SpriteFont _font;
     private float _width;
@@ -17,6 +17,7 @@ public class TextComponent: BaseComponent
     private readonly Color _textColor;
     private ILetterAnimationEffect _letterAnimationEffect;
     private ITextContentEffect _contentEffect;
+    private float _firstLineOffset;
 
     public Color TextColor => _textColor;
     public SpriteFont Font => _font;
@@ -82,6 +83,7 @@ public class TextComponent: BaseComponent
     {
         _message = message;
         Recalculate();
+        DirtyContent = true;
     }
 
     public void Recalculate()
@@ -111,8 +113,25 @@ public class TextComponent: BaseComponent
         {
             _maxWidth = value;
             _letterAnimationEffect.Recalculate();
+            DirtyContent = true;
         }
     }
+
+    public float LastLineRemainingSpace => _letterAnimationEffect.LastLineRemainingSpace;
+    public float LastLength => _letterAnimationEffect.LastLineLength;
+    public float LastLineHeight => _letterAnimationEffect.LastLineHeight;
+
+    public float FirstLineOffset
+    {
+        get => _firstLineOffset;
+        set { 
+            _firstLineOffset = value; 
+            Recalculate();
+            DirtyContent = true;
+        }
+    }
+
+    public bool DirtyContent { get; set; }
 
     public override float Width => _width;
     public override void Update(float deltaTime, ChatUpdateContext context)

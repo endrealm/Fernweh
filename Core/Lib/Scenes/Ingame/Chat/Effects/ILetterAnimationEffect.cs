@@ -11,4 +11,7 @@ public interface ILetterAnimationEffect: ITextEffect, IRenderer<ChatRenderContex
     public void Recalculate();
     public float CalculateHeight();
     public float CalculateWidth();
+    float LastLineRemainingSpace { get; }
+    float LastLineLength { get; }
+    float LastLineHeight { get; }
 }

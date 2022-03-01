@@ -21,9 +21,12 @@ public class ChatView: IRenderer<IngameRenderContext>, IUpdate<IngameUpdateConte
         _font = content.Load<SpriteFont>("Fonts/TinyUnicode");
         _components = new List<IChatComponent>
         {
-            new TextComponent(_font,"This is an example message. That should automatically break at the end of the line.", Color.White, contentEffect: new TypeWriterContentEffect()),
-            new TextComponent(_font,"Oh a second message", Color.Gold),
-            new TextComponent(_font,"And a third message", Color.Green)
+            new CompoundTextComponent(new List<IChatInlineComponent>()
+            {
+                new TextComponent(_font,"This is an example message. That should automatically break at the end of the line.", Color.White, contentEffect: new TypeWriterContentEffect()),
+                new TextComponent(_font,"Oh a second message", Color.Gold),
+                new TextComponent(_font,"And a third message", Color.Green)
+            })
         };
     }
 

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Core.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -12,6 +11,7 @@ public class StaticLetterAnimationEffect: ILetterAnimationEffect
     private List<string> _lines = new();
     private float _calculatedWidth;
     private float _calculatedHeight = 0;
+    private float _calculatedLastLineRemainingSpace = 0;
 
     
     public void Attach(TextComponent component)
@@ -24,11 +24,26 @@ public class StaticLetterAnimationEffect: ILetterAnimationEffect
         _lines = BreakLines(_component.Message);
         float sum = 0;
         float highestWidth = 0;
+        var widthBound = GetWidthBound();
         foreach (var line in _lines)
         {
+            if (line.Length == 0)
+            {
+                sum += _component.Font.MeasureString("A").Y;
+                continue;
+            }
             var (width, height) = _component.Font.MeasureString(line);
             if (highestWidth < width) highestWidth = width;
             sum += height;
+            _calculatedLastLineRemainingSpace = width - widthBound;
+            LastLineLength = width;
+            LastLineHeight = height;
+        }
+
+        if (_lines.Count == 1)
+        {
+            // this means we might be in midst a string so we need to add the previous part length
+            LastLineLength += _component.FirstLineOffset;
         }
 
         _calculatedWidth = highestWidth;
@@ -44,6 +59,10 @@ public class StaticLetterAnimationEffect: ILetterAnimationEffect
     {
         return _calculatedWidth;
     }
+
+    public float LastLineRemainingSpace => _calculatedLastLineRemainingSpace;
+    public float LastLineLength { get; private set; }
+    public float LastLineHeight { get; private set; }
 
     /// <summary>
     /// Handles line breaking! Should be reworked to prevent mid word breaks if not configured to do so!
@@ -61,20 +80,12 @@ public class StaticLetterAnimationEffect: ILetterAnimationEffect
         var accumulator = "";
         var results = new List<string>();
 
-        float width;
-        if (_component.Width < 0 || _component.MaxWidth < 0)
-        {
-            width = Math.Max(_component.Width, _component.MaxWidth);
-        }
-        else
-        {
-            width = Math.Min(_component.Width, _component.MaxWidth);
-        }
-        
+        float width = GetWidthBound();
+
         while (remaining.Length > 0)
         {
             var newChar = remaining[0];
-            if (_component.Font.MeasureString(accumulator + newChar).X > width)
+            if (_component.Font.MeasureString(accumulator + newChar).X > (width - (results.Count == 0 ? _component.FirstLineOffset : 0)))
             {
                 results.Add(accumulator);
                 accumulator = "";
@@ -89,12 +100,26 @@ public class StaticLetterAnimationEffect: ILetterAnimationEffect
         return results;
     }
 
+    private float GetWidthBound()
+    {
+        return _component.Width < 0 || _component.MaxWidth < 0
+            ? Math.Max(_component.Width, _component.MaxWidth)
+            : Math.Min(_component.Width, _component.MaxWidth);
+    }
+
     public void Render(SpriteBatch spriteBatch, ChatRenderContext context)
     {
         var heightOffset = 0f;
-        foreach (var line in _lines)
+        for (var i = 0; i < _lines.Count; i++)
         {
-            spriteBatch.DrawString(_component.Font, line, context.Position + new Vector2(0, heightOffset), _component.TextColor);
+            var line = _lines[i];
+            if (line.Length == 0)
+            {
+                heightOffset += _component.Font.MeasureString("A").Y;
+                continue;
+            }
+            spriteBatch.DrawString(_component.Font, line, context.Position + new Vector2(i == 0 ? _component.FirstLineOffset : 0, heightOffset),
+                _component.TextColor);
             heightOffset += _component.Font.MeasureString(line).Y;
         }
     }

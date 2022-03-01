@@ -8,3 +8,12 @@ public interface IChatComponent: IRenderer<ChatRenderContext>, IUpdate<ChatUpdat
     Vector2 Dimensions { get; }
     float MaxWidth { set; }
 }
+
+public interface IChatInlineComponent: IChatComponent
+{
+    float LastLineRemainingSpace { get; }
+    float LastLength { get; }
+    float LastLineHeight { get; }
+    float FirstLineOffset { set; }
+    bool DirtyContent { get; set; }
+}
