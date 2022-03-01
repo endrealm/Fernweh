@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -15,12 +17,21 @@ public class CompoundTextComponent: BaseComponent
         List<IChatInlineComponent> components,
         float width = -1,
         float maxWidth = -1
+    ): this(component => components, width, maxWidth)
+    {
+        
+    }
+    
+    public CompoundTextComponent(
+        Func<CompoundTextComponent, List<IChatInlineComponent>> construct,
+        float width = -1,
+        float maxWidth = -1
     )
     {
         _components = new List<IChatInlineComponent>();
         Width = width;
         MaxWidth = maxWidth;
-        _components = components;
+        _components = construct.Invoke(this);
         Recalculate();
     }
 
@@ -57,25 +68,57 @@ public class CompoundTextComponent: BaseComponent
     private void Recalculate()
     {
         var xOffset = 0f;
-        foreach (var component in _components)
+        var newCalcWidth = 0f;
+        var newCalcHeight = 0f;
+        for (var index = 0; index < _components.Count; index++)
         {
+            var component = _components[index];
             component.MaxWidth = MaxWidth;
             component.FirstLineOffset = xOffset;
             xOffset = component.LastLength;
             component.DirtyContent = false;
+            var (width, height) = component.Dimensions;
+            newCalcHeight += height;
+
+            if (component.LastLength != 0 && ( index != (_components.Count-1)))
+            {
+                newCalcHeight -= component.LastLineHeight;
+            } 
+            if (index == (_components.Count-1) && component.EmptyLineEnd)
+            {
+                newCalcHeight += component.LastLineHeight;
+            }
+
+            if (component.Dimensions.X > newCalcWidth)
+            {
+                newCalcWidth = width;
+            }
         }
+
+        _calculatedWidth = newCalcWidth;
+        _calculatedHeight = newCalcHeight;
     }
 
     public override float Width { get; }
     public override void Update(float deltaTime, ChatUpdateContext context)
     {
-        var wasDirty = false;
-        _components.ForEach(component =>
+        for (var index = 0; index < _components.Count; index++)
         {
+            var component = _components[index];
             component.Update(deltaTime, context);
+        }
 
-            if (component.DirtyContent) wasDirty = true;
-        });
-        if(wasDirty) Recalculate();
+        if(_components.Any(component => component.DirtyContent)) Recalculate();
+    }
+
+    public void AppendComponents(List<IChatInlineComponent> chatInlineComponents)
+    {
+        _components.AddRange(chatInlineComponents);
+        Recalculate();
+    }
+    
+    public void AppendComponent(IChatInlineComponent chatInlineComponents)
+    {
+        AppendComponents(new List<IChatInlineComponent> {chatInlineComponents});
     }
 }

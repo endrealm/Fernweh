@@ -14,4 +14,5 @@ public interface ILetterAnimationEffect: ITextEffect, IRenderer<ChatRenderContex
     float LastLineRemainingSpace { get; }
     float LastLineLength { get; }
     float LastLineHeight { get; }
+    bool EmptyLineEnd { get; }
 }

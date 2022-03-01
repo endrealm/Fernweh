@@ -16,4 +16,5 @@ public interface IChatInlineComponent: IChatComponent
     float LastLineHeight { get; }
     float FirstLineOffset { set; }
     bool DirtyContent { get; set; }
+    bool EmptyLineEnd { get; }
 }

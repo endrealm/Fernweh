@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -29,7 +30,10 @@ public class StaticLetterAnimationEffect: ILetterAnimationEffect
         {
             if (line.Length == 0)
             {
-                sum += _component.Font.MeasureString("A").Y;
+                var heightVal = _component.Font.MeasureString("A").Y;
+                sum += heightVal;
+                LastLineLength = 0;
+                LastLineHeight = heightVal;
                 continue;
             }
             var (width, height) = _component.Font.MeasureString(line);
@@ -63,6 +67,7 @@ public class StaticLetterAnimationEffect: ILetterAnimationEffect
     public float LastLineRemainingSpace => _calculatedLastLineRemainingSpace;
     public float LastLineLength { get; private set; }
     public float LastLineHeight { get; private set; }
+    public bool EmptyLineEnd => _lines.Count == 0 || _lines.Last().Length == 0;
 
     /// <summary>
     /// Handles line breaking! Should be reworked to prevent mid word breaks if not configured to do so!
