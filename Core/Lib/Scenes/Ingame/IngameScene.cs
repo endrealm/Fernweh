@@ -24,11 +24,11 @@ public class IngameScene: Scene
 
     public override void Render(SpriteBatch spriteBatch, TopLevelRenderContext context)
     {
-        context.GraphicsDevice.Clear(Color.CornflowerBlue);
-        var backgroundColor = new Color(31, 14, 28);
+        context.GraphicsDevice.Clear(new Color(48, 37, 45));
+        var backgroundColor = new Color(18, 14, 18);
             
-        // width of text area
-        var chatWidth = (int) (context.BaseScreenSize.X * .35f);
+        // width of text area. if accepting wider aspect ratios, this should increase
+        var chatWidth = 174;
             
             
         // rectangle culling mask in world space

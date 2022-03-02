@@ -12,8 +12,9 @@ namespace Core
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        private readonly Vector2 _baseScreenSize = new(398, 224);
         private OrthographicCamera _camera;
+        private readonly Vector2 _baseScreenSize = new(398, 224);
+        private bool _isFullscreen = false;
 
         private Scene _activeScene;
         private TopLevelRenderContext _renderContext;
@@ -40,11 +41,14 @@ namespace Core
             #region Configure camera
 
             // make game borderless fullscreen
-            _graphics.PreferredBackBufferWidth = GraphicsDevice.DisplayMode.Width;
-            _graphics.PreferredBackBufferHeight = GraphicsDevice.DisplayMode.Height;
-            _graphics.IsFullScreen = true;
-            _graphics.HardwareModeSwitch = false;
-            _graphics.ApplyChanges();
+            if(_isFullscreen)
+            {
+                _graphics.PreferredBackBufferWidth = GraphicsDevice.DisplayMode.Width;
+                _graphics.PreferredBackBufferHeight = GraphicsDevice.DisplayMode.Height;
+                _graphics.IsFullScreen = true;
+                _graphics.HardwareModeSwitch = false;
+                _graphics.ApplyChanges();
+            }
             
             var viewportAdapter = new BoxingViewportAdapter(Window, GraphicsDevice, (int) _baseScreenSize.X,
                 (int) _baseScreenSize.Y);

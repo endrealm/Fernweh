@@ -14,7 +14,7 @@ public class TypeWriterContentEffect: ITextContentEffect
     private bool done;
 
     public TypeWriterContentEffect(
-        float timePerCharacter = .1f,
+        float timePerCharacter = .01f,
         Action onFinish = null
     )
     {

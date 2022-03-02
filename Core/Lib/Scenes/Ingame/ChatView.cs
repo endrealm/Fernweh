@@ -14,7 +14,8 @@ public class ChatView: IRenderer<IngameRenderContext>, IUpdate<IngameUpdateConte
     private SpriteFont _font;
     private List<IChatComponent> _components = new();
     private int _width = 0;
-    
+
+    private int _xMargin = 5;
     
     public void Load(ContentManager content)
     {
@@ -53,7 +54,7 @@ public class ChatView: IRenderer<IngameRenderContext>, IUpdate<IngameUpdateConte
             _width = context.ChatWidth;
             _components.ForEach(component =>
             {
-                component.MaxWidth = _width;
+                component.MaxWidth = _width - _xMargin * 2;
             });
         }
         // Draw UI here
@@ -61,7 +62,7 @@ public class ChatView: IRenderer<IngameRenderContext>, IUpdate<IngameUpdateConte
         var offsetY = 0f;
         _components.ForEach(component =>
         {
-            component.Render(spriteBatch, new ChatRenderContext(new Vector2(0, offsetY)));
+            component.Render(spriteBatch, new ChatRenderContext(new Vector2(_xMargin, offsetY)));
             offsetY += component.Dimensions.Y;
         });
     }
