@@ -24,32 +24,30 @@ public class ChatView: IRenderer<IngameRenderContext>, IUpdate<IngameUpdateConte
 
         _queuedComponents.Enqueue(new CompoundTextComponent((comp) => new List<IChatInlineComponent>
         {
-            new TextComponent(_font,"This is an example message. That should automatically break at the end of the line.", Color.White,
-                contentEffect: new TypeWriterContentEffect(onFinish: () =>
-                {
-                    comp.AppendComponent(new TextComponent(_font, "Oh a second message", Color.Gold, contentEffect: new TypeWriterContentEffect(
-                        onFinish: () =>
-                        {
-                            comp.AppendComponent(new TextComponent(_font, "And a third message", Color.Green, contentEffect: new TypeWriterContentEffect(onFinish: ()=>
-                            {
-                                LoadNextComponentInQueue();
-                            })));
-                        }
-                    )));
-                })
-            ),
-        }));
-        _queuedComponents.Enqueue(new TextComponent(_font, "This is a new paragraph", Color.Green, contentEffect: new TypeWriterContentEffect(
-            onFinish: ()=> 
+        new TextComponent(_font,"This is an example message. That should automatically break at the end of the line. ", Color.White,
+            contentEffect: new TypeWriterContentEffect(onFinish: () =>
             {
-                LoadNextComponentInQueue();
-            })));
+                comp.AppendComponent(new TextComponent(_font, "Oh a second message.  ", Color.Gold, contentEffect: new TypeWriterContentEffect(
+                onFinish: () =>
+                {
+                    comp.AppendComponent(new TextComponent(_font, "And a third message", Color.Green, contentEffect: new TypeWriterContentEffect(onFinish: ()=>
+                    {
+                        LoadNextComponentInQueue();
+                    })));
+                })));
+            })
+        ),
+        }));
         _queuedComponents.Enqueue(new CompoundTextComponent(new List<IChatInlineComponent>()
         {
             new TextComponent(_font, "This is a ", Color.White),
-            new TextComponent(_font, "third ", Color.Orange),
-            new TextComponent(_font, "paragraph!", Color.White)
+            new TextComponent(_font, "second ", Color.Orange),
+            new TextComponent(_font, "paragraph!", Color.White, contentEffect: new StaticContentEffect(onFinish: ()=>
+            {
+                LoadNextComponentInQueue();
+            }))
         }));
+        _queuedComponents.Enqueue(new TextComponent(_font, "This is a new paragraph", Color.Green, contentEffect: new TypeWriterContentEffect()));
 
         LoadNextComponentInQueue();
     }
