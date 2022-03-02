@@ -5,7 +5,7 @@ namespace Core.Scenes.Ingame.Chat.Effects.Default;
 public class TypeWriterContentEffect: ITextContentEffect
 {
     private readonly float _timePerCharacter;
-    private readonly Action _onFinish;
+    public Action _onFinish { get; set; }
     private TextComponent _component;
     
     private float timeDone;
