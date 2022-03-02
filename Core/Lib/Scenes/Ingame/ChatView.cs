@@ -25,9 +25,9 @@ public class ChatView: IRenderer<IngameRenderContext>, IUpdate<IngameUpdateConte
         _queuedComponents.Enqueue(new CompoundTextComponent((comp) => new List<IChatInlineComponent>
         {
         new TextComponent(_font,"This is an example message. That should automatically break at the end of the line. ", Color.White,
-            contentEffect: new TypeWriterContentEffect(onFinish: () =>
+            contentEffect: new TypeWriterContentEffect(timePerParagraph: 0, onFinish: () =>
             {
-                comp.AppendComponent(new TextComponent(_font, "Oh a second message.  ", Color.Gold, contentEffect: new TypeWriterContentEffect(
+                comp.AppendComponent(new TextComponent(_font, "Oh a second message.  ", Color.Gold, contentEffect: new TypeWriterContentEffect(timePerParagraph: 0,
                 onFinish: () =>
                 {
                     comp.AppendComponent(new TextComponent(_font, "And a third message", Color.Green, contentEffect: new TypeWriterContentEffect(onFinish: ()=>
