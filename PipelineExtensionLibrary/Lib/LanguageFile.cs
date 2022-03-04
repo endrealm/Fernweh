@@ -14,6 +14,7 @@ namespace PipelineExtensionLibrary
 
     public class LanuageLine
     {
-        
+        public Dictionary<Language, string> Translations { get; }
+
     }
 }
