@@ -10,17 +10,19 @@ public class IngameRenderContext: IRenderContext
     public int ChatWidth { get; }
     public Color BackgroundColor { get; }
     public RectangleF WorldCulling { get; }
+    public TopLevelRenderContext TopLevelContext { get; }
 
     public IngameRenderContext(
         Vector2 baseScreenSize,
         int chatWidth,
         Color backgroundColor, 
-        RectangleF worldCulling
-    )
+        RectangleF worldCulling,
+        TopLevelRenderContext topLevelContext)
     {
         ChatWidth = chatWidth;
         BackgroundColor = backgroundColor;
         WorldCulling = worldCulling;
         BaseScreenSize = baseScreenSize;
+        TopLevelContext = topLevelContext;
     }
 }

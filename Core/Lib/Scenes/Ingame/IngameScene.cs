@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
+using Core.Utils;
 
 namespace Core.Scenes.Ingame;
 
@@ -20,24 +21,26 @@ public class IngameScene: Scene
     {
         _gameView.Update(deltaTime, new IngameUpdateContext());
         _chatView.Update(deltaTime, new IngameUpdateContext());
+
+        // i think this is off? ...
+        System.Console.WriteLine(1.0f / deltaTime);
     }
 
     public override void Render(SpriteBatch spriteBatch, TopLevelRenderContext context)
     {
-        context.GraphicsDevice.Clear(new Color(48, 37, 45));
+        context.GraphicsDevice.Clear(new Color(18, 14, 18));
         var backgroundColor = new Color(18, 14, 18);
-            
-        // width of text area. if accepting wider aspect ratios, this should increase
-        var chatWidth = 174;
-            
-            
+
+        // width of text area
+        int chatWidth = (int)context.BaseScreenSize.X -  (int)context.BaseScreenSize.Y;
+
         // rectangle culling mask in world space
         var worldCulling = new RectangleF(
             context.Camera.ScreenToWorld(new Vector2()) + new Vector2(chatWidth, 0), 
             new Size2(context.BaseScreenSize.X - chatWidth, context.BaseScreenSize.Y)
         );
 
-        var subContext = new IngameRenderContext(context.BaseScreenSize, chatWidth, backgroundColor, worldCulling);
+        var subContext = new IngameRenderContext(context.BaseScreenSize, chatWidth, backgroundColor, worldCulling, context);
             
         var transformMatrix = context.Camera.GetViewMatrix();
         
