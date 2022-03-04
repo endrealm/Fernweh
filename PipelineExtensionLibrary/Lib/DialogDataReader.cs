@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Content;
 using PipelineExtensionLibrary.Chat;
+using PipelineExtensionLibrary.Chat.Readers;
 
 namespace PipelineExtensionLibrary
 {
     public class DialogDataReader: ContentTypeReader<DialogTranslationData>
     {
-        private List<IComponentReader> Readers = new() { };
+        private readonly List<IComponentReader> _readers = new() {new ChatCompoundReader()};
 
         
         protected override DialogTranslationData Read(ContentReader input, DialogTranslationData existingInstance)
@@ -24,13 +25,13 @@ namespace PipelineExtensionLibrary
                 {
                     var lang = (Language) input.ReadInt32();
                     var readerId = input.ReadInt32();
-                    var selectedReader = Readers.Find(writer => writer.Id == readerId);
+                    var selectedReader = _readers.Find(writer => writer.Id == readerId);
                     if (selectedReader == null)
                     {
                         throw new Exception("No reader found for id " + readerId);
                     }
 
-                    var component = selectedReader.Read(input, Readers);
+                    var component = selectedReader.Read(input, _readers);
                     translatedComponents.Add(lang, component);
                 }
                 

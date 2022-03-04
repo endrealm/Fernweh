@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework.Content.Pipeline;
 using Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler;
 using PipelineExtension.Chat;
+using PipelineExtension.Chat.Writers;
 using PipelineExtensionLibrary;
 using PipelineExtensionLibrary.Chat;
 
@@ -10,7 +11,7 @@ namespace PipelineExtension
 {
     public class DialogDataWriter: ContentTypeWriter<DialogTranslationData>
     {
-        private List<IComponentWriter> Writers = new List<IComponentWriter>() { };
+        private readonly List<IComponentWriter> _writers = new() { new ChatCompoundWriter() };
 
         public override string GetRuntimeReader(TargetPlatform targetPlatform)
         {
@@ -30,13 +31,13 @@ namespace PipelineExtension
                 foreach (var translationEntry in components)
                 {
                     output.Write((int) translationEntry.Key);
-                    var selectedWriter = Writers.Find(writer => writer.Supports(translationEntry.Value));
+                    var selectedWriter = _writers.Find(writer => writer.Supports(translationEntry.Value));
                     if (selectedWriter == null)
                     {
                         throw new Exception("No writer found for component " + translationEntry.Value);
                     }
                     output.Write(selectedWriter.Id);
-                    selectedWriter.Write(translationEntry.Value, output, Writers);
+                    selectedWriter.Write(translationEntry.Value, output, _writers);
                 }
             }
         }
