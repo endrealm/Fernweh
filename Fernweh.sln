@@ -6,6 +6,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrossPlatformDesktop", "Cro
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContentEditor", "ContentEditor\ContentEditor.csproj", "{309369D7-BF06-403E-8A4A-90B855E53E8D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PipelineExtensionLibrary", "PipelineExtensionLibrary\PipelineExtensionLibrary.csproj", "{65427FE6-1BD7-40D3-894D-06AB26C092B5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PipelineExtension", "PipelineExtension\PipelineExtension.csproj", "{8F2F8C3B-77DE-4824-99DB-257DE8E25410}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +28,13 @@ Global
 		{309369D7-BF06-403E-8A4A-90B855E53E8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{309369D7-BF06-403E-8A4A-90B855E53E8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{309369D7-BF06-403E-8A4A-90B855E53E8D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65427FE6-1BD7-40D3-894D-06AB26C092B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65427FE6-1BD7-40D3-894D-06AB26C092B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65427FE6-1BD7-40D3-894D-06AB26C092B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65427FE6-1BD7-40D3-894D-06AB26C092B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F2F8C3B-77DE-4824-99DB-257DE8E25410}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F2F8C3B-77DE-4824-99DB-257DE8E25410}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F2F8C3B-77DE-4824-99DB-257DE8E25410}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F2F8C3B-77DE-4824-99DB-257DE8E25410}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
