@@ -47,8 +47,7 @@ public class IngameScene: Scene
         // Draw game world
         spriteBatch.Begin(
             transformMatrix: transformMatrix,
-            samplerState: SamplerState.PointClamp,
-            blendState: BlendState.NonPremultiplied
+            samplerState: SamplerState.PointClamp
         );
         _gameView.Render(spriteBatch, subContext);
         spriteBatch.End();
@@ -56,8 +55,7 @@ public class IngameScene: Scene
         // Draw chat UI overlay
         spriteBatch.Begin(
             transformMatrix: context.Camera.GetViewMatrix(new Vector2()),
-            samplerState: SamplerState.PointClamp,
-            blendState: BlendState.NonPremultiplied
+            samplerState: SamplerState.PointClamp
         );
         _chatView.Render(spriteBatch, subContext);
         spriteBatch.End();

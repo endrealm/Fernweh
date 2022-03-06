@@ -1,0 +1,7 @@
+﻿{
+    "dialog.example": {
+        "translations": {
+            "EN_US": "Some example <color=\"Red\">text</color>!"
+        }
+    }
+}
