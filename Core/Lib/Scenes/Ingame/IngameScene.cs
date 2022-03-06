@@ -23,7 +23,7 @@ public class IngameScene: Scene
         _chatView.Update(deltaTime, new IngameUpdateContext());
 
         // i think this is off? ...
-        System.Console.WriteLine(1.0f / deltaTime);
+        // System.Console.WriteLine(1.0f / deltaTime);
     }
 
     public override void Render(SpriteBatch spriteBatch, TopLevelRenderContext context)

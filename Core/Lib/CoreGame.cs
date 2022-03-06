@@ -15,9 +15,11 @@ namespace Core
         private OrthographicCamera _camera;
         private readonly Vector2 _baseScreenSize = new(398, 224);
         private bool _isFullscreen = false;
+        private FrameCounter _frameCounter = new FrameCounter();
 
         private Scene _activeScene;
         private TopLevelRenderContext _renderContext;
+        private SpriteFont _font;
 
         public CoreGame()
         {
@@ -36,6 +38,8 @@ namespace Core
         protected override void LoadContent()
         {
             base.LoadContent();
+            _font = Content.Load<SpriteFont>("Fonts/TinyUnicode");
+
             GraphicsDevice.SamplerStates[0] = SamplerState.PointWrap;
 
             #region Configure camera
@@ -74,7 +78,17 @@ namespace Core
 
         protected override void Draw(GameTime gameTime)
         {
+            _frameCounter.Update((float) gameTime.ElapsedGameTime.TotalSeconds);
+            
+            // Main Rendering
             _activeScene.Render(_spriteBatch, _renderContext);
+            
+            // Render FPS overlay
+            var fps = $"FPS: {_frameCounter.AverageFramesPerSecond}";
+            _spriteBatch.Begin();
+            _spriteBatch.DrawString(_font, fps, Vector2.Zero, Color.Gold);
+            _spriteBatch.End();
+            
             base.Draw(gameTime);
         }
 
