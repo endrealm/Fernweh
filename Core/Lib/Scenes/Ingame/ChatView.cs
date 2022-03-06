@@ -50,7 +50,6 @@ public class ChatView: IRenderer<IngameRenderContext>, IUpdate<IngameUpdateConte
                 LoadNextComponentInQueue();
             }))
         }));
-        _queuedComponents.Enqueue(new TextComponent(_font, "This is a new paragraph", Color.Green, contentEffect: new TypeWriterContentEffect()));
         _queuedComponents.Enqueue(data.TranslationGroups["dialog.example"].TranslatedComponents[Language.EN_US].Build(_font));
 
         LoadNextComponentInQueue();
