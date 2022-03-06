@@ -10,8 +10,16 @@
 
 #-------------------------------- References --------------------------------#
 
+/reference:..\..\PipelineExtension\bin\Debug\netstandard2.0\PipelineExtension.dll
+/reference:..\..\PipelineExtension\bin\Debug\netstandard2.0\PipelineExtensionLibrary.dll
+/reference:..\..\PipelineAssemblies\Newtonsoft.Json.dll
 
 #---------------------------------- Content ---------------------------------#
+
+#begin Dialogs/test.lang
+/importer:DialogDataImporter
+/processor:DialogDataProcessor
+/build:Dialogs/test.lang
 
 #begin Fonts/TinyUnicode.spritefont
 /importer:FontDescriptionImporter

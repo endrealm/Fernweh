@@ -31,4 +31,5 @@ public class ChatCompoundReader: IComponentReader
 
         return new ChatCompoundData(components);
     }
+    
 }

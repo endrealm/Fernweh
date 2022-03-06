@@ -8,7 +8,7 @@ using TImport = System.String;
 
 namespace PipelineExtension
 {
-    [ContentImporter(".lang.json", DisplayName = "LanguageFileImporter", DefaultProcessor = "DialogProcessor")]
+    [ContentImporter(".lang", DisplayName = "LanguageFileImporter", DefaultProcessor = "DialogProcessor")]
     public class DialogDataImporter : ContentImporter<LanguageFile>
     {
         public override LanguageFile Import(string filename, ContentImporterContext context)

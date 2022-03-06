@@ -8,7 +8,7 @@ namespace PipelineExtensionLibrary
 {
     public class DialogDataReader: ContentTypeReader<DialogTranslationData>
     {
-        private readonly List<IComponentReader> _readers = new() {new ChatCompoundReader()};
+        private readonly List<IComponentReader> _readers = new() {new ChatCompoundReader(), new ChatTextReader()};
 
         
         protected override DialogTranslationData Read(ContentReader input, DialogTranslationData existingInstance)

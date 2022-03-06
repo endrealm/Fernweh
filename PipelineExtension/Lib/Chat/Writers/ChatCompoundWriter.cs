@@ -29,24 +29,4 @@ public class ChatCompoundWriter: IComponentWriter
             selectedWriter.Write(componentData, output, writers);
         }
     }
-
-    public IChatComponentData Read(ContentReader input, List<IComponentReader> readers)
-    {
-        var count = input.ReadInt32();
-        var components = new List<IChatComponentData>();
-        for (int i = 0; i < count; i++)
-        {
-            var readerId = input.ReadInt32();
-            var selectedReader = readers.Find(writer => writer.Id == readerId);
-            if (selectedReader == null)
-            {
-                throw new Exception("No reader found for id " + readerId);
-            }
-
-            var component = selectedReader.Read(input, readers);
-            components.Add(component);
-        }
-
-        return new ChatCompoundData(components);
-    }
 }

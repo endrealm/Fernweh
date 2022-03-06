@@ -4,6 +4,7 @@
         <LangVersion>10</LangVersion>
     </PropertyGroup>
     <ItemGroup>
+        <PackageReference Include="JetBrains.Annotations" Version="2022.1.0-eap3" />
         <PackageReference Include="MonoGame.Framework.Content.Pipeline" Version="3.8.0.1641">
             <PrivateAssets>All</PrivateAssets>
         </PackageReference>

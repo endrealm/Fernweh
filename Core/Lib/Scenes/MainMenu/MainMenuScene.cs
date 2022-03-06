@@ -53,13 +53,12 @@ public class MainMenuScene: Scene
         spriteBatch.Begin(
             transformMatrix: context.Camera.GetViewMatrix(new Vector2()), // preserve screen spaced values
             samplerState: SamplerState.PointClamp, // renders pixel perfect -> no blurry edges
-            blendState: BlendState.NonPremultiplied, // Support alpha transparency
             sortMode: SpriteSortMode.Immediate // no clue, but doesnt do any harm?
         );
         
         const string message = "Press any button to continue";
         var measurement = _font.MeasureString(message);
-        spriteBatch.DrawString(_font, message, context.BaseScreenSize/2 - measurement/2, new Color(255,255,255, (int)_alpha));
+        spriteBatch.DrawString(_font, message, context.BaseScreenSize/2 - measurement/2, new Color(255,255,255) * (_alpha/255f));
         
         spriteBatch.End();
     }

@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PipelineExtensionLibrary", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PipelineExtension", "PipelineExtension\PipelineExtension.csproj", "{8F2F8C3B-77DE-4824-99DB-257DE8E25410}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PipelineChecks", "PipelineChecks\PipelineChecks.csproj", "{66E1974D-99E7-44FB-9FD3-FE219F25A4FD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +38,9 @@ Global
 		{8F2F8C3B-77DE-4824-99DB-257DE8E25410}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8F2F8C3B-77DE-4824-99DB-257DE8E25410}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8F2F8C3B-77DE-4824-99DB-257DE8E25410}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66E1974D-99E7-44FB-9FD3-FE219F25A4FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66E1974D-99E7-44FB-9FD3-FE219F25A4FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66E1974D-99E7-44FB-9FD3-FE219F25A4FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66E1974D-99E7-44FB-9FD3-FE219F25A4FD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

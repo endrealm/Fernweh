@@ -5,17 +5,22 @@ using Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler;
 using PipelineExtension.Chat;
 using PipelineExtension.Chat.Writers;
 using PipelineExtensionLibrary;
-using PipelineExtensionLibrary.Chat;
 
 namespace PipelineExtension
 {
+    [ContentTypeWriter]
     public class DialogDataWriter: ContentTypeWriter<DialogTranslationData>
     {
-        private readonly List<IComponentWriter> _writers = new() { new ChatCompoundWriter() };
+        private readonly List<IComponentWriter> _writers = new() { new ChatCompoundWriter(), new ChatTextWriter() };
 
         public override string GetRuntimeReader(TargetPlatform targetPlatform)
         {
-            return "PipelineExtensionLibrary.DialogDataReader";
+            return "PipelineExtensionLibrary.DialogDataReader, PipelineExtensionLibrary";
+        }
+        
+        public override string GetRuntimeType(TargetPlatform targetPlatform)
+        {
+            return "PipelineExtensionLibrary.DialogTranslationData, PipelineExtensionLibrary";
         }
 
         protected override void Write(ContentWriter output, DialogTranslationData value)

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Core.Scenes.Ingame.Chat;
 using Core.Scenes.Ingame.Chat.Effects.Default;
 using Core.Utils;
@@ -6,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
+using PipelineExtensionLibrary;
 
 namespace Core.Scenes.Ingame;
 
@@ -19,6 +21,8 @@ public class ChatView: IRenderer<IngameRenderContext>, IUpdate<IngameUpdateConte
     public void Load(ContentManager content)
     {
         _font = content.Load<SpriteFont>("Fonts/TinyUnicode");
+        var data = content.Load<DialogTranslationData>("Dialogs/test");
+        Console.WriteLine(data);
         _components = new List<IChatComponent>
         {
             new CompoundTextComponent((comp) => new List<IChatInlineComponent>
