@@ -22,7 +22,6 @@ public class ChatView: IRenderer<IngameRenderContext>, IUpdate<IngameUpdateConte
     {
         _font = content.Load<SpriteFont>("Fonts/TinyUnicode");
         var data = content.Load<DialogTranslationData>("Dialogs/test");
-        Console.WriteLine(data);
         _components = new List<IChatComponent>
         {
             new CompoundTextComponent((comp) => new List<IChatInlineComponent>
@@ -45,7 +44,8 @@ public class ChatView: IRenderer<IngameRenderContext>, IUpdate<IngameUpdateConte
                 new TextComponent(_font, "This is a ", Color.White),
                 new TextComponent(_font, "third ", Color.Orange),
                 new TextComponent(_font, "paragraph!", Color.White)
-            })
+            }),
+            data.TranslationGroups["dialog.example"].TranslatedComponents[Language.EN_US].Build(_font)
         };
     }
 
