@@ -12,6 +12,7 @@ public class CompoundTextComponent: BaseComponent
     private float _maxWidth;
     private float _calculatedWidth;
     private float _calculatedHeight;
+    private Action _onDone = () => {};
 
     public CompoundTextComponent(
         List<IChatInlineComponent> components,
@@ -99,6 +100,11 @@ public class CompoundTextComponent: BaseComponent
         _calculatedHeight = newCalcHeight;
     }
 
+    public override void SetOnDone(Action action)
+    {
+        this._onDone = action;
+    }
+
     public override float Width { get; }
     public override void Update(float deltaTime, ChatUpdateContext context)
     {
@@ -120,5 +126,10 @@ public class CompoundTextComponent: BaseComponent
     public void AppendComponent(IChatInlineComponent chatInlineComponents)
     {
         AppendComponents(new List<IChatInlineComponent> {chatInlineComponents});
+    }
+
+    public void Done()
+    {
+        _onDone.Invoke();
     }
 }

@@ -134,6 +134,11 @@ public class TextComponent: BaseComponent, IChatInlineComponent
     public bool DirtyContent { get; set; }
     public bool EmptyLineEnd => _letterAnimationEffect.EmptyLineEnd;
 
+    public override void SetOnDone(Action action)
+    {
+        this._contentEffect._onFinish = action;
+    }
+
     public override float Width => _width;
     public override void Update(float deltaTime, ChatUpdateContext context)
     {

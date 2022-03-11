@@ -1,4 +1,5 @@
-﻿using Core.Utils;
+﻿using System;
+using Core.Utils;
 using Microsoft.Xna.Framework;
 
 namespace Core.Scenes.Ingame.Chat;
@@ -7,6 +8,7 @@ public interface IChatComponent: IRenderer<ChatRenderContext>, IUpdate<ChatUpdat
 {
     Vector2 Dimensions { get; }
     float MaxWidth { set; }
+    void SetOnDone(Action action);
 }
 
 public interface IChatInlineComponent: IChatComponent

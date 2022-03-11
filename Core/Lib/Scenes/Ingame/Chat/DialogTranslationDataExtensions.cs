@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Core.Scenes.Ingame.Chat.Effects.Default;
 using Microsoft.Xna.Framework.Graphics;
 using PipelineExtensionLibrary.Chat;
 
@@ -17,6 +19,48 @@ public static class DialogTranslationDataExtensions
             }
             case ChatTextData text:
                 return new TextComponent(font, text.Text, text.Color);
+            default:
+                return null;
+        }
+    }
+    
+    public static IChatComponent BuildAnimated(this IChatComponentData data, SpriteFont font)
+    {
+        switch (data)
+        {
+            case ChatCompoundData compound:
+            {
+                var list = new List<IChatInlineComponent>();
+                var queue = new Queue<IChatInlineComponent>();
+                var compoundElement = new CompoundTextComponent(list);
+                compound.Components.ForEach(componentData =>
+                {
+                    var component = componentData.Build(font) as IChatInlineComponent;
+                    queue.Enqueue(component);
+                    component!.SetOnDone(() =>
+                    {
+                        if (queue.Count > 0)
+                        {
+                            list.Add(queue.Dequeue());
+                        }
+                        else
+                        {
+                            compoundElement.Done();
+                        }
+                    });
+                });
+                if (queue.Count > 0)
+                {
+                    list.Add(queue.Dequeue());
+                }
+                else
+                {
+                    compoundElement.Done();
+                }
+                return compoundElement;
+            }
+            case ChatTextData text:
+                return new TextComponent(font, text.Text, text.Color, contentEffect: new TypeWriterContentEffect());
             default:
                 return null;
         }
