@@ -52,3 +52,8 @@
 /processorParam:TextureFormat=Color
 /build:Sprites/grass.png
 
+#begin States/test.lua
+/importer:LuaScriptImporter
+/processor:LuaScriptProcessor
+/build:States/test.lua
+
