@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using MonoGame.Extended;
 using Core.Scenes.Ingame.World;
 using System;
+using Core.Input;
 
 namespace Core.Scenes.Ingame;
 
@@ -12,6 +13,7 @@ public class GameView: IRenderer<IngameRenderContext>, IUpdate<IngameUpdateConte
 {
     MapData mapData = new MapData();
     WorldDataRegistry worldDataRegistry = new WorldDataRegistry();
+    Player player = new Player();
 
     public void Render(SpriteBatch spriteBatch, IngameRenderContext context)
     {
@@ -27,22 +29,28 @@ public class GameView: IRenderer<IngameRenderContext>, IUpdate<IngameUpdateConte
         
                 if (tileName !=  null)
                     spriteBatch.Draw(
-                        worldDataRegistry.GetTile(tileName)._sprite,
+                        worldDataRegistry.GetTile(tileName).frames[0],
                         new Rectangle((int)x * 32 + context.ChatWidth, y * 32, 32, 32),
                         Color.White);
             }
         }
 
-        // test moving the camera
-        context.TopLevelContext.Camera.Move(new Vector2(8, 8));
+        player.Render(spriteBatch, context);
     }
 
     public void Load(ContentManager content)
     {
         worldDataRegistry.Load(content);
+        player.Load(content);
     }
 
     public void Update(float deltaTime, IngameUpdateContext context)
     {
+        player.Update(deltaTime, context);
+
+        if (KeyboardSnapshot.GetState().GetPressedKeys().Length > 0)
+        {
+            player.MovePlayer(new Vector2(1, 0));
+        }
     }
 }
