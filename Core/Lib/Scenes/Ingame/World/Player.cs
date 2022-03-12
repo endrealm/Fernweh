@@ -12,12 +12,13 @@ namespace Core.Scenes.Ingame.World
     internal class Player: IRenderer<IngameRenderContext>, IUpdate<IngameUpdateContext>, ILoadable
     {
         public Vector2 currentPos = new Vector2(0,0);
-        private float moveSpeed = 0.6f;
+        private float moveSpeed = 0.2f;
         private float camMoveSpeed = 0.3f;
         private int stepAmount = 8;
 
+        private float moveTimer;
+
         private Vector2 targetPos;
-        private Vector2 tempPos;
         private Vector2 moveDir;
 
         private bool firstFrame = true;
@@ -41,8 +42,8 @@ namespace Core.Scenes.Ingame.World
                 targetTile.AllowsDirection(direction * new Vector2(-1, -1)))
             {
                 moveDir = direction;
-                tempPos = currentPos;
                 targetPos = currentPos + direction * 32;
+                moveTimer = moveSpeed;
             }
         }
 
@@ -72,10 +73,13 @@ namespace Core.Scenes.Ingame.World
         {
             if (currentPos == targetPos) return;
 
-            if (currentPos == tempPos)
-                tempPos = currentPos + moveDir * stepAmount;
+            if (moveTimer < moveSpeed)
+                moveTimer += deltaTime;
             else
-                currentPos = Vector2.SmoothStep(currentPos, tempPos, moveSpeed);
+            {
+                currentPos = currentPos + moveDir * stepAmount;
+                moveTimer = 0;
+            }
         }
     }
 }
