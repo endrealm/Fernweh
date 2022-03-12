@@ -35,13 +35,13 @@ public static class DialogTranslationDataExtensions
                 var compoundElement = new CompoundTextComponent(list);
                 compound.Components.ForEach(componentData =>
                 {
-                    var component = componentData.Build(font) as IChatInlineComponent;
+                    var component = componentData.BuildAnimated(font) as IChatInlineComponent;
                     queue.Enqueue(component);
                     component!.SetOnDone(() =>
                     {
                         if (queue.Count > 0)
                         {
-                            list.Add(queue.Dequeue());
+                            compoundElement.AppendComponent(queue.Dequeue());
                         }
                         else
                         {
@@ -60,7 +60,7 @@ public static class DialogTranslationDataExtensions
                 return compoundElement;
             }
             case ChatTextData text:
-                return new TextComponent(font, text.Text, text.Color, contentEffect: new TypeWriterContentEffect());
+                return new TextComponent(font, text.Text, text.Color, contentEffect: new TypeWriterContentEffect(timePerParagraph: 0));
             default:
                 return null;
         }
