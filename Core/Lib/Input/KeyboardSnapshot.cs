@@ -1,26 +1,26 @@
 ﻿using Microsoft.Xna.Framework.Input;
+using Core.Utils;
 
 namespace Core.Input;
 
-public class KeyboardSnapshot
+internal class KeyboardSnapshot: IUpdate<TopLeveUpdateContext>
 {
-    static KeyboardState _currentKeyState;
-    static KeyboardState _previousKeyState;
+    public KeyboardState currentKeyState;
+    private KeyboardState _previousKeyState;
 
-    public static KeyboardState GetState()
+    public void Update(float deltaTime, TopLeveUpdateContext context)
     {
-        _previousKeyState = _currentKeyState;
-        _currentKeyState = Keyboard.GetState();
-        return _currentKeyState;
+        _previousKeyState = currentKeyState;
+        currentKeyState = Keyboard.GetState();
     }
 
-    public static bool IsPressed(Keys key)
+    public bool HasBeenPressed(Keys[] keys)
     {
-        return _currentKeyState.IsKeyDown(key);
-    }
-
-    public static bool HasBeenPressed(Keys key)
-    {
-        return _currentKeyState.IsKeyDown(key) && !_previousKeyState.IsKeyDown(key);
+        for (int i = 0; i < keys.Length; i++)
+        {
+            if(currentKeyState.IsKeyDown(keys[i]) && !_previousKeyState.IsKeyDown(keys[i]))
+                return true;
+        }
+        return false;
     }
 }

@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended;
 using MonoGame.Extended.ViewportAdapters;
+using Core.Input;
 
 namespace Core
 {
@@ -16,6 +17,7 @@ namespace Core
         private readonly Vector2 _baseScreenSize = new(398, 224);
         private bool _isFullscreen = false;
         private FrameCounter _frameCounter = new FrameCounter();
+        private Controls controls = new Controls();
 
         private Scene _activeScene;
         private TopLevelRenderContext _renderContext;
@@ -74,6 +76,7 @@ namespace Core
             base.Update(gameTime);
             
             _activeScene.Update((float) gameTime.ElapsedGameTime.TotalSeconds, new TopLeveUpdateContext());
+            controls.Update((float)gameTime.ElapsedGameTime.TotalSeconds, new TopLeveUpdateContext());
         }
 
         protected override void Draw(GameTime gameTime)

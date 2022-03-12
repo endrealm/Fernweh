@@ -22,7 +22,7 @@ public class MainMenuScene: Scene
     public override void Update(float deltaTime, TopLeveUpdateContext context)
     {
         UpdateAlpha(deltaTime);
-        if (KeyboardSnapshot.GetState().GetPressedKeys().Length > 0)
+        if (Controls.AnyInput())
         {
             SceneManager.LoadScene(new IngameScene());
         }
