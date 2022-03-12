@@ -19,10 +19,24 @@ namespace Core.Scenes.Ingame.World
                 {
                     Random random = new Random();
 
-                    if(random.Next(0,2) == 1)
-                    tilePositions.Add(new Vector2(x,y), "grass");
-                    else
-                        tilePositions.Add(new Vector2(x, y), "forest");
+                    switch (random.Next(0,8))
+                    {
+                        default:
+                            tilePositions.Add(new Vector2(x, y), "grass");
+                            break;
+                        case 2:
+                            tilePositions.Add(new Vector2(x, y), "forest");
+                            break;
+                        case 3:
+                            tilePositions.Add(new Vector2(x, y), "path");
+                            break;
+                        case 4:
+                            tilePositions.Add(new Vector2(x, y), "boulder");
+                            break;
+                        case 1:
+                            tilePositions.Add(new Vector2(x, y), "castle");
+                            break;
+                    }
                 }
             }
         }
