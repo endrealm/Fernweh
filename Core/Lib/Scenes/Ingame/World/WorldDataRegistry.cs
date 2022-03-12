@@ -18,16 +18,16 @@ namespace Core.Scenes.Ingame.World
             tileList.Add("grass", new TileData("grass", new Texture2D[] { content.Load<Texture2D>("Sprites/grass") }));
             tileList.Add("forest", new TileData("forest", new Texture2D[] { content.Load<Texture2D>("Sprites/forest") }));
             tileList.Add("path", new TileData("path", new Texture2D[] { content.Load<Texture2D>("Sprites/path") }));
-            tileList.Add("boulder", new TileData("boulder", new Texture2D[] { content.Load<Texture2D>("Sprites/boulder") }));
-            tileList.Add("castle", new TileData("castle", new Texture2D[] { content.Load<Texture2D>("Sprites/castle") }));
+            tileList.Add("boulder", new TileData("boulder", new Texture2D[] { content.Load<Texture2D>("Sprites/boulder") }, TileData.OpenDirections.None));
+            tileList.Add("castle", new TileData("castle", new Texture2D[] { content.Load<Texture2D>("Sprites/castle") }, TileData.OpenDirections.Down | TileData.OpenDirections.Left | TileData.OpenDirections.Right));
         }
 
         public TileData GetTile(string name)
         {
-            if (tileList.ContainsKey(name))
-                return tileList[name];
-            else
+            if (name == null || !tileList.ContainsKey(name))
                 return null;
+            else
+                return tileList[name];
         }
     }
 }

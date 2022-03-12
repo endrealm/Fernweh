@@ -32,7 +32,7 @@ namespace Core.Scenes.Ingame.World
                         spriteBatch.Draw(
                             worldDataRegistry.GetTile(tileName).frames[0],
                             new Rectangle((int)x * 32 + context.ChatWidth, y * 32, 32, 32),
-                            Color.White);
+                            context.WorldTint);   
                 }
             }
 
@@ -50,13 +50,17 @@ namespace Core.Scenes.Ingame.World
             player.Update(deltaTime, context);
 
             if (Controls.MoveUp())
-                player.MovePlayer(new Vector2(0, -1));
+                player.MovePlayer(new Vector2(0, -1), mapData, worldDataRegistry);
             if (Controls.MoveDown())
-                player.MovePlayer(new Vector2(0, 1));
+                player.MovePlayer(new Vector2(0, 1), mapData, worldDataRegistry);
             if (Controls.MoveLeft())
-                player.MovePlayer(new Vector2(-1, 0));
+                player.MovePlayer(new Vector2(-1, 0), mapData, worldDataRegistry);
             if (Controls.MoveRight())
-                player.MovePlayer(new Vector2(1, 0));
+                player.MovePlayer(new Vector2(1, 0), mapData, worldDataRegistry);
+
+            // world tints i liked in case we use them
+            //new Color(110, 145, 155)); // night tint
+            //new Color(255, 215, 175)); // morning tint
         }
     }
 }

@@ -29,10 +29,28 @@ namespace Core.Scenes.Ingame.World
 
         public DialogTranslationData onEnter;
 
-        public TileData(string _name, Texture2D[] _frames)
+        public TileData(string _name, Texture2D[] _frames, OpenDirections _openDirections = OpenDirections.Up | OpenDirections.Down | OpenDirections.Left | OpenDirections.Right)
         { 
             name = _name;
             frames = _frames;
+            openDirections = _openDirections;
+        }
+
+        public bool AllowsDirection(Vector2 direction)
+        {
+            if (openDirections.HasFlag(TileData.OpenDirections.Up) && direction.Y == -1)
+                return true;
+
+            if (openDirections.HasFlag(TileData.OpenDirections.Down) && direction.Y == 1)
+                return true;
+
+            if (openDirections.HasFlag(TileData.OpenDirections.Left) && direction.X == -1)
+                return true;
+
+            if (openDirections.HasFlag(TileData.OpenDirections.Right) && direction.X == 1)
+                return true;
+
+            return false;
         }
     }
 }

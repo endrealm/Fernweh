@@ -9,6 +9,7 @@ public class IngameRenderContext: IRenderContext
     public Vector2 BaseScreenSize { get; }
     public int ChatWidth { get; }
     public Color BackgroundColor { get; }
+    public Color WorldTint { get; }
     public RectangleF WorldCulling { get; }
     public TopLevelRenderContext TopLevelContext { get; }
 
@@ -21,6 +22,7 @@ public class IngameRenderContext: IRenderContext
     {
         ChatWidth = chatWidth;
         BackgroundColor = backgroundColor;
+        WorldTint = Color.White;
         WorldCulling = worldCulling;
         BaseScreenSize = baseScreenSize;
         TopLevelContext = topLevelContext;
