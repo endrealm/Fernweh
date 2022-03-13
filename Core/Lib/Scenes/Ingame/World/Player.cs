@@ -9,24 +9,44 @@ using System.Text;
 
 namespace Core.Scenes.Ingame.World
 {
-    internal class Player: IRenderer<IngameRenderContext>, IUpdate<IngameUpdateContext>, ILoadable
+    internal class Player: IRenderer<IngameRenderContext>, IUpdate<IngameUpdateContext>, ILoadable<WorldRenderer>
     {
         public Vector2 currentPos = new Vector2(0,0);
-        private float moveSpeed = 0.2f;
+        private float moveTime = 0.2f;
         private float camMoveSpeed = 0.3f;
         private int stepAmount = 8;
 
         private float moveTimer;
+        private bool firstFrame = true;
 
         private Vector2 targetPos;
         private Vector2 moveDir;
-
-        private bool firstFrame = true;
         private Texture2D sprite;
 
-        public void Load(ContentManager content)
+        private WorldRenderer _worldRenderer;
+
+        private Vector2[] discoverTileRadius = new Vector2[] 
+        {
+             new Vector2(0, -1), 
+             new Vector2(-1,0), new Vector2(0,0), new Vector2(1,0),
+             new Vector2(0,1),  
+        };
+
+        public void Load(ContentManager content, WorldRenderer worldRenderer)
         {
             sprite = content.Load<Texture2D>("Sprites/player");
+            _worldRenderer = worldRenderer;
+        }
+
+        public void TeleportPlayer(Vector2 mapPos, MapData mapData, WorldDataRegistry worldDataRegistry) // can be used to move to spawn
+        {
+            if (currentPos != targetPos) return; // cant move if currently moving
+            if (worldDataRegistry.GetTile(mapData.GetTile(currentPos / 32)) == null) return; // cant move to what doesnt exist
+
+            currentPos = mapPos * 32;
+            targetPos = currentPos;
+
+            DiscoverTiles();
         }
 
         public void MovePlayer(Vector2 direction, MapData mapData, WorldDataRegistry worldDataRegistry)
@@ -43,7 +63,7 @@ namespace Core.Scenes.Ingame.World
             {
                 moveDir = direction;
                 targetPos = currentPos + direction * 32;
-                moveTimer = moveSpeed;
+                moveTimer = moveTime;
             }
         }
 
@@ -73,12 +93,23 @@ namespace Core.Scenes.Ingame.World
         {
             if (currentPos == targetPos) return;
 
-            if (moveTimer < moveSpeed)
+            if (moveTimer < moveTime)
                 moveTimer += deltaTime;
             else
             {
                 currentPos = currentPos + moveDir * stepAmount;
                 moveTimer = 0;
+
+                if (currentPos == targetPos) DiscoverTiles();
+            }
+        }
+
+        private void DiscoverTiles()
+        {
+            foreach (Vector2 offset in discoverTileRadius)
+            {
+                if (!_worldRenderer.discoveredTiles.Contains(offset + currentPos / 32))
+                    _worldRenderer.discoveredTiles.Add(offset + currentPos / 32);
             }
         }
     }
