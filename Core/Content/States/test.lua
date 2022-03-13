@@ -4,7 +4,7 @@ stateBuilder("my_state")
                     --[[local text = ]]
                     renderer:addText("dialog.example")
                     renderer:addText("dialog.example")
-                    renderer:addAction(function() print("example") end, "dialog.example")
+                    renderer:addAction(function() print("example") end, "dialog.example.button")
                     --renderer:addAction(StateChangeAction("example.button.1", "my_other_state"))
                     --renderer:addAction(CustomAction("example.button.1", 
                     --        function()

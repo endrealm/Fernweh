@@ -8,7 +8,7 @@ namespace CrossPlatformDesktop
         [STAThread]
         static void Main()
         {
-            using (var game = new CoreGame())
+            using (var game = new CoreGame(new MouseClickInput()))
                 game.Run();
         }
     }

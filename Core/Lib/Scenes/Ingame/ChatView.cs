@@ -30,34 +30,6 @@ public class ChatView: IRenderer<IngameRenderContext>, IUpdate<IngameUpdateConte
         _stateManager.LoadScript( content.Load<string>("States/test"));
         var state = _stateManager.ReadState("my_state");
         RenderState(state);
-        // _queuedComponents.Enqueue(new CompoundTextComponent((comp) => new List<IChatInlineComponent>
-        // {
-        // new TextComponent(_font,"This is an example message. That should automatically break at the end of the line. ", Color.White,
-        //     contentEffect: new TypeWriterContentEffect(timePerParagraph: 0, onFinish: () =>
-        //     {
-        //         comp.AppendComponent(new TextComponent(_font, "Oh a second message.  ", Color.Gold, contentEffect: new TypeWriterContentEffect(timePerParagraph: 0,
-        //         onFinish: () =>
-        //         {
-        //             comp.AppendComponent(new TextComponent(_font, "And a third message", Color.Green, contentEffect: new TypeWriterContentEffect(onFinish: ()=>
-        //             {
-        //                 LoadNextComponentInQueue();
-        //             })));
-        //         })));
-        //     })
-        // ),
-        // }));
-        // _queuedComponents.Enqueue(new CompoundTextComponent(new List<IChatInlineComponent>()
-        // {
-        //     new TextComponent(_font, "This is a ", Color.White),
-        //     new TextComponent(_font, "second ", Color.Orange),
-        //     new TextComponent(_font, "paragraph!", Color.White, contentEffect: new StaticContentEffect(onFinish: ()=>
-        //     {
-        //         LoadNextComponentInQueue();
-        //     }))
-        // }));
-        // _queuedComponents.Enqueue(data.TranslationGroups["dialog.example"].TranslatedComponents[Language.EN_US].Build(_font));
-        //
-        // LoadNextComponentInQueue();
     }
 
     private void RenderState(IState state)
@@ -100,10 +72,12 @@ public class ChatView: IRenderer<IngameRenderContext>, IUpdate<IngameUpdateConte
 
     public void Update(float deltaTime, IngameUpdateContext context)
     {
-        List<IChatComponent>  _tempRunningComponents = new List<IChatComponent>(_runningComponents);
-        _tempRunningComponents.ForEach(component =>
+        var tempRunningComponents = new List<IChatComponent>(_runningComponents);
+        var offsetY = 0f;
+        tempRunningComponents.ForEach(component =>
         {
-            component.Update(deltaTime, new ChatUpdateContext());
+            component.Update(deltaTime, new ChatUpdateContext(context, new Vector2(_xMargin, offsetY)));
+            offsetY += component.Dimensions.Y;
         });
     }
 }

@@ -17,10 +17,10 @@ public class IngameScene: Scene
         _chatView.Load(content);
     }
 
-    public override void Update(float deltaTime, TopLeveUpdateContext context)
+    public override void Update(float deltaTime, TopLevelUpdateContext context)
     {
-        _gameView.Update(deltaTime, new IngameUpdateContext());
-        _chatView.Update(deltaTime, new IngameUpdateContext());
+        _gameView.Update(deltaTime, new IngameUpdateContext(context));
+        _chatView.Update(deltaTime, new IngameUpdateContext(context));
 
         // i think this is off? ...
         // System.Console.WriteLine(1.0f / deltaTime);

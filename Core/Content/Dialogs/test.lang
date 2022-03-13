@@ -1,7 +1,12 @@
 ﻿{
     "dialog.example": {
         "translations": {
-            "EN_US": "Some example <color=\"Red\">text</color>!"
+            "EN_US": "Some example <color=\"Blue\">text</color>!"
+        }
+    },
+    "dialog.example.button": {
+        "translations": {
+            "EN_US": "Print <color=\"Red\">example</color>"
         }
     }
 }

@@ -17,7 +17,7 @@ public class RectangleShape: IShape
 
     public bool IsInside(Vector2 point)
     {
-        return point.X >= Position.X && point.Y <= Position.Y && point.X <= (Position.X+Width) && point.Y >= (Position.Y + Height);
+        return point.X >= Position.X && point.Y >= Position.Y && point.X <= (Position.X+Width) && point.Y <= (Position.Y + Height);
     }
 
     public IShape WithOffset(Vector2 offset)
