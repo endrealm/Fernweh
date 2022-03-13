@@ -1,6 +1,8 @@
 ﻿using System;
 using Core.Utils;
+using Core.Utils.Math;
 using Microsoft.Xna.Framework;
+using MonoGame.Extended;
 
 namespace Core.Scenes.Ingame.Chat;
 
@@ -8,6 +10,7 @@ public interface IChatComponent: IRenderer<ChatRenderContext>, IUpdate<ChatUpdat
 {
     Vector2 Dimensions { get; }
     float MaxWidth { set; }
+    IShape Shape { get; }
     void SetOnDone(Action action);
 }
 

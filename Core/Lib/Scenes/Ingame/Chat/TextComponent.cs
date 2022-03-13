@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Scenes.Ingame.Chat.Effects;
 using Core.Scenes.Ingame.Chat.Effects.Default;
+using Core.Utils.Math;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -116,6 +117,12 @@ public class TextComponent: BaseComponent, IChatInlineComponent
             DirtyContent = true;
         }
     }
+
+    /// <summary>
+    /// Shape starts at 0/0 of text not the world. Size is world coordinates, but you need to
+    /// consider the offset before performing any checks
+    /// </summary>
+    public override IShape Shape => _letterAnimationEffect.Shape;
 
     public float LastLineRemainingSpace => _letterAnimationEffect.LastLineRemainingSpace;
     public float LastLength => _letterAnimationEffect.LastLineLength;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Utils.Math;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -13,6 +14,7 @@ public class CompoundTextComponent: BaseComponent
     private float _calculatedWidth;
     private float _calculatedHeight;
     private Action _onDone = () => {};
+    private IShape _shape = new CompoundShape(new List<IShape>());
 
     public CompoundTextComponent(
         List<IChatInlineComponent> components,
@@ -20,7 +22,6 @@ public class CompoundTextComponent: BaseComponent
         float maxWidth = -1
     ): this(component => components, width, maxWidth)
     {
-        
     }
     
     public CompoundTextComponent(
@@ -66,11 +67,14 @@ public class CompoundTextComponent: BaseComponent
         }
     }
 
+    public override IShape Shape => _shape;
+
     private void Recalculate()
     {
         var xOffset = 0f;
         var newCalcWidth = 0f;
         var newCalcHeight = 0f;
+        var shapeList = new List<IShape>();
         for (var index = 0; index < _components.Count; index++)
         {
             var component = _components[index];
@@ -79,13 +83,15 @@ public class CompoundTextComponent: BaseComponent
             xOffset = component.LastLength;
             component.DirtyContent = false;
             var (width, height) = component.Dimensions;
+            shapeList.Add(component.Shape.WithOffset(new Vector2(0, newCalcHeight)));
             newCalcHeight += height;
+            var isLastItem = index == (_components.Count - 1);
 
-            if (component.LastLength != 0 && ( index != (_components.Count-1)))
+            if (component.LastLength != 0 && !isLastItem)
             {
                 newCalcHeight -= component.LastLineHeight;
             } 
-            if (index == (_components.Count-1) && component.EmptyLineEnd)
+            if (isLastItem && component.EmptyLineEnd)
             {
                 newCalcHeight += component.LastLineHeight;
             }
@@ -98,6 +104,7 @@ public class CompoundTextComponent: BaseComponent
 
         _calculatedWidth = newCalcWidth;
         _calculatedHeight = newCalcHeight;
+        _shape = new CompoundShape(shapeList);
     }
 
     public override void SetOnDone(Action action)

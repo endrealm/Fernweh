@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Utils.Math;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -13,8 +14,8 @@ public class StaticLetterAnimationEffect: ILetterAnimationEffect
     private float _calculatedWidth;
     private float _calculatedHeight = 0;
     private float _calculatedLastLineRemainingSpace = 0;
+    private IShape _shape = new CompoundShape(new List<IShape>());
 
-    
     public void Attach(TextComponent component)
     {
         _component = component;
@@ -26,8 +27,11 @@ public class StaticLetterAnimationEffect: ILetterAnimationEffect
         float sum = 0;
         float highestWidth = 0;
         var widthBound = GetWidthBound();
+        var list = new List<IShape>();
+        var i = -1;
         foreach (var line in _lines)
         {
+            i++;
             if (line.Length == 0)
             {
                 var heightVal = _component.Font.MeasureString("A").Y;
@@ -38,6 +42,7 @@ public class StaticLetterAnimationEffect: ILetterAnimationEffect
             }
             var (width, height) = _component.Font.MeasureString(line);
             if (highestWidth < width) highestWidth = width;
+            list.Add(new RectangleShape(new Vector2(i == 0 ? _component.FirstLineOffset : 0, sum), width, height));
             sum += height;
             _calculatedLastLineRemainingSpace = width - widthBound;
             LastLineLength = width;
@@ -52,6 +57,7 @@ public class StaticLetterAnimationEffect: ILetterAnimationEffect
 
         _calculatedWidth = highestWidth;
         _calculatedHeight = sum;
+        _shape = new CompoundShape(list);
     }
 
     public float CalculateHeight()
@@ -68,6 +74,7 @@ public class StaticLetterAnimationEffect: ILetterAnimationEffect
     public float LastLineLength { get; private set; }
     public float LastLineHeight { get; private set; }
     public bool EmptyLineEnd => _lines.Count == 0 || _lines.Last().Length == 0;
+    public IShape Shape => _shape;
 
     /// <summary>
     /// Handles line breaking! Should be reworked to prevent mid word breaks if not configured to do so!
