@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Scenes.Ingame.Chat.Effects.Default;
 using Microsoft.Xna.Framework.Graphics;
@@ -23,16 +24,30 @@ public static class DialogTranslationDataExtensions
                 return null;
         }
     }
-    
+
+
+
     public static IChatComponent BuildAnimated(this IChatComponentData data, SpriteFont font)
     {
+        return data.BuildAnimatedInternal(font);
+    }
+    public static IChatComponent BuildAnimatedAction(this IChatComponentData data, SpriteFont font, Action onClick)
+    {
+        return data.BuildAnimatedInternal(font, true, onClick);
+    }
+    private static IChatComponent BuildAnimatedInternal(
+        this IChatComponentData data, 
+        SpriteFont font, 
+        bool clickable = false,
+        Action onClick = null
+    ) {
         switch (data)
         {
             case ChatCompoundData compound:
             {
                 var list = new List<IChatInlineComponent>();
                 var queue = new Queue<IChatInlineComponent>();
-                var compoundElement = new CompoundTextComponent(list);
+                var compoundElement = clickable ? new ActionButtonComponent(onClick, list) : new CompoundTextComponent(list);
                 compound.Components.ForEach(componentData =>
                 {
                     var component = componentData.BuildAnimated(font) as IChatInlineComponent;

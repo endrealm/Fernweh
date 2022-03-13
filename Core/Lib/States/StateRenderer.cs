@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using Core.Scenes.Ingame.Chat;
 using Microsoft.Xna.Framework.Graphics;
+using NLua;
 using PipelineExtensionLibrary;
+// ReSharper disable InconsistentNaming
 
 namespace Core.States;
 
@@ -24,6 +26,15 @@ public class StateRenderer
             .TranslationGroups[key]
             .TranslatedComponents[_language]
             .BuildAnimated(_font);
+        _components.Enqueue(text);
+    }
+    
+    public void addAction(LuaFunction callback, string key)
+    {
+        var text = _translationData
+            .TranslationGroups[key]
+            .TranslatedComponents[_language]
+            .BuildAnimatedAction(_font, () => callback.Call());
         _components.Enqueue(text);
     }
 
