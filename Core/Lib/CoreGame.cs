@@ -13,6 +13,7 @@ namespace Core
     public class CoreGame : Game, ISceneManager
     {
         private readonly IUpdateableClickInput _clickInput;
+        private readonly IFontManager _fontManager = new SimpleFontManager();
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private OrthographicCamera _camera;
@@ -23,7 +24,6 @@ namespace Core
 
         private Scene _activeScene;
         private TopLevelRenderContext _renderContext;
-        private SpriteFont _font;
 
         public CoreGame(IUpdateableClickInput clickInput)
         {
@@ -36,8 +36,7 @@ namespace Core
         protected override void LoadContent()
         {
             base.LoadContent();
-            _font = Content.Load<SpriteFont>("Fonts/TinyUnicode");
-
+            _fontManager.Load(Content);
             GraphicsDevice.SamplerStates[0] = SamplerState.PointWrap;
 
             #region Configure camera
@@ -61,7 +60,7 @@ namespace Core
 
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            LoadScene(new MainMenuScene());
+            LoadScene(new MainMenuScene(_fontManager));
 
             // Reuse instance to improve performance
             _renderContext = new TopLevelRenderContext(GraphicsDevice, _camera, _baseScreenSize);
@@ -85,7 +84,7 @@ namespace Core
             // Render FPS overlay
             var fps = $"FPS: {_frameCounter.AverageFramesPerSecond}";
             _spriteBatch.Begin();
-            _spriteBatch.DrawString(_font, fps, Vector2.Zero, Color.Gold);
+            _spriteBatch.DrawString(_fontManager.GetChatFont(), fps, Vector2.Zero, Color.Gold);
             _spriteBatch.End();
             
             base.Draw(gameTime);

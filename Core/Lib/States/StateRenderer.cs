@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Core.Scenes.Ingame.Chat;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using NLua;
 using PipelineExtensionLibrary;
 using PipelineExtensionLibrary.Chat;
@@ -14,10 +13,10 @@ public class StateRenderer
 {
     private readonly DialogTranslationData _translationData;
     private readonly Language _language;
-    private readonly SpriteFont _font;
+    private readonly IFontManager _font;
     private readonly Queue<IChatComponent> _components = new();
 
-    public StateRenderer(DialogTranslationData translationData, Language language, SpriteFont font)
+    public StateRenderer(DialogTranslationData translationData, Language language, IFontManager font)
     {
         _translationData = translationData;
         _language = language;
@@ -33,13 +32,13 @@ public class StateRenderer
             text = new ChatCompoundData(new List<IChatComponentData>()
             {
                 new ChatTextData(Color.Red, key)
-            }).BuildAnimated(_font);
+            }).BuildAnimated(_font.GetChatFont());
         } 
         else
         {
             // select actual translation
             text = groups[key].TranslatedComponents[_language]
-                .BuildAnimated(_font);
+                .BuildAnimated(_font.GetChatFont());
         }
         _components.Enqueue(text);
     }
@@ -54,13 +53,13 @@ public class StateRenderer
             text = new ChatCompoundData(new List<IChatComponentData>()
             {
                 new ChatTextData(Color.Red, key)
-            }).BuildAnimatedAction(_font, () => callback.Call());
+            }).BuildAnimatedAction(_font.GetChatFont(), () => callback.Call());
         } 
         else
         {
             // select actual translation
             text = groups[key].TranslatedComponents[_language]
-                .BuildAnimatedAction(_font, () => callback.Call());
+                .BuildAnimatedAction(_font.GetChatFont(), () => callback.Call());
         }
         _components.Enqueue(text);
     }

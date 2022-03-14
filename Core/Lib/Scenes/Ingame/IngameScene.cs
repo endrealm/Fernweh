@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
+using PipelineExtensionLibrary;
 
 namespace Core.Scenes.Ingame;
 
@@ -12,16 +13,34 @@ public class IngameScene: Scene
     private readonly ChatView _chatView;
     private readonly StateRegistry _stateRegistry = new();
     private readonly GameManager _gameManager;
+    private readonly IFontManager _fontManager;
 
-    public IngameScene()
+    /// <summary>
+    /// Move to translation manager system to allow concatenating multiple files
+    /// </summary>
+    private DialogTranslationData _translationData;
+
+    
+
+    public IngameScene(IFontManager fontManager)
     {
+        _fontManager = fontManager;
         _gameManager = new(_stateRegistry);
         _gameView = new(_stateRegistry.GlobalEventHandler, _gameManager);
-        _chatView = new(_gameManager);
+        _chatView = new();
+        _gameManager.StateChangedEvent += OnStateChanged;
+    }
+
+    private void OnStateChanged(StateChangedEventArgs args)
+    {
+        var renderer = new StateRenderer(_translationData, Language.EN_US, _fontManager);
+        args.NewState.Render(renderer, new RenderContext(_gameManager));
+        _chatView.RenderResults(renderer);
     }
 
     public override void Load(ContentManager content)
     {
+        _translationData = content.Load<DialogTranslationData>("Dialogs/test");
         _stateRegistry.LoadScript( content.Load<string>("States/test"));
         _gameView.Load(content);
         _chatView.Load(content);

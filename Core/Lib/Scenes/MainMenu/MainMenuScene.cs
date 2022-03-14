@@ -9,22 +9,22 @@ namespace Core.Scenes.MainMenu;
 public class MainMenuScene: Scene
 {
     
-    private SpriteFont _font;
-
-    public override void Load(ContentManager content)
-    {
-        _font = content.Load<SpriteFont>("Fonts/TinyUnicode");
-    }
+    private IFontManager _fontManager;
 
     private float _alpha = 255;
     private bool _ascending;
+
+    public MainMenuScene(IFontManager fontManager)
+    {
+        _fontManager = fontManager;
+    }
 
     public override void Update(float deltaTime, TopLevelUpdateContext context)
     {
         UpdateAlpha(deltaTime);
         if (Controls.AnyInput())
         {
-            SceneManager.LoadScene(new IngameScene());
+            SceneManager.LoadScene(new IngameScene(_fontManager));
         }
     }
 
@@ -57,8 +57,8 @@ public class MainMenuScene: Scene
         );
         
         const string message = "Press any button to continue";
-        var measurement = _font.MeasureString(message);
-        spriteBatch.DrawString(_font, message, context.BaseScreenSize/2 - measurement/2, new Color(255,255,255) * (_alpha/255f));
+        var measurement = _fontManager.GetChatFont().MeasureString(message);
+        spriteBatch.DrawString(_fontManager.GetChatFont(), message, context.BaseScreenSize/2 - measurement/2, new Color(255,255,255) * (_alpha/255f));
         
         spriteBatch.End();
     }
