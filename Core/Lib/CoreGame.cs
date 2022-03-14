@@ -1,4 +1,5 @@
-﻿using Core.Scenes.MainMenu;
+﻿using Core.Input;
+using Core.Scenes.MainMenu;
 using Core.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -11,30 +12,25 @@ namespace Core
 {
     public class CoreGame : Game, ISceneManager
     {
+        private readonly IUpdateableClickInput _clickInput;
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private OrthographicCamera _camera;
         private readonly Vector2 _baseScreenSize = new(398, 224);
         private bool _isFullscreen = false;
-        private FrameCounter _frameCounter = new FrameCounter();
         private Controls controls = new Controls();
+        private FrameCounter _frameCounter = new();
 
         private Scene _activeScene;
         private TopLevelRenderContext _renderContext;
         private SpriteFont _font;
 
-        public CoreGame()
+        public CoreGame(IUpdateableClickInput clickInput)
         {
+            _clickInput = clickInput;
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
-        }
-
-        protected override void Initialize()
-        {
-            // TODO: Add your initialization logic here
-
-            base.Initialize();
         }
 
         protected override void LoadContent()
@@ -74,9 +70,9 @@ namespace Core
         protected override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            
-            _activeScene.Update((float) gameTime.ElapsedGameTime.TotalSeconds, new TopLeveUpdateContext());
-            controls.Update((float)gameTime.ElapsedGameTime.TotalSeconds, new TopLeveUpdateContext());
+            _clickInput.Update(gameTime);
+            _activeScene.Update((float) gameTime.ElapsedGameTime.TotalSeconds, new TopLevelUpdateContext(_clickInput, _camera));
+            controls.Update((float)gameTime.ElapsedGameTime.TotalSeconds, new TopLevelUpdateContext(_clickInput, _camera));
         }
 
         protected override void Draw(GameTime gameTime)

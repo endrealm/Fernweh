@@ -19,7 +19,7 @@ public class MainMenuScene: Scene
     private float _alpha = 255;
     private bool _ascending;
 
-    public override void Update(float deltaTime, TopLeveUpdateContext context)
+    public override void Update(float deltaTime, TopLevelUpdateContext context)
     {
         UpdateAlpha(deltaTime);
         if (Controls.AnyInput())

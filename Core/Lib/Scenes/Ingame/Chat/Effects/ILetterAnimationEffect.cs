@@ -1,4 +1,5 @@
 ﻿using Core.Utils;
+using Core.Utils.Math;
 
 namespace Core.Scenes.Ingame.Chat.Effects;
 
@@ -15,4 +16,10 @@ public interface ILetterAnimationEffect: ITextEffect, IRenderer<ChatRenderContex
     float LastLineLength { get; }
     float LastLineHeight { get; }
     bool EmptyLineEnd { get; }
+    
+    /// <summary>
+    /// Shape starts at 0/0 of text not the world. Size is world coordinates, but you need to
+    /// consider the offset before performing any checks
+    /// </summary>
+    IShape Shape { get; }
 }

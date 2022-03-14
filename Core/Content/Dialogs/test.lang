@@ -1,7 +1,22 @@
 ﻿{
-    "dialog.example": {
+    "dialog.example.1": {
         "translations": {
-            "EN_US": "Some example <color=\"Red\">text</color>!"
+            "EN_US": "You stand at the entrance to a <color=\"Gray\">nightmarish</color> grave."
+        }
+    },
+    "dialog.example.1.button": {
+        "translations": {
+            "EN_US": "Walk <color=\"Green\">forward</color> slowly!"
+        }
+    },
+    "dialog.example.2.button": {
+        "translations": {
+            "EN_US": "<color=\"Red\">Run for your life!</color>"
+        }
+    },
+    "dialog.example.2": {
+        "translations": {
+            "EN_US": "A <color=\"Red\">HUGE</color> demon rises up in front of you. His horns are larger than your whole body. He turns towards you a <color=\"Purple\">vicious smile</color> on his face..."
         }
     }
 }

@@ -3,12 +3,12 @@ using Core.Utils;
 
 namespace Core.Input;
 
-internal class KeyboardSnapshot: IUpdate<TopLeveUpdateContext>
+internal class KeyboardSnapshot: IUpdate<TopLevelUpdateContext>
 {
     public KeyboardState currentKeyState;
     private KeyboardState _previousKeyState;
 
-    public void Update(float deltaTime, TopLeveUpdateContext context)
+    public void Update(float deltaTime, TopLevelUpdateContext context)
     {
         _previousKeyState = currentKeyState;
         currentKeyState = Keyboard.GetState();

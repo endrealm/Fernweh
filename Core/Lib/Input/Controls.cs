@@ -7,12 +7,12 @@ using Core.Utils;
 
 namespace Core.Input
 {
-    public class Controls: IUpdate<TopLeveUpdateContext>
+    public class Controls: IUpdate<TopLevelUpdateContext>
     {
         private static KeyboardSnapshot keyboardSnapshot = new KeyboardSnapshot();
         private static GamePadSnapshot gamePadSnapshot = new GamePadSnapshot();
 
-        public void Update(float deltaTime, TopLeveUpdateContext context)
+        public void Update(float deltaTime, TopLevelUpdateContext context)
         {
             keyboardSnapshot.Update(deltaTime, context);
             gamePadSnapshot.Update(deltaTime, context);

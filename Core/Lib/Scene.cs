@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Core;
 
-public abstract class Scene: IRenderer<TopLevelRenderContext>, IUpdate<TopLeveUpdateContext>, ILoadable
+public abstract class Scene: IRenderer<TopLevelRenderContext>, IUpdate<TopLevelUpdateContext>, ILoadable
 {
     public ISceneManager SceneManager { get; protected set; }
 
@@ -14,7 +14,7 @@ public abstract class Scene: IRenderer<TopLevelRenderContext>, IUpdate<TopLeveUp
         SceneManager = sceneManager;
     }
     public virtual void Render(SpriteBatch spriteBatch, TopLevelRenderContext context) {}
-    public virtual void Update(float deltaTime, TopLeveUpdateContext context) {}
+    public virtual void Update(float deltaTime, TopLevelUpdateContext context) {}
     public virtual void Load(ContentManager content) {}
     public virtual void Unload() {}
 }

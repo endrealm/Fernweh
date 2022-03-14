@@ -3,12 +3,12 @@ using Core.Utils;
 
 namespace Core.Input
 {
-    internal class GamePadSnapshot : IUpdate<TopLeveUpdateContext>
+    internal class GamePadSnapshot : IUpdate<TopLevelUpdateContext>
     {
         public GamePadState currentButtonState = GamePad.GetState(0);
         private GamePadState _previousButtonState = GamePad.GetState(0);
 
-        public void Update(float deltaTime, TopLeveUpdateContext context)
+        public void Update(float deltaTime, TopLevelUpdateContext context)
         {
             _previousButtonState = currentButtonState;
             currentButtonState = GamePad.GetState(0);
