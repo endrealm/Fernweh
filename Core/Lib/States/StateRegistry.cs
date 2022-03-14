@@ -8,7 +8,10 @@ namespace Core.States;
 
 public class StateRegistry
 {
-    private readonly Dictionary<string, IState> _states = new();
+    private readonly Dictionary<string, IState> _states = new()
+    {
+        {"null", new NullState()}
+    };
     private readonly List<Lua> _runtimes = new();
     public void LoadScript(string script)
     {
@@ -26,7 +29,12 @@ public class StateRegistry
     
     public IState ReadState(string stateId)
     {
-        return _states[stateId];
+        if (!_states.TryGetValue(stateId, out var state))
+        {
+            Console.WriteLine("StateRegistry WARN: Unknown state " + stateId +" using null state instead!");
+            return _states["null"];
+        }
+        return state;
     }
 
     private LuaStateBuilder BuildState(string stateId)

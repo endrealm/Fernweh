@@ -12,6 +12,7 @@ public class GameManager
     public GameManager(StateRegistry stateRegistry)
     {
         _stateRegistry = stateRegistry;
+        ActiveState = stateRegistry.ReadState("null"); // Start with "null" state.
     }
 
     public void LoadState(string stateId)
