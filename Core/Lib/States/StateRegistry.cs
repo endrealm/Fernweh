@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Xna.Framework;
 using NLua;
+using PipelineExtensionLibrary;
 using Lua = NLua.Lua;
 
 namespace Core.States;
@@ -14,15 +16,22 @@ public class StateRegistry
         {"null", new NullState()}
     };
     private readonly List<Lua> _runtimes = new();
+    private Color _defaultBackgroundColor = new(18, 14, 18);
     public void LoadScript(string script)
     {
         var lua = new Lua();
         lua["stateBuilder"] = BuildState;
+        lua["setDefaultBackgroundColor"] = SetDefaultBackgroundColor;
         lua["global"] = GlobalEventHandler;
         lua.DoString("function createSandbox() " + LuaSandbox.SANDBOX + " end");
         (((lua["createSandbox"] as LuaFunction)!.Call().First() as LuaTable)!["run"] as LuaFunction)!
             .Call(script);
         _runtimes.Add(lua);
+
+        if (_states["null"] is NullState nullState)
+        {
+            nullState.SetBackground(_defaultBackgroundColor);
+        }
     }
     
     ~StateRegistry() {
@@ -41,7 +50,12 @@ public class StateRegistry
 
     private LuaStateBuilder BuildState(string stateId)
     {
-        return new LuaStateBuilder(stateId, RegisterState);
+        return new LuaStateBuilder(stateId, _defaultBackgroundColor, RegisterState);
+    }
+    
+    private void SetDefaultBackgroundColor(string color)
+    {
+        _defaultBackgroundColor = color.ToColor();
     }
 
     private void RegisterState(IState state)

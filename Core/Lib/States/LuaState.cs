@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.Xna.Framework;
 using NLua;
 
 namespace Core.States;
@@ -6,11 +7,13 @@ namespace Core.States;
 public class LuaState: IState
 {
     private readonly LuaFunction _renderFunc;
+    private readonly Color _backgroundColor;
 
-    public LuaState(string id, LuaFunction renderFunc, bool showExit, bool allowMove)
+    public LuaState(string id, LuaFunction renderFunc, bool showExit, bool allowMove, Color backgroundColor)
     {
         Id = id;
         _renderFunc = renderFunc;
+        _backgroundColor = backgroundColor;
         ShowExit = showExit;
         AllowMove = allowMove;
     }
@@ -19,6 +22,7 @@ public class LuaState: IState
 
     public void Render(StateRenderer renderer, RenderContext context)
     {
+        renderer.SetBackgroundColor(_backgroundColor);
         _renderFunc.Call(renderer, context);
     }
 

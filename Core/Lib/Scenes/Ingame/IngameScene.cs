@@ -20,7 +20,7 @@ public class IngameScene: Scene
     /// </summary>
     private DialogTranslationData _translationData;
 
-    
+    private Color _backgroundColor = Color.Pink;
 
     public IngameScene(IFontManager fontManager)
     {
@@ -33,7 +33,7 @@ public class IngameScene: Scene
 
     private void OnStateChanged(StateChangedEventArgs args)
     {
-        var renderer = new StateRenderer(_translationData, Language.EN_US, _fontManager);
+        var renderer = new StateRenderer(_translationData, Language.EN_US, _fontManager, (color) => _backgroundColor = color);
         args.NewState.Render(renderer, new RenderContext(_gameManager));
         _chatView.RenderResults(renderer);
     }
@@ -55,8 +55,8 @@ public class IngameScene: Scene
 
     public override void Render(SpriteBatch spriteBatch, TopLevelRenderContext context)
     {
-        context.GraphicsDevice.Clear(new Color(18, 14, 18));
-        var backgroundColor = new Color(18, 14, 18);
+        context.GraphicsDevice.Clear(_backgroundColor);
+        var backgroundColor = _backgroundColor;
 
         // width of text area
         int chatWidth = (int)context.BaseScreenSize.X -  (int)context.BaseScreenSize.Y;

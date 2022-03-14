@@ -49,6 +49,7 @@ local BASE_ENV = {
      print = print,
      stateBuilder = stateBuilder,
      global = global,
+     setDefaultBackgroundColor = setDefaultBackgroundColor,
 }
 
 -- List of unsafe packages/functions:

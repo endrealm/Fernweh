@@ -24,6 +24,7 @@ stateBuilder("my_state")
 stateBuilder("my_other_state")
         :render(
                 function(renderer, context)
+                    renderer:setBackgroundColor("DarkRed")
                     renderer:addText("dialog.example.2")
                     renderer:addAction(function() context:exit() end, "dialog.example.2.button")
                 end
