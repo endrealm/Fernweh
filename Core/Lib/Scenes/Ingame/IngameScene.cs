@@ -9,13 +9,14 @@ namespace Core.Scenes.Ingame;
 
 public class IngameScene: Scene
 {
-    private readonly GameView _gameView = new();
+    private readonly GameView _gameView;
     private readonly ChatView _chatView;
     private readonly StateRegistry _stateRegistry = new();
     private readonly GameManager _gameManager;
 
     public IngameScene()
     {
+        _gameView = new(_stateRegistry.GlobalEventHandler);
         _gameManager = new(_stateRegistry);
         _chatView = new(_gameManager);
     }

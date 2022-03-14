@@ -5,20 +5,20 @@ namespace Core.Input;
 
 internal class KeyboardSnapshot: IUpdate<TopLevelUpdateContext>
 {
-    public KeyboardState currentKeyState;
+    public KeyboardState CurrentKeyState;
     private KeyboardState _previousKeyState;
 
     public void Update(float deltaTime, TopLevelUpdateContext context)
     {
-        _previousKeyState = currentKeyState;
-        currentKeyState = Keyboard.GetState();
+        _previousKeyState = CurrentKeyState;
+        CurrentKeyState = Keyboard.GetState();
     }
 
     public bool HasBeenPressed(Keys[] keys)
     {
         for (int i = 0; i < keys.Length; i++)
         {
-            if(currentKeyState.IsKeyDown(keys[i]) && !_previousKeyState.IsKeyDown(keys[i]))
+            if(CurrentKeyState.IsKeyDown(keys[i]) && !_previousKeyState.IsKeyDown(keys[i]))
                 return true;
         }
         return false;

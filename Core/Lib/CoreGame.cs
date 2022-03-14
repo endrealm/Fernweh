@@ -18,7 +18,7 @@ namespace Core
         private OrthographicCamera _camera;
         private readonly Vector2 _baseScreenSize = new(398, 224);
         private bool _isFullscreen = false;
-        private Controls controls = new Controls();
+        private Controls _controls = new Controls();
         private FrameCounter _frameCounter = new();
 
         private Scene _activeScene;
@@ -72,7 +72,7 @@ namespace Core
             base.Update(gameTime);
             _clickInput.Update(gameTime);
             _activeScene.Update((float) gameTime.ElapsedGameTime.TotalSeconds, new TopLevelUpdateContext(_clickInput, _camera));
-            controls.Update((float)gameTime.ElapsedGameTime.TotalSeconds, new TopLevelUpdateContext(_clickInput, _camera));
+            _controls.Update((float)gameTime.ElapsedGameTime.TotalSeconds, new TopLevelUpdateContext(_clickInput, _camera));
         }
 
         protected override void Draw(GameTime gameTime)

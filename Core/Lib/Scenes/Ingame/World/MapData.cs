@@ -8,7 +8,7 @@ namespace Core.Scenes.Ingame.World
 {
     internal class MapData
     {
-        private Dictionary<Vector2, string> tilePositions = new Dictionary<Vector2, string>();  // convert to matrix?
+        private Dictionary<Vector2, string> _tilePositions = new Dictionary<Vector2, string>();  // convert to matrix?
 
         public MapData() // fake load map here. later will input json/xml
         {
@@ -22,19 +22,19 @@ namespace Core.Scenes.Ingame.World
                     switch (random.Next(0,8))
                     {
                         default:
-                            tilePositions.Add(new Vector2(x, y), "grass");
+                            _tilePositions.Add(new Vector2(x, y), "grass");
                             break;
                         case 2:
-                            tilePositions.Add(new Vector2(x, y), "forest");
+                            _tilePositions.Add(new Vector2(x, y), "forest");
                             break;
                         case 3:
-                            tilePositions.Add(new Vector2(x, y), "path");
+                            _tilePositions.Add(new Vector2(x, y), "path");
                             break;
                         case 4:
-                            tilePositions.Add(new Vector2(x, y), "boulder");
+                            _tilePositions.Add(new Vector2(x, y), "boulder");
                             break;
                         case 1:
-                            tilePositions.Add(new Vector2(x, y), "castle");
+                            _tilePositions.Add(new Vector2(x, y), "castle");
                             break;
                     }
                 }
@@ -43,8 +43,8 @@ namespace Core.Scenes.Ingame.World
 
         public string GetTile(Vector2 pos)
         {
-            if (tilePositions.ContainsKey(pos))
-                return tilePositions[pos];
+            if (_tilePositions.ContainsKey(pos))
+                return _tilePositions[pos];
             else
                 return null;
         }

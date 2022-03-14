@@ -6,13 +6,13 @@ public class TypeWriterContentEffect: ITextContentEffect
 {
     private readonly float _timePerParagraph;
     private readonly float _timePerCharacter;
-    public Action _onFinish { get; set; }
+    public Action OnFinish { get; set; }
     private TextComponent _component;
     
-    private float timeDone;
-    private string originalMessage = "";
-    private int index;
-    private bool done;
+    private float _timeDone;
+    private string _originalMessage = "";
+    private int _index;
+    private bool _done;
 
     public TypeWriterContentEffect(
         float timePerCharacter = .01f,
@@ -22,33 +22,33 @@ public class TypeWriterContentEffect: ITextContentEffect
     {
         _timePerParagraph = timePerParagraph;
         _timePerCharacter = timePerCharacter;
-        _onFinish = onFinish;
+        OnFinish = onFinish;
     }
     public void Attach(TextComponent component)
     {
         _component = component;
-        originalMessage = component.Message;
-        timeDone = 0;
-        index = 0;
-        done = false;
+        _originalMessage = component.Message;
+        _timeDone = 0;
+        _index = 0;
+        _done = false;
         component.ChangeMessage("");
     }
 
     public void Update(float deltaTime, ChatUpdateContext context)
     {
-        if(done) return;
-        timeDone += deltaTime;
+        if(_done) return;
+        _timeDone += deltaTime;
 
-        if(index < originalMessage.Length && timeDone >= _timePerCharacter) // more characters to print + cleared char timer
+        if(_index < _originalMessage.Length && _timeDone >= _timePerCharacter) // more characters to print + cleared char timer
         {
-            timeDone = 0;
-            _component.ChangeMessage(originalMessage.Substring(0, index + 1));
-            index++;
+            _timeDone = 0;
+            _component.ChangeMessage(_originalMessage.Substring(0, _index + 1));
+            _index++;
         }
-        else if (timeDone >= _timePerParagraph) // no more char to print + cleared paragraph timer
+        else if (_timeDone >= _timePerParagraph) // no more char to print + cleared paragraph timer
         {
-            done = true;
-            _onFinish?.Invoke();
+            _done = true;
+            OnFinish?.Invoke();
         }
     }
 }

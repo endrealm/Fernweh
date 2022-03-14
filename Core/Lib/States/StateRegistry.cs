@@ -8,6 +8,7 @@ namespace Core.States;
 
 public class StateRegistry
 {
+    public readonly IGlobalEventHandler GlobalEventHandler = new LuaGlobalEventHandler();
     private readonly Dictionary<string, IState> _states = new()
     {
         {"null", new NullState()}
@@ -17,6 +18,7 @@ public class StateRegistry
     {
         var lua = new Lua();
         lua["stateBuilder"] = BuildState;
+        lua["global"] = GlobalEventHandler;
         lua.DoString("function createSandbox() " + LuaSandbox.SANDBOX + " end");
         (((lua["createSandbox"] as LuaFunction)!.Call().First() as LuaTable)!["run"] as LuaFunction)!
             .Call(script);

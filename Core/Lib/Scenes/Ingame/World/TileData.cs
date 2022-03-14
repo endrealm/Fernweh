@@ -11,7 +11,7 @@ namespace Core.Scenes.Ingame.World
     [Serializable]
     internal class TileData
     {
-        [Flags] public enum OpenDirections
+        [Flags] public enum OpenDirection
         {
             None = 0,
             Up = 1,
@@ -20,34 +20,34 @@ namespace Core.Scenes.Ingame.World
             Right = 8
         }
 
-        public string name;
-        public Texture2D[] frames;
-        public int framesPerSecond;
+        public string Name;
+        public Texture2D[] Frames;
+        public int FramesPerSecond;
 
-        public float encounterChance; // range 0f - 1f
-        public OpenDirections openDirections = OpenDirections.Up | OpenDirections.Down | OpenDirections.Left | OpenDirections.Right;
+        public float EncounterChance; // range 0f - 1f
+        public OpenDirection OpenDirections;
 
-        public DialogTranslationData onEnter;
+        public DialogTranslationData OnEnter;
 
-        public TileData(string _name, Texture2D[] _frames, OpenDirections _openDirections = OpenDirections.Up | OpenDirections.Down | OpenDirections.Left | OpenDirections.Right)
+        public TileData(string name, Texture2D[] frames, OpenDirection openDirections = OpenDirection.Up | OpenDirection.Down | OpenDirection.Left | OpenDirection.Right)
         { 
-            name = _name;
-            frames = _frames;
-            openDirections = _openDirections;
+            Name = name;
+            Frames = frames;
+            OpenDirections = openDirections;
         }
 
         public bool AllowsDirection(Vector2 direction)
         {
-            if (openDirections.HasFlag(TileData.OpenDirections.Up) && direction.Y == -1)
+            if (OpenDirections.HasFlag(OpenDirection.Up) && direction.Y == -1)
                 return true;
 
-            if (openDirections.HasFlag(TileData.OpenDirections.Down) && direction.Y == 1)
+            if (OpenDirections.HasFlag(OpenDirection.Down) && direction.Y == 1)
                 return true;
 
-            if (openDirections.HasFlag(TileData.OpenDirections.Left) && direction.X == -1)
+            if (OpenDirections.HasFlag(OpenDirection.Left) && direction.X == -1)
                 return true;
 
-            if (openDirections.HasFlag(TileData.OpenDirections.Right) && direction.X == 1)
+            if (OpenDirections.HasFlag(OpenDirection.Right) && direction.X == 1)
                 return true;
 
             return false;

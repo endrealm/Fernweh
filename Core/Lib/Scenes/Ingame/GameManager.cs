@@ -17,6 +17,7 @@ public class GameManager
 
     public void LoadState(string stateId)
     {
+        _stateRegistry.GlobalEventHandler.EmitPreStateChangeEvent();
         ActiveState = _stateRegistry.ReadState(stateId);
         StateChangedEvent?.Invoke(new StateChangedEventArgs()
         {

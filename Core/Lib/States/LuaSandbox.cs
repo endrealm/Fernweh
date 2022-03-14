@@ -48,6 +48,7 @@ sandbox.bytecode_blocked = bytecode_blocked
 local BASE_ENV = {
      print = print,
      stateBuilder = stateBuilder,
+     global = global,
 }
 
 -- List of unsafe packages/functions:

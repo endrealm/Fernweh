@@ -1,5 +1,6 @@
 ﻿using System;
 using NLua;
+// ReSharper disable InconsistentNaming
 
 namespace Core.States;
 

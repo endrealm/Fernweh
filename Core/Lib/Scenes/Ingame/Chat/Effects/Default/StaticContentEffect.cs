@@ -5,15 +5,15 @@ namespace Core.Scenes.Ingame.Chat.Effects.Default;
 public class StaticContentEffect: ITextContentEffect
 {
     private readonly float _timePerParagraph;
-    public Action _onFinish { get; set; }
+    public Action OnFinish { get; set; }
 
-    private float timeDone;
-    private bool done;
+    private float _timeDone;
+    private bool _done;
 
     public StaticContentEffect(float timerPerParagraph = 0.3f, Action onFinish = null)
     {
         _timePerParagraph = timerPerParagraph;
-        _onFinish = onFinish;
+        OnFinish = onFinish;
     }
 
     public void Attach(TextComponent component)
@@ -22,13 +22,13 @@ public class StaticContentEffect: ITextContentEffect
 
     public void Update(float deltaTime, ChatUpdateContext context)
     {
-        if (done) return;
-        timeDone += deltaTime;
+        if (_done) return;
+        _timeDone += deltaTime;
 
-        if(timeDone > _timePerParagraph)
+        if(_timeDone > _timePerParagraph)
         {
-            _onFinish?.Invoke();
-            done = true;
+            OnFinish?.Invoke();
+            _done = true;
         }
     }
 }

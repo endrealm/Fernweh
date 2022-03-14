@@ -14,7 +14,7 @@ namespace Core
         public float AverageFramesPerSecond { get; private set; }
         public float CurrentFramesPerSecond { get; private set; }
 
-        public const int MAXIMUM_SAMPLES = 100;
+        public const int MaximumSamples = 100;
 
         private Queue<float> _sampleBuffer = new Queue<float>();
 
@@ -24,7 +24,7 @@ namespace Core
 
             _sampleBuffer.Enqueue(CurrentFramesPerSecond);
 
-            if (_sampleBuffer.Count > MAXIMUM_SAMPLES)
+            if (_sampleBuffer.Count > MaximumSamples)
             {
                 _sampleBuffer.Dequeue();
                 AverageFramesPerSecond = _sampleBuffer.Average(i => i);
