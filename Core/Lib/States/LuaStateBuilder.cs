@@ -10,6 +10,7 @@ public class LuaStateBuilder
     private readonly Action<IState> _onStateBuild;
     private LuaFunction _renderFunc;
     private bool _showExit;
+    private bool _allowMove;
 
     public LuaStateBuilder(string stateId, Action<IState> onStateBuild)
     {
@@ -27,10 +28,15 @@ public class LuaStateBuilder
         _showExit = showExit;
         return this;
     }
+    public LuaStateBuilder allowMove(bool allowMove)
+    {
+        _allowMove = allowMove;
+        return this;
+    }
 
     public IState build()
     {
-        var state = new LuaState(_stateId, _renderFunc, _showExit);
+        var state = new LuaState(_stateId, _renderFunc, _showExit, _allowMove);
         _onStateBuild.Invoke(state);
         return state;
     }

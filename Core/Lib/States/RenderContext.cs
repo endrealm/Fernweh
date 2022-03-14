@@ -16,4 +16,8 @@ public class RenderContext
     {
         _gameManager.LoadState(stateId);
     }
+    public void exit()
+    {
+        _gameManager.LoadState("null");
+    }
 }

@@ -9,4 +9,5 @@ public class NullState: IState
     }
 
     public bool ShowExit => false;
+    public bool AllowMove => true;
 }

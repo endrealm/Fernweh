@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
-using Core.Utils;
 
 namespace Core.Scenes.Ingame;
 
@@ -16,8 +15,8 @@ public class IngameScene: Scene
 
     public IngameScene()
     {
-        _gameView = new(_stateRegistry.GlobalEventHandler);
         _gameManager = new(_stateRegistry);
+        _gameView = new(_stateRegistry.GlobalEventHandler, _gameManager);
         _chatView = new(_gameManager);
     }
 

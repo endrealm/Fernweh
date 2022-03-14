@@ -3,9 +3,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using Core.Scenes.Ingame;
-using System.Collections.Generic;
-using System.Text;
 using Core.States;
 
 namespace Core.Scenes.Ingame.World
@@ -13,7 +10,8 @@ namespace Core.Scenes.Ingame.World
     internal class Player: IRenderer<IngameRenderContext>, IUpdate<IngameUpdateContext>, ILoadable<WorldRenderer>
     {
         private readonly IGlobalEventHandler _globalEventHandler;
-        public Vector2 CurrentPos = new Vector2(0,0);
+        private readonly GameManager _gameManager;
+        public Vector2 CurrentPos = new (0,0);
         private float _moveTime = 0.2f;
         private float _camMoveSpeed = 0.3f;
         private int _stepAmount = 8;
@@ -26,16 +24,16 @@ namespace Core.Scenes.Ingame.World
         private Texture2D _sprite;
 
         private WorldRenderer _worldRenderer;
-        private Vector2[] _discoverTileRadius = new Vector2[] 
-        {
-             new Vector2(0, -1), 
-             new Vector2(-1,0), new Vector2(0,0), new Vector2(1,0),
-             new Vector2(0,1),  
+        private readonly Vector2[] _discoverTileRadius = {
+             new (0, -1), 
+             new (-1,0), new (0,0), new (1,0),
+             new (0,1),  
         };
 
-        public Player(IGlobalEventHandler globalEventHandler)
+        public Player(IGlobalEventHandler globalEventHandler, GameManager gameManager)
         {
             _globalEventHandler = globalEventHandler;
+            _gameManager = gameManager;
         }
 
         public void Load(ContentManager content, WorldRenderer worldRenderer)
@@ -57,6 +55,7 @@ namespace Core.Scenes.Ingame.World
 
         public void MovePlayer(Vector2 direction, MapData mapData, WorldDataRegistry worldDataRegistry)
         {
+            if(!_gameManager.ActiveState.AllowMove) return;
             if (CurrentPos != _targetPos) return; // cant move if currently moving
 
             TileData currentTile = worldDataRegistry.GetTile(mapData.GetTile(CurrentPos / 32));

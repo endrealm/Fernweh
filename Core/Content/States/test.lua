@@ -25,7 +25,7 @@ stateBuilder("my_other_state")
         :render(
                 function(renderer, context)
                     renderer:addText("dialog.example.2")
-                    renderer:addAction(function() context:changeState("my_state") end, "dialog.example.2.button")
+                    renderer:addAction(function() context:exit() end, "dialog.example.2.button")
                 end
         )
         :build()
