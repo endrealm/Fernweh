@@ -4,7 +4,7 @@ using Core.States;using PipelineExtensionLibrary;
 
 new XmlDialogParser().Parse("Some example <color=\"rgba(1,1,1,.4)\">text</color>!");
 
-var manager = new StateManager();
+var manager = new StateRegistry();
 
 manager.LoadScript(@"
 stateBuilder('my_other_state')

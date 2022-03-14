@@ -14,8 +14,8 @@ namespace Core.Scenes.Ingame;
 
 public class ChatView: IRenderer<IngameRenderContext>, IUpdate<IngameUpdateContext>, ILoadable
 {
+    private readonly GameManager _gameManager;
     private SpriteFont _font;
-    private readonly StateManager _stateManager = new();
     private Queue<IChatComponent> _queuedComponents = new();
     private List<IChatComponent> _runningComponents = new();
     private int _width = 0;
@@ -23,19 +23,28 @@ public class ChatView: IRenderer<IngameRenderContext>, IUpdate<IngameUpdateConte
     private int _xMargin = 5;
     private DialogTranslationData _translationData;
 
+    public ChatView(GameManager gameManager)
+    {
+        _gameManager = gameManager;
+        gameManager.StateChangedEvent += OnStateChanged;
+    }
+
+    private void OnStateChanged(StateChangedEventArgs args)
+    {
+        RenderState(args.NewState);
+    }
+
     public void Load(ContentManager content)
     {
         _font = content.Load<SpriteFont>("Fonts/TinyUnicode");
         _translationData = content.Load<DialogTranslationData>("Dialogs/test");
-        _stateManager.LoadScript( content.Load<string>("States/test"));
-        var state = _stateManager.ReadState("my_state");
-        RenderState(state);
     }
 
     private void RenderState(IState state)
     {
         var renderer = new StateRenderer(_translationData, Language.EN_US, _font);
-        state.Render(renderer, new RenderContext());
+        state.Render(renderer, new RenderContext(_gameManager));
+        _width = 0; // reset width so rescale is triggered
         _queuedComponents = renderer.Build();
         _runningComponents.Clear();
         LoadNextComponentInQueue();

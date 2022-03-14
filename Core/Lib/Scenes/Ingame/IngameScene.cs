@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Core.States;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
@@ -9,12 +10,22 @@ namespace Core.Scenes.Ingame;
 public class IngameScene: Scene
 {
     private readonly GameView _gameView = new();
-    private readonly ChatView _chatView = new();
+    private readonly ChatView _chatView;
+    private readonly StateRegistry _stateRegistry = new();
+    private readonly GameManager _gameManager;
+
+    public IngameScene()
+    {
+        _gameManager = new(_stateRegistry);
+        _chatView = new(_gameManager);
+    }
 
     public override void Load(ContentManager content)
     {
+        _stateRegistry.LoadScript( content.Load<string>("States/test"));
         _gameView.Load(content);
         _chatView.Load(content);
+        _gameManager.LoadState("my_state"); // selects initial state
     }
 
     public override void Update(float deltaTime, TopLevelUpdateContext context)
