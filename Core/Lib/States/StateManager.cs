@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using NLua;
 using Lua = NLua.Lua;
 
 namespace Core.States;
@@ -12,7 +14,9 @@ public class StateManager
     {
         var lua = new Lua();
         lua["stateBuilder"] = BuildState;
-        lua.DoString(script);
+        lua.DoString("function createSandbox() " + LuaSandbox.SANDBOX + " end");
+        (((lua["createSandbox"] as LuaFunction).Call().First() as LuaTable)["run"] as LuaFunction)
+            .Call(script);
         _runtimes.Add(lua);
     }
     
