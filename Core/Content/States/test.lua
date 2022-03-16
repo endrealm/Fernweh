@@ -1,9 +1,9 @@
 stateBuilder("my_state")
-        :render(
+        :Render(
                 function(renderer, context) 
                     --[[local text = ]]
-                    renderer:addText("dialog.example.1")
-                    renderer:addAction(function() context:changeState("my_other_state") end, "dialog.example.1.button")
+                    renderer:AddText("dialog.example.1")
+                    renderer:AddAction(function() context:ChangeState("my_other_state") end, "dialog.example.1.button")
                     --renderer:addAction(StateChangeAction("example.button.1", "my_other_state"))
                     --renderer:addAction(CustomAction("example.button.1", 
                     --        function()
@@ -19,14 +19,14 @@ stateBuilder("my_state")
                 end
         )
         --.showExit(false) defaults to false anyways
-        :build()
+        :Build()
 
 stateBuilder("my_other_state")
-        :render(
+        :Render(
                 function(renderer, context)
-                    renderer:setBackgroundColor("DarkRed")
-                    renderer:addText("dialog.example.2")
-                    renderer:addAction(function() context:exit() end, "dialog.example.2.button")
+                    renderer:SetBackgroundColor("DarkRed")
+                    renderer:AddText("dialog.example.2")
+                    renderer:AddAction(function() context:Exit() end, "dialog.example.2.button")
                 end
         )
-        :build()
+        :Build()

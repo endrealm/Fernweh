@@ -3,8 +3,6 @@ using Microsoft.Xna.Framework;
 using NLua;
 using PipelineExtensionLibrary;
 
-// ReSharper disable InconsistentNaming
-
 namespace Core.States;
 
 public class LuaStateBuilder
@@ -23,29 +21,29 @@ public class LuaStateBuilder
         _onStateBuild = onStateBuild;
     }
 
-    public LuaStateBuilder render(LuaFunction renderFunc)
+    public LuaStateBuilder Render(LuaFunction renderFunc)
     {
         _renderFunc = renderFunc;
         return this;
     }
-    public LuaStateBuilder showExit(bool showExit)
+    public LuaStateBuilder ShowExit(bool showExit)
     {
         _showExit = showExit;
         return this;
     }
-    public LuaStateBuilder allowMove(bool allowMove)
+    public LuaStateBuilder AllowMove(bool allowMove)
     {
         _allowMove = allowMove;
         return this;
     }
     
-    public LuaStateBuilder backgroundColor(string color)
+    public LuaStateBuilder BackgroundColor(string color)
     {
         _defaultBackgroundColor = color.ToColor();
         return this;
     }
 
-    public IState build()
+    public IState Build()
     {
         var state = new LuaState(_stateId, _renderFunc, _showExit, _allowMove, _defaultBackgroundColor);
         _onStateBuild.Invoke(state);

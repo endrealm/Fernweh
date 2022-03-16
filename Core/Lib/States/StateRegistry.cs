@@ -23,7 +23,7 @@ public class StateRegistry
         lua["stateBuilder"] = BuildState;
         lua["setDefaultBackgroundColor"] = SetDefaultBackgroundColor;
         lua["global"] = GlobalEventHandler;
-        lua.DoString("function createSandbox() " + LuaSandbox.SANDBOX + " end");
+        lua.DoString("function createSandbox() " + LuaSandbox.Sandbox + " end");
         (((lua["createSandbox"] as LuaFunction)!.Call().First() as LuaTable)!["run"] as LuaFunction)!
             .Call(script);
         _runtimes.Add(lua);

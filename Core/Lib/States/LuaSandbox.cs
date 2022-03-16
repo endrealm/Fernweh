@@ -2,7 +2,7 @@
 
 public class LuaSandbox
 {
-  public static readonly string SANDBOX =  
+  public static readonly string Sandbox =  
         @"
 local sandbox = {
   _VERSION      = ""sandbox 0.5"",

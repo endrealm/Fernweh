@@ -6,8 +6,6 @@ using NLua;
 using PipelineExtensionLibrary;
 using PipelineExtensionLibrary.Chat;
 
-// ReSharper disable InconsistentNaming
-
 namespace Core.States;
 
 public class StateRenderer
@@ -25,7 +23,7 @@ public class StateRenderer
         _font = font;
         _changeBackgroundColor = changeBackgroundColor;
     }
-    public void addText(string key)
+    public void AddText(string key)
     {
         var groups = _translationData.TranslationGroups;
         IChatComponent text;
@@ -46,7 +44,7 @@ public class StateRenderer
         _components.Enqueue(text);
     }
     
-    public void addAction(LuaFunction callback, string key)
+    public void AddAction(LuaFunction callback, string key)
     {
         var groups = _translationData.TranslationGroups;
         IChatComponent text;
@@ -67,7 +65,7 @@ public class StateRenderer
         _components.Enqueue(text);
     }
 
-    public void setBackgroundColor(string color)
+    public void SetBackgroundColor(string color)
     {
         SetBackgroundColor(color.ToColor());
     }

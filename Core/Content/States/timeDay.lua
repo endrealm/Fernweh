@@ -15,9 +15,9 @@ function getColorFromTime()
 end
 
 function updateDayTime(renderer)
-    local display = renderer:createOrGetScreenLabel("dayDisplay")
-    display.setText("common.day_time", Replacement("day", day), Replacement("time", hour + ":00"))
-    renderer:setBackgroundColor(getColorFromTime())
+    local display = renderer:CreateOrGetScreenLabel("dayDisplay")
+    display:SetText("common.day_time", Replacement("day", day), Replacement("time", hour + ":00"))
+    renderer:SetBackgroundColor(getColorFromTime())
 end
 
 stateBuilder("my_state")
@@ -25,21 +25,21 @@ stateBuilder("my_state")
         function(renderer, context)
             
             -- Do normal render
-            renderer:addText("dialog.example")
-            renderer:addText("dialog.example")
-            renderer:addAction(function()
-                context:changeState("other.state")
+            renderer:AddText("dialog.example")
+            renderer:AddText("dialog.example")
+            renderer:AddAction(function()
+                context:ChangeState("other.state")
             end, "dialog.example.button")
         end
     )
-    :build()
+    :Build()
 
 -- this is called before every state render
-global.addOnPreStateRender(function(renderer, context)
+global.AddOnPreStateRender(function(renderer, context)
     updateDayTime(renderer)
 end)
 
 -- this is called before every state render
-global.addOnPrePlayerMove(function()
+global.AddOnPrePlayerMove(function()
     cycleTime()
 end)

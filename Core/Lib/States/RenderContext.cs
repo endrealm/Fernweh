@@ -1,5 +1,4 @@
 ﻿using Core.Scenes.Ingame;
-// ReSharper disable InconsistentNaming
 
 namespace Core.States;
 
@@ -12,11 +11,11 @@ public class RenderContext
         _gameManager = gameManager;
     }
 
-    public void changeState(string stateId)
+    public void ChangeState(string stateId)
     {
         _gameManager.LoadState(stateId);
     }
-    public void exit()
+    public void Exit()
     {
         _gameManager.LoadState("null");
     }
