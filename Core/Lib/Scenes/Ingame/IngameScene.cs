@@ -1,4 +1,5 @@
-﻿using Core.States;
+﻿using Core.Scenes.Ingame.Battle;
+using Core.States;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -11,7 +12,9 @@ public class IngameScene: Scene
 {
     private readonly GameView _gameView;
     private readonly ChatView _chatView;
+    private readonly ScriptLoader _scriptLoader;
     private readonly StateRegistry _stateRegistry = new();
+    private readonly BattleRegistry _battleRegistry = new();
     private readonly GameManager _gameManager;
     private readonly IFontManager _fontManager;
 
@@ -25,6 +28,7 @@ public class IngameScene: Scene
     public IngameScene(IFontManager fontManager)
     {
         _fontManager = fontManager;
+        _scriptLoader = new(_stateRegistry, _battleRegistry);
         _gameManager = new(_stateRegistry);
         _gameView = new(_stateRegistry.GlobalEventHandler, _gameManager);
         _chatView = new();
@@ -41,7 +45,7 @@ public class IngameScene: Scene
     public override void Load(ContentManager content)
     {
         _translationData = content.Load<DialogTranslationData>("Dialogs/test");
-        _stateRegistry.LoadScript( content.Load<string>("States/test"));
+        _scriptLoader.LoadScript(content.Load<string>("States/test"));
         _gameView.Load(content);
         _chatView.Load(content);
         _gameManager.LoadState("my_state"); // selects initial state

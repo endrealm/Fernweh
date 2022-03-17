@@ -1,10 +1,11 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
+using Core.Scenes.Ingame.Battle;
 using Core.States;using PipelineExtensionLibrary;
 
 new XmlDialogParser().Parse("Some example <color=\"rgba(1,1,1,.4)\">text</color>!");
 
-var manager = new StateRegistry();
+var manager = new ScriptLoader(new StateRegistry(), new BattleRegistry());
 
 manager.LoadScript(@"
 stateBuilder('my_other_state')
