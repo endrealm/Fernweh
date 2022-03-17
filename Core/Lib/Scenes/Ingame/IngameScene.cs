@@ -46,6 +46,7 @@ public class IngameScene: Scene
     {
         _translationData = content.Load<DialogTranslationData>("Dialogs/test");
         _scriptLoader.LoadScript(content.Load<string>("States/test"));
+        _scriptLoader.LoadScript(content.Load<string>("Scripts/effects"));
         _gameView.Load(content);
         _chatView.Load(content);
         _gameManager.LoadState("my_state"); // selects initial state

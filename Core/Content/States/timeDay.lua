@@ -20,7 +20,7 @@ function updateDayTime(renderer)
     renderer:SetBackgroundColor(getColorFromTime())
 end
 
-stateBuilder("my_state")
+StateBuilder("my_state")
     :render(
         function(renderer, context)
             
@@ -35,11 +35,11 @@ stateBuilder("my_state")
     :Build()
 
 -- this is called before every state render
-global.AddOnPreStateRender(function(renderer, context)
+Global.AddOnPreStateRender(function(renderer, context)
     updateDayTime(renderer)
 end)
 
 -- this is called before every state render
-global.AddOnPrePlayerMove(function()
+Global.AddOnPrePlayerMove(function()
     cycleTime()
 end)

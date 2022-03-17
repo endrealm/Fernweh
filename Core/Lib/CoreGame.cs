@@ -1,12 +1,11 @@
 ﻿using Core.Input;
 using Core.Scenes.MainMenu;
+using Core.States;
 using Core.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended;
 using MonoGame.Extended.ViewportAdapters;
-using Core.Input;
 
 namespace Core
 {
@@ -36,7 +35,13 @@ namespace Core
         protected override void LoadContent()
         {
             base.LoadContent();
+
+            // Init lua sandbox script
+            LuaSandbox.Sandbox = Content.Load<string>("Scripts/sandbox");
+
+            // Init font manager
             _fontManager.Load(Content);
+            
             GraphicsDevice.SamplerStates[0] = SamplerState.PointWrap;
 
             #region Configure camera

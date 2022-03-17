@@ -1,4 +1,4 @@
-stateBuilder("my_state")
+StateBuilder("my_state")
         :Render(
                 function(renderer, context) 
                     --[[local text = ]]
@@ -21,7 +21,7 @@ stateBuilder("my_state")
         --.showExit(false) defaults to false anyways
         :Build()
 
-stateBuilder("my_other_state")
+StateBuilder("my_other_state")
         :Render(
                 function(renderer, context)
                     renderer:SetBackgroundColor("DarkRed")

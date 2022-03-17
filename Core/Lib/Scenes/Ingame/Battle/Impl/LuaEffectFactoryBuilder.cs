@@ -15,7 +15,7 @@ public class LuaEffectFactoryBuilder
         _onBuild = onBuild;
     }
 
-    public LuaEffectFactoryBuilder OnReceiveDamage(LuaFunction function)
+    public LuaEffectFactoryBuilder Instantiate(LuaFunction function)
     {
         _instantiateEffect = function;
         return this;

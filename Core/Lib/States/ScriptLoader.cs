@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Core.Scenes.Ingame.Battle;
 using Core.Scenes.Ingame.Battle.Impl;
 using Microsoft.Xna.Framework;
 using NLua;
 using PipelineExtensionLibrary;
-using Lua = NLua.Lua;
 
 namespace Core.States;
 
@@ -26,10 +24,17 @@ public class ScriptLoader
     public void LoadScript(string script)
     {
         var lua = new Lua();
+
+        #region Exposed Lua Interfaces
+
         lua["CreateStatusEffect"] = CreateEffectFactoryBuilder;
-        lua["stateBuilder"] = BuildState;
-        lua["setDefaultBackgroundColor"] = SetDefaultBackgroundColor;
-        lua["global"] = _stateRegistry.GlobalEventHandler;
+        lua["StateBuilder"] = BuildState;
+        lua["SetDefaultBackgroundColor"] = SetDefaultBackgroundColor;
+        lua["Global"] = _stateRegistry.GlobalEventHandler;
+
+        #endregion
+       
+        
         lua.DoString("function createSandbox() " + LuaSandbox.Sandbox + " end");
         (((lua["createSandbox"] as LuaFunction)!.Call().First() as LuaTable)!["run"] as LuaFunction)!
             .Call(script);
