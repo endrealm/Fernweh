@@ -1,6 +1,12 @@
-﻿namespace Core.Scenes.Ingame.Battle;
+﻿using System.Collections.Generic;
 
-public interface IBattleParticipant
+namespace Core.Scenes.Ingame.Battle;
+
+public interface IBattleParticipant : IBattleEventReceiver
 {
-    string ParticipantId { get; }
+    public string ParticipantId { get; }
+    public int Health { get; }
+    public int Mana { get; }
+    public List<IAbility> GetAbilities();
+    public List<IStatusEffect> GetActiveEffects();
 }
