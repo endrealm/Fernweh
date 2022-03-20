@@ -45,6 +45,9 @@ local BASE_ENV = {
     Global = Global,
     SetDefaultBackgroundColor = SetDefaultBackgroundColor,
     CreateStatusEffect = CreateStatusEffect,
+    CreateConstantAbility = CreateConstantAbility,
+    CreateAbility = CreateAbility,
+    CreateParticipant = CreateParticipant,
 }
 
 -- List of unsafe packages/functions:
