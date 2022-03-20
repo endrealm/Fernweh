@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Core.Utils;
 
 namespace Core.Scenes.Ingame.Battle;
 
@@ -39,9 +40,16 @@ public class BattleManager
         // Sort by priority
         actions.Sort((act1, act2) => act1.Priority - act2.Priority);
 
+        var actionQueue = actions.ToQueue();
+        while (actionQueue.Count > 0)
+        {
+            var action = actionQueue.Dequeue();
+            var context = new ActionContext();
+            await action.DoAction(context);
+            actionQueue.AddRange(context.GetActionList());
+        }
+        
         // Execute and await all actions
-        foreach (var action in actions) await action.DoAction(new ActionContext());
-
         _friendlies.ForEach(participant => { participant.OnTurnEnd(); });
         _enemies.ForEach(participant => { participant.OnTurnEnd(); });
     }
