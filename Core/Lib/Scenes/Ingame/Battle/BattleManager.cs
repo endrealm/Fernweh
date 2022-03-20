@@ -7,12 +7,14 @@ namespace Core.Scenes.Ingame.Battle;
 
 public class BattleManager
 {
+    private readonly BattleRegistry _registry;
     private readonly IPlayerBattleInput _playerInput;
     private readonly List<IBattleParticipant> _friendlies;
     private readonly List<IBattleParticipant> _enemies;
 
     public BattleManager(BattleRegistry registry, BattleConfig config, IPlayerBattleInput playerInput)
     {
+        _registry = registry;
         _playerInput = playerInput;
         _enemies = config.Enemies.Select(id => CreateParticipant(registry.GetParticipantFactory(id).Produce()))
             .ToList();
@@ -24,7 +26,8 @@ public class BattleManager
         var participant = new BasicParticipant(config.Id, config);
         config.Abilities.ForEach(abilityConfig =>
         {
-            //TODO: create and add ability
+            var ability = _registry.GetAbilityFactory(abilityConfig.Id).Produce(abilityConfig);
+            participant.GetAbilities().Add(ability);
         });
         return participant;
     }

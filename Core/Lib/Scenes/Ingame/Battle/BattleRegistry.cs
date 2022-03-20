@@ -6,6 +6,7 @@ public class BattleRegistry
 {
     private readonly Dictionary<string, IEffectFactory> _effectFactories = new();
     private readonly Dictionary<string, IParticipantFactory> _participantFactories = new();
+    private readonly Dictionary<string, IAbilityFactory> _abilityFactories = new();
 
     public void RegisterEffect(IEffectFactory effectFactory)
     {
@@ -17,6 +18,11 @@ public class BattleRegistry
         _participantFactories.Add(factory.Id, factory);
     }
 
+    public void RegisterAbility(IAbilityFactory factory)
+    {
+        _abilityFactories.Add(factory.Id, factory);
+    }
+
     public IEffectFactory GetEffectFactory(string id)
     {
         return _effectFactories[id];
@@ -25,5 +31,10 @@ public class BattleRegistry
     public IParticipantFactory GetParticipantFactory(string id)
     {
         return _participantFactories[id];
+    }
+
+    public IAbilityFactory GetAbilityFactory(string id)
+    {
+        return _abilityFactories[id];
     }
 }
