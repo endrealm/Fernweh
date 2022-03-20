@@ -21,12 +21,16 @@ public class BattleManager
         var actions = new List<IBattleAction>();
         _friendlies.ForEach(participant =>
         {
+            participant.OnNextTurn(out var skip);
+            if (skip) return;
             participant.NextAction ??= participant.Strategy.SelectAction(participant);
             actions.Add(participant.NextAction);
             participant.NextAction = null;
         });
         _enemies.ForEach(participant =>
         {
+            participant.OnNextTurn(out var skip);
+            if (skip) return;
             participant.NextAction ??= participant.Strategy.SelectAction(participant);
             actions.Add(participant.NextAction);
             participant.NextAction = null;
@@ -37,5 +41,9 @@ public class BattleManager
 
         // Execute and await all actions
         foreach (var action in actions) await action.DoAction(new ActionContext());
+
+        _friendlies.ForEach(participant => { participant.OnTurnEnd(); });
+        _enemies.ForEach(participant => { participant.OnTurnEnd(); });
     }
+    
 }

@@ -8,4 +8,5 @@ public interface IBattleEventReceiver
     void OnTargetedBySpell(SpellTargetEvent evt);
     void OnCalculateStats(Stats stats);
     void OnNextTurn(out bool skip);
+    void OnTurnEnd();
 }

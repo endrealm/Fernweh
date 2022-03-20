@@ -60,6 +60,12 @@ public class BasicParticipant : IBattleParticipant
         skip = shouldSkipRet;
     }
 
+    public void OnTurnEnd()
+    {
+        _effects.ForEach(e => e.OnTurnEnd());
+        _abilities.ForEach(e => e.OnTurnEnd());
+    }
+
     #endregion
 
     public string ParticipantId { get; }

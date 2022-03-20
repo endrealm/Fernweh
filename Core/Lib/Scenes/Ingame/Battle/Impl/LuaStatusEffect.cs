@@ -13,8 +13,11 @@ public class LuaStatusEffect: IStatusEffect
     private readonly LuaFunction _onCalculateStats;
     private readonly LuaFunction _onNextTurn;
     private readonly LuaFunction _onTryCleanse;
+    private readonly LuaFunction _onTurnEnd;
 
-    public LuaStatusEffect(LuaFunction onReceiveDamage, LuaFunction onDealDamage, LuaFunction onTargetWithSpell, LuaFunction onTargetedBySpell, LuaFunction onCalculateStats, LuaFunction onNextTurn, LuaFunction onTryCleanse)
+    public LuaStatusEffect(LuaFunction onReceiveDamage, LuaFunction onDealDamage, LuaFunction onTargetWithSpell,
+        LuaFunction onTargetedBySpell, LuaFunction onCalculateStats, LuaFunction onNextTurn, LuaFunction onTryCleanse,
+        LuaFunction onTurnEnd)
     {
         _onReceiveDamage = onReceiveDamage;
         _onDealDamage = onDealDamage;
@@ -23,6 +26,7 @@ public class LuaStatusEffect: IStatusEffect
         _onCalculateStats = onCalculateStats;
         _onNextTurn = onNextTurn;
         _onTryCleanse = onTryCleanse;
+        _onTurnEnd = onTurnEnd;
     }
 
     public void OnReceiveDamage(DamageReceiveEvent evt)
@@ -57,6 +61,11 @@ public class LuaStatusEffect: IStatusEffect
         var results = _onNextTurn.Call();
         if(results.Length == 0) return;
         skip = (bool)results.First();
+    }
+
+    public void OnTurnEnd()
+    {
+        _onTurnEnd?.Call();
     }
 
     public void OnTryCleanse(out bool persist)
