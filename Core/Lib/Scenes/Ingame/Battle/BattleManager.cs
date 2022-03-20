@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using Core.Scenes.Ingame.Battle.Impl;
 using Core.Utils;
 
 namespace Core.Scenes.Ingame.Battle;
@@ -6,13 +8,25 @@ namespace Core.Scenes.Ingame.Battle;
 public class BattleManager
 {
     private readonly IPlayerBattleInput _playerInput;
-    private readonly List<IBattleParticipant> _friendlies = new();
-    private readonly List<IBattleParticipant> _enemies = new();
+    private readonly List<IBattleParticipant> _friendlies;
+    private readonly List<IBattleParticipant> _enemies;
 
     public BattleManager(BattleRegistry registry, BattleConfig config, IPlayerBattleInput playerInput)
     {
-        // TODO: generate enemies from registry using the config
         _playerInput = playerInput;
+        _enemies = config.Enemies.Select(id => CreateParticipant(registry.GetParticipantFactory(id).Produce()))
+            .ToList();
+        _friendlies = config.Friendlies.Select(CreateParticipant).ToList();
+    }
+
+    private IBattleParticipant CreateParticipant(ParticipantConfig config)
+    {
+        var participant = new BasicParticipant(config.Id, config);
+        config.Abilities.ForEach(abilityConfig =>
+        {
+            //TODO: create and add ability
+        });
+        return participant;
     }
 
     public async void DoRound()

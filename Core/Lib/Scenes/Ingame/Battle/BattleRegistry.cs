@@ -4,15 +4,26 @@ namespace Core.Scenes.Ingame.Battle;
 
 public class BattleRegistry
 {
-    private readonly Dictionary<string, IEffectFactory> _factories = new();
-    
-    public void Register(IEffectFactory effectFactory)
+    private readonly Dictionary<string, IEffectFactory> _effectFactories = new();
+    private readonly Dictionary<string, IParticipantFactory> _participantFactories = new();
+
+    public void RegisterEffect(IEffectFactory effectFactory)
     {
-        _factories.Add(effectFactory.EffectId, effectFactory);
+        _effectFactories.Add(effectFactory.EffectId, effectFactory);
     }
 
-    public IEffectFactory GetFactory(string id)
+    public void RegisterParticipant(IParticipantFactory factory)
     {
-        return _factories[id];
+        _participantFactories.Add(factory.Id, factory);
+    }
+
+    public IEffectFactory GetEffectFactory(string id)
+    {
+        return _effectFactories[id];
+    }
+
+    public IParticipantFactory GetParticipantFactory(string id)
+    {
+        return _participantFactories[id];
     }
 }

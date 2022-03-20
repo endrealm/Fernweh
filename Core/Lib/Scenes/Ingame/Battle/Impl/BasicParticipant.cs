@@ -4,12 +4,16 @@ namespace Core.Scenes.Ingame.Battle.Impl;
 
 public class BasicParticipant : IBattleParticipant
 {
+    private readonly ParticipantConfig _config;
     private readonly List<IAbility> _abilities = new();
     private readonly List<IStatusEffect> _effects = new();
 
-    public BasicParticipant(string participantId)
+    public BasicParticipant(string participantId, ParticipantConfig config)
     {
+        _config = config;
         ParticipantId = participantId;
+        Health = config.Health;
+        Mana = config.Mana;
     }
 
     #region Events
