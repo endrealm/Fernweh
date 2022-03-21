@@ -79,9 +79,9 @@ public class ScriptLoader
             _battleRegistry.RegisterAbility(new ConstantLuaAbilityFactory(id, ability)));
     }
 
-    private LuaEffectFactoryBuilder CreateParticipantFactoryBuilder(string id)
+    private LuaParticipantFactoryBuilder CreateParticipantFactoryBuilder(string id)
     {
-        return new LuaEffectFactoryBuilder(id, factory => _battleRegistry.RegisterEffect(factory));
+        return new LuaParticipantFactoryBuilder(id, factory => _battleRegistry.RegisterParticipant(factory));
     }
     
 }

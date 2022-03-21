@@ -2,10 +2,10 @@
 
 public struct Stats
 {
-    private int Strength { get; set; }
-    private int Intellect { get; set; }
-    private int Agility { get; set; }
-    private int Defense { get; set; }
-    private int Spirit { get; set; }
-    private int Evasion { get; set; }
+    public int Strength { get; set; }
+    public int Intellect { get; set; }
+    public int Agility { get; set; }
+    public int Defense { get; set; }
+    public int Spirit { get; set; }
+    public int Evasion { get; set; }
 }
