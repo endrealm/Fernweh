@@ -22,7 +22,7 @@ namespace Core.Scenes.Ingame.World
 
         private Vector2 _cameraCulling;
 
-        public WorldRenderer(IGlobalEventHandler eventHandler, GameManager gameManager)
+        public WorldRenderer(IGlobalEventHandler eventHandler, IStateManager gameManager)
         {
             _player = new Player(eventHandler, gameManager);
         }

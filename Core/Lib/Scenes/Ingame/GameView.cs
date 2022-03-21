@@ -14,7 +14,7 @@ public class GameView: IRenderer<IngameRenderContext>, IUpdate<IngameUpdateConte
 {
     private readonly WorldRenderer _worldRenderer;
     //private BattleRenderer battleRenderer;
-    public GameView(IGlobalEventHandler eventHandler, GameManager gameManager)
+    public GameView(IGlobalEventHandler eventHandler, IStateManager gameManager)
     {
         _worldRenderer = new WorldRenderer(eventHandler, gameManager);
     }

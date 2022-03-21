@@ -10,7 +10,7 @@ namespace Core.Scenes.Ingame.World
     internal class Player: IRenderer<IngameRenderContext>, IUpdate<IngameUpdateContext>, ILoadable<WorldRenderer>
     {
         private readonly IGlobalEventHandler _globalEventHandler;
-        private readonly GameManager _gameManager;
+        private readonly IStateManager _gameManager;
         public Vector2 CurrentPos = new (0,0);
         private float _moveTime = 0.2f;
         private float _camMoveSpeed = 0.3f;
@@ -30,7 +30,7 @@ namespace Core.Scenes.Ingame.World
              new (0,1),  
         };
 
-        public Player(IGlobalEventHandler globalEventHandler, GameManager gameManager)
+        public Player(IGlobalEventHandler globalEventHandler, IStateManager gameManager)
         {
             _globalEventHandler = globalEventHandler;
             _gameManager = gameManager;
