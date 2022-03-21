@@ -16,6 +16,6 @@ public class LuaParticipantFactory: IParticipantFactory
     public string Id { get; }
     public ParticipantConfig Produce()
     {
-        return (ParticipantConfig) _producer.Call().First();
+        return (ParticipantConfig) _producer.Call(new ParticipantConfigBuilder(Id)).First();
     }
 }

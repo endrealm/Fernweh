@@ -1,6 +1,9 @@
 ﻿CreateParticipant("test")
-        :Instantiate(function()
-            print("Test")
-            return null;
+        :Instantiate(function(builder)
+    
+            return builder
+                    :Health(20)
+                    :Mana(10)
+                    :Build();
         end)
         :Build();
