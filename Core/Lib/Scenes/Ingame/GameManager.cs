@@ -8,6 +8,7 @@ public class GameManager
     private readonly StateRegistry _stateRegistry;
     public event StateChangedEventHandler StateChangedEvent;
     public IState ActiveState { get; private set; }
+    public string weakNextId;
 
     public GameManager(StateRegistry stateRegistry)
     {
@@ -23,6 +24,12 @@ public class GameManager
         {
             NewState = ActiveState
         });
+
+        if (stateId == "null" && weakNextId != null)
+        {
+            LoadState(weakNextId);
+            weakNextId = null;
+        }
     }
 }
 

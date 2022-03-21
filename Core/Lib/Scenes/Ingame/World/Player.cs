@@ -7,21 +7,24 @@ using Core.States;
 
 namespace Core.Scenes.Ingame.World
 {
-    internal class Player: IRenderer<IngameRenderContext>, IUpdate<IngameUpdateContext>, ILoadable<WorldRenderer>
+    internal class Player: IRenderer<IngameRenderContext>, IUpdate<IngameUpdateContext>, ILoadable
     {
         private readonly IGlobalEventHandler _globalEventHandler;
         private readonly GameManager _gameManager;
-        public Vector2 CurrentPos = new (0,0);
-        private float _moveTime = 0.2f;
-        private float _camMoveSpeed = 0.3f;
-        private int _stepAmount = 8;
+
+        private readonly float _moveTime = 0.2f;
+        private readonly float _camMoveSpeed = 0.3f;
+        private readonly int _stepAmount = 8;
 
         private float _moveTimer;
         private bool _firstFrame = true;
 
+        private Vector2 CurrentPos;
         private Vector2 _targetPos;
         private Vector2 _moveDir;
         private Texture2D _sprite;
+        private string _previousTileName;
+        private string _targetTileName;
 
         private WorldRenderer _worldRenderer;
         private readonly Vector2[] _discoverTileRadius = {
@@ -30,22 +33,22 @@ namespace Core.Scenes.Ingame.World
              new (0,1),  
         };
 
-        public Player(IGlobalEventHandler globalEventHandler, GameManager gameManager)
+        public Player(IGlobalEventHandler globalEventHandler, GameManager gameManager, WorldRenderer worldRenderer)
         {
             _globalEventHandler = globalEventHandler;
             _gameManager = gameManager;
-        }
-
-        public void Load(ContentManager content, WorldRenderer worldRenderer)
-        {
-            _sprite = content.Load<Texture2D>("Sprites/player");
             _worldRenderer = worldRenderer;
         }
 
-        public void TeleportPlayer(Vector2 mapPos, MapData mapData, WorldDataRegistry worldDataRegistry) // can be used to move to spawn
+        public void Load(ContentManager content)
+        {
+            _sprite = content.Load<Texture2D>("Sprites/player");
+        }
+
+        public void TeleportPlayer(Vector2 mapPos) // can be used to move to spawn
         {
             if (CurrentPos != _targetPos) return; // cant move if currently moving
-            if (worldDataRegistry.GetTile(mapData.GetTile(CurrentPos / 32)) == null) return; // cant move to what doesnt exist
+            if (_worldRenderer.worldDataRegistry.GetTile(_worldRenderer.mapData.GetTile(CurrentPos / 32)) == null) return; // cant move to what doesnt exist
 
             CurrentPos = mapPos * 32;
             _targetPos = CurrentPos;
@@ -53,13 +56,16 @@ namespace Core.Scenes.Ingame.World
             DiscoverTiles();
         }
 
-        public void MovePlayer(Vector2 direction, MapData mapData, WorldDataRegistry worldDataRegistry)
+        public void MovePlayer(Vector2 direction)
         {
             if(!_gameManager.ActiveState.AllowMove) return;
             if (CurrentPos != _targetPos) return; // cant move if currently moving
 
-            TileData currentTile = worldDataRegistry.GetTile(mapData.GetTile(CurrentPos / 32));
-            TileData targetTile = worldDataRegistry.GetTile(mapData.GetTile(CurrentPos / 32 + direction));
+            _previousTileName = _worldRenderer.mapData.GetTile(CurrentPos / 32);
+            _targetTileName = _worldRenderer.mapData.GetTile(CurrentPos / 32 + direction);
+
+            TileData currentTile = _worldRenderer.worldDataRegistry.GetTile(_previousTileName);
+            TileData targetTile = _worldRenderer.worldDataRegistry.GetTile(_targetTileName);
 
             if (targetTile == null) return; // cant move to what doesnt exist
 
@@ -106,7 +112,12 @@ namespace Core.Scenes.Ingame.World
                 CurrentPos = CurrentPos + _moveDir * _stepAmount;
                 _moveTimer = 0;
 
-                if (CurrentPos == _targetPos) DiscoverTiles();
+                if (CurrentPos == _targetPos) // just finished moving
+                {
+                    DiscoverTiles();
+                    //_gameManager.LoadState("leave_" + _previousTileName);
+                    //_gameManager.weakNextId = "enter_" + _targetTileName;
+                }
             }
         }
 

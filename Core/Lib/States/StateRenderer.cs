@@ -23,7 +23,7 @@ public class StateRenderer
         _font = font;
         _changeBackgroundColor = changeBackgroundColor;
     }
-    public void AddText(string key)
+    public void AddText(string key, LuaFunction callback = null)
     {
         var groups = _translationData.TranslationGroups;
         IChatComponent text;
@@ -33,17 +33,17 @@ public class StateRenderer
             text = new ChatCompoundData(new List<IChatComponentData>()
             {
                 new ChatTextData(Color.Red, key)
-            }).BuildAnimated(_font.GetChatFont());
-        } 
+            }).BuildAnimated(_font.GetChatFont(), () => callback?.Call());
+        }
         else
         {
             // select actual translation
             text = groups[key].TranslatedComponents[_language]
-                .BuildAnimated(_font.GetChatFont());
+                .BuildAnimated(_font.GetChatFont(), () => callback?.Call());
         }
         _components.Enqueue(text);
     }
-    
+
     public void AddAction(LuaFunction callback, string key)
     {
         var groups = _translationData.TranslationGroups;
@@ -55,7 +55,7 @@ public class StateRenderer
             {
                 new ChatTextData(Color.Red, key)
             }).BuildAnimatedAction(_font.GetChatFont(), () => callback.Call());
-        } 
+        }
         else
         {
             // select actual translation

@@ -16,15 +16,15 @@ namespace Core.Scenes.Ingame.World
     {
         public List<Vector2> DiscoveredTiles = new List<Vector2>();
 
-        private MapData _mapData = new MapData();
-        private WorldDataRegistry _worldDataRegistry = new WorldDataRegistry();
+        public MapData mapData = new MapData();
+        public WorldDataRegistry worldDataRegistry = new WorldDataRegistry();
         private Player _player;
 
         private Vector2 _cameraCulling;
 
         public WorldRenderer(IGlobalEventHandler eventHandler, GameManager gameManager)
         {
-            _player = new Player(eventHandler, gameManager);
+            _player = new Player(eventHandler, gameManager, this);
         }
 
         public void Render(SpriteBatch spriteBatch, IngameRenderContext context)
@@ -38,11 +38,11 @@ namespace Core.Scenes.Ingame.World
                 {
                     if (DiscoveredTiles.Contains(new Vector2(x, y))) // dont render a tile we havent discovered
                     {
-                        var tileName = _mapData.GetTile(new Vector2(x, y));
+                        var tileName = mapData.GetTile(new Vector2(x, y));
 
                         if (tileName != null) // dont render whats not there :P
                             spriteBatch.Draw(
-                                _worldDataRegistry.GetTile(tileName).Frames[0], // grab sprite
+                                worldDataRegistry.GetTile(tileName).Frames[0], // grab sprite
                                 new Rectangle((int)x * 32 + context.ChatWidth, y * 32, 32, 32), // get world position to render at
                                 context.WorldTint);   
                     }
@@ -54,9 +54,9 @@ namespace Core.Scenes.Ingame.World
 
         public void Load(ContentManager content)
         {
-            _worldDataRegistry.Load(content);
-            _player.Load(content, this);
-            _player.TeleportPlayer(new Vector2(100,100), _mapData, _worldDataRegistry);
+            worldDataRegistry.Load(content);
+            _player.Load(content);
+            _player.TeleportPlayer(new Vector2(100,100));
         }
 
         public void Update(float deltaTime, IngameUpdateContext context)
@@ -64,13 +64,13 @@ namespace Core.Scenes.Ingame.World
             _player.Update(deltaTime, context);
 
             if (Controls.MoveUp())
-                _player.MovePlayer(new Vector2(0, -1), _mapData, _worldDataRegistry);
+                _player.MovePlayer(new Vector2(0, -1));
             if (Controls.MoveDown())
-                _player.MovePlayer(new Vector2(0, 1), _mapData, _worldDataRegistry);
+                _player.MovePlayer(new Vector2(0, 1));
             if (Controls.MoveLeft())
-                _player.MovePlayer(new Vector2(-1, 0), _mapData, _worldDataRegistry);
+                _player.MovePlayer(new Vector2(-1, 0));
             if (Controls.MoveRight())
-                _player.MovePlayer(new Vector2(1, 0), _mapData, _worldDataRegistry);
+                _player.MovePlayer(new Vector2(1, 0));
 
             // world tints i liked in case we use them
             //new Color(110, 145, 155)); // night tint
