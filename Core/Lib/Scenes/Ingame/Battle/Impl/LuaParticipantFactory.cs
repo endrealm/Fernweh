@@ -16,6 +16,11 @@ public class LuaParticipantFactory: IParticipantFactory
     public string Id { get; }
     public ParticipantConfig Produce()
     {
-        return (ParticipantConfig) _producer.Call(new ParticipantConfigBuilder(Id)).First();
+        return (ParticipantConfig) _producer.Call(new ParticipantConfigBuilder(Id), CreateAbilityConfigBuilder).First();
+    }
+
+    private LuaAbilityConfigBuilder CreateAbilityConfigBuilder(string id)
+    {
+        return new LuaAbilityConfigBuilder(id);
     }
 }
