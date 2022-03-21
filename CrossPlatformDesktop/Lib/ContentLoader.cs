@@ -11,10 +11,8 @@ public class ContentLoader: IContentLoader
     
     public IArchiveHandler LoadArchive(string archiveFolder)
     {
-        using (FileStream file = File.OpenRead(archiveFolder))
-        {
-            return new ArchiveHandler(new ZipArchive(file, ZipArchiveMode.Read));
-        }
+        var file = File.OpenRead(archiveFolder);
+        return new ArchiveHandler(new ZipArchive(file, ZipArchiveMode.Read), file);
     }
     
 }
@@ -24,10 +22,12 @@ public class ArchiveHandler : IArchiveHandler
 {
 
     private readonly ZipArchive _archive;
+    private readonly FileStream _stream;
 
-    public ArchiveHandler(ZipArchive archive)
+    public ArchiveHandler(ZipArchive archive, FileStream stream)
     {
         this._archive = archive;
+        this._stream = stream;
     }
 
     public string LoadFile(string file)
@@ -43,6 +43,7 @@ public class ArchiveHandler : IArchiveHandler
     public void Dispose()
     {
         this._archive.Dispose();
+        this._stream.Dispose();
     }
     
 }

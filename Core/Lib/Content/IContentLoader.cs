@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Core.Content;
 
@@ -10,11 +11,8 @@ public interface IContentLoader
 }
 
 
-public interface IArchiveHandler
+public interface IArchiveHandler: IDisposable
 {
-
-    void Dispose();
-
     string LoadFile(string file);
 
 }
