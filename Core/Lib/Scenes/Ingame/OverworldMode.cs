@@ -1,4 +1,5 @@
 ﻿using System;
+using Core.Scenes.Ingame.Views;
 using Core.States;
 using Microsoft.Xna.Framework;
 using PipelineExtensionLibrary;
@@ -10,20 +11,23 @@ public class OverworldMode: IMode, IStateManager
     private readonly StateRegistry _stateRegistry;
     private readonly IFontManager _fontManager;
     private readonly DialogTranslationData _translationData;
+    private readonly StateChatView _chatView;
 
     public OverworldMode(IGlobalEventHandler eventHandler, StateRegistry stateRegistry, IFontManager fontManager, DialogTranslationData translationData)
     {
         _stateRegistry = stateRegistry;
         _fontManager = fontManager;
         _translationData = translationData;
-        ChatView = new ChatView();
+        _chatView = new StateChatView();
         GameView = new GameView(eventHandler, this);
         ActiveState = _stateRegistry.ReadState("null"); // Start with "null" state.
         StateChangedEvent += OnStateChanged;
     }
 
     public Color Background { get; private set; }
-    public ChatView ChatView { get; }
+
+    public IChatView ChatView => _chatView;
+
     public GameView GameView { get; }
     
     public event StateChangedEventHandler StateChangedEvent;
@@ -43,7 +47,7 @@ public class OverworldMode: IMode, IStateManager
     {
         var renderer = new StateRenderer(_translationData, Language.EN_US, _fontManager, (color) => Background = color);
         args.NewState.Render(renderer, new RenderContext(this));
-        ChatView.RenderResults(renderer);
+        _chatView.RenderResults(renderer);
     }
 
 }
