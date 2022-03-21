@@ -6,8 +6,3 @@ public interface ILoadable
 {
     void Load(ContentManager content);
 }
-
-public interface ILoadable<T>
-{
-    void Load(ContentManager content, T context);
-}

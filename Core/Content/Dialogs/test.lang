@@ -1,22 +1,67 @@
 ﻿{
-    "dialog.example.1": {
-        "translations": {
-            "EN_US": "You stand at the entrance to a <color=\"Gray\">nightmarish</color> grave."
-        }
-    },
-    "dialog.example.1.button": {
-        "translations": {
-            "EN_US": "Walk <color=\"Green\">forward</color> slowly!"
-        }
-    },
-    "dialog.example.2.button": {
-        "translations": {
-            "EN_US": "<color=\"Red\">Run for your life!</color>"
-        }
-    },
-    "dialog.example.2": {
-        "translations": {
-            "EN_US": "A <color=\"Red\">HUGE</color> demon rises up in front of you. His horns are larger than your whole body. He turns towards you a <color=\"Purple\">vicious smile</color> on his face..."
-        }
+  "dialog.example.1": {
+    "translations": {
+      "EN_US": "You stand at the entrance to a <color=\"Gray\">nightmarish</color> grave."
     }
+  },
+  "dialog.example.1.button": {
+    "translations": {
+      "EN_US": "Walk <color=\"Green\">forward</color> slowly!"
+    }
+  },
+  "dialog.example.2.button": {
+    "translations": {
+      "EN_US": "<color=\"Red\">Run for your life!</color>"
+    }
+  },
+  "dialog.example.2": {
+    "translations": {
+      "EN_US": "A <color=\"Red\">HUGE</color> demon rises up in front of you. His horns are larger than your whole body. He turns towards you a <color=\"Purple\">vicious smile</color> on his face..."
+    }
+  },
+  "intro": {
+    "translations": {
+      "EN_US": "Waking up with a jolt, you look up and see an unknown world... Rubbing some dirt off your clothes, you notice a sword sheathed on your hip, you remember of all the fiends slain by it."
+    }
+  },
+  "enter.grass": {
+    "translations": {
+      "EN_US": "With the long grass brushing your legs with each step, you wonder what kind of insects are hiding in here."
+    }
+  },
+  "enter.forest": {
+    "translations": {
+      "EN_US": "Taking your first step into the forest, your foot gets engulfed in moist moss. Creatures make wailing sounds above you, as if making fun of you."
+    }
+  },
+  "enter.path": {
+    "translations": {
+      "EN_US": "Each step you take on the dirt path makes a satisfying crunch sound."
+    }
+  },
+  "enter.castle": {
+    "translations": {
+      "EN_US": "Walking up to the open gate, it doesnt look like theres much security here. The people around give you weird looks though."
+    }
+  },
+  "leave.grass": {
+    "translations": {
+      "EN_US": "Pushing the last tuff of grass out of your way, you pull the burs off your pants and shoes."
+    }
+  },
+  "leave.forest": {
+    "translations": {
+      "EN_US": "Walking out of the forest, you block the sun with your hands. Your glad to feel the its warmth again."
+    }
+  },
+  "leave.path": {
+    "translations": {
+      "EN_US": "You leave the path, feeling adventurous."
+    }
+  },
+  "leave.castle": {
+    "translations": {
+      "EN_US": "Walking through the same gate, you decide its best to go."
+    }
+  }
 }
