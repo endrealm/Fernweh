@@ -1,4 +1,5 @@
-﻿using Core.Input;
+﻿using Core.Content;
+using Core.Input;
 using Core.Scenes.MainMenu;
 using Core.States;
 using Core.Utils;
@@ -24,7 +25,7 @@ namespace Core
         private Scene _activeScene;
         private TopLevelRenderContext _renderContext;
 
-        public CoreGame(IUpdateableClickInput clickInput)
+        public CoreGame(IUpdateableClickInput clickInput, IContentLoader contentLoader)
         {
             _clickInput = clickInput;
             _graphics = new GraphicsDeviceManager(this);

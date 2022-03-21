@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.IO.Compression;
 using Core;
 
 namespace CrossPlatformDesktop
@@ -8,7 +10,7 @@ namespace CrossPlatformDesktop
         [STAThread]
         static void Main()
         {
-            using (var game = new CoreGame(new MouseClickInput()))
+            using (var game = new CoreGame(new MouseClickInput(), new ContentLoader()))
                 game.Run();
         }
     }
