@@ -11,6 +11,7 @@ public class LuaEffectBuilder
     private LuaFunction _onCalculateStats;
     private LuaFunction _onNextTurn;
     private LuaFunction _onTryCleanse;
+    private LuaFunction _onTurnEnd;
 
     public LuaEffectBuilder OnReceiveDamage(LuaFunction function)
     {
@@ -47,9 +48,16 @@ public class LuaEffectBuilder
         _onTryCleanse = function;
         return this;
     }
+
+    public LuaEffectBuilder OnTurnEnd(LuaFunction function)
+    {
+        _onTurnEnd = function;
+        return this;
+    }
     
     public IStatusEffect Build()
     {
-        return new LuaStatusEffect(_onReceiveDamage, _onDealDamage, _onTargetWithSpell, _onTargetedBySpell, _onCalculateStats, _onNextTurn, _onTryCleanse);
+        return new LuaStatusEffect(_onReceiveDamage, _onDealDamage, _onTargetWithSpell, _onTargetedBySpell,
+            _onCalculateStats, _onNextTurn, _onTryCleanse, _onTurnEnd);
     }
 }

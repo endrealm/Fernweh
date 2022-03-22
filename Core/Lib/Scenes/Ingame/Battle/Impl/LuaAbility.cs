@@ -1,10 +1,9 @@
-﻿
-using System.Linq;
+﻿using System.Linq;
 using NLua;
 
 namespace Core.Scenes.Ingame.Battle.Impl;
 
-public class LuaStatusEffect: IStatusEffect
+public class LuaAbility : IAbility
 {
     private readonly LuaFunction _onReceiveDamage;
     private readonly LuaFunction _onDealDamage;
@@ -12,11 +11,13 @@ public class LuaStatusEffect: IStatusEffect
     private readonly LuaFunction _onTargetedBySpell;
     private readonly LuaFunction _onCalculateStats;
     private readonly LuaFunction _onNextTurn;
-    private readonly LuaFunction _onTryCleanse;
+    private readonly LuaFunction _onUse;
+    private readonly LuaFunction _canUse;
     private readonly LuaFunction _onTurnEnd;
 
-    public LuaStatusEffect(LuaFunction onReceiveDamage, LuaFunction onDealDamage, LuaFunction onTargetWithSpell,
-        LuaFunction onTargetedBySpell, LuaFunction onCalculateStats, LuaFunction onNextTurn, LuaFunction onTryCleanse,
+    public LuaAbility(LuaFunction onReceiveDamage, LuaFunction onDealDamage, LuaFunction onTargetWithSpell,
+        LuaFunction onTargetedBySpell, LuaFunction onCalculateStats, LuaFunction onNextTurn, LuaFunction onUse,
+        LuaFunction canUse,
         LuaFunction onTurnEnd)
     {
         _onReceiveDamage = onReceiveDamage;
@@ -25,7 +26,8 @@ public class LuaStatusEffect: IStatusEffect
         _onTargetedBySpell = onTargetedBySpell;
         _onCalculateStats = onCalculateStats;
         _onNextTurn = onNextTurn;
-        _onTryCleanse = onTryCleanse;
+        _onUse = onUse;
+        _canUse = canUse;
         _onTurnEnd = onTurnEnd;
     }
 
@@ -57,9 +59,9 @@ public class LuaStatusEffect: IStatusEffect
     public void OnNextTurn(out bool skip)
     {
         skip = false;
-        if(_onNextTurn == null) return;
+        if (_onNextTurn == null) return;
         var results = _onNextTurn.Call();
-        if(results.Length == 0) return;
+        if (results.Length == 0) return;
         skip = (bool)results.First();
     }
 
@@ -68,13 +70,16 @@ public class LuaStatusEffect: IStatusEffect
         _onTurnEnd?.Call();
     }
 
-    public void OnTryCleanse(out bool persist)
+    public void Use(AbilityUseContext context)
     {
-        persist = false;
-        if(_onTryCleanse == null) return;
-        var results = _onTryCleanse.Call();
-        if(results.Length == 0) return;
-        persist = (bool)results.First();
-        
+        _onUse?.Call(context);
+    }
+
+    public bool CanUse(AbilityUseContext context)
+    {
+        var props = _canUse?.Call(context);
+        if (props is { Length: > 0 }) return (bool)props.First();
+
+        return true;
     }
 }

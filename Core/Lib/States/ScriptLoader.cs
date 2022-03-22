@@ -28,6 +28,9 @@ public class ScriptLoader
         #region Exposed Lua Interfaces
 
         lua["CreateStatusEffect"] = CreateEffectFactoryBuilder;
+        lua["CreateAbility"] = CreateAbilityFactoryBuilder;
+        lua["CreateConstantAbility"] = CreateConstantAbilityFactoryBuilder;
+        lua["CreateParticipant"] = CreateParticipantFactoryBuilder;
         lua["StateBuilder"] = BuildState;
         lua["SetDefaultBackgroundColor"] = SetDefaultBackgroundColor;
         lua["Global"] = _stateRegistry.GlobalEventHandler;
@@ -62,7 +65,23 @@ public class ScriptLoader
 
     private LuaEffectFactoryBuilder CreateEffectFactoryBuilder(string id)
     {
-        return new LuaEffectFactoryBuilder(id, factory => _battleRegistry.Register(factory));
+        return new LuaEffectFactoryBuilder(id, factory => _battleRegistry.RegisterEffect(factory));
+    }
+
+    private LuaAbilityFactoryBuilder CreateAbilityFactoryBuilder(string id)
+    {
+        return new LuaAbilityFactoryBuilder(id, factory => _battleRegistry.RegisterAbility(factory));
+    }
+
+    private LuaAbilityBuilder CreateConstantAbilityFactoryBuilder(string id)
+    {
+        return new LuaAbilityBuilder(ability =>
+            _battleRegistry.RegisterAbility(new ConstantLuaAbilityFactory(id, ability)));
+    }
+
+    private LuaParticipantFactoryBuilder CreateParticipantFactoryBuilder(string id)
+    {
+        return new LuaParticipantFactoryBuilder(id, factory => _battleRegistry.RegisterParticipant(factory));
     }
     
 }
