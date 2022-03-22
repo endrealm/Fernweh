@@ -32,7 +32,7 @@ namespace Core.Scenes.Ingame.World
              new (0,1),  
         };
 
-        public Player(IGlobalEventHandler globalEventHandler, IStateManager gameManager)
+        public Player(IGlobalEventHandler globalEventHandler, IStateManager gameManager, WorldRenderer worldRenderer)
         {
             _globalEventHandler = globalEventHandler;
             _gameManager = gameManager;

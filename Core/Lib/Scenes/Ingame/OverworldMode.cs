@@ -12,6 +12,7 @@ public class OverworldMode: IMode, IStateManager
     private readonly IFontManager _fontManager;
     private readonly DialogTranslationData _translationData;
     private readonly StateChatView _chatView;
+    public string weakNextId;
 
     public OverworldMode(IGlobalEventHandler eventHandler, StateRegistry stateRegistry, IFontManager fontManager, DialogTranslationData translationData)
     {
@@ -41,6 +42,12 @@ public class OverworldMode: IMode, IStateManager
         {
             NewState = ActiveState
         });
+
+        if (stateId == "null" && weakNextId != null)
+        {
+            LoadState(weakNextId);
+            weakNextId = null;
+        }
     }
     
     private void OnStateChanged(StateChangedEventArgs args)
