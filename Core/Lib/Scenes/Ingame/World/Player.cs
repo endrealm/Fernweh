@@ -1,4 +1,4 @@
-﻿using Core.Utils;
+using Core.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -10,16 +10,15 @@ namespace Core.Scenes.Ingame.World
     internal class Player: IRenderer<IngameRenderContext>, IUpdate<IngameUpdateContext>, ILoadable
     {
         private readonly IGlobalEventHandler _globalEventHandler;
-        private readonly GameManager _gameManager;
-
-        private readonly float _moveTime = 0.2f;
-        private readonly float _camMoveSpeed = 0.3f;
-        private readonly int _stepAmount = 8;
+        private readonly IStateManager _gameManager;
+        public Vector2 CurrentPos = new (0,0);
+        private float _moveTime = 0.2f;
+        private float _camMoveSpeed = 0.3f;
+        private int _stepAmount = 8;
 
         private float _moveTimer;
         private bool _firstFrame = true;
 
-        private Vector2 CurrentPos;
         private Vector2 _targetPos;
         private Vector2 _moveDir;
         private Texture2D _sprite;
@@ -33,7 +32,7 @@ namespace Core.Scenes.Ingame.World
              new (0,1),  
         };
 
-        public Player(IGlobalEventHandler globalEventHandler, GameManager gameManager, WorldRenderer worldRenderer)
+        public Player(IGlobalEventHandler globalEventHandler, IStateManager gameManager)
         {
             _globalEventHandler = globalEventHandler;
             _gameManager = gameManager;

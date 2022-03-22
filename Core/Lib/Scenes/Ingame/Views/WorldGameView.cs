@@ -1,20 +1,15 @@
-﻿using Core.Utils;
+﻿using Core.Scenes.Ingame.World;
+using Core.States;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
-using MonoGame.Extended;
-using Core.Scenes.Ingame.World;
-using System;
-using Core.Input;
-using Core.States;
 
-namespace Core.Scenes.Ingame;
+namespace Core.Scenes.Ingame.Views;
 
-public class GameView: IRenderer<IngameRenderContext>, IUpdate<IngameUpdateContext>, ILoadable
+public class WorldGameView: IGameView
 {
     private readonly WorldRenderer _worldRenderer;
     //private BattleRenderer battleRenderer;
-    public GameView(IGlobalEventHandler eventHandler, GameManager gameManager)
+    public WorldGameView(IGlobalEventHandler eventHandler, IStateManager gameManager)
     {
         _worldRenderer = new WorldRenderer(eventHandler, gameManager);
     }
