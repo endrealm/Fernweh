@@ -10,11 +10,16 @@ using Core.States;
 
 namespace Core.Scenes.Ingame;
 
-public class GameView: IRenderer<IngameRenderContext>, IUpdate<IngameUpdateContext>, ILoadable
+public interface IGameView : IRenderer<IngameRenderContext>, IUpdate<IngameUpdateContext>, ILoadable
+{
+    
+}
+
+public class WorldGameView: IGameView
 {
     private readonly WorldRenderer _worldRenderer;
     //private BattleRenderer battleRenderer;
-    public GameView(IGlobalEventHandler eventHandler, IStateManager gameManager)
+    public WorldGameView(IGlobalEventHandler eventHandler, IStateManager gameManager)
     {
         _worldRenderer = new WorldRenderer(eventHandler, gameManager);
     }

@@ -19,7 +19,7 @@ public class OverworldMode: IMode, IStateManager
         _fontManager = fontManager;
         _translationData = translationData;
         _chatView = new StateChatView();
-        GameView = new GameView(eventHandler, this);
+        GameView = new WorldGameView(eventHandler, this);
         ActiveState = _stateRegistry.ReadState("null"); // Start with "null" state.
         StateChangedEvent += OnStateChanged;
     }
@@ -28,7 +28,7 @@ public class OverworldMode: IMode, IStateManager
 
     public IChatView ChatView => _chatView;
 
-    public GameView GameView { get; }
+    public IGameView GameView { get; }
     
     public event StateChangedEventHandler StateChangedEvent;
     public IState ActiveState { get; private set; }

@@ -7,5 +7,5 @@ public interface IMode
 {
     public Color Background { get; }
     public IChatView ChatView { get; }
-    public GameView GameView { get; }
+    public IGameView GameView { get; }
 }
