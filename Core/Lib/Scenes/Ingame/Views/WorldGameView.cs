@@ -1,19 +1,9 @@
-﻿using Core.Utils;
+﻿using Core.Scenes.Ingame.World;
+using Core.States;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
-using MonoGame.Extended;
-using Core.Scenes.Ingame.World;
-using System;
-using Core.Input;
-using Core.States;
 
-namespace Core.Scenes.Ingame;
-
-public interface IGameView : IRenderer<IngameRenderContext>, IUpdate<IngameUpdateContext>, ILoadable
-{
-    
-}
+namespace Core.Scenes.Ingame.Views;
 
 public class WorldGameView: IGameView
 {
