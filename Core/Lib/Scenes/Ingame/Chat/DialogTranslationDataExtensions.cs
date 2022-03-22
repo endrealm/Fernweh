@@ -27,19 +27,20 @@ public static class DialogTranslationDataExtensions
 
 
 
-    public static IChatComponent BuildAnimated(this IChatComponentData data, SpriteFont font)
+    public static IChatComponent BuildAnimated(this IChatComponentData data, SpriteFont font, Action onFinish)
     {
-        return data.BuildAnimatedInternal(font);
+        return data.BuildAnimatedInternal(font, onFinish:onFinish);
     }
     public static IChatComponent BuildAnimatedAction(this IChatComponentData data, SpriteFont font, Action onClick)
     {
         return data.BuildAnimatedInternal(font, true, onClick);
     }
     private static IChatComponent BuildAnimatedInternal(
-        this IChatComponentData data, 
-        SpriteFont font, 
+        this IChatComponentData data,
+        SpriteFont font,
         bool clickable = false,
-        Action onClick = null
+        Action onClick = null,
+        Action onFinish = null
     ) {
         switch (data)
         {
@@ -50,7 +51,7 @@ public static class DialogTranslationDataExtensions
                 var compoundElement = clickable ? new ActionButtonComponent(onClick, list) : new CompoundTextComponent(list);
                 compound.Components.ForEach(componentData =>
                 {
-                    var component = componentData.BuildAnimated(font) as IChatInlineComponent;
+                    var component = componentData.BuildAnimated(font, null) as IChatInlineComponent;
                     queue.Enqueue(component);
                     component!.SetOnDone(() =>
                     {
@@ -61,6 +62,7 @@ public static class DialogTranslationDataExtensions
                         else
                         {
                             compoundElement.Done();
+                            onFinish?.Invoke();
                         }
                     });
                 });
@@ -71,6 +73,7 @@ public static class DialogTranslationDataExtensions
                 else
                 {
                     compoundElement.Done();
+                    onFinish?.Invoke();
                 }
                 return compoundElement;
             }
