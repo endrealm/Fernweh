@@ -114,8 +114,11 @@ namespace Core.Scenes.Ingame.World
                 if (CurrentPos == _targetPos) // just finished moving
                 {
                     DiscoverTiles();
-                    //_gameManager.LoadState("leave_" + _previousTileName);
-                    //_gameManager.weakNextId = "enter_" + _targetTileName;
+                    if(_previousTileName != _targetTileName) // add scene change text if changing tiles
+                    {
+                        _gameManager.LoadState("leave_" + _previousTileName);
+                        _gameManager.weakNextID = "enter_" + _targetTileName;
+                    }
                 }
             }
         }

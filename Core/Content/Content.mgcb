@@ -135,6 +135,11 @@
 /processor:LuaScriptProcessor
 /build:States/test.lua
 
+#begin States/testWorld.lua
+/importer:LuaScriptImporter
+/processor:LuaScriptProcessor
+/build:States/testWorld.lua
+
 #begin States/timeDay.lua
 /importer:LuaScriptImporter
 /processor:LuaScriptProcessor

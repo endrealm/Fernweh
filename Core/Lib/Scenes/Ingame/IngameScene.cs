@@ -36,7 +36,7 @@ public class IngameScene: Scene
         _translationData = content.Load<DialogTranslationData>("Dialogs/test");
         _gameManager = new GameManager(_stateRegistry, _fontManager, _translationData);
 
-        _scriptLoader.LoadScript(content.Load<string>("States/test"));
+        _scriptLoader.LoadScript(content.Load<string>("States/testWorld"));
         _scriptLoader.LoadScript(content.Load<string>("Scripts/effects"));
         _scriptLoader.LoadScript(content.Load<string>("Scripts/abilities"));
         _scriptLoader.LoadScript(content.Load<string>("Scripts/participants"));
