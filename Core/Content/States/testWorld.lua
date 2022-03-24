@@ -37,8 +37,73 @@ StateBuilder("enter_path")
 StateBuilder("enter_castle")
         :Render(
                 function(renderer, context)
-                    renderer:AddText("enter.castle")
+                    renderer:AddText("text.castle.enter")
+                    renderer:AddAction(function() context:ChangeState("castle_entrance") end, "button.castle.enter.entrance")
                     renderer:AddAction(function() context:Exit() end, "dialog.example.1.button")
+                end
+        )
+        :Build()
+
+StateBuilder("castle_entrance")
+        :Render(
+                function(renderer, context)
+                    renderer:AddText("text.castle.entrance")
+                    renderer:AddAction(function() context:ChangeState("castle_corridor") end, "button.castle.enter.corridor")
+                    renderer:AddAction(function() context:ChangeState("castle_shops") end, "button.castle.enter.shops")
+                    renderer:AddAction(function() context:Exit() end, "dialog.example.3.button")
+                end
+        )
+        :Build()
+
+StateBuilder("castle_corridor")
+        :Render(
+                function(renderer, context)
+                    renderer:AddText("text.castle.guard.look")
+
+                    renderer:AddAction(
+                    function()
+                        renderer:AddText("text.castle.guard.greet") 
+                        renderer:AddAction(function() context:ChangeState("castle_entrance") end, "dialog.example.3.button") 
+                    end, "button.castle.guards.greet")
+
+                    renderer:AddAction(
+                    function() 
+                        context:ChangeState("castle_corridor_greet")
+                    end, "button.castle.guards.greet")
+
+                    renderer:AddAction(
+                    function() 
+                        context:ChangeState("castle_corridor_threaten")
+                    end, "button.castle.guards.threaten")
+
+                    renderer:AddAction(function() context:ChangeState("castle_entrance") end, "dialog.example.3.button")
+                end
+        )
+        :Build()
+
+StateBuilder("castle_corridor_greet")
+        :Render(
+                function(renderer, context)
+                    renderer:AddText("text.castle.guard.greet") 
+                    renderer:AddAction(function() context:ChangeState("castle_entrance") end, "dialog.example.3.button")
+                end
+        )
+        :Build()
+
+StateBuilder("castle_corridor_threaten")
+        :Render(
+                function(renderer, context)
+                    renderer:AddText("text.castle.guard.threaten") 
+                    renderer:AddAction(function() context:ChangeState("castle_entrance") end, "dialog.example.3.button")
+                end
+        )
+        :Build()
+
+StateBuilder("castle_shops")
+        :Render(
+                function(renderer, context)
+                    renderer:AddText("text.castle.shops")
+                    renderer:AddAction(function() context:ChangeState("castle_entrance") end, "dialog.example.3.button")
                 end
         )
         :Build()

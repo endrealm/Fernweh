@@ -14,6 +14,11 @@
       "EN_US": "<color=\"Red\">Run for your life!</color>"
     }
   },
+  "dialog.example.3.button": {
+    "translations": {
+      "EN_US": "Leave"
+    }
+  },
   "dialog.example.2": {
     "translations": {
       "EN_US": "A <color=\"Red\">HUGE</color> demon rises up in front of you. His horns are larger than your whole body. He turns towards you a <color=\"Purple\">vicious smile</color> on his face..."
@@ -39,9 +44,59 @@
       "EN_US": "Each step you take on the dirt path makes a satisfying crunch sound."
     }
   },
-  "enter.castle": {
+  "text.castle.enter": {
     "translations": {
       "EN_US": "Walking up to the open gate, it doesnt look like theres much security here. The people around give you weird looks though."
+    }
+  },
+  "button.castle.enter.entrance": {
+    "translations": {
+      "EN_US": "<color=\"Green\">Enter</color> the gate, hoping you wont be searched"
+    }
+  },
+  "button.castle.enter.corridor": {
+    "translations": {
+      "EN_US": "Search the corridor"
+    }
+  },
+  "button.castle.guards.threaten": {
+    "translations": {
+      "EN_US": "Threaten the guards"
+    }
+  },
+  "button.castle.guards.greet": {
+    "translations": {
+      "EN_US": "Greet the guards"
+    }
+  },
+  "button.castle.enter.shops": {
+    "translations": {
+      "EN_US": "Check the shops"
+    }
+  },
+  "text.castle.entrance": {
+    "translations": {
+      "EN_US": "Past the gate is a large open area, with a fountain in the middle. To the right side you see a row of shops, and to the left a dark corridor."
+    }
+  },
+  "text.castle.guard.look": {
+    "translations": {
+      "EN_US": "You go through the corridor a little ways but come across some stern looking guards."
+    }
+  },
+  "text.castle.guard.greet": {
+    "translations": {
+      "EN_US": "\"Howdy diddly oh, sure is a nice day.\" you say with a goofy smile. The guards dont even pay attention to you. You consider your wasting your time."
+    }
+  },
+  "text.castle.guard.threaten": {
+    "translations": {
+      "EN_US": "\"GET OUT OF MY WAY!\" you shout pulling your weapon out! The guards dont even pay attention to you. You consider your wasting your time."
+    }
+  },
+  "text.castle.shops": {
+    "translations": {
+      "EN_US": "The market here is busy with people. The sound of people bartering orchestrates together terrible and is irritating. Realizing shops arent implemented, you realize theres nothing to do here :P"
     }
   },
   "leave.grass": {
