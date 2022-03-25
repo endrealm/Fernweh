@@ -30,6 +30,8 @@ public class RenderContext
                 new ParticipantConfigBuilder("you")
                     .Health(10)
                     .Mana(10)
+                    .AddAbility(new LuaAbilityConfigBuilder("test_ability").Build())
+                    .AddAbility(new LuaAbilityConfigBuilder("test_ability_2").Build())
                     .Build()
             }
             );

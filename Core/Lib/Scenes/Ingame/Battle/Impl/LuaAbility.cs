@@ -15,10 +15,19 @@ public class LuaAbility : IAbility
     private readonly LuaFunction _canUse;
     private readonly LuaFunction _onTurnEnd;
 
-    public LuaAbility(LuaFunction onReceiveDamage, LuaFunction onDealDamage, LuaFunction onTargetWithSpell,
-        LuaFunction onTargetedBySpell, LuaFunction onCalculateStats, LuaFunction onNextTurn, LuaFunction onUse,
+    public LuaAbility(
+        LuaFunction onReceiveDamage,
+        LuaFunction onDealDamage,
+        LuaFunction onTargetWithSpell,
+        LuaFunction onTargetedBySpell,
+        LuaFunction onCalculateStats,
+        LuaFunction onNextTurn,
+        LuaFunction onUse,
         LuaFunction canUse,
-        LuaFunction onTurnEnd)
+        LuaFunction onTurnEnd,
+        string category,
+        string id
+    )
     {
         _onReceiveDamage = onReceiveDamage;
         _onDealDamage = onDealDamage;
@@ -29,6 +38,8 @@ public class LuaAbility : IAbility
         _onUse = onUse;
         _canUse = canUse;
         _onTurnEnd = onTurnEnd;
+        CategoryId = category;
+        Id = id;
     }
 
     public void OnReceiveDamage(DamageReceiveEvent evt)
@@ -82,4 +93,8 @@ public class LuaAbility : IAbility
 
         return true;
     }
+
+    public string CategoryId { get; }
+
+    public string Id { get; }
 }

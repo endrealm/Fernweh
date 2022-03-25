@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Core.Scenes.Ingame;
 
-public readonly struct ModeParameters
+public class ModeParameters
 {
     private readonly Dictionary<string, object> _data = new();
 

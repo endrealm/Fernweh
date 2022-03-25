@@ -16,6 +16,6 @@ public class LuaAbilityFactory : IAbilityFactory
 
     public IAbility Produce(AbilityConfig config)
     {
-        return (IAbility)_produce.Call(new LuaAbilityBuilder(), config).First();
+        return (IAbility)_produce.Call(new LuaAbilityBuilder(Id), config).First();
     }
 }

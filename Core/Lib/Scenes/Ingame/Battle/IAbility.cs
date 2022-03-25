@@ -4,4 +4,6 @@ public interface IAbility : IBattleEventReceiver
 {
     void Use(AbilityUseContext context);
     bool CanUse(AbilityUseContext context);
+    string CategoryId { get; }
+    string Id { get; }
 }

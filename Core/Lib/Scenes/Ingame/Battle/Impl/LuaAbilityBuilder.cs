@@ -16,9 +16,12 @@ public class LuaAbilityBuilder
     private LuaFunction _onTurnEnd;
     private LuaFunction _onUse;
     private LuaFunction _canUse;
+    private string _category = "ability";
+    private readonly string _id;
 
-    public LuaAbilityBuilder(Action<LuaAbility> onAbilityBuild = null)
+    public LuaAbilityBuilder(string id, Action<LuaAbility> onAbilityBuild = null)
     {
+        _id = id;
         _onAbilityBuild = onAbilityBuild;
     }
 
@@ -76,10 +79,16 @@ public class LuaAbilityBuilder
         return this;
     }
 
+    public LuaAbilityBuilder CategoryId(string category)
+    {
+        _category = category;
+        return this;
+    }
+
     public IAbility Build()
     {
         var ability = new LuaAbility(_onReceiveDamage, _onDealDamage, _onTargetWithSpell, _onTargetedBySpell,
-            _onCalculateStats, _onNextTurn, _onUse, _canUse, _onTurnEnd);
+            _onCalculateStats, _onNextTurn, _onUse, _canUse, _onTurnEnd, _category, _id);
         _onAbilityBuild?.Invoke(ability);
         return ability;
     }

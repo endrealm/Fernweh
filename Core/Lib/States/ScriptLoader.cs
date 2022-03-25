@@ -75,7 +75,7 @@ public class ScriptLoader
 
     private LuaAbilityBuilder CreateConstantAbilityFactoryBuilder(string id)
     {
-        return new LuaAbilityBuilder(ability =>
+        return new LuaAbilityBuilder(id, ability =>
             _battleRegistry.RegisterAbility(new ConstantLuaAbilityFactory(id, ability)));
     }
 

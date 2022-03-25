@@ -41,16 +41,28 @@ public class BattleChatView: BaseChatView, IPlayerBattleInput
             Clear();
             PrintSelectionHeader(participant);
         }
-        
-        AddAction("battle.participant.list.abilities", () =>
+
+        var dict = new Dictionary<string, List<IAbility>>();
+        participant.GetAbilities().ForEach(ability =>
         {
-            ShowAbilities(participant);
+            if (dict.ContainsKey(ability.CategoryId))
+            {
+                dict[ability.CategoryId].Add(ability);
+                return;
+            }
+
+            dict.Add(ability.CategoryId, new List<IAbility> { ability });
         });
-        
-        AddAction("battle.participant.list.skills", () =>
-        {
-            ShowSkills(participant);
-        });
+
+        AddText("battle.participant.list.attack");
+        AddText("battle.participant.list.defend");
+        foreach (var pair in dict)
+            AddAction("battle.participant.list.ability."+ pair.Key, () =>
+            {
+                ShowAbilities(participant, pair.Key, pair.Value);
+            });
+        AddText("battle.participant.list.items");
+
         LoadNextComponentInQueue();
     }
 
@@ -66,7 +78,7 @@ public class BattleChatView: BaseChatView, IPlayerBattleInput
         );
     }
 
-    private void ShowAbilities(IBattleParticipant participant)
+    private void ShowAbilities(IBattleParticipant participant, string categoryId, List<IAbility> abilities)
     {
         Clear(SelectionPhaseHeaderLength);
         
@@ -74,20 +86,16 @@ public class BattleChatView: BaseChatView, IPlayerBattleInput
         {
             RenderRound(participant);
         });
-        
-        AddText("abilties should go here");
-        LoadNextComponentInQueue();
-    }
-    private void ShowSkills(IBattleParticipant participant)
-    {
-        Clear(SelectionPhaseHeaderLength);
-        
-        AddAction("battle.participant.list.back", () =>
+
+        AddText("battle.ability.category." + categoryId);
+
+        abilities.ForEach(ability =>
         {
-            RenderRound(participant);
+            AddAction("battle.ability." + ability.Id, () =>
+            {
+                // todo: select participant action here
+            });
         });
-        
-        AddText("skills should go here");
         LoadNextComponentInQueue();
     }
 }
