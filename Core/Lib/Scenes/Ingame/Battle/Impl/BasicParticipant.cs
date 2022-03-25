@@ -78,7 +78,7 @@ public class BasicParticipant : IBattleParticipant
 
     public int Mana { get; }
 
-    public IBattleStrategy Strategy { get; set; }
+    public IBattleStrategy Strategy { get; set; } = new FallbackStrategy();
 
     public List<IAbility> GetAbilities()
     {

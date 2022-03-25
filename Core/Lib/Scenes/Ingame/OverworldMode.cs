@@ -20,7 +20,7 @@ public class OverworldMode: IMode, IStateManager
         _stateRegistry = stateRegistry;
         _fontManager = fontManager;
         _translationData = translationData;
-        _chatView = new StateChatView();
+        _chatView = new StateChatView(translationData, fontManager);
         GameView = new WorldGameView(eventHandler, this);
         ActiveState = _stateRegistry.ReadState("null"); // Start with "null" state.
         StateChangedEvent += OnStateChanged;

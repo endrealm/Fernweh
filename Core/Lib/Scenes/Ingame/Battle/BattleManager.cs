@@ -35,7 +35,7 @@ public class BattleManager
     public async void DoRound()
     {
         // Assigns actions to all player controlled units
-        await _playerInput.HandlePlayerInput();
+        await _playerInput.HandlePlayerInput(_friendlies);
         var actions = new List<IBattleAction>();
         _friendlies.ForEach(participant =>
         {
