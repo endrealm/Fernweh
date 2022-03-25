@@ -11,4 +11,5 @@ public interface IBattleParticipant : IBattleEventReceiver
     public List<IAbility> GetAbilities();
     public List<IStatusEffect> GetActiveEffects();
     IBattleAction NextAction { get; set; }
+    Stats GetStats();
 }

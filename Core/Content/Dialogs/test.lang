@@ -4,6 +4,26 @@
       "EN_US": "You stand at the entrance to a <color=\"Gray\">nightmarish</color> grave."
     }
   },
+  "battle.participant.list.name": {
+    "translations": {
+      "EN_US": "<color=\"Orange\">{name}</color>: <color=\"Red\">{health}</color>\\<color=\"DarkRed\">{max_health}</color>HP <color=\"Aqua\">{mana}</color>\\<color=\"Blue\">{max_mana}</color>MP"
+    }
+  },
+  "battle.participant.list.abilities": {
+    "translations": {
+      "EN_US": "-> Abilities"
+    }
+  },
+  "battle.participant.list.skills": {
+    "translations": {
+      "EN_US": "-> Skills"
+    }
+  },
+  "battle.participant.list.back": {
+    "translations": {
+      "EN_US": "-> Back"
+    }
+  },
   "dialog.example.1.button": {
     "translations": {
       "EN_US": "Walk <color=\"Green\">forward</color> slowly!"

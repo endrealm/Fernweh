@@ -6,8 +6,6 @@ namespace Core.Scenes.Ingame.Battle.Impl;
 public class ParticipantConfigBuilder
 {
     private readonly string _id;
-    private int _health;
-    private int _mana;
     private Stats _stats = new();
     private List<AbilityConfig> _abilities = new();
 
@@ -18,12 +16,12 @@ public class ParticipantConfigBuilder
 
     public ParticipantConfigBuilder Health(int value)
     {
-        _health = value;
+        _stats.Health = value;
         return this;
     }
     public ParticipantConfigBuilder Mana(int value)
     {
-        _mana = value;
+        _stats.Mana = value;
         return this;
     }
     
@@ -69,8 +67,6 @@ public class ParticipantConfigBuilder
     {
         return new ParticipantConfig(
             _id,
-            _health,
-            _mana,
             _stats,
             _abilities
         );

@@ -12,8 +12,8 @@ public class BasicParticipant : IBattleParticipant
     {
         _config = config;
         ParticipantId = participantId;
-        Health = config.Health;
-        Mana = config.Mana;
+        Health = config.Stats.Health;
+        Mana = config.Stats.Mana;
     }
 
     #region Events
@@ -91,4 +91,10 @@ public class BasicParticipant : IBattleParticipant
     }
 
     public IBattleAction NextAction { get; set; }
+    public Stats GetStats()
+    {
+        var baseStats = _config.Stats.Clone();
+        OnCalculateStats(baseStats);
+        return baseStats;
+    }
 }
