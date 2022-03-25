@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using NLua;
 
 namespace Core.Scenes.Ingame.Battle.Impl;
@@ -14,6 +16,8 @@ public class LuaAbility : IAbility
     private readonly LuaFunction _onUse;
     private readonly LuaFunction _canUse;
     private readonly LuaFunction _onTurnEnd;
+    public string CategoryId { get; }
+    public string Id { get; }
 
     public LuaAbility(
         LuaFunction onReceiveDamage,
@@ -86,7 +90,7 @@ public class LuaAbility : IAbility
         _onUse?.Call(context);
     }
 
-    public bool CanUse(AbilityUseContext context)
+    public bool CanUse(AbilityUseCheckContext context)
     {
         var props = _canUse?.Call(context);
         if (props is { Length: > 0 }) return (bool)props.First();
@@ -94,7 +98,30 @@ public class LuaAbility : IAbility
         return true;
     }
 
-    public string CategoryId { get; }
+    public IBattleAction ProduceAction(IBattleParticipant participant, List<IBattleParticipant> targets)
+    {
+        return new AbilityAction(this, participant, targets);
+    }
+}
 
-    public string Id { get; }
+public class AbilityAction : IBattleAction
+{
+    private readonly IAbility _ability;
+    private readonly List<IBattleParticipant> _targets;
+
+    public AbilityAction(IAbility ability, IBattleParticipant participant, List<IBattleParticipant> targets)
+    {
+        _ability = ability;
+        _targets = targets;
+        Participant = participant;
+    }
+
+    public IBattleParticipant Participant { get; }
+
+    public async Task DoAction(ActionContext context)
+    {
+        _ability.Use(new AbilityUseContext(Participant, _targets));
+    }
+
+    public int Priority => Participant.GetStats().Agility;
 }

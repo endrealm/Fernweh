@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Core.Scenes.Ingame.Battle.Impl;
 using Core.Utils;
 
@@ -69,6 +70,8 @@ public class BattleManager
         // Execute and await all actions
         _friendlies.ForEach(participant => { participant.OnTurnEnd(); });
         _enemies.ForEach(participant => { participant.OnTurnEnd(); });
+
+        Task.Run(DoRound);
     }
     
 }

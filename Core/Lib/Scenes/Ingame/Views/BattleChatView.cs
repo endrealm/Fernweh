@@ -91,9 +91,16 @@ public class BattleChatView: BaseChatView, IPlayerBattleInput
 
         abilities.ForEach(ability =>
         {
+            if (!ability.CanUse(new AbilityUseCheckContext(participant)))
+            {
+                AddText("battle.ability." + ability.Id + ".blocked");
+                return;
+            }
+
             AddAction("battle.ability." + ability.Id, () =>
             {
-                // todo: select participant action here
+                Clear();
+                participant.NextAction = ability.ProduceAction(participant, new List<IBattleParticipant>());
             });
         });
         LoadNextComponentInQueue();

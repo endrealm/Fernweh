@@ -1,9 +1,12 @@
-﻿namespace Core.Scenes.Ingame.Battle;
+﻿using System.Collections.Generic;
+
+namespace Core.Scenes.Ingame.Battle;
 
 public interface IAbility : IBattleEventReceiver
 {
     void Use(AbilityUseContext context);
-    bool CanUse(AbilityUseContext context);
+    bool CanUse(AbilityUseCheckContext context);
     string CategoryId { get; }
     string Id { get; }
+    IBattleAction ProduceAction(IBattleParticipant participant, List<IBattleParticipant> targets);
 }
