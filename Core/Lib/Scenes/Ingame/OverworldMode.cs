@@ -8,13 +8,15 @@ namespace Core.Scenes.Ingame;
 
 public class OverworldMode: IMode, IStateManager
 {
+    private readonly GameManager _gameManager;
     private readonly StateRegistry _stateRegistry;
     private readonly IFontManager _fontManager;
     private readonly DialogTranslationData _translationData;
     private readonly StateChatView _chatView;
 
-    public OverworldMode(IGlobalEventHandler eventHandler, StateRegistry stateRegistry, IFontManager fontManager, DialogTranslationData translationData)
+    public OverworldMode(GameManager gameManager, IGlobalEventHandler eventHandler, StateRegistry stateRegistry, IFontManager fontManager, DialogTranslationData translationData)
     {
+        _gameManager = gameManager;
         _stateRegistry = stateRegistry;
         _fontManager = fontManager;
         _translationData = translationData;
@@ -50,7 +52,7 @@ public class OverworldMode: IMode, IStateManager
     private void OnStateChanged(StateChangedEventArgs args)
     {
         var renderer = new StateRenderer(_translationData, Language.EN_US, _fontManager, (color) => Background = color);
-        args.NewState.Render(renderer, new RenderContext(this));
+        args.NewState.Render(renderer, new RenderContext(this, _gameManager));
         _chatView.RenderResults(renderer);
     }
 

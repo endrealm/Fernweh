@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Core.Scenes.Ingame.Battle;
 using Core.States;
 using Core.Utils;
 using Microsoft.Xna.Framework.Content;
@@ -14,12 +15,12 @@ public class GameManager: ILoadable
     
     private Dictionary<string, IMode> _modes = new();
 
-    public GameManager(StateRegistry stateRegistry, IFontManager fontManager, DialogTranslationData translationData)
+    public GameManager(BattleRegistry registry, StateRegistry stateRegistry, IFontManager fontManager, DialogTranslationData translationData)
     {
-        var overworld = new OverworldMode(stateRegistry.GlobalEventHandler, stateRegistry, fontManager, translationData);
+        var overworld = new OverworldMode(this, stateRegistry.GlobalEventHandler, stateRegistry, fontManager, translationData);
         StateManager = overworld;
         _modes.Add("overworld", overworld);
-        _modes.Add("battle", new BattleMode());
+        _modes.Add("battle", new BattleMode(registry));
         LoadMode("overworld");
     }
 

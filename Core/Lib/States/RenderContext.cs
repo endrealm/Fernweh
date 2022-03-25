@@ -1,22 +1,42 @@
-﻿using Core.Scenes.Ingame;
+﻿using System.Collections.Generic;
+using Core.Scenes.Ingame;
+using Core.Scenes.Ingame.Battle;
+using Core.Scenes.Ingame.Battle.Impl;
 
 namespace Core.States;
 
 public class RenderContext
 {
-    private readonly IStateManager _gameManager;
+    private readonly IStateManager _stateManager;
+    private readonly GameManager _gameManager;
 
-    public RenderContext(IStateManager stateManager)
+    public RenderContext(IStateManager stateManager, GameManager gameManager)
     {
-        _gameManager = stateManager;
+        _stateManager = stateManager;
+        _gameManager = gameManager;
     }
 
     public void ChangeState(string stateId)
     {
-        _gameManager.LoadState(stateId);
+        _stateManager.LoadState(stateId);
+    }
+    
+    public void StartBattle()
+    {
+        var config = new BattleConfig(
+            new List<string> {"test"}, 
+            new List<ParticipantConfig>
+            {
+                new ParticipantConfigBuilder("you")
+                    .Health(10)
+                    .Mana(10)
+                    .Build()
+            }
+            );
+        _gameManager.LoadMode("battle", new ModeParameters().AppendData("config", config));
     }
     public void Exit()
     {
-        _gameManager.LoadState("null");
+        _stateManager.LoadState("null");
     }
 }
