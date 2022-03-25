@@ -1,0 +1,11 @@
+﻿{
+  "name": "testMap",
+  "explorable": true,
+  "Tile Positions": {
+    "0, 0": {
+      "name": "castle",
+      "enterState": "enter_castle",
+      "leaveState": "leave_castle"
+    }
+  }
+} 
