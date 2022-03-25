@@ -25,7 +25,13 @@ public class GameManager: ILoadable
 
     public void LoadMode(string id)
     {
+        LoadMode(id, new ModeParameters());
+    }
+    
+    public void LoadMode(string id, ModeParameters parameters)
+    {
         Mode = _modes[id];
+        Mode.Load(parameters);
     }
 
     public void Load(ContentManager content)

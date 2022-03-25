@@ -29,7 +29,11 @@ public class OverworldMode: IMode, IStateManager
     public IChatView ChatView => _chatView;
 
     public IGameView GameView { get; }
-    
+    public void Load(ModeParameters parameters)
+    {
+        
+    }
+
     public event StateChangedEventHandler StateChangedEvent;
     public IState ActiveState { get; private set; }
     
