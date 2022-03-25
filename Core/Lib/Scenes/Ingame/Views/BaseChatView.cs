@@ -41,7 +41,7 @@ public class BaseChatView : IChatView
         Width = 0;
     }
     
-    protected void Clear()
+    public void Clear()
     {
         QueuedComponents = new Queue<IChatComponent>();
         RunningComponents.Clear();
@@ -90,7 +90,7 @@ public class BaseChatView : IChatView
         });
     }
     
-    public void AddText(string key, Action callback = null, params Replacement[] replacements)
+    public IChatComponent AddText(string key, Action callback = null, params Replacement[] replacements)
     {
         var groups = _translationData.TranslationGroups;
         IChatComponent text;
@@ -109,14 +109,15 @@ public class BaseChatView : IChatView
                 .BuildAnimated(_fontManager.GetChatFont(), () => callback?.Invoke(), replacements);
         }
         QueuedComponents.Enqueue(text);
+        return text;
     }
     
-    public void AddText(string key, params Replacement[] replacements)
+    public IChatComponent AddText(string key, params Replacement[] replacements)
     {
-        AddText(key, null, replacements);
+        return AddText(key, null, replacements);
     }
 
-    public void AddAction(string key, Action callback, params Replacement[] replacements)
+    public IChatComponent AddAction(string key, Action callback, params Replacement[] replacements)
     {
         var groups = _translationData.TranslationGroups;
         IChatComponent text;
@@ -135,6 +136,11 @@ public class BaseChatView : IChatView
                 .BuildAnimatedAction(_fontManager.GetChatFont(), callback, replacements);
         }
         QueuedComponents.Enqueue(text);
+        return text;
     }
-    
+
+    public void ForceLoadNext()
+    {
+        LoadNextComponentInQueue();
+    }
 }

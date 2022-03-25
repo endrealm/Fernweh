@@ -16,6 +16,6 @@ public static class Extensions
 
     public static void AddRange<T>(this Queue<T> queue, IEnumerable<T> range)
     {
-        foreach (var x1 in range.Reverse()) queue.Enqueue(x1);
+        foreach (var x1 in range) queue.Enqueue(x1);
     }
 }

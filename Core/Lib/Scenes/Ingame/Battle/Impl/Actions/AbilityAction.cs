@@ -23,11 +23,13 @@ public class AbilityAction : IBattleAction
         var spellEvent = new SpellTargetEvent(_targets, Participant, false, new SpellData());
         Participant.OnTargetWithSpell(spellEvent);
         _targets.ForEach(target => target.OnTargetedBySpell(spellEvent));
-        context.QueueAction(new LogTextAction("ability.used",
+        context.QueueAction(
+            new LogTextAction("ability.used",
                 new Replacement("ability", _ability.Id),
                 new Replacement("caster", Participant.ParticipantId)
             )
         );
+        context.QueueAction(new AwaitNextAction());
 
         // Spell has been reflected
         if (spellEvent.Source != Participant) context.QueueAction(new LogTextAction("ability.reflected"));

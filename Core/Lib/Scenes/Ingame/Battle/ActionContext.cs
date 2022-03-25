@@ -1,13 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using Core.Scenes.Ingame.Chat;
+using Core.Scenes.Ingame.Views;
+using PipelineExtensionLibrary;
 
 namespace Core.Scenes.Ingame.Battle;
 
 public class ActionContext
 {
+    private readonly IChatView _chatView;
     private readonly List<IBattleAction> _actions = new();
 
+    public ActionContext(IChatView chatView)
+    {
+        _chatView = chatView;
+    }
+    
     public IEnumerable<IBattleAction> GetActionList()
     {
         return _actions;
@@ -18,15 +26,23 @@ public class ActionContext
         _actions.Add(battleAction);
     }
 
-    public ActionContext AddText(string key, Action onDone, Replacement[] replacements)
+    public ActionContext AddText(string key, Action onDone, params Replacement[] replacements)
     {
-        Console.WriteLine("Show text: " + key);
+        var item = _chatView.AddText(key, replacements);
+        item.SetOnDone(onDone);
+        _chatView.ForceLoadNext();
         return this;
     }
 
-    public ActionContext AddAction(string key, Action onClick, Replacement[] replacements)
+    public ActionContext AddAction(string key, Action onClick, params Replacement[] replacements)
     {
-        Console.WriteLine("Show action: " + key);
+        _chatView.AddAction(key, onClick, replacements);
+        _chatView.ForceLoadNext();
         return this;
+    }
+
+    public void ClearChat()
+    {
+        _chatView.Clear();
     }
 }

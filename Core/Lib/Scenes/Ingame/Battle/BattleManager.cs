@@ -2,19 +2,22 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Core.Scenes.Ingame.Battle.Impl;
+using Core.Scenes.Ingame.Views;
 using Core.Utils;
 
 namespace Core.Scenes.Ingame.Battle;
 
 public class BattleManager
 {
+    private readonly IChatView _chatView;
     private readonly BattleRegistry _registry;
     private readonly IPlayerBattleInput _playerInput;
     private readonly List<IBattleParticipant> _friendlies;
     private readonly List<IBattleParticipant> _enemies;
 
-    public BattleManager(BattleRegistry registry, BattleConfig config, IPlayerBattleInput playerInput)
+    public BattleManager(IChatView chatView, BattleRegistry registry, BattleConfig config, IPlayerBattleInput playerInput)
     {
+        _chatView = chatView;
         _registry = registry;
         _playerInput = playerInput;
         _enemies = config.Enemies.Select(id => CreateParticipant(registry.GetParticipantFactory(id).Produce()))
@@ -62,7 +65,7 @@ public class BattleManager
         while (actionQueue.Count > 0)
         {
             var action = actionQueue.Dequeue();
-            var context = new ActionContext();
+            var context = new ActionContext(_chatView);
             await action.DoAction(context);
             actionQueue.AddRange(context.GetActionList());
         }
@@ -70,6 +73,7 @@ public class BattleManager
         // Execute and await all actions
         _friendlies.ForEach(participant => { participant.OnTurnEnd(); });
         _enemies.ForEach(participant => { participant.OnTurnEnd(); });
+        await Task.Delay(2000);
 
         Task.Run(DoRound);
     }
