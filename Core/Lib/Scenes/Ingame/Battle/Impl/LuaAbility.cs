@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using Core.Scenes.Ingame.Battle.Impl.Actions;
 using NLua;
 
 namespace Core.Scenes.Ingame.Battle.Impl;
@@ -102,26 +102,4 @@ public class LuaAbility : IAbility
     {
         return new AbilityAction(this, participant, targets);
     }
-}
-
-public class AbilityAction : IBattleAction
-{
-    private readonly IAbility _ability;
-    private readonly List<IBattleParticipant> _targets;
-
-    public AbilityAction(IAbility ability, IBattleParticipant participant, List<IBattleParticipant> targets)
-    {
-        _ability = ability;
-        _targets = targets;
-        Participant = participant;
-    }
-
-    public IBattleParticipant Participant { get; }
-
-    public async Task DoAction(ActionContext context)
-    {
-        _ability.Use(new AbilityUseContext(Participant, _targets));
-    }
-
-    public int Priority => Participant.GetStats().Agility;
 }
