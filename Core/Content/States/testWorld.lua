@@ -61,12 +61,6 @@ StateBuilder("castle_corridor")
                     renderer:AddText("text.castle.guard.look")
 
                     renderer:AddAction(
-                    function()
-                        renderer:AddText("text.castle.guard.greet") 
-                        renderer:AddAction(function() context:ChangeState("castle_entrance") end, "dialog.example.3.button") 
-                    end, "button.castle.guards.greet")
-
-                    renderer:AddAction(
                     function() 
                         context:ChangeState("castle_corridor_greet")
                     end, "button.castle.guards.greet")

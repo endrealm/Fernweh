@@ -17,8 +17,8 @@ public class WorldGameView: IGameView, IRenderer<IngameRenderContext>, IUpdate<I
 {
     public List<Vector2> DiscoveredTiles = new List<Vector2>();
 
-    public MapData mapData;
-    public WorldDataRegistry worldDataRegistry = new WorldDataRegistry();
+    public MapDataRegistry mapDataRegistry = new MapDataRegistry();
+    public TileDataRegistry tileDataRegistry = new TileDataRegistry();
     private Player _player;
 
     private Vector2 _cameraCulling;
@@ -37,13 +37,13 @@ public class WorldGameView: IGameView, IRenderer<IngameRenderContext>, IUpdate<I
         {
             for (int y = (int)_cameraCulling.Y; y < (int)_cameraCulling.Y + 9; y++)
             {
-                if (DiscoveredTiles.Contains(new Vector2(x, y)) || !mapData.explorable) // only render tiles explored, unless the map isnt set to be explorable
+                if (DiscoveredTiles.Contains(new Vector2(x, y)) || !mapDataRegistry.GetLoadedMap().explorable) // only render tiles explored, unless the map isnt set to be explorable
                 {
-                    var tileData = mapData.GetTile(new Vector2(x, y));
+                    var tileData = mapDataRegistry.GetLoadedMap().GetTile(new Vector2(x, y));
 
                     if (tileData != null) // dont render whats not there :P
                         spriteBatch.Draw(
-                            worldDataRegistry.GetTile(tileData.name).Frames[0], // grab sprite
+                            tileDataRegistry.GetTile(tileData.name).Frames[0], // grab sprite
                             new Rectangle((int)x * 32 + context.ChatWidth, y * 32, 32, 32), // get world position to render at
                             context.WorldTint);
                 }
@@ -55,9 +55,9 @@ public class WorldGameView: IGameView, IRenderer<IngameRenderContext>, IUpdate<I
 
     public void Load(ContentManager content)
     {
-        mapData = new MapData();
-        //mapData = JsonConvert.DeserializeObject<MapData>(content.Load<string>("Maps/test")); 
-        worldDataRegistry.Load(content);
+        tileDataRegistry.Load(content);
+        mapDataRegistry.Load(content);
+
         _player.Load(content);
         _player.TeleportPlayer(new Vector2(0, 0));
     }

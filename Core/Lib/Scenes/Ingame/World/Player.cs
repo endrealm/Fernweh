@@ -49,8 +49,8 @@ namespace Core.Scenes.Ingame.World
         public void TeleportPlayer(Vector2 mapPos) // can be used to move to spawn
         {
             if (CurrentPos != _targetPos) return; // cant move if currently moving
-            if (_worldRenderer.mapData.GetTile(CurrentPos / 32) == null ||
-                _worldRenderer.worldDataRegistry.GetTile(_worldRenderer.mapData.GetTile(CurrentPos / 32).name) == null) return; // cant move to what doesnt exist
+            if (_worldRenderer.mapDataRegistry.GetLoadedMap().GetTile(CurrentPos / 32) == null ||
+                _worldRenderer.tileDataRegistry.GetTile(_worldRenderer.mapDataRegistry.GetLoadedMap().GetTile(CurrentPos / 32).name) == null) return; // cant move to what doesnt exist
 
             CurrentPos = mapPos * 32;
             _targetPos = CurrentPos;
@@ -63,13 +63,13 @@ namespace Core.Scenes.Ingame.World
             if(!_gameManager.ActiveState.AllowMove) return;
             if (CurrentPos != _targetPos) return; // cant move if currently moving
 
-            _previousTileData = _worldRenderer.mapData.GetTile(CurrentPos / 32);
-            _targetTileData = _worldRenderer.mapData.GetTile(CurrentPos / 32 + direction);
+            _previousTileData = _worldRenderer.mapDataRegistry.GetLoadedMap().GetTile(CurrentPos / 32);
+            _targetTileData = _worldRenderer.mapDataRegistry.GetLoadedMap().GetTile(CurrentPos / 32 + direction);
 
             if (_targetTileData == null) return; // cant move to what doesnt exist
 
-            TileData currentTile = _worldRenderer.worldDataRegistry.GetTile(_previousTileData.name);
-            TileData targetTile = _worldRenderer.worldDataRegistry.GetTile(_targetTileData.name);
+            TileData currentTile = _worldRenderer.tileDataRegistry.GetTile(_previousTileData.name);
+            TileData targetTile = _worldRenderer.tileDataRegistry.GetTile(_targetTileData.name);
 
             if (currentTile.AllowsDirection(direction) && // check both tiles allow the direction
                 targetTile.AllowsDirection(direction * new Vector2(-1, -1)))

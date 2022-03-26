@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Core.Scenes.Ingame.World
 {
-    public class WorldDataRegistry: ILoadable
+    public class TileDataRegistry: ILoadable
     {
         private Dictionary<string, TileData> _tileList = new Dictionary<string, TileData>();
 

@@ -16,7 +16,7 @@
   },
   "dialog.example.3.button": {
     "translations": {
-      "EN_US": "Leave"
+      "EN_US": "- Leave"
     }
   },
   "dialog.example.2": {
@@ -56,22 +56,22 @@
   },
   "button.castle.enter.corridor": {
     "translations": {
-      "EN_US": "Search the corridor"
+      "EN_US": "- Search the corridor"
     }
   },
   "button.castle.guards.threaten": {
     "translations": {
-      "EN_US": "Threaten the guards"
+      "EN_US": "- Threaten the guards"
     }
   },
   "button.castle.guards.greet": {
     "translations": {
-      "EN_US": "Greet the guards"
+      "EN_US": "- Greet the guards"
     }
   },
   "button.castle.enter.shops": {
     "translations": {
-      "EN_US": "Check the shops"
+      "EN_US": "- Check the shops"
     }
   },
   "text.castle.entrance": {
