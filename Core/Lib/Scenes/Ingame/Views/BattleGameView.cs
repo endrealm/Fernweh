@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Content;
+﻿using Core.Content;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Core.Scenes.Ingame.Views;
@@ -13,7 +14,7 @@ public class BattleGameView: IGameView
     {
     }
 
-    public void Load(ContentManager content)
+    public void Load(ContentLoader content)
     {
     }
 }

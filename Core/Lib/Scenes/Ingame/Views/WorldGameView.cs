@@ -8,6 +8,7 @@ using System;
 using Core.Input;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
+using Core.Content;
 using Core.States;
 using Newtonsoft.Json;
 
@@ -53,7 +54,7 @@ public class WorldGameView: IGameView, IRenderer<IngameRenderContext>, IUpdate<I
         _player.Render(spriteBatch, context);
     }
 
-    public void Load(ContentManager content)
+    public void Load(ContentLoader content)
     {
         tileDataRegistry.Load(content);
         mapDataRegistry.Load(content);

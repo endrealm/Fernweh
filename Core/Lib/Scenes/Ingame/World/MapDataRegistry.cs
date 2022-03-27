@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Content;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Core.Content;
 
 namespace Core.Scenes.Ingame.World
 {
@@ -11,7 +12,7 @@ namespace Core.Scenes.Ingame.World
         private Dictionary<string, MapData> _mapList = new Dictionary<string, MapData>();
         private string _loadedMap;
 
-        public void Load(ContentManager content) // fake load tiles here. later will input json
+        public void Load(ContentLoader content) // fake load tiles here. later will input json
         {
             _mapList.Add("test1", new MapData());
             //_mapList.Add("test2", new MapData());

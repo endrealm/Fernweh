@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Core.Content;
 using Core.Scenes.Ingame.Chat;
 using JetBrains.Annotations;
 using Microsoft.Xna.Framework;
@@ -16,7 +17,7 @@ public class BaseChatView : IChatView
 
     private const int XMargin = 5;
 
-    public void Load(ContentManager content)
+    public void Load(ContentLoader content)
     {
     }
 

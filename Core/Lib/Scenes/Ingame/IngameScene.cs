@@ -34,7 +34,7 @@ public class IngameScene: Scene
 
     public override void Load(ContentLoader content)
     {
-        _translationData = content.Load<DialogTranslationData>("Dialogs/test");
+        _translationData = content.LoadTranslationData("Dialogs/test");
         _gameManager = new GameManager(_stateRegistry, _fontManager, _translationData);
 
         _scriptLoader.LoadScript(content.LoadFile("States/testWorld.lua"));

@@ -1,5 +1,6 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Core.Content;
 using Core.States;
 using Core.Utils;
 using Microsoft.Xna.Framework.Content;
@@ -28,7 +29,7 @@ public class GameManager: ILoadable
         Mode = _modes[id];
     }
 
-    public void Load(ContentManager content)
+    public void Load(ContentLoader content)
     {
         foreach (var mode in _modes.Values)
         {
