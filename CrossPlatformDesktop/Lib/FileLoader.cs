@@ -6,25 +6,25 @@ using Core.Content;
 
 namespace CrossPlatformDesktop;
 
-public class ContentLoader: IContentLoader
+public class FileLoader: IFileLoader
 {
     
-    public IArchiveHandler LoadArchive(string archiveFolder)
+    public IArchiveLoader LoadArchive(string archiveFolder)
     {
         var file = File.OpenRead(archiveFolder);
-        return new ArchiveHandler(new ZipArchive(file, ZipArchiveMode.Read), file);
+        return new ArchiveLoader(new ZipArchive(file, ZipArchiveMode.Read), file);
     }
     
 }
 
 
-public class ArchiveHandler : IArchiveHandler
+public class ArchiveLoader : IArchiveLoader
 {
 
     private readonly ZipArchive _archive;
     private readonly FileStream _stream;
 
-    public ArchiveHandler(ZipArchive archive, FileStream stream)
+    public ArchiveLoader(ZipArchive archive, FileStream stream)
     {
         this._archive = archive;
         this._stream = stream;
@@ -39,7 +39,14 @@ public class ArchiveHandler : IArchiveHandler
             return sr.ReadToEnd();
         }
     }
-    
+
+    public Stream LoadFileAsStream(string file)
+    {
+        var entry = this._archive.GetEntry(file);
+        if (entry == null) throw new Exception("File " + file + " is missing");
+        return entry.Open();
+    }
+
     public void Dispose()
     {
         this._archive.Dispose();

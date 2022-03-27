@@ -8,6 +8,7 @@ using System;
 using Core.Input;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
+using Core.Content;
 using Core.States;
 
 namespace Core.Scenes.Ingame.World
@@ -52,7 +53,7 @@ namespace Core.Scenes.Ingame.World
             _player.Render(spriteBatch, context);
         }
 
-        public void Load(ContentManager content)
+        public void Load(ContentLoader content)
         {
             worldDataRegistry.Load(content);
             _player.Load(content);

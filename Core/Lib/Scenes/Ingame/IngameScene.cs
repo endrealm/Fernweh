@@ -1,4 +1,5 @@
-﻿using Core.Scenes.Ingame.Battle;
+﻿using Core.Content;
+using Core.Scenes.Ingame.Battle;
 using Core.States;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -42,11 +43,11 @@ public class IngameScene: Scene
         _chatView.RenderResults(renderer);
     }
 
-    public override void Load(ContentManager content)
+    public override void Load(ContentLoader content)
     {
-        _translationData = content.Load<DialogTranslationData>("Dialogs/test");
-        _scriptLoader.LoadScript(content.Load<string>("States/test"));
-        _scriptLoader.LoadScript(content.Load<string>("Scripts/effects"));
+        _translationData = content.LoadTranslationData("Dialogs/test");
+        _scriptLoader.LoadScript(content.LoadFile("States/test.lua"));
+        _scriptLoader.LoadScript(content.LoadFile("Scripts/effects.lua"));
         _gameView.Load(content);
         _chatView.Load(content);
         _gameManager.LoadState("my_state"); // selects initial state

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Core.Content;
 using Core.Scenes.Ingame.Chat;
 using Core.States;
 using Core.Utils;
@@ -17,7 +18,7 @@ public class ChatView: IRenderer<IngameRenderContext>, IUpdate<IngameUpdateConte
 
     private int _xMargin = 5;
 
-    public void Load(ContentManager content)
+    public void Load(ContentLoader content)
     {
     }
 

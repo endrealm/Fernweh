@@ -1,4 +1,5 @@
 ﻿
+using Core.Content;
 using Core.Utils;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -15,6 +16,6 @@ public abstract class Scene: IRenderer<TopLevelRenderContext>, IUpdate<TopLevelU
     }
     public virtual void Render(SpriteBatch spriteBatch, TopLevelRenderContext context) {}
     public virtual void Update(float deltaTime, TopLevelUpdateContext context) {}
-    public virtual void Load(ContentManager content) {}
+    public virtual void Load(ContentLoader content) {}
     public virtual void Unload() {}
 }

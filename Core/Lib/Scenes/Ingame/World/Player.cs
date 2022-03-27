@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using Core.Content;
 using Core.States;
 
 namespace Core.Scenes.Ingame.World
@@ -40,9 +41,9 @@ namespace Core.Scenes.Ingame.World
             _worldRenderer = worldRenderer;
         }
 
-        public void Load(ContentManager content)
+        public void Load(ContentLoader content)
         {
-            _sprite = content.Load<Texture2D>("Sprites/player");
+            _sprite = content.LoadTexture("Sprites/player.png");
         }
 
         public void TeleportPlayer(Vector2 mapPos) // can be used to move to spawn

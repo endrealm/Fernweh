@@ -1,11 +1,14 @@
-﻿using Core.Utils;
+﻿using Core.Content;
+using Core.Utils;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Core;
 
-public interface IFontManager: ILoadable
+public interface IFontManager
 {
+
+    void Load(ContentManager contentManager);
     SpriteFont GetChatFont();
 }
 

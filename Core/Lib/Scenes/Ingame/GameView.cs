@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using MonoGame.Extended;
 using Core.Scenes.Ingame.World;
 using System;
+using Core.Content;
 using Core.Input;
 using Core.States;
 
@@ -24,7 +25,7 @@ public class GameView: IRenderer<IngameRenderContext>, IUpdate<IngameUpdateConte
         _worldRenderer.Render(spriteBatch, context);
     }
 
-    public void Load(ContentManager content)
+    public void Load(ContentLoader content)
     {
         _worldRenderer.Load(content);
     }

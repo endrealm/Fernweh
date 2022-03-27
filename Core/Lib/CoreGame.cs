@@ -3,6 +3,7 @@ using Core.Input;
 using Core.Scenes.MainMenu;
 using Core.States;
 using Core.Utils;
+using JetBrains.Annotations;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
@@ -13,7 +14,6 @@ namespace Core
     public class CoreGame : Game, ISceneManager
     {
         private readonly IUpdateableClickInput _clickInput;
-        private readonly IFontManager _fontManager = new SimpleFontManager();
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private OrthographicCamera _camera;
@@ -22,14 +22,26 @@ namespace Core
         private Controls _controls = new Controls();
         private FrameCounter _frameCounter = new();
 
+        private readonly ContentLoader _contentLoader;
+        
         private Scene _activeScene;
         private TopLevelRenderContext _renderContext;
 
-        public CoreGame(IUpdateableClickInput clickInput, IContentLoader contentLoader)
+        public CoreGame(IUpdateableClickInput clickInput, IFileLoader fileLoader, string contentDir, [CanBeNull] string modContentDir)
         {
             _clickInput = clickInput;
             _graphics = new GraphicsDeviceManager(this);
+
             Content.RootDirectory = "Content";
+            
+            _contentLoader = new ContentLoader(
+                _graphics,
+                Content,
+                new SimpleFontManager(),
+                fileLoader.LoadArchive(contentDir),
+                modContentDir != null ? fileLoader.LoadArchive(modContentDir) : null
+                );
+            
             IsMouseVisible = true;
         }
 
@@ -38,10 +50,10 @@ namespace Core
             base.LoadContent();
 
             // Init lua sandbox script
-            LuaSandbox.Sandbox = Content.Load<string>("Scripts/sandbox");
+            LuaSandbox.Sandbox = _contentLoader.LoadFile("Scripts/sandbox.lua");
 
             // Init font manager
-            _fontManager.Load(Content);
+            _contentLoader.LoadFonts();
             
             GraphicsDevice.SamplerStates[0] = SamplerState.PointWrap;
 
@@ -66,7 +78,7 @@ namespace Core
 
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            LoadScene(new MainMenuScene(_fontManager));
+            LoadScene(new MainMenuScene(_contentLoader.GetFontManager()));
 
             // Reuse instance to improve performance
             _renderContext = new TopLevelRenderContext(GraphicsDevice, _camera, _baseScreenSize);
@@ -90,7 +102,7 @@ namespace Core
             // Render FPS overlay
             var fps = $"FPS: {_frameCounter.AverageFramesPerSecond}";
             _spriteBatch.Begin();
-            _spriteBatch.DrawString(_fontManager.GetChatFont(), fps, Vector2.Zero, Color.Gold);
+            _spriteBatch.DrawString(_contentLoader.GetFontManager().GetChatFont(), fps, Vector2.Zero, Color.Gold);
             _spriteBatch.End();
             
             base.Draw(gameTime);
@@ -100,7 +112,7 @@ namespace Core
         {
             _activeScene?.Unload(); // Unload old scene if exists
             scene.InjectSceneManager(this);
-            scene.Load(Content);
+            scene.Load(_contentLoader);
             _activeScene = scene;
         }
     }

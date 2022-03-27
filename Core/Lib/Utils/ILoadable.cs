@@ -1,8 +1,9 @@
-﻿using Microsoft.Xna.Framework.Content;
+﻿using Core.Content;
+using Microsoft.Xna.Framework.Content;
 
 namespace Core.Utils;
 
 public interface ILoadable
 {
-    void Load(ContentManager content);
+    void Load(ContentLoader content);
 }
