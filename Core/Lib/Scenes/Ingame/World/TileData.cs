@@ -9,7 +9,7 @@ using PipelineExtensionLibrary;
 namespace Core.Scenes.Ingame.World
 {
     [Serializable]
-    internal class TileData
+    public class TileData
     {
         [Flags] public enum OpenDirection
         {

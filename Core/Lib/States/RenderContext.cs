@@ -4,11 +4,11 @@ namespace Core.States;
 
 public class RenderContext
 {
-    private readonly GameManager _gameManager;
+    private readonly IStateManager _gameManager;
 
-    public RenderContext(GameManager gameManager)
+    public RenderContext(IStateManager stateManager)
     {
-        _gameManager = gameManager;
+        _gameManager = stateManager;
     }
 
     public void ChangeState(string stateId)

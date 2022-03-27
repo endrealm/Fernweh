@@ -1,0 +1,13 @@
+﻿{
+  "name": "testMap",
+  "explorable": true,
+  "tilePositions": {
+    "0": {
+      "0": {
+        "name": "grass",
+        "enterState": "enter_grass",
+        "leaveState": "leave_grass"
+      }
+    }
+  }
+}

@@ -1,41 +1,39 @@
-﻿using System;
+using System;
+using System.Collections.Generic;
 using Core.States;
+using Core.Utils;
+using Microsoft.Xna.Framework.Content;
+using PipelineExtensionLibrary;
 
 namespace Core.Scenes.Ingame;
 
-public class GameManager
+public class GameManager: ILoadable
 {
-    private readonly StateRegistry _stateRegistry;
-    public event StateChangedEventHandler StateChangedEvent;
-    public IState ActiveState { get; private set; }
-    public string weakNextId;
+    public IMode Mode { get; private set; }
+    public IStateManager StateManager { get; set; }
+    
+    private Dictionary<string, IMode> _modes = new();
 
-    public GameManager(StateRegistry stateRegistry)
+    public GameManager(StateRegistry stateRegistry, IFontManager fontManager, DialogTranslationData translationData)
     {
-        _stateRegistry = stateRegistry;
-        ActiveState = stateRegistry.ReadState("null"); // Start with "null" state.
+        var overworld = new OverworldMode(stateRegistry.GlobalEventHandler, stateRegistry, fontManager, translationData);
+        StateManager = overworld;
+        _modes.Add("overworld", overworld);
+        _modes.Add("battle", new BattleMode());
+        LoadMode("overworld");
     }
 
-    public void LoadState(string stateId)
+    public void LoadMode(string id)
     {
-        _stateRegistry.GlobalEventHandler.EmitPreStateChangeEvent();
-        ActiveState = _stateRegistry.ReadState(stateId);
-        StateChangedEvent?.Invoke(new StateChangedEventArgs()
-        {
-            NewState = ActiveState
-        });
+        Mode = _modes[id];
+    }
 
-        if (stateId == "null" && weakNextId != null)
+    public void Load(ContentManager content)
+    {
+        foreach (var mode in _modes.Values)
         {
-            LoadState(weakNextId);
-            weakNextId = null;
+            mode.ChatView.Load(content);
+            mode.GameView.Load(content);
         }
     }
-}
-
-public delegate void StateChangedEventHandler(StateChangedEventArgs args);
-
-public class StateChangedEventArgs : EventArgs
-{
-    public IState NewState { get; set; }
 }

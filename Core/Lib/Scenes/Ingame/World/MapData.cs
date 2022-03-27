@@ -3,48 +3,54 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.Xna.Framework;
 using MonoGame.Extended;
+using Newtonsoft.Json;
 
 namespace Core.Scenes.Ingame.World
 {
-    internal class MapData
+    public class MapData
     {
-        private Dictionary<Vector2, string> _tilePositions = new Dictionary<Vector2, string>();  // convert to matrix?
+        public string name;
+        public bool explorable = true;
+        [JsonProperty("tilePositions")]
+        private Dictionary<int, Dictionary<int, MapTileData>> _tilePositions = new();
 
         public MapData() // fake load map here. later will input json/xml
         {
             // i got this up to  8000 x 8000 tiles! was 27 seconds of wait time though and 5gb ram usage...
-            for (int x = 0; x < 500; x++)
+            for (int x = 0; x < 100; x++)
             {
-                for (int y = 0; y < 500; y++)
+                _tilePositions.Add(x, new Dictionary<int, MapTileData>());
+
+                for (int y = 0; y < 100; y++)
                 {
                     Random random = new Random();
 
                     switch (random.Next(0,8))
                     {
                         default:
-                            _tilePositions.Add(new Vector2(x, y), "grass");
+                            _tilePositions[x].Add(y, new MapTileData("grass"));
                             break;
                         case 2:
-                            _tilePositions.Add(new Vector2(x, y), "forest");
+                            _tilePositions[x].Add(y, new MapTileData("forest"));
                             break;
                         case 3:
-                            _tilePositions.Add(new Vector2(x, y), "path");
+                            _tilePositions[x].Add(y, new MapTileData("path"));
                             break;
                         case 4:
-                            _tilePositions.Add(new Vector2(x, y), "boulder");
+                            _tilePositions[x].Add(y, new MapTileData("boulder"));
                             break;
                         case 1:
-                            _tilePositions.Add(new Vector2(x, y), "castle");
+                            _tilePositions[x].Add(y, new MapTileData("castle"));
                             break;
                     }
                 }
             }
         }
 
-        public string GetTile(Vector2 pos)
+        public MapTileData GetTile(Vector2 pos)
         {
-            if (_tilePositions.ContainsKey(pos))
-                return _tilePositions[pos];
+            if (_tilePositions.ContainsKey((int)pos.X) && _tilePositions[(int)pos.X].ContainsKey((int)pos.Y))
+                return _tilePositions[(int)pos.X][(int)pos.Y];
             else
                 return null;
         }
