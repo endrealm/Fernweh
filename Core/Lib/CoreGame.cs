@@ -1,4 +1,5 @@
-﻿using Core.Content;
+﻿using System.Collections.Generic;
+using Core.Content;
 using Core.Input;
 using Core.Scenes.MainMenu;
 using Core.States;
@@ -33,14 +34,12 @@ namespace Core
             _graphics = new GraphicsDeviceManager(this);
 
             Content.RootDirectory = "Content";
+
+            var mods = new List<IArchiveLoader>() { fileLoader.LoadArchive(contentDir) };
+            if(modContentDir != null)
+                mods.Add(fileLoader.LoadArchive(modContentDir));
             
-            _contentLoader = new ContentLoader(
-                _graphics,
-                Content,
-                new SimpleFontManager(),
-                fileLoader.LoadArchive(contentDir),
-                modContentDir != null ? fileLoader.LoadArchive(modContentDir) : null
-                );
+            _contentLoader = new ContentLoader(_graphics, Content, new SimpleFontManager(),  mods );
             
             IsMouseVisible = true;
         }

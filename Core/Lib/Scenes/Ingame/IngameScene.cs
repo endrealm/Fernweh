@@ -36,11 +36,9 @@ public class IngameScene: Scene
     {
         _translationData = content.LoadTranslationData("Dialogs/test");
         _gameManager = new GameManager(_stateRegistry, _fontManager, _translationData);
-
-        _scriptLoader.LoadScript(content.LoadFile("States/testWorld.lua"));
-        _scriptLoader.LoadScript(content.LoadFile("Scripts/effects.lua"));
-        _scriptLoader.LoadScript(content.LoadFile("Scripts/abilities.lua"));
-        _scriptLoader.LoadScript(content.LoadFile("Scripts/participants.lua"));
+        
+        content.LoadMods(_scriptLoader);
+        
         _gameManager.Load(content);
         _gameManager.StateManager.LoadState("my_state"); // selects initial state
     }
