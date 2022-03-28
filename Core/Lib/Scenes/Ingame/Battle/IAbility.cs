@@ -7,6 +7,7 @@ public interface IAbility : IBattleEventReceiver
     void Use(AbilityUseContext context);
     bool CanUse(AbilityUseCheckContext context);
     string CategoryId { get; }
+    AbilityTargetType TargetType { get; }
     string Id { get; }
     int ManaCost { get; }
     IBattleAction ProduceAction(IBattleParticipant participant, List<IBattleParticipant> targets);

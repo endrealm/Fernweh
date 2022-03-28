@@ -18,6 +18,7 @@ public class LuaAbilityBuilder
     private LuaFunction _canUse;
     private string _category = "ability";
     private int _manaCost = 0;
+    private AbilityTargetType _targetType = AbilityTargetType.EnemySingle;
     private readonly string _id;
 
     public LuaAbilityBuilder(string id, Action<LuaAbility> onAbilityBuild = null)
@@ -94,10 +95,16 @@ public class LuaAbilityBuilder
         return this;
     }
 
+    public LuaAbilityBuilder TargetType(int targetType)
+    {
+        _targetType = (AbilityTargetType)targetType;
+        return this;
+    }
+
     public IAbility Build()
     {
         var ability = new LuaAbility(_onReceiveDamage, _onDealDamage, _onTargetWithSpell, _onTargetedBySpell,
-            _onCalculateStats, _onNextTurn, _onUse, _canUse, _onTurnEnd, _category, _id, _manaCost);
+            _onCalculateStats, _onNextTurn, _onUse, _canUse, _onTurnEnd, _category, _id, _manaCost, _targetType);
         _onAbilityBuild?.Invoke(ability);
         return ability;
     }
