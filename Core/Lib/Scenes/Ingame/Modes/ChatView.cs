@@ -2,7 +2,7 @@
 using Core.Scenes.Ingame.Chat;
 using Core.Utils;
 
-namespace Core.Scenes.Ingame.Views;
+namespace Core.Scenes.Ingame.Modes;
 
 public interface IChatView: IRenderer<IngameRenderContext>, IUpdate<IngameUpdateContext>, ILoadable
 {

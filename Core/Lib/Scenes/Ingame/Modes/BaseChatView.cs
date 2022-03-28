@@ -10,7 +10,7 @@ using MonoGame.Extended;
 using PipelineExtensionLibrary;
 using PipelineExtensionLibrary.Chat;
 
-namespace Core.Scenes.Ingame.Views;
+namespace Core.Scenes.Ingame.Modes;
 
 public class BaseChatView : IChatView
 {

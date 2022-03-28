@@ -66,7 +66,9 @@ public class IngameScene: Scene
 
         var subContext = new IngameRenderContext(context.BaseScreenSize, chatWidth, backgroundColor, worldCulling, context);
             
-        var transformMatrix = context.Camera.GetViewMatrix();
+        var transformMatrix = _gameManager.Mode.GameView.WorldSpacedCoordinates 
+            ? context.Camera.GetViewMatrix() 
+            : context.Camera.GetViewMatrix(new Vector2());
         
         // Draw game world
         spriteBatch.Begin(

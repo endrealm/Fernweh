@@ -7,7 +7,7 @@ using Core.Scenes.Ingame.Chat;
 using Core.Utils;
 using PipelineExtensionLibrary;
 
-namespace Core.Scenes.Ingame.Views;
+namespace Core.Scenes.Ingame.Modes.Battle;
 
 public class BattleChatView: BaseChatView, IPlayerBattleInput
 {

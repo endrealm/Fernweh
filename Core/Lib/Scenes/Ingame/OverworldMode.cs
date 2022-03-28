@@ -1,5 +1,5 @@
 ﻿using System;
-using Core.Scenes.Ingame.Views;
+using Core.Scenes.Ingame.Modes;
 using Core.States;
 using Microsoft.Xna.Framework;
 using PipelineExtensionLibrary;

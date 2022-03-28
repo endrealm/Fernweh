@@ -1,4 +1,4 @@
-﻿using Core.Scenes.Ingame.Views;
+﻿using Core.Scenes.Ingame.Modes;
 using Microsoft.Xna.Framework;
 
 namespace Core.Scenes.Ingame;

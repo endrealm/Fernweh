@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Core.Scenes.Ingame.Chat;
-using Core.Scenes.Ingame.Views;
+using Core.Scenes.Ingame.Modes;
 using PipelineExtensionLibrary;
 
 namespace Core.Scenes.Ingame.Battle;

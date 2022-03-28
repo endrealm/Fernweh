@@ -1,7 +1,7 @@
 ﻿using Core.States;
 using PipelineExtensionLibrary;
 
-namespace Core.Scenes.Ingame.Views;
+namespace Core.Scenes.Ingame.Modes;
 
 public class StateChatView: BaseChatView
 {

@@ -27,12 +27,30 @@ public class RenderContext
             new List<string> {"test"}, 
             new List<ParticipantConfig>
             {
-                new ParticipantConfigBuilder("you")
+                new ParticipantConfigBuilder("Yennifer")
                     .Health(10)
                     .Mana(10)
                     .AddAbility(new LuaAbilityConfigBuilder("test_ability").Build())
                     .AddAbility(new LuaAbilityConfigBuilder("test_ability_2").Build())
-                    .Build()
+                    .Build(),
+                new ParticipantConfigBuilder("Triss")
+                    .Health(10)
+                    .Mana(10)
+                    .AddAbility(new LuaAbilityConfigBuilder("test_ability").Build())
+                    .AddAbility(new LuaAbilityConfigBuilder("test_ability_2").Build())
+                    .Build(),
+                new ParticipantConfigBuilder("Geralt")
+                    .Health(10)
+                    .Mana(10)
+                    .AddAbility(new LuaAbilityConfigBuilder("test_ability").Build())
+                    .AddAbility(new LuaAbilityConfigBuilder("test_ability_2").Build())
+                    .Build(),
+                new ParticipantConfigBuilder("Ciri")
+                    .Health(10)
+                    .Mana(10)
+                    .AddAbility(new LuaAbilityConfigBuilder("test_ability").Build())
+                    .AddAbility(new LuaAbilityConfigBuilder("test_ability_2").Build())
+                    .Build(),
             }
             );
         _gameManager.LoadMode("battle", new ModeParameters().AppendData("config", config));

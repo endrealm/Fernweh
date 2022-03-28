@@ -3,7 +3,7 @@ using Core.States;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Core.Scenes.Ingame.Views;
+namespace Core.Scenes.Ingame.Modes;
 
 public class WorldGameView: IGameView
 {
@@ -28,4 +28,6 @@ public class WorldGameView: IGameView
     {
         _worldRenderer.Update(deltaTime, context);
     }
+    public bool WorldSpacedCoordinates => true;
+
 }
