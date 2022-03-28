@@ -19,6 +19,21 @@
       "EN_US": "-> Skills"
     }
   },
+  "battle.participant.select.single": {
+    "translations": {
+      "EN_US": "-> {name}"
+    }
+  },
+  "battle.participant.select.multiple": {
+    "translations": {
+      "EN_US": "-> {amount}x {name}"
+    }
+  },
+  "battle.participant.select.mixed": {
+    "translations": {
+      "EN_US": "-> {name}"
+    }
+  },
   "battle.participant.list.back": {
     "translations": {
       "EN_US": "-> Back"

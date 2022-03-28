@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Core.Scenes.Ingame.Battle;
 using Core.Scenes.Ingame.Chat;
+using Core.Utils;
 using PipelineExtensionLibrary;
 
 namespace Core.Scenes.Ingame.Views;
@@ -13,6 +15,8 @@ public class BattleChatView: BaseChatView, IPlayerBattleInput
     public BattleChatView(DialogTranslationData translationData, IFontManager fontManager) : base(translationData, fontManager)
     {
     }
+
+    public BattleManager BattleManager { get; set; }
     public async Task HandlePlayerInput(List<IBattleParticipant> battleParticipants)
     {
         foreach (var battleParticipant in battleParticipants)
@@ -99,10 +103,71 @@ public class BattleChatView: BaseChatView, IPlayerBattleInput
 
             AddAction("battle.ability." + ability.Id, () =>
             {
-                Clear();
-                participant.NextAction = ability.ProduceAction(participant, new List<IBattleParticipant>());
+                ShowTargeting(participant, ability, () => ShowAbilities(participant, categoryId, abilities));
             });
         });
         LoadNextComponentInQueue();
+    }
+    private void ShowTargeting(IBattleParticipant participant, IAbility ability, Action onBack)
+    {
+        Clear(SelectionPhaseHeaderLength);
+        
+        AddAction("battle.participant.list.back", onBack.Invoke);
+
+        AddText("battle.select.target");
+
+        GetTargetsByType(ability).ForEach(targets =>
+        {
+            var types = targets.Select(target => target.ParticipantId).ToSet();
+            var countMode = (targets.Count > 0 ? "multiple" : "single");
+            if (types.Count > 1) countMode = "mixed";
+            
+            AddAction("battle.participant.select." + countMode, () =>
+            {
+                Clear();
+                participant.NextAction = ability.ProduceAction(participant, targets);
+            }, new Replacement("amount", targets.Count.ToString()), new Replacement("name", string.Join(", ", types)));
+        });
+        LoadNextComponentInQueue();
+    }
+
+    private List<List<IBattleParticipant>> GetTargetsByType(IAbility ability)
+    {
+        switch (ability.TargetType)
+        {
+            case AbilityTargetType.FriendlySingle:
+            {
+                var type = new List<List<IBattleParticipant>>();
+                BattleManager.Friendlies.ForEach(participant => type.Add(new() {participant}));
+                return type;
+            }
+            case AbilityTargetType.EnemySingle:
+            {
+                var type = new List<List<IBattleParticipant>>();
+                BattleManager.Enemies.ForEach(participant => type.Add(new() {participant}));
+                return type;
+            }
+            case AbilityTargetType.EnemyGroup:
+            {
+
+                return BattleManager.Enemies
+                    .GroupBy(participant => participant.ParticipantId)
+                    .Select(grouping => grouping.ToList())
+                    .ToList();
+            }
+            case AbilityTargetType.EnemyAll: return new()
+            {
+                BattleManager.Enemies
+            };
+            case AbilityTargetType.FriendlyGroup: return new() 
+            {
+                BattleManager.Friendlies
+            };
+            default:
+            case AbilityTargetType.All: return new()
+            {
+                BattleManager.All
+            };
+        }
     }
 }

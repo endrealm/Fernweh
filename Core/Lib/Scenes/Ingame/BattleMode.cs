@@ -27,6 +27,7 @@ public class BattleMode : IMode
     public void Load(ModeParameters parameters)
     {
         var battleManager = new BattleManager(ChatView, _battleRegistry, parameters.GetValue<BattleConfig>("config"), _chatView);
+        _chatView.BattleManager = battleManager;
         Task.Run(battleManager.DoRound);
     }
 }

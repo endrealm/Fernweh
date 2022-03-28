@@ -25,6 +25,18 @@ public class BattleManager
         _friendlies = config.Friendlies.Select(CreateParticipant).ToList();
     }
 
+    public List<IBattleParticipant> Enemies => _enemies;
+    public List<IBattleParticipant> Friendlies => _friendlies;
+    public List<IBattleParticipant> All
+    {
+        get
+        {
+            var all = new List<IBattleParticipant>(_enemies);
+            all.AddRange(_friendlies);
+            return all;
+        }
+    }
+
     private IBattleParticipant CreateParticipant(ParticipantConfig config)
     {
         var participant = new BasicParticipant(config.Id, config);
