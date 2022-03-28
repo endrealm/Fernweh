@@ -24,4 +24,5 @@ public class LogTextAction : IBattleAction
     }
 
     public int Priority => -1;
+    public bool AllowDeath { get; set; } = true;
 }

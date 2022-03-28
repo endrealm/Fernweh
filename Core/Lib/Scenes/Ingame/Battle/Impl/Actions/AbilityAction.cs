@@ -20,7 +20,7 @@ public class AbilityAction : IBattleAction
 
     public async Task DoAction(ActionContext context)
     {
-        var spellEvent = new SpellTargetEvent(_targets, Participant, false, new SpellData());
+        var spellEvent = new SpellTargetEvent(_targets, Participant, false, new SpellData(_ability.ManaCost));
         Participant.OnTargetWithSpell(spellEvent);
         _targets.ForEach(target => target.OnTargetedBySpell(spellEvent));
         context.QueueAction(
@@ -29,12 +29,12 @@ public class AbilityAction : IBattleAction
                 new Replacement("caster", Participant.ParticipantId)
             )
         );
-        context.QueueAction(new AwaitNextAction());
-
         // Spell has been reflected
         if (spellEvent.Source != Participant) context.QueueAction(new LogTextAction("ability.reflected"));
-        _ability.Use(new AbilityUseContext(spellEvent.Source, spellEvent.Targets));
+        context.QueueAction(new AwaitNextAction());
+        _ability.Use(new AbilityUseContext(context, spellEvent.Source, spellEvent.Targets));
     }
 
     public int Priority => Participant.GetStats().Agility;
+    public bool AllowDeath { get; set; }
 }

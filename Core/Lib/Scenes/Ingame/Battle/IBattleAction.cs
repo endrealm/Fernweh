@@ -7,4 +7,5 @@ public interface IBattleAction
     IBattleParticipant Participant { get; }
     Task DoAction(ActionContext context);
     int Priority { get; }
+    bool AllowDeath { get; set; }
 }

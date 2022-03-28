@@ -14,6 +14,9 @@
 CreateConstantAbility("test_ability_2")
         :OnUse(
         function(context)
-            print("Ability used!")
+            context:QueueAction(BattleAction:CreateDamage({
+                Damage = 10,
+                Element = 1
+            }, context.Participant, context.Targets))
         end)
         :Build();

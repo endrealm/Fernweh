@@ -18,6 +18,7 @@ public class LuaAbility : IAbility
     private readonly LuaFunction _onTurnEnd;
     public string CategoryId { get; }
     public string Id { get; }
+    public int ManaCost { get; }
 
     public LuaAbility(
         LuaFunction onReceiveDamage,
@@ -30,7 +31,8 @@ public class LuaAbility : IAbility
         LuaFunction canUse,
         LuaFunction onTurnEnd,
         string category,
-        string id
+        string id,
+        int manaCost
     )
     {
         _onReceiveDamage = onReceiveDamage;
@@ -44,6 +46,7 @@ public class LuaAbility : IAbility
         _onTurnEnd = onTurnEnd;
         CategoryId = category;
         Id = id;
+        ManaCost = manaCost;
     }
 
     public void OnReceiveDamage(DamageReceiveEvent evt)

@@ -4,15 +4,31 @@ namespace Core.Scenes.Ingame.Battle;
 
 // Class uses lowercase names for LUA script exposal
 
-public struct DamageData
+public class DamageData
 {
-    public int Damage;
-    public Element Element;
-    // add more data
+    public int Damage { get; set; }
+    public Element Element { get; }
+
+    public DamageData(int damage, Element element)
+    {
+        Damage = damage;
+        Element = element;
+    }
+
+    public DamageData Clone()
+    {
+        return new DamageData(Damage, Element);
+    }
 }
 
-public struct SpellData
+public class SpellData
 {
+    public SpellData(int manaCost)
+    {
+        ManaCost = manaCost;
+    }
+
+    public int ManaCost { get; }
     //add more data ofc
 }
 

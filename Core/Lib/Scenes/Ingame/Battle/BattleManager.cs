@@ -61,13 +61,24 @@ public class BattleManager
         // Sort by priority
         actions.Sort((act1, act2) => act1.Priority - act2.Priority);
 
-        var actionQueue = actions.ToQueue();
+        var actionQueue = actions.ToStack();
         while (actionQueue.Count > 0)
         {
-            var action = actionQueue.Dequeue();
+            var action = actionQueue.Pop();
+            
+            // skip dead participants
+            if (!action.AllowDeath && action.Participant is { State: ParticipantState.Dead })
+            {
+                continue;
+            }
+            
             var context = new ActionContext(_chatView);
             await action.DoAction(context);
             actionQueue.AddRange(context.GetActionList());
+            
+            // Check for any changed states
+            _friendlies.ForEach(participant => participant.UpdateParticipantState());
+            _enemies.ForEach(participant => participant.UpdateParticipantState());
         }
         
         // Execute and await all actions

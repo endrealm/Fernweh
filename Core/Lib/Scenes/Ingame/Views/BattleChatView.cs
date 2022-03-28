@@ -106,19 +106,3 @@ public class BattleChatView: BaseChatView, IPlayerBattleInput
         LoadNextComponentInQueue();
     }
 }
-
-public class TestAction : IBattleAction
-{
-    public TestAction(IBattleParticipant participant)
-    {
-        Participant = participant;
-    }
-
-    public IBattleParticipant Participant { get; }
-    public async Task DoAction(ActionContext context)
-    {
-        Console.WriteLine(Participant.ParticipantId + " do test action");
-    }
-
-    public int Priority => 1;
-}

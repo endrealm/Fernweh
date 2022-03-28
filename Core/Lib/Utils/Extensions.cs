@@ -5,17 +5,17 @@ namespace Core.Utils;
 
 public static class Extensions
 {
-    public static Queue<T> ToQueue<T>(this IEnumerable<T> list)
+    public static Stack<T> ToStack<T>(this IEnumerable<T> list)
     {
-        var queue = new Queue<T>();
+        var queue = new Stack<T>();
 
-        foreach (var x1 in list.Reverse()) queue.Enqueue(x1);
+        foreach (var x1 in list.Reverse()) queue.Push(x1);
 
         return queue;
     }
 
-    public static void AddRange<T>(this Queue<T> queue, IEnumerable<T> range)
+    public static void AddRange<T>(this Stack<T> queue, IEnumerable<T> range)
     {
-        foreach (var x1 in range) queue.Enqueue(x1);
+        foreach (var x1 in range.Reverse()) queue.Push(x1);
     }
 }

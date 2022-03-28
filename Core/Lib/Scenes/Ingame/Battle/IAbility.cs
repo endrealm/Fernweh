@@ -8,5 +8,6 @@ public interface IAbility : IBattleEventReceiver
     bool CanUse(AbilityUseCheckContext context);
     string CategoryId { get; }
     string Id { get; }
+    int ManaCost { get; }
     IBattleAction ProduceAction(IBattleParticipant participant, List<IBattleParticipant> targets);
 }

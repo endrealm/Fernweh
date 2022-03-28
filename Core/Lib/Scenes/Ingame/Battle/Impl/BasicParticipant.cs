@@ -22,6 +22,8 @@ public class BasicParticipant : IBattleParticipant
     {
         _effects.ForEach(e => e.OnReceiveDamage(evt));
         _abilities.ForEach(e => e.OnReceiveDamage(evt));
+        if(evt.Data.Damage <= 0) return; // damage was somehow blocked
+        Health -= evt.Data.Damage;
     }
 
     public void OnDealDamage(DamageDealEvent evt)
@@ -34,6 +36,8 @@ public class BasicParticipant : IBattleParticipant
     {
         _effects.ForEach(e => e.OnTargetWithSpell(evt));
         _abilities.ForEach(e => e.OnTargetWithSpell(evt));
+        if(evt.Data.ManaCost <= 0) return; // damage was somehow blocked
+        Mana -= evt.Data.ManaCost;
     }
 
     public void OnTargetedBySpell(SpellTargetEvent evt)
@@ -74,9 +78,10 @@ public class BasicParticipant : IBattleParticipant
 
     public string ParticipantId { get; }
 
-    public int Health { get; }
+    public int Health { get; private set; }
+    public ParticipantState State { get; private set; } = ParticipantState.Alive;
 
-    public int Mana { get; }
+    public int Mana { get; private set; }
 
     public IBattleStrategy Strategy { get; set; } = new FallbackStrategy();
 
@@ -96,5 +101,16 @@ public class BasicParticipant : IBattleParticipant
         var baseStats = _config.Stats.Clone();
         OnCalculateStats(baseStats);
         return baseStats;
+    }
+
+    public void UpdateParticipantState()
+    {
+        if (Health > 0)
+        {
+            State = ParticipantState.Alive;
+            return;
+        }
+        Health = 0;
+        State = ParticipantState.Dead;
     }
 }
