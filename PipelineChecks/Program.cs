@@ -3,7 +3,7 @@
 using Core.Scenes.Ingame.Battle;
 using Core.States;using PipelineExtensionLibrary;
 
-new XmlDialogParser().Parse("Some example <color=\"rgba(1,1,1,.4)\">text</color>!");
+new XmlDialogParser().Parse("Some example <color=\"rgba(1,1,1,.4)\">text</color> here!");
 
 var manager = new ScriptLoader(new StateRegistry(), new BattleRegistry());
 
