@@ -119,7 +119,7 @@ public class BattleChatView: BaseChatView, IPlayerBattleInput
         GetTargetsByType(ability).ForEach(targets =>
         {
             var types = targets.Select(target => target.ParticipantId).ToSet();
-            var countMode = (targets.Count > 0 ? "multiple" : "single");
+            var countMode = (targets.Count > 1 ? "multiple" : "single");
             if (types.Count > 1) countMode = "mixed";
             
             AddAction("battle.participant.select." + countMode, () =>
