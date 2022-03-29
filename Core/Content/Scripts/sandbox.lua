@@ -48,6 +48,9 @@ local BASE_ENV = {
     CreateConstantAbility = CreateConstantAbility,
     CreateAbility = CreateAbility,
     CreateParticipant = CreateParticipant,
+    Import = Import,
+    
+    Context = Context
 }
 
 -- List of unsafe packages/functions:
@@ -188,12 +191,12 @@ end
 
 -- Public interface: sandbox.run
 function sandbox.run(code, options, ...)
-    return sandbox.protect(code, options)(...)
+return sandbox.protect(code, options)(...)
 end
 
 -- make sandbox(f) == sandbox.protect(f)
 setmetatable(sandbox, { __call = function(_, code, o)
-    return sandbox.protect(code, o)
+return sandbox.protect(code, o)
 end })
 
 return sandbox

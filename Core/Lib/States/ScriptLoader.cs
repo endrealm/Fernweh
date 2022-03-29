@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Scenes.Ingame.Battle;
 using Core.Scenes.Ingame.Battle.Impl;
+using Core.States.ScriptApi;
 using Microsoft.Xna.Framework;
 using NLua;
 using PipelineExtensionLibrary;
@@ -15,13 +17,15 @@ public class ScriptLoader
     private readonly BattleRegistry _battleRegistry;
     private Color _defaultBackgroundColor = new(18, 14, 18);
 
+    private readonly Namespace _rootNamespace = new Namespace(new SimpleNamespaceAccessPolicy());
+    
     public ScriptLoader(StateRegistry stateRegistry, BattleRegistry battleRegistry)
     {
         _stateRegistry = stateRegistry;
         _battleRegistry = battleRegistry;
     }
 
-    public void LoadScript(string script)
+    public void LoadScript(string script, ScriptContext context)
     {
         var lua = new Lua();
 
@@ -34,6 +38,9 @@ public class ScriptLoader
         lua["StateBuilder"] = BuildState;
         lua["SetDefaultBackgroundColor"] = SetDefaultBackgroundColor;
         lua["Global"] = _stateRegistry.GlobalEventHandler;
+        lua["Import"] = _rootNamespace;
+
+        lua["Context"] = context;
 
         #endregion
        

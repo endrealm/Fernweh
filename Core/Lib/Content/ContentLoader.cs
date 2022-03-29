@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using Core.Content.Mod;
 using Core.States;
+using Core.States.ScriptApi;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -70,15 +71,17 @@ public class ContentLoader
 
     public void LoadMods(ScriptLoader scriptLoader)
     {
-        foreach (var mod in this._mods)
+        for(var i = 0; i < _mods.Count; i++)
         {
+            var mod = _mods[i];
+            
             var index = JsonConvert.DeserializeObject<ModIndex>(mod.LoadFile("index.json"));
             if(index == null) continue;
             ;
                 
             foreach (var scriptPath in index.Scripts)
             {
-                scriptLoader.LoadScript(mod.LoadFile(scriptPath));
+                scriptLoader.LoadScript(mod.LoadFile(scriptPath), new ScriptContext(scriptPath, i + ""));
             }
         }
     }

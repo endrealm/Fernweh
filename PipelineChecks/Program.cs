@@ -1,7 +1,9 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 using Core.Scenes.Ingame.Battle;
-using Core.States;using PipelineExtensionLibrary;
+using Core.States;
+using Core.States.ScriptApi;
+using PipelineExtensionLibrary;
 
 new XmlDialogParser().Parse("Some example <color=\"rgba(1,1,1,.4)\">text</color>!");
 
@@ -21,6 +23,6 @@ stateBuilder('my_other_state')
         end
     )
     :build()
-");
+", new ScriptContext("", ""));
 
 Console.WriteLine("Done");
