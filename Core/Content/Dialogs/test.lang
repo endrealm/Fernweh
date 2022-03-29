@@ -26,12 +26,12 @@
   },
   "battle.statsRow.health": {
     "translations": {
-      "EN_US": "{current}/{max}HP"
+      "EN_US": "{current} / {max} HP"
     }
   },
   "battle.statsRow.mana": {
     "translations": {
-      "EN_US": "{current}/{max}MP"
+      "EN_US": "{current} / {max} MP"
     }
   },
   "battle.participant.select.single": {

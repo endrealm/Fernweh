@@ -28,26 +28,26 @@ public class RenderContext
             new List<ParticipantConfig>
             {
                 new ParticipantConfigBuilder("Yennifer")
-                    .Health(10)
-                    .Mana(10)
+                    .Health(1000)
+                    .Mana(1000)
                     .AddAbility(new LuaAbilityConfigBuilder("test_ability").Build())
                     .AddAbility(new LuaAbilityConfigBuilder("test_ability_2").Build())
                     .Build(),
                 new ParticipantConfigBuilder("Triss")
-                    .Health(10)
-                    .Mana(10)
+                    .Health(1000)
+                    .Mana(1000)
                     .AddAbility(new LuaAbilityConfigBuilder("test_ability").Build())
                     .AddAbility(new LuaAbilityConfigBuilder("test_ability_2").Build())
                     .Build(),
                 new ParticipantConfigBuilder("Geralt")
-                    .Health(10)
-                    .Mana(10)
+                    .Health(1000)
+                    .Mana(1000)
                     .AddAbility(new LuaAbilityConfigBuilder("test_ability").Build())
                     .AddAbility(new LuaAbilityConfigBuilder("test_ability_2").Build())
                     .Build(),
                 new ParticipantConfigBuilder("Ciri")
-                    .Health(10)
-                    .Mana(10)
+                    .Health(1000)
+                    .Mana(1000)
                     .AddAbility(new LuaAbilityConfigBuilder("test_ability").Build())
                     .AddAbility(new LuaAbilityConfigBuilder("test_ability_2").Build())
                     .Build(),

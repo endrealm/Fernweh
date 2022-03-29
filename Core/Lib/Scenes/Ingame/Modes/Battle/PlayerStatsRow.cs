@@ -14,11 +14,12 @@ public class PlayerStatsRow: IRenderer<PlayerStatsRowRenderContext>
     private readonly DialogTranslationData _translationData;
     private readonly IChatComponent _name;
     private IChatComponent _health;
-    private int _lastHealth;
+    private int _lastHealth = -1;
     private IChatComponent _mana;
-    private int _lastMana;
+    private int _lastMana = -1;
     private int _width;
-
+    private readonly StatBar _healthBar = new(Color.Green, Color.Gray);
+    private readonly StatBar _manaBar = new(Color.SteelBlue, Color.Gray);
     public PlayerStatsRow(IBattleParticipant target, IFontManager fontManager, DialogTranslationData translationData)
     {
         _target = target;
@@ -33,24 +34,34 @@ public class PlayerStatsRow: IRenderer<PlayerStatsRowRenderContext>
     {
         if(_target.Health == _lastHealth) return;
         _lastHealth = _target.Health;
+        
+        var current = _target.Health;
+        var max = _target.GetStats().Health;
+        
         _health = _translationData.GetOrKey("battle.statsRow.health")
             .Build(_fontManager.GetChatFont(), 
-                new Replacement("current", _target.Health.ToString()),
-                new Replacement("max", _target.GetStats().Health.ToString())
+                new Replacement("current", current.ToString()),
+                new Replacement("max", max.ToString())
             );
+        
         _health.MaxWidth = _width;
-
+        _healthBar.Percentage = current / (float) max;
     }
     private void RebuildMana()
     {
         if(_target.Mana == _lastMana) return;
         _lastMana = _target.Mana;
+        
+        var current = _target.Mana;
+        var max = _target.GetStats().Mana;
+        
         _mana = _translationData.GetOrKey("battle.statsRow.mana")
             .Build(_fontManager.GetChatFont(), 
-                new Replacement("current", _target.Mana.ToString()),
-                new Replacement("max", _target.GetStats().Mana.ToString())
+                new Replacement("current", current.ToString()),
+                new Replacement("max", max.ToString())
             );
         _mana.MaxWidth = _width;
+        _manaBar.Percentage = current / (float) max;
     }
 
 
@@ -64,13 +75,19 @@ public class PlayerStatsRow: IRenderer<PlayerStatsRowRenderContext>
             _health.MaxWidth = piece;
             _mana.MaxWidth = piece;
         }
+
+        var partialWidth = _width / 3;
         RebuildHealth();
         RebuildMana();
-        var start = new Vector2(context.XOffset, context.BaseScreenSize.Y- (context.TotalSlots - context.Slot) * _name.Dimensions.Y);
+        var start = new Vector2(context.XOffset, context.BaseScreenSize.Y- (context.TotalSlots - context.Slot) * _name.Dimensions.Y - 4);
         
         _name.Render(spriteBatch, new ChatRenderContext(start));
-        _health.Render(spriteBatch, new ChatRenderContext(start + new Vector2( _width/3, 0)));
-        _mana.Render(spriteBatch, new ChatRenderContext(start + new Vector2( _width/3, 0) * 2));
+        var healthGridPos = start + new Vector2(partialWidth, 0);
+        _health.Render(spriteBatch, new ChatRenderContext(healthGridPos));
+        _healthBar.Render(spriteBatch, new BarRenderContext(healthGridPos + new Vector2(0, _health.Dimensions.Y), partialWidth-2));
+        var manaGridPos = start + new Vector2(partialWidth, 0) * 2;
+        _mana.Render(spriteBatch, new ChatRenderContext(manaGridPos));
+        _manaBar.Render(spriteBatch, new BarRenderContext(manaGridPos + new Vector2(0, _mana.Dimensions.Y), partialWidth-2));
     }
 }
 
