@@ -12,7 +12,7 @@ public class SimpleNamespaceAccessPolicy : INamespaceAccessPolicy
 {
     public INamespaceAccess Access(ScriptContext context, Namespace ns)
     {
-        return new SimpleNamespaceAccess(true, true);
+        return new SimpleNamespaceAccess(true, true, ns);
     }
     
 }

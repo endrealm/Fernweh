@@ -23,11 +23,17 @@ public class NamespaceBuilder
         return this;
     }
     
-    public INamespaceAccess Build()
+    public Namespace Build()
     {
         var newNamespace = new Namespace(_name, _policy);
         _register.Invoke(newNamespace);
-        return new SimpleNamespaceAccess(true, true);
+        return newNamespace;
+    }
+
+    public INamespaceAccess BuildAndAccess()
+    {
+        var ns = Build();
+        return new SimpleNamespaceAccess(true, true, ns);
     }
 
 }

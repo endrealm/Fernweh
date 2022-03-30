@@ -9,6 +9,7 @@ public class Namespace
     private readonly string _name;
     private readonly INamespaceAccessPolicy _policy;
 
+    private readonly Dictionary<string, object> _members = new();
     private readonly Dictionary<string, Namespace> _childNamespaces = new();
 
     public Namespace(string name, INamespaceAccessPolicy policy)
@@ -18,7 +19,7 @@ public class Namespace
     }
     
 
-    void AddNamespace(Namespace ns)
+    public void AddNamespace(Namespace ns)
     {
         if (!_childNamespaces.ContainsKey(ns._name))
         {
@@ -35,39 +36,16 @@ public class Namespace
     {
         return _policy.Access(context, this);
     }
-    
-}
 
-
-
-
-// ACCESS STUFF
-
-public interface INamespaceAccess
-{
-
-    public NamespaceBuilder CreateNamespace(string name);
-
-}
-
-
-public class SimpleNamespaceAccess : INamespaceAccess
-{
-
-    private readonly bool _isWrite;
-    private readonly bool _isRead;
-    private readonly Namespace _namespace;
-
-    public SimpleNamespaceAccess(bool isWrite, bool isRead, Namespace ns)
+    public Namespace GetNamespace(string name)
     {
-        _isWrite = isWrite;
-        _isRead = isRead;
-        _namespace = ns;
+        if (!_childNamespaces.ContainsKey(name)) throw new Exception("Invalid namespace " + name);
+        return _childNamespaces[name];
     }
-    
-    public NamespaceBuilder CreateNamespace(string name)
+
+    public Dictionary<string, object> GetMembers()
     {
-        return new NamespaceBuilder(name, _namespace.);
+        return _members;
     }
 
 }

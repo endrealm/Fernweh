@@ -17,7 +17,7 @@ public class ScriptLoader
     private readonly BattleRegistry _battleRegistry;
     private Color _defaultBackgroundColor = new(18, 14, 18);
 
-    private readonly Namespace _rootNamespace = new Namespace(new SimpleNamespaceAccessPolicy());
+    private readonly NamespaceWrapper _rootNamespace = new(new Namespace("root", new SimpleNamespaceAccessPolicy()));
     
     public ScriptLoader(StateRegistry stateRegistry, BattleRegistry battleRegistry)
     {
