@@ -12,11 +12,16 @@ public class BattleGameView: IGameView
 {
     private BattleManager _manager;
     private List<PlayerStatsRow> _statsRows = new();
+    private List<BattleAvatar> _friendlyAvatars = new();
+    private List<BattleAvatar> _enemyAvatars = new();
+    private readonly IBattleSpriteManager _battleSpriteManager;
     private IFontManager _fontManager;
     private readonly DialogTranslationData _translationData;
 
-    public BattleGameView(IFontManager fontManager, DialogTranslationData translationData)
+    public BattleGameView(IBattleSpriteManager battleSpriteManager, IFontManager fontManager,
+        DialogTranslationData translationData)
     {
+        _battleSpriteManager = battleSpriteManager;
         _fontManager = fontManager;
         _translationData = translationData;
     }
@@ -25,6 +30,8 @@ public class BattleGameView: IGameView
     {
         _manager = manager;
         _statsRows = manager.Friendlies.Select(participant => new PlayerStatsRow(participant, _fontManager, _translationData)).ToList();
+        _friendlyAvatars = manager.Friendlies.Select(participant => new BattleAvatar(_battleSpriteManager, participant)).ToList();
+        _enemyAvatars = manager.Enemies.Select(participant => new BattleAvatar(_battleSpriteManager, participant)).ToList();
     }
     
     public void Render(SpriteBatch spriteBatch, IngameRenderContext context)
@@ -37,6 +44,27 @@ public class BattleGameView: IGameView
                 context.BaseScreenSize,
                 context.ChatWidth,
                 (int)(context.BaseScreenSize.X-context.ChatWidth)
+            ));
+        }
+
+        var halfPlayerAvatar = BattleAvatar.PlayerSize / 2;
+        for (var i = 0; i < _friendlyAvatars.Count; i++)
+        {
+            _friendlyAvatars[i].Render(spriteBatch, new BattleAvatarRenderContext(
+                i,
+                new Vector2(context.BaseScreenSize.X - halfPlayerAvatar.X, -halfPlayerAvatar.Y),
+                BattleAvatar.PlayerSize
+            ));
+        }
+        var halfAvatar = BattleAvatar.DefaultSize / 2;
+        for (var i = 0; i < _enemyAvatars.Count; i++)
+        {
+            _enemyAvatars[i].Render(spriteBatch, new BattleAvatarRenderContext(
+                i,
+                new Vector2(context.ChatWidth + halfAvatar.X, -halfAvatar.Y),
+                BattleAvatar.DefaultSize,
+                3,
+                false
             ));
         }
     }

@@ -17,12 +17,12 @@ public class BattleMode : IMode
     private readonly BattleRegistry _battleRegistry;
     private readonly BattleGameView _gameView;
 
-    public BattleMode(BattleRegistry battleRegistry, DialogTranslationData translationData, IFontManager fontManager)
+    public BattleMode(IBattleSpriteManager spriteManager, BattleRegistry battleRegistry, DialogTranslationData translationData, IFontManager fontManager)
     {
         _battleRegistry = battleRegistry;
 
         _chatView = new BattleChatView(translationData, fontManager);
-        _gameView = new BattleGameView(fontManager, translationData);
+        _gameView = new BattleGameView(spriteManager, fontManager, translationData);
     }
 
     public void Load(ModeParameters parameters)

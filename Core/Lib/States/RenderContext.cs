@@ -24,7 +24,7 @@ public class RenderContext
     public void StartBattle()
     {
         var config = new BattleConfig(
-            new List<string> {"test"}, 
+            new List<string> {"test","test","test","test","test","test",}, 
             new List<ParticipantConfig>
             {
                 new ParticipantConfigBuilder("Yennifer")

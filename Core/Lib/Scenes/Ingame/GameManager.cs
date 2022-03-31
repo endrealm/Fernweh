@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Core.Scenes.Ingame.Battle;
 using Core.Scenes.Ingame.Modes.Battle;
+using Core.Scenes.Ingame.Modes.Battle.Impl;
 using Core.States;
 using Core.Utils;
 using Microsoft.Xna.Framework.Content;
@@ -15,13 +16,14 @@ public class GameManager: ILoadable
     public IStateManager StateManager { get; set; }
     
     private Dictionary<string, IMode> _modes = new();
+    private StaticBattleSpriteManager _spriteManager = new StaticBattleSpriteManager();
 
     public GameManager(BattleRegistry registry, StateRegistry stateRegistry, IFontManager fontManager, DialogTranslationData translationData)
     {
         var overworld = new OverworldMode(this, stateRegistry.GlobalEventHandler, stateRegistry, fontManager, translationData);
         StateManager = overworld;
         _modes.Add("overworld", overworld);
-        _modes.Add("battle", new BattleMode(registry, translationData, fontManager));
+        _modes.Add("battle", new BattleMode(_spriteManager, registry, translationData, fontManager));
         LoadMode("overworld");
     }
 
@@ -38,6 +40,7 @@ public class GameManager: ILoadable
 
     public void Load(ContentManager content)
     {
+        _spriteManager.Load(content);
         foreach (var mode in _modes.Values)
         {
             mode.ChatView.Load(content);
