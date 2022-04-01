@@ -10,7 +10,7 @@ public class AwaitNextAction: IBattleAction
     public async Task DoAction(ActionContext context)
     {
         var done = false;
-        context.AddAction("continue", () => done = true);
+        context.AddAction("battle.continue", () => done = true);
         while (!done) await Task.Delay(50);
         context.ClearChat();
     }

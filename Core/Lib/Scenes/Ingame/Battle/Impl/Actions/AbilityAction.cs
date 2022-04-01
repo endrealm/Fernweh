@@ -43,7 +43,7 @@ public class AbilityAction : IBattleAction
         // Spell has been reflected
         if (spellEvent.Targets.Count == 0)
         {
-            context.QueueAction(new LogTextAction("ability.no_targets"));
+            context.QueueAction(new LogTextAction("ability.noTargets"));
             context.QueueAction(new AwaitNextAction());
             return;
         }
