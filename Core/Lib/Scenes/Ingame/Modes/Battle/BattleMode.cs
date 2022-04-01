@@ -14,11 +14,18 @@ public class BattleMode : IMode
 
     public IGameView GameView => _gameView;
 
+    private readonly GameManager _gameManager;
     private readonly BattleRegistry _battleRegistry;
     private readonly BattleGameView _gameView;
 
-    public BattleMode(IBattleSpriteManager spriteManager, BattleRegistry battleRegistry, DialogTranslationData translationData, IFontManager fontManager)
-    {
+    public BattleMode(
+        GameManager gameManager,
+        IBattleSpriteManager spriteManager, 
+        BattleRegistry battleRegistry, 
+        DialogTranslationData translationData, 
+        IFontManager fontManager
+    ) {
+        _gameManager = gameManager;
         _battleRegistry = battleRegistry;
 
         _chatView = new BattleChatView(translationData, fontManager);
@@ -27,9 +34,17 @@ public class BattleMode : IMode
 
     public void Load(ModeParameters parameters)
     {
-        var battleManager = new BattleManager(ChatView, _battleRegistry, parameters.GetValue<BattleConfig>("config"), _chatView);
+        var battleManager = new BattleManager(ChatView, _battleRegistry, parameters.GetValue<BattleConfig>("config"), _chatView, 
+            () => LoadOverwoldState(parameters.GetValue<string>("victoryState")),
+            () => LoadOverwoldState(parameters.GetValue<string>("looseState"))
+        );
         _chatView.BattleManager = battleManager;
         _gameView.LoadBattle(battleManager);
         Task.Run(battleManager.DoRound);
+    }
+
+    private void LoadOverwoldState(string state)
+    {
+        _gameManager.LoadMode("overworld", new ModeParameters().AppendData("state", state));
     }
 }

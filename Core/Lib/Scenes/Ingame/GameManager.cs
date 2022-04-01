@@ -23,7 +23,7 @@ public class GameManager: ILoadable
         var overworld = new OverworldMode(this, stateRegistry.GlobalEventHandler, stateRegistry, fontManager, translationData);
         StateManager = overworld;
         _modes.Add("overworld", overworld);
-        _modes.Add("battle", new BattleMode(_spriteManager, registry, translationData, fontManager));
+        _modes.Add("battle", new BattleMode(this, _spriteManager, registry, translationData, fontManager));
         LoadMode("overworld");
     }
 

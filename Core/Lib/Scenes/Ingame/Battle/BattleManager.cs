@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Core.Scenes.Ingame.Battle.Impl;
@@ -12,14 +13,18 @@ public class BattleManager
     private readonly IChatView _chatView;
     private readonly BattleRegistry _registry;
     private readonly IPlayerBattleInput _playerInput;
+    private readonly Action _onWin;
+    private readonly Action _onLoose;
     private readonly List<IBattleParticipant> _friendlies;
     private readonly List<IBattleParticipant> _enemies;
 
-    public BattleManager(IChatView chatView, BattleRegistry registry, BattleConfig config, IPlayerBattleInput playerInput)
+    public BattleManager(IChatView chatView, BattleRegistry registry, BattleConfig config, IPlayerBattleInput playerInput, Action onWin, Action onLoose)
     {
         _chatView = chatView;
         _registry = registry;
         _playerInput = playerInput;
+        _onWin = onWin;
+        _onLoose = onLoose;
         var enemyDict = new Dictionary<string, int>();
         _enemies = config.Enemies
             .Select(id =>
@@ -110,15 +115,46 @@ public class BattleManager
                 _friendlies.ForEach(participant => participant.UpdateParticipantState(updateContext));
                 _enemies.ForEach(participant => participant.UpdateParticipantState(updateContext));
                 actionQueue.AddRange(updateContext.GetActionList());
+                // Currently do not end immediately so we can wait for any late effects triggering
+                // if (CheckForEndCondition()) return;
             }
         }
         
         // Execute and await all actions
         _friendlies.ForEach(participant => { participant.OnTurnEnd(); });
         _enemies.ForEach(participant => { participant.OnTurnEnd(); });
+        
+        if (CheckForEndCondition()) return;
+
         await Task.Delay(2000);
 
         Task.Run(DoRound);
     }
+
+    private bool CheckForEndCondition()
+    {
+        if (_friendlies.All(participant => participant.State != ParticipantState.Alive))
+        {
+            PlayerLost();
+            return true;
+        }
+
+        if (_enemies.All(participant => participant.State != ParticipantState.Alive))
+        {
+            PlayerWon();
+            return true;
+        }
+
+        return false;
+    }
+
+    private void PlayerLost()
+    {
+        _onLoose.Invoke();
+    } 
     
+    private void PlayerWon()
+    {
+        _onLoose.Invoke();
+    }
 }

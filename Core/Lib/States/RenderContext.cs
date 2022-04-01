@@ -21,7 +21,7 @@ public class RenderContext
         _stateManager.LoadState(stateId);
     }
     
-    public void StartBattle()
+    public void StartBattle(string victoryState = "null", string looseState = "null")
     {
         var config = new BattleConfig(
             new List<string> {"test","test","test","test","test","test",}, 
@@ -53,7 +53,10 @@ public class RenderContext
                     .Build(),
             }
             );
-        _gameManager.LoadMode("battle", new ModeParameters().AppendData("config", config));
+        _gameManager.LoadMode("battle", new ModeParameters()
+            .AppendData("victoryState", victoryState)
+            .AppendData("looseState", looseState)
+            .AppendData("config", config));
     }
     public void Exit()
     {

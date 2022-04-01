@@ -33,7 +33,10 @@ public class OverworldMode: IMode, IStateManager
     public IGameView GameView { get; }
     public void Load(ModeParameters parameters)
     {
-        
+        if(parameters.HasKey("state"))
+        {
+            LoadState(parameters.GetValue<string>("state"));
+        }
     }
 
     public event StateChangedEventHandler StateChangedEvent;

@@ -2,9 +2,13 @@
         :Instantiate(
         function(builder, config)
             return builder
+                    :TargetType(3)
                     :OnUse(
                     function(context)
-                        print("Ability used!")
+                        context:QueueAction(BattleAction:CreateDamage({
+                            Damage = 6,
+                            Element = 1
+                        }, context.Participant, context.Targets))
                     end)
                     :Build();
 
