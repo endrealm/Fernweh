@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Core.Scenes.Ingame.Battle;
+using Core.Scenes.Ingame.Battle.Impl.Actions;
 using Core.Scenes.Ingame.Chat;
 using Core.Utils;
 using PipelineExtensionLibrary;
@@ -58,8 +59,20 @@ public class BattleChatView: BaseChatView, IPlayerBattleInput
             dict.Add(ability.CategoryId, new List<IAbility> { ability });
         });
 
-        AddText("battle.participant.list.attack");
-        AddText("battle.participant.list.defend");
+        AddAction("battle.participant.list.attack", () =>
+        {
+            ShowTargeting(true, false, false, AbilityTargetType.EnemySingle, () => RenderRound(participant),
+                (targets) =>
+                {
+                    Clear();
+                    participant.NextAction = new AttackAction(participant, targets.First());
+                });
+        });
+        AddAction("battle.participant.list.defend", () =>
+        {
+            Clear();
+            participant.NextAction = new DefendAction(participant);
+        });
         foreach (var pair in dict)
             AddAction("battle.participant.list.ability."+ pair.Key, () =>
             {
@@ -103,28 +116,32 @@ public class BattleChatView: BaseChatView, IPlayerBattleInput
 
             AddAction("battle.ability", () =>
             {
-                ShowTargeting(participant, ability, () => ShowAbilities(participant, categoryId, abilities));
+                ShowTargeting(ability.AllowLivingTargets, ability.AllowDeadTargets, IsGroupType(ability), ability.TargetType, () => ShowAbilities(participant, categoryId, abilities),
+                    (targets) =>
+                    {
+                        Clear();
+                        participant.NextAction = ability.ProduceAction(participant, targets);
+                    });
             }, new Replacement("ability", ability.Id));
         });
         LoadNextComponentInQueue();
     }
-    private void ShowTargeting(IBattleParticipant participant, IAbility ability, Action onBack)
+    private void ShowTargeting(bool allowLivingTargets, bool allowDeadTargets, bool showGroup, AbilityTargetType targetType, Action onBack, Action<List<IBattleParticipant>> onSelect)
     {
         Clear(SelectionPhaseHeaderLength);
         
         AddAction("battle.participant.list.back", onBack.Invoke);
 
         AddText("battle.select.target");
-        var showGroup = IsGroupType(ability);
-        GetTargetsByType(ability).ForEach(targets =>
+        GetTargetsByType(targetType).ForEach(targets =>
         {
             // Filter for dead targets if the spell does not allow this
-            if (!ability.AllowDeadTargets)
+            if (!allowDeadTargets)
             {
                 targets.RemoveAll(target => target.State == ParticipantState.Dead);
             }
             // Filter for living if only dead are allowed
-            if (!ability.AllowLivingTargets)
+            if (!allowLivingTargets)
             {
                 targets.RemoveAll(target => target.State == ParticipantState.Alive);
             }
@@ -138,8 +155,7 @@ public class BattleChatView: BaseChatView, IPlayerBattleInput
             
             AddAction("battle.participant.select." + countMode, () =>
             {
-                Clear();
-                participant.NextAction = ability.ProduceAction(participant, targets);
+                onSelect.Invoke(targets);
             }, new Replacement("amount", targets.Count.ToString()), new Replacement("name", string.Join(", ", types)));
         });
         LoadNextComponentInQueue();
@@ -151,9 +167,9 @@ public class BattleChatView: BaseChatView, IPlayerBattleInput
         return type == AbilityTargetType.EnemyGroup;
     }
 
-    private List<List<IBattleParticipant>> GetTargetsByType(IAbility ability)
+    private List<List<IBattleParticipant>> GetTargetsByType(AbilityTargetType targetType)
     {
-        switch (ability.TargetType)
+        switch (targetType)
         {
             case AbilityTargetType.FriendlySingle:
             {

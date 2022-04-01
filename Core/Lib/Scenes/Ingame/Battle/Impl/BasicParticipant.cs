@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Core.Scenes.Ingame.Battle.Impl.Actions;
 using Core.Scenes.Ingame.Chat;
@@ -26,6 +27,10 @@ public class BasicParticipant : IBattleParticipant
     {
         _effects.ForEach(e => e.OnReceiveDamage(evt));
         _abilities.ForEach(e => e.OnReceiveDamage(evt));
+        if(Defending)
+        {
+            evt.Data.Damage = (int)Math.Ceiling(evt.Data.Damage / 2f);
+        }
         if(evt.Data.Damage <= 0) return; // damage was somehow blocked
         Health -= evt.Data.Damage;
     }
@@ -74,6 +79,7 @@ public class BasicParticipant : IBattleParticipant
 
     public void OnTurnEnd()
     {
+        Defending = false;
         _effects.ForEach(e => e.OnTurnEnd());
         _abilities.ForEach(e => e.OnTurnEnd());
     }
@@ -88,6 +94,7 @@ public class BasicParticipant : IBattleParticipant
     public ParticipantState State { get; private set; } = ParticipantState.Alive;
 
     public int Mana { get; private set; }
+    public bool Defending { get; set; }
 
     public IBattleStrategy Strategy { get; set; } = new FallbackStrategy();
 

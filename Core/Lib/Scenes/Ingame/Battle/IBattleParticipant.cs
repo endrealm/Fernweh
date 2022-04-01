@@ -20,6 +20,7 @@ public interface IBattleParticipant : IBattleEventReceiver
     public int Health { get; }
     public ParticipantState State { get; }
     public int Mana { get; }
+    public bool Defending { get; set; }
     public IBattleStrategy Strategy { get; set; }
     public List<IAbility> GetAbilities();
     public List<IStatusEffect> GetActiveEffects();
