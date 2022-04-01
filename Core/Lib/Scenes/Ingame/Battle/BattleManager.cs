@@ -20,9 +20,23 @@ public class BattleManager
         _chatView = chatView;
         _registry = registry;
         _playerInput = playerInput;
-        _enemies = config.Enemies.Select(id => CreateParticipant(registry.GetParticipantFactory(id).Produce()))
+        var enemyDict = new Dictionary<string, int>();
+        _enemies = config.Enemies
+            .Select(id =>
+            {
+                if (enemyDict.TryGetValue(id, out var index))
+                {
+                    enemyDict[id] = ++index;
+                }
+                else
+                {
+                    enemyDict.Add(id, ++index);
+                }
+                
+                return CreateParticipant(id+ " " + index, registry.GetParticipantFactory(id).Produce());
+            })
             .ToList();
-        _friendlies = config.Friendlies.Select(CreateParticipant).ToList();
+        _friendlies = config.Friendlies.Select(config1 => CreateParticipant(config1.Id, config1)).ToList();
     }
 
     public List<IBattleParticipant> Enemies => _enemies;
@@ -37,9 +51,10 @@ public class BattleManager
         }
     }
 
-    private IBattleParticipant CreateParticipant(ParticipantConfig config)
+    private IBattleParticipant CreateParticipant(string particpantId, ParticipantConfig config)
     {
-        var participant = new BasicParticipant(config.Id, config);
+        
+        var participant = new BasicParticipant(particpantId, config.Id, config);
         config.Abilities.ForEach(abilityConfig =>
         {
             var ability = _registry.GetAbilityFactory(abilityConfig.Id).Produce(abilityConfig);

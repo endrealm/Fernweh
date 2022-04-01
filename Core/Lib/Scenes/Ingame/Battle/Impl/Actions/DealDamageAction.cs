@@ -24,7 +24,7 @@ public class DealDamageAction: IBattleAction
             Participant.OnDealDamage(new DamageDealEvent(target, Participant, data));
             target.OnReceiveDamage(new DamageReceiveEvent(target, Participant, data));
             context.QueueAction(new LogTextAction("battle.dealDamage", 
-                new Replacement("target", target.ParticipantId),
+                new Replacement("target", target.DisplayName),
                     new Replacement("damage", data.Damage.ToString())
                 ));
             context.QueueAction(new AwaitNextAction());

@@ -4,14 +4,44 @@
       "EN_US": "You stand at the entrance to a <color=\"Gray\">nightmarish</color> grave."
     }
   },
+  "battle.select.target": {
+    "translations": {
+      "EN_US": "Select a target:"
+    }
+  },
   "battle.participant.list.name": {
     "translations": {
       "EN_US": "<color=\"Orange\">{name}</color>: <color=\"Red\">{health}</color>\\<color=\"DarkRed\">{max_health}</color>HP <color=\"Aqua\">{mana}</color>\\<color=\"Blue\">{max_mana}</color>MP"
     }
   },
-  "battle.participant.list.abilities": {
+  "battle.participant.list.ability.ability": {
     "translations": {
       "EN_US": "-> Abilities"
+    }
+  },
+  "battle.ability.category.ability": {
+    "translations": {
+      "EN_US": "Abilities:"
+    }
+  },
+  "battle.ability": {
+    "translations": {
+      "EN_US": "-> {ability}"
+    }
+  },
+  "battle.participant.list.attack": {
+    "translations": {
+      "EN_US": "-> Attack"
+    }
+  },
+  "battle.participant.list.defend": {
+    "translations": {
+      "EN_US": "-> Defend"
+    }
+  },
+  "battle.participant.list.items": {
+    "translations": {
+      "EN_US": "-> Items"
     }
   },
   "battle.participant.list.skills": {
@@ -51,7 +81,7 @@
   },
   "battle.participant.list.back": {
     "translations": {
-      "EN_US": "-> Back"
+      "EN_US": "<- Back"
     }
   },
   "dialog.example.1.button": {

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace Core.Scenes.Ingame.Battle.Impl;
 
@@ -8,10 +9,11 @@ public class BasicParticipant : IBattleParticipant
     private readonly List<IAbility> _abilities = new();
     private readonly List<IStatusEffect> _effects = new();
 
-    public BasicParticipant(string participantId, ParticipantConfig config)
+    public BasicParticipant(string participantId, string groupId, ParticipantConfig config)
     {
         _config = config;
         ParticipantId = participantId;
+        GroupId = groupId;
         Health = (int)(config.Stats.Health*0.75f);
         Mana = (int)(config.Stats.Mana*0.75f);
     }
@@ -77,6 +79,8 @@ public class BasicParticipant : IBattleParticipant
     #endregion
 
     public string ParticipantId { get; }
+    public string GroupId { get; }
+    public string DisplayName => ParticipantId;
 
     public int Health { get; private set; }
     public ParticipantState State { get; private set; } = ParticipantState.Alive;

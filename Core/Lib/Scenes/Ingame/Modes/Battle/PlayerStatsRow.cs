@@ -25,7 +25,7 @@ public class PlayerStatsRow: IRenderer<PlayerStatsRowRenderContext>
         _target = target;
         _fontManager = fontManager;
         _translationData = translationData;
-        _name = translationData.GetOrKey("battle.statsRow.name").Build(fontManager.GetChatFont(), new Replacement("name", target.ParticipantId));
+        _name = translationData.GetOrKey("battle.statsRow.name").Build(fontManager.GetChatFont(), new Replacement("name", target.DisplayName));
         RebuildHealth();
         RebuildMana();
     }

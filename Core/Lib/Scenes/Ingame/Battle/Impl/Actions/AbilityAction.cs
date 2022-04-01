@@ -26,7 +26,7 @@ public class AbilityAction : IBattleAction
         context.QueueAction(
             new LogTextAction("ability.used",
                 new Replacement("ability", _ability.Id),
-                new Replacement("caster", Participant.ParticipantId)
+                new Replacement("caster", Participant.DisplayName)
             )
         );
         // Spell has been reflected

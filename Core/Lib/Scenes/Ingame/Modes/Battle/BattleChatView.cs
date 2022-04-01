@@ -74,7 +74,7 @@ public class BattleChatView: BaseChatView, IPlayerBattleInput
     {
         var stats = participant.GetStats();
         AddText($"battle.participant.list.name", 
-            new Replacement("name", participant.ParticipantId),
+            new Replacement("name", participant.DisplayName),
             new Replacement("health", participant.Health.ToString()),
             new Replacement("max_health", stats.Health.ToString()),
             new Replacement("mana", participant.Mana.ToString()),
@@ -101,10 +101,10 @@ public class BattleChatView: BaseChatView, IPlayerBattleInput
                 return;
             }
 
-            AddAction("battle.ability." + ability.Id, () =>
+            AddAction("battle.ability", () =>
             {
                 ShowTargeting(participant, ability, () => ShowAbilities(participant, categoryId, abilities));
-            });
+            }, new Replacement("ability", ability.Id));
         });
         LoadNextComponentInQueue();
     }
@@ -115,10 +115,11 @@ public class BattleChatView: BaseChatView, IPlayerBattleInput
         AddAction("battle.participant.list.back", onBack.Invoke);
 
         AddText("battle.select.target");
-
+        var showGroup = IsGroupType(ability);
         GetTargetsByType(ability).ForEach(targets =>
         {
-            var types = targets.Select(target => target.ParticipantId).ToSet();
+            
+            var types = targets.Select(target => showGroup ? target.GroupId : target.DisplayName).ToSet();
             var countMode = (targets.Count > 1 ? "multiple" : "single");
             if (types.Count > 1) countMode = "mixed";
             
@@ -129,6 +130,12 @@ public class BattleChatView: BaseChatView, IPlayerBattleInput
             }, new Replacement("amount", targets.Count.ToString()), new Replacement("name", string.Join(", ", types)));
         });
         LoadNextComponentInQueue();
+    }
+
+    private bool IsGroupType(IAbility ability)
+    {
+        var type = ability.TargetType;
+        return type == AbilityTargetType.EnemyGroup;
     }
 
     private List<List<IBattleParticipant>> GetTargetsByType(IAbility ability)
@@ -151,7 +158,7 @@ public class BattleChatView: BaseChatView, IPlayerBattleInput
             {
 
                 return BattleManager.Enemies
-                    .GroupBy(participant => participant.ParticipantId)
+                    .GroupBy(participant => participant.GroupId)
                     .Select(grouping => grouping.ToList())
                     .ToList();
             }

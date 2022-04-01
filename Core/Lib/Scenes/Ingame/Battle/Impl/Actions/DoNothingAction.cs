@@ -14,7 +14,7 @@ public class DoNothingAction: IBattleAction
     public IBattleParticipant Participant { get; }
     public async Task DoAction(ActionContext context)
     {
-        context.QueueAction(new LogTextAction("ability.doNothing", new Replacement("name", Participant.ParticipantId)));
+        context.QueueAction(new LogTextAction("ability.doNothing", new Replacement("name", Participant.DisplayName)));
         context.QueueAction(new AwaitNextAction());
     }
 
