@@ -54,5 +54,6 @@ public class AbilityAction : IBattleAction
     }
 
     public int Priority => Participant.GetStats().Agility;
-    public bool AllowDeath { get; set; }
+    public bool AllowDeath { get; }
+    public bool CausesStateCheck { get; } = true;
 }

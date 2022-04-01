@@ -102,10 +102,15 @@ public class BattleManager
             var context = new ActionContext(_chatView);
             await action.DoAction(context);
             actionQueue.AddRange(context.GetActionList());
-            
-            // Check for any changed states
-            _friendlies.ForEach(participant => participant.UpdateParticipantState());
-            _enemies.ForEach(participant => participant.UpdateParticipantState());
+
+            if (action.CausesStateCheck)
+            {
+                // Check for any changed states
+                var updateContext = new ActionContext(_chatView);
+                _friendlies.ForEach(participant => participant.UpdateParticipantState(updateContext));
+                _enemies.ForEach(participant => participant.UpdateParticipantState(updateContext));
+                actionQueue.AddRange(updateContext.GetActionList());
+            }
         }
         
         // Execute and await all actions

@@ -14,6 +14,11 @@
       "EN_US": "{caster} used {ability}"
     }
   },
+  "battle.participant.death": {
+    "translations": {
+      "EN_US": "{name} died!"
+    }
+  },
   "ability.doNothing": {
     "translations": {
       "EN_US": "{name} does nothing!"

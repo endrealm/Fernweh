@@ -25,5 +25,10 @@ public interface IBattleParticipant : IBattleEventReceiver
     public List<IStatusEffect> GetActiveEffects();
     IBattleAction NextAction { get; set; }
     Stats GetStats();
-    public void UpdateParticipantState();
+    /// <summary>
+    /// Checks for state updates on the participant. Supplied context should
+    /// and will only be used to log state changes.
+    /// </summary>
+    /// <param name="updateContext"></param>
+    public void UpdateParticipantState(ActionContext updateContext);
 }

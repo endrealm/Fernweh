@@ -20,4 +20,6 @@ public class DoNothingAction: IBattleAction
 
     public int Priority { get; }
     public bool AllowDeath { get; set; }
+    public bool CausesStateCheck { get; } = false;
+
 }
