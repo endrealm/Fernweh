@@ -27,8 +27,8 @@ public class DealDamageAction: IBattleAction
                 new Replacement("target", target.DisplayName),
                     new Replacement("damage", data.Damage.ToString())
                 ));
-            context.QueueAction(new AwaitNextAction());
         });
+        context.QueueAction(new AwaitNextAction());
     }
 
     public int Priority => -1;
