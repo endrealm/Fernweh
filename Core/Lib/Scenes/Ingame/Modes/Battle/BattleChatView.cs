@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Core.Scenes.Ingame.Battle;
 using Core.Scenes.Ingame.Battle.Impl.Actions;
 using Core.Scenes.Ingame.Chat;
+using Core.Scenes.Ingame.Views;
 using Core.Utils;
 using PipelineExtensionLibrary;
 

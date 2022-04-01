@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Core.Content;
 using Core.Scenes.Ingame.Battle;
+using Core.Scenes.Ingame.Views;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -73,7 +75,7 @@ public class BattleGameView: IGameView
     {
     }
 
-    public void Load(ContentManager content)
+    public void Load(ContentLoader content)
     {
     }
 

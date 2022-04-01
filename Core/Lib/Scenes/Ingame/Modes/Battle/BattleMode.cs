@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Core.Scenes.Ingame.Battle;
+using Core.Scenes.Ingame.Views;
 using Microsoft.Xna.Framework;
 using PipelineExtensionLibrary;
 

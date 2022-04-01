@@ -26,12 +26,12 @@ public class GameManager: ILoadable
         StateManager = overworld;
         _modes.Add("overworld", overworld);
         _modes.Add("battle", new BattleMode(this, _spriteManager, registry, translationData, fontManager));
-        LoadMode("overworld");
+        LoadMode("overworld", new ModeParameters());
     }
 
     public void LoadState(string stateId)
     {
-        LoadMode(id, new ModeParameters());
+        LoadMode(stateId, new ModeParameters());
     }
     
     public void LoadMode(string id, ModeParameters parameters)
@@ -42,6 +42,7 @@ public class GameManager: ILoadable
 
     public void Load(ContentLoader content)
     {
+        _spriteManager.Load(content);
         foreach (var mode in _modes.Values)
         {
             mode.ChatView.Load(content);
