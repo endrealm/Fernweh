@@ -13,7 +13,7 @@ public class CompoundTextComponent: BaseComponent
     private float _maxWidth;
     private float _calculatedWidth;
     private float _calculatedHeight;
-    private Action _onDone = () => {};
+    private List<Action> _onDone = new List<Action>();
     private IShape _shape = new CompoundShape(new List<IShape>());
 
     public CompoundTextComponent(
@@ -109,7 +109,7 @@ public class CompoundTextComponent: BaseComponent
 
     public override void SetOnDone(Action action)
     {
-        this._onDone = action;
+        this._onDone.Add(action);
     }
 
     public override float Width { get; }
@@ -137,6 +137,6 @@ public class CompoundTextComponent: BaseComponent
 
     public void Done()
     {
-        _onDone.Invoke();
+        _onDone.ForEach(action => action.Invoke());
     }
 }

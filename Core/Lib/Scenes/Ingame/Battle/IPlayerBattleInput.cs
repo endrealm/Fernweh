@@ -1,8 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Core.Scenes.Ingame.Battle;
 
 public interface IPlayerBattleInput
 {
-    Task HandlePlayerInput();
+    Task HandlePlayerInput(List<IBattleParticipant> battleParticipants);
 }

@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Core.Scenes.Ingame.Chat.Effects.Default;
 
 public class StaticContentEffect: ITextContentEffect
 {
     private readonly float _timePerParagraph;
-    public Action OnFinish { get; set; }
+    public List<Action> OnFinish { get; set; }
 
     private float _timeDone;
     private bool _done;
@@ -13,7 +14,7 @@ public class StaticContentEffect: ITextContentEffect
     public StaticContentEffect(float timerPerParagraph = 0.3f, Action onFinish = null)
     {
         _timePerParagraph = timerPerParagraph;
-        OnFinish = onFinish;
+        OnFinish = new List<Action>() {onFinish};
     }
 
     public void Attach(TextComponent component)
@@ -27,7 +28,7 @@ public class StaticContentEffect: ITextContentEffect
 
         if(_timeDone > _timePerParagraph)
         {
-            OnFinish?.Invoke();
+            OnFinish.ForEach(action => action.Invoke());
             _done = true;
         }
     }

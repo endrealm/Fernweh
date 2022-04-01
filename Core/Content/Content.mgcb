@@ -38,11 +38,6 @@
 /processor:LuaScriptProcessor
 /build:Scripts/effects.lua
 
-#begin Scripts/effects.lua
-/importer:LuaScriptImporter
-/processor:LuaScriptProcessor
-/build:Scripts/effects.lua
-
 #begin Scripts/participants.lua
 /importer:LuaScriptImporter
 /processor:LuaScriptProcessor
@@ -53,10 +48,29 @@
 /processor:LuaScriptProcessor
 /build:Scripts/sandbox.lua
 
-#begin Scripts/sandbox.lua
-/importer:LuaScriptImporter
-/processor:LuaScriptProcessor
-/build:Scripts/sandbox.lua
+#begin Sprites/Battle/monster.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Sprites/Battle/monster.png
+
+#begin Sprites/Battle/player.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Sprites/Battle/player.png
 
 #begin Sprites/boulder.png
 /importer:TextureImporter

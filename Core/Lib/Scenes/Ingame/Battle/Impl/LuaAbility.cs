@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Core.Scenes.Ingame.Battle.Impl.Actions;
 using NLua;
 
 namespace Core.Scenes.Ingame.Battle.Impl;
@@ -14,12 +16,30 @@ public class LuaAbility : IAbility
     private readonly LuaFunction _onUse;
     private readonly LuaFunction _canUse;
     private readonly LuaFunction _onTurnEnd;
+    public string CategoryId { get; }
+    public AbilityTargetType TargetType { get; }
+    public string Id { get; }
+    public int ManaCost { get; }
+    public bool AllowDeadTargets { get; }
+    public bool AllowLivingTargets { get; }
 
-    public LuaAbility(LuaFunction onReceiveDamage, LuaFunction onDealDamage, LuaFunction onTargetWithSpell,
-        LuaFunction onTargetedBySpell, LuaFunction onCalculateStats, LuaFunction onNextTurn, LuaFunction onUse,
+    public LuaAbility(
+        LuaFunction onReceiveDamage,
+        LuaFunction onDealDamage,
+        LuaFunction onTargetWithSpell,
+        LuaFunction onTargetedBySpell,
+        LuaFunction onCalculateStats,
+        LuaFunction onNextTurn,
+        LuaFunction onUse,
         LuaFunction canUse,
-        LuaFunction onTurnEnd)
-    {
+        LuaFunction onTurnEnd,
+        string category,
+        string id,
+        int manaCost,
+        AbilityTargetType targetType, 
+        bool allowDeadTargets, 
+        bool allowLivingTargets
+    ) {
         _onReceiveDamage = onReceiveDamage;
         _onDealDamage = onDealDamage;
         _onTargetWithSpell = onTargetWithSpell;
@@ -29,6 +49,12 @@ public class LuaAbility : IAbility
         _onUse = onUse;
         _canUse = canUse;
         _onTurnEnd = onTurnEnd;
+        CategoryId = category;
+        Id = id;
+        ManaCost = manaCost;
+        TargetType = targetType;
+        AllowDeadTargets = allowDeadTargets;
+        AllowLivingTargets = allowLivingTargets;
     }
 
     public void OnReceiveDamage(DamageReceiveEvent evt)
@@ -75,11 +101,16 @@ public class LuaAbility : IAbility
         _onUse?.Call(context);
     }
 
-    public bool CanUse(AbilityUseContext context)
+    public bool CanUse(AbilityUseCheckContext context)
     {
         var props = _canUse?.Call(context);
         if (props is { Length: > 0 }) return (bool)props.First();
 
         return true;
+    }
+
+    public IBattleAction ProduceAction(IBattleParticipant participant, List<IBattleParticipant> targets)
+    {
+        return new AbilityAction(this, participant, targets);
     }
 }

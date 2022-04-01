@@ -1,4 +1,8 @@
-﻿using System;
+using System;
+using System.Collections.Generic;
+using Core.Scenes.Ingame.Battle;
+using Core.Scenes.Ingame.Modes.Battle;
+using Core.Scenes.Ingame.Modes.Battle.Impl;
 using System.Collections.Generic;
 using Core.Content;
 using Core.States;
@@ -14,19 +18,26 @@ public class GameManager: ILoadable
     public IStateManager StateManager { get; set; }
     
     private Dictionary<string, IMode> _modes = new();
+    private StaticBattleSpriteManager _spriteManager = new StaticBattleSpriteManager();
 
-    public GameManager(StateRegistry stateRegistry, IFontManager fontManager, DialogTranslationData translationData)
+    public GameManager(BattleRegistry registry, StateRegistry stateRegistry, IFontManager fontManager, DialogTranslationData translationData)
     {
-        var overworld = new OverworldMode(stateRegistry.GlobalEventHandler, stateRegistry, fontManager, translationData);
+        var overworld = new OverworldMode(this, stateRegistry.GlobalEventHandler, stateRegistry, fontManager, translationData);
         StateManager = overworld;
         _modes.Add("overworld", overworld);
-        _modes.Add("battle", new BattleMode());
+        _modes.Add("battle", new BattleMode(this, _spriteManager, registry, translationData, fontManager));
         LoadMode("overworld");
     }
 
-    public void LoadMode(string id)
+    public void LoadState(string stateId)
+    {
+        LoadMode(id, new ModeParameters());
+    }
+    
+    public void LoadMode(string id, ModeParameters parameters)
     {
         Mode = _modes[id];
+        Mode.Load(parameters);
     }
 
     public void Load(ContentLoader content)

@@ -4,6 +4,7 @@ using System.Linq;
 using Core.Scenes.Ingame.Battle;
 using Core.Scenes.Ingame.Battle.Impl;
 using Core.States.ScriptApi;
+using Core.Scenes.Ingame.Battle.Impl.Actions;
 using Microsoft.Xna.Framework;
 using NLua;
 using PipelineExtensionLibrary;
@@ -37,6 +38,7 @@ public class ScriptLoader
         lua["CreateParticipant"] = CreateParticipantFactoryBuilder;
         lua["StateBuilder"] = BuildState;
         lua["SetDefaultBackgroundColor"] = SetDefaultBackgroundColor;
+        lua["BattleAction"] = new BattleActionsLuaBridge();
         lua["Global"] = _stateRegistry.GlobalEventHandler;
         lua["Import"] = _rootNamespace;
 
@@ -82,7 +84,7 @@ public class ScriptLoader
 
     private LuaAbilityBuilder CreateConstantAbilityFactoryBuilder(string id)
     {
-        return new LuaAbilityBuilder(ability =>
+        return new LuaAbilityBuilder(id, ability =>
             _battleRegistry.RegisterAbility(new ConstantLuaAbilityFactory(id, ability)));
     }
 

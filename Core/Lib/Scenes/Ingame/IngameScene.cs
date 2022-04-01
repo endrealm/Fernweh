@@ -2,7 +2,6 @@
 using Core.Scenes.Ingame.Battle;
 using Core.States;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
 using PipelineExtensionLibrary;
@@ -29,8 +28,6 @@ public class IngameScene: Scene
         _fontManager = fontManager;
         _scriptLoader = new(_stateRegistry, _battleRegistry);
     }
-
-    
 
     public override void Load(ContentLoader content)
     {
@@ -65,7 +62,9 @@ public class IngameScene: Scene
 
         var subContext = new IngameRenderContext(context.BaseScreenSize, chatWidth, backgroundColor, worldCulling, context);
             
-        var transformMatrix = context.Camera.GetViewMatrix();
+        var transformMatrix = _gameManager.Mode.GameView.WorldSpacedCoordinates 
+            ? context.Camera.GetViewMatrix() 
+            : context.Camera.GetViewMatrix(new Vector2());
         
         // Draw game world
         spriteBatch.Begin(
