@@ -118,6 +118,19 @@ public class BattleChatView: BaseChatView, IPlayerBattleInput
         var showGroup = IsGroupType(ability);
         GetTargetsByType(ability).ForEach(targets =>
         {
+            // Filter for dead targets if the spell does not allow this
+            if (!ability.AllowDeadTargets)
+            {
+                targets.RemoveAll(target => target.State == ParticipantState.Dead);
+            }
+            // Filter for living if only dead are allowed
+            if (!ability.AllowLivingTargets)
+            {
+                targets.RemoveAll(target => target.State == ParticipantState.Alive);
+            }
+            
+            // skip now empty target groupings
+            if(targets.Count == 0) return;
             
             var types = targets.Select(target => showGroup ? target.GroupId : target.DisplayName).ToSet();
             var countMode = (targets.Count > 1 ? "multiple" : "single");
@@ -164,16 +177,16 @@ public class BattleChatView: BaseChatView, IPlayerBattleInput
             }
             case AbilityTargetType.EnemyAll: return new()
             {
-                BattleManager.Enemies
+                BattleManager.Enemies.ToList()
             };
             case AbilityTargetType.FriendlyGroup: return new() 
             {
-                BattleManager.Friendlies
+                BattleManager.Friendlies.ToList()
             };
             default:
             case AbilityTargetType.All: return new()
             {
-                BattleManager.All
+                BattleManager.All.ToList()
             };
         }
     }

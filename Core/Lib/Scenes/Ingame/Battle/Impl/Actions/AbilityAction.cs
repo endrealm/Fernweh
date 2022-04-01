@@ -24,11 +24,12 @@ public class AbilityAction : IBattleAction
         // Filter for dead targets if the spell does not allow this
         if (!_ability.AllowDeadTargets)
         {
-            _targets.RemoveAll(target => target.State != ParticipantState.Alive);
+            _targets.RemoveAll(target => target.State == ParticipantState.Dead);
         }
+        // Filter for living if only dead are allowed
         if (!_ability.AllowLivingTargets)
         {
-            _targets.RemoveAll(target => target.State != ParticipantState.Dead);
+            _targets.RemoveAll(target => target.State == ParticipantState.Alive);
         }
         var spellEvent = new SpellTargetEvent(_targets, Participant, false, new SpellData(_ability.ManaCost));
         Participant.OnTargetWithSpell(spellEvent);
