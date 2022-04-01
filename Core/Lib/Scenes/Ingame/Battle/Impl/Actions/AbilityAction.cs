@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Core.Scenes.Ingame.Chat;
 
@@ -20,6 +21,15 @@ public class AbilityAction : IBattleAction
 
     public async Task DoAction(ActionContext context)
     {
+        // Filter for dead targets if the spell does not allow this
+        if (!_ability.AllowDeadTargets)
+        {
+            _targets.RemoveAll(target => target.State != ParticipantState.Alive);
+        }
+        if (!_ability.AllowLivingTargets)
+        {
+            _targets.RemoveAll(target => target.State != ParticipantState.Dead);
+        }
         var spellEvent = new SpellTargetEvent(_targets, Participant, false, new SpellData(_ability.ManaCost));
         Participant.OnTargetWithSpell(spellEvent);
         _targets.ForEach(target => target.OnTargetedBySpell(spellEvent));
@@ -29,7 +39,14 @@ public class AbilityAction : IBattleAction
                 new Replacement("caster", Participant.DisplayName)
             )
         );
+        
         // Spell has been reflected
+        if (spellEvent.Targets.Count == 0)
+        {
+            context.QueueAction(new LogTextAction("ability.no_targets"));
+            context.QueueAction(new AwaitNextAction());
+            return;
+        }
         if (spellEvent.Source != Participant) context.QueueAction(new LogTextAction("ability.reflected"));
         context.QueueAction(new AwaitNextAction());
         _ability.Use(new AbilityUseContext(context, spellEvent.Source, spellEvent.Targets));

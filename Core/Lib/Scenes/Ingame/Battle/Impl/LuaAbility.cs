@@ -20,6 +20,8 @@ public class LuaAbility : IAbility
     public AbilityTargetType TargetType { get; }
     public string Id { get; }
     public int ManaCost { get; }
+    public bool AllowDeadTargets { get; }
+    public bool AllowLivingTargets { get; }
 
     public LuaAbility(
         LuaFunction onReceiveDamage,
@@ -34,9 +36,10 @@ public class LuaAbility : IAbility
         string category,
         string id,
         int manaCost,
-        AbilityTargetType targetType
-    )
-    {
+        AbilityTargetType targetType, 
+        bool allowDeadTargets, 
+        bool allowLivingTargets
+    ) {
         _onReceiveDamage = onReceiveDamage;
         _onDealDamage = onDealDamage;
         _onTargetWithSpell = onTargetWithSpell;
@@ -50,6 +53,8 @@ public class LuaAbility : IAbility
         Id = id;
         ManaCost = manaCost;
         TargetType = targetType;
+        AllowDeadTargets = allowDeadTargets;
+        AllowLivingTargets = allowLivingTargets;
     }
 
     public void OnReceiveDamage(DamageReceiveEvent evt)
