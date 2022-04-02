@@ -8,6 +8,10 @@ public interface INamespaceAccess
 
     public NamespaceBuilder CreateNamespace(string name);
 
+    public Dictionary<string, object> All();
+    public void Set(string member, object value);
+    public object Get(string member);
+
 }
 
 
@@ -37,10 +41,25 @@ public class SimpleNamespaceAccess : INamespaceAccess
         return new NamespaceWrapper(_namespace.GetNamespace(name));
     }
 
-    public Dictionary<string, object> GetMembers()
+    public Dictionary<string, object> All()
     {
         if (!_isRead || !_isWrite) throw new Exception("No permission to read members");
         return _namespace.GetMembers();
+    }
+
+    public void Set(string member, object value)
+    {
+        if (!_isWrite) throw new Exception("No permission to write member");
+        _namespace.GetMembers()[member] = value;
+        Console.WriteLine("set: " + member + " " + (member == null));
+    }
+    
+    public object Get(string member)
+    {
+        if (!_isRead) throw new Exception("No permission to read member");
+        var result = _namespace.GetMembers()[member];
+        Console.WriteLine("get: " + member + " " + result);
+        return _namespace.GetMembers()[member];
     }
 
 }

@@ -38,13 +38,12 @@ public class ScriptLoader
         lua["StateBuilder"] = BuildState;
         lua["SetDefaultBackgroundColor"] = SetDefaultBackgroundColor;
         lua["Global"] = _stateRegistry.GlobalEventHandler;
-        lua["Import"] = _rootNamespace;
-
+        
+        lua["Namespace"] = _rootNamespace;
         lua["Context"] = context;
 
         #endregion
-       
-        
+
         lua.DoString("function createSandbox() " + LuaSandbox.Sandbox + " end");
         (((lua["createSandbox"] as LuaFunction)!.Call().First() as LuaTable)!["run"] as LuaFunction)!
             .Call(script);
