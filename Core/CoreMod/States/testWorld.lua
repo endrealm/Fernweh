@@ -3,6 +3,7 @@
                 function(renderer, context)
                     renderer:AddText("intro")
                     renderer:AddAction(function() context:Exit() end, "dialog.example.1.button")
+                    renderer:AddAction(function() context:StartBattle() end, "start.battle")
                 end
         )
         :Build()

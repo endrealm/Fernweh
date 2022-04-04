@@ -4,6 +4,7 @@ StateBuilder("my_state")
                     --[[local text = ]]
                     renderer:AddText("dialog.example.1")
                     renderer:AddAction(function() context:ChangeState("my_other_state") end, "dialog.example.1.button")
+                    renderer:AddAction(function() context:StartBattle() end, "start.battle")
                     --renderer:addAction(StateChangeAction("example.button.1", "my_other_state"))
                     --renderer:addAction(CustomAction("example.button.1", 
                     --        function()
