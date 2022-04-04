@@ -48,7 +48,9 @@ local BASE_ENV = {
     CreateConstantAbility = CreateConstantAbility,
     CreateAbility = CreateAbility,
     CreateParticipant = CreateParticipant,
-
+    BattleAction = BattleAction,
+    Import = Import,
+    
     Context = Context,
     Namespace = Namespace
 }
@@ -191,12 +193,12 @@ end
 
 -- Public interface: sandbox.run
 function sandbox.run(code, options, ...)
-return sandbox.protect(code, options)(...)
+    return sandbox.protect(code, options)(...)
 end
 
 -- make sandbox(f) == sandbox.protect(f)
 setmetatable(sandbox, { __call = function(_, code, o)
-return sandbox.protect(code, o)
+    return sandbox.protect(code, o)
 end })
 
 return sandbox
