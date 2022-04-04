@@ -1,11 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Core.Content;
 using Core.Scenes.Ingame.Chat;
+using Core.Scenes.Ingame.Views;
 using JetBrains.Annotations;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
+using PipelineExtensionLibrary;
+using PipelineExtensionLibrary.Chat;
 
 namespace Core.Scenes.Ingame.Views;
 
@@ -14,11 +19,35 @@ public class BaseChatView : IChatView
     protected Queue<IChatComponent> QueuedComponents = new();
     protected readonly List<IChatComponent> RunningComponents = new();
     protected int Width;
+    private readonly DialogTranslationData _translationData;
+    private readonly IFontManager _fontManager;
+
+    public BaseChatView(DialogTranslationData translationData, IFontManager fontManager)
+    {
+        _translationData = translationData;
+        _fontManager = fontManager;
+    }
 
     private const int XMargin = 5;
 
     public void Load(ContentLoader content)
     {
+    }
+
+    protected void Clear(int keepCount)
+    {
+        QueuedComponents = new Queue<IChatComponent>();
+        var remaining = RunningComponents.Take(keepCount).ToList();
+        RunningComponents.Clear();
+        RunningComponents.AddRange(remaining);
+        Width = 0;
+    }
+    
+    public void Clear()
+    {
+        QueuedComponents = new Queue<IChatComponent>();
+        RunningComponents.Clear();
+        Width = 0;
     }
 
     [CanBeNull]
@@ -63,4 +92,57 @@ public class BaseChatView : IChatView
         });
     }
     
+    public IChatComponent AddText(string key, Action callback = null, params Replacement[] replacements)
+    {
+        var groups = _translationData.TranslationGroups;
+        IChatComponent text;
+        if (!groups.ContainsKey(key) || !groups[key].TranslatedComponents.ContainsKey(Language.EN_US))
+        {
+            // Fallback to key
+            text = new ChatCompoundData(new List<IChatComponentData>()
+            {
+                new ChatTextData(Color.Red, key)
+            }).BuildAnimated(_fontManager.GetChatFont(), () => callback?.Invoke(), replacements);
+        }
+        else
+        {
+            // select actual translation
+            text = groups[key].TranslatedComponents[Language.EN_US]
+                .BuildAnimated(_fontManager.GetChatFont(), () => callback?.Invoke(), replacements);
+        }
+        QueuedComponents.Enqueue(text);
+        return text;
+    }
+    
+    public IChatComponent AddText(string key, params Replacement[] replacements)
+    {
+        return AddText(key, null, replacements);
+    }
+
+    public IChatComponent AddAction(string key, Action callback, params Replacement[] replacements)
+    {
+        var groups = _translationData.TranslationGroups;
+        IChatComponent text;
+        if (!groups.ContainsKey(key) || !groups[key].TranslatedComponents.ContainsKey(Language.EN_US))
+        {
+            // Fallback to key
+            text = new ChatCompoundData(new List<IChatComponentData>()
+            {
+                new ChatTextData(Color.Red, key)
+            }).BuildAnimatedAction(_fontManager.GetChatFont(), callback, replacements);
+        }
+        else
+        {
+            // select actual translation
+            text = groups[key].TranslatedComponents[Language.EN_US]
+                .BuildAnimatedAction(_fontManager.GetChatFont(), callback, replacements);
+        }
+        QueuedComponents.Enqueue(text);
+        return text;
+    }
+
+    public void ForceLoadNext()
+    {
+        LoadNextComponentInQueue();
+    }
 }

@@ -48,7 +48,9 @@ local BASE_ENV = {
     CreateConstantAbility = CreateConstantAbility,
     CreateAbility = CreateAbility,
     CreateParticipant = CreateParticipant,
-
+    BattleAction = BattleAction,
+    Import = Import,
+    
     Context = Context,
     Namespace = Namespace
 }

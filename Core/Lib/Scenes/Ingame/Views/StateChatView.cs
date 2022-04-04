@@ -1,4 +1,5 @@
 ﻿using Core.States;
+using PipelineExtensionLibrary;
 
 namespace Core.Scenes.Ingame.Views;
 
@@ -10,5 +11,9 @@ public class StateChatView: BaseChatView
         QueuedComponents = renderer.Build();
         RunningComponents.Clear();
         LoadNextComponentInQueue();
+    }
+
+    public StateChatView(DialogTranslationData translationData, IFontManager fontManager) : base(translationData, fontManager)
+    {
     }
 }

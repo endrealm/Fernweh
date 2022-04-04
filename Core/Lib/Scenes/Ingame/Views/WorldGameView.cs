@@ -80,4 +80,6 @@ public class WorldGameView: IGameView, IRenderer<IngameRenderContext>, IUpdate<I
         //new Color(110, 145, 155)); // night tint
         //new Color(255, 215, 175)); // morning tint
     }
+
+    public bool WorldSpacedCoordinates => true;
 }

@@ -143,7 +143,7 @@ public class TextComponent: BaseComponent, IChatInlineComponent
 
     public override void SetOnDone(Action action)
     {
-        this._contentEffect.OnFinish = action;
+        this._contentEffect.OnFinish.Add(action);
     }
 
     public override float Width => _width;

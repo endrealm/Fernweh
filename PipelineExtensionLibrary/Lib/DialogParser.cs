@@ -17,9 +17,9 @@ public class XmlDialogParser
     {
         _tokenDefinitions = new()
         {
-            new TokenDefinition(TokenType.Text, "[^</>]+", 1),
-            new TokenDefinition(TokenType.ColorStart, "<color(=\"[^\"]+\")?>", 1),
-            new TokenDefinition(TokenType.ColorEnd, "</color>", 1),
+            new TokenDefinition(TokenType.ColorStart, "<color(=\"[^\"]+\")?>", 1000),
+            new TokenDefinition(TokenType.ColorEnd, "</color>", 1000),
+            //new TokenDefinition(TokenType.Text, ".+", 1),
         };
     }
     
@@ -75,7 +75,8 @@ public class XmlDialogParser
     {
         var tokenMatches = FindTokenMatches(message);
 
-        var groupedByIndex = tokenMatches.GroupBy(x => x.StartIndex)
+        var groupedByIndex = tokenMatches
+            .GroupBy(x => x.StartIndex)
             .OrderBy(x => x.Key)
             .ToList();
 
@@ -86,10 +87,23 @@ public class XmlDialogParser
             if (lastMatch != null && bestMatch.StartIndex < lastMatch.EndIndex)
                 continue;
 
+            if (bestMatch.StartIndex > (lastMatch != null ? lastMatch.EndIndex : 0))
+            {
+                var last = lastMatch != null ? lastMatch.EndIndex : 0;
+                yield return new TokenValue(TokenType.Text, message.Substring(last, bestMatch.StartIndex-last));
+            }
+
             yield return new TokenValue(bestMatch.TokenType, bestMatch.Value);
 
             lastMatch = bestMatch;
         }
+        
+        if (message.Length > (lastMatch != null ? lastMatch.EndIndex : 0))
+        {
+            var last = lastMatch != null ? lastMatch.EndIndex : 0;
+            yield return new TokenValue(TokenType.Text, message.Substring(last, message.Length-last));
+        }
+
 
     }
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Core.Scenes.Ingame.Chat.Effects.Default;
 
@@ -6,7 +7,7 @@ public class TypeWriterContentEffect: ITextContentEffect
 {
     private readonly float _timePerParagraph;
     private readonly float _timePerCharacter;
-    public Action OnFinish { get; set; }
+    public List<Action> OnFinish { get; set; } = new List<Action>();
     private TextComponent _component;
     
     private float _timeDone;
@@ -22,7 +23,10 @@ public class TypeWriterContentEffect: ITextContentEffect
     {
         _timePerParagraph = timePerParagraph;
         _timePerCharacter = timePerCharacter;
-        OnFinish = onFinish;
+        if(onFinish != null)
+        {
+            OnFinish.Add(onFinish);
+        }
     }
     public void Attach(TextComponent component)
     {
@@ -48,7 +52,7 @@ public class TypeWriterContentEffect: ITextContentEffect
         else if (_timeDone >= _timePerParagraph) // no more char to print + cleared paragraph timer
         {
             _done = true;
-            OnFinish?.Invoke();
+            OnFinish.ForEach(action => action.Invoke());
         }
     }
 }
