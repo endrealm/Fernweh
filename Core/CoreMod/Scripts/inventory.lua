@@ -66,17 +66,66 @@ end
 -- ============================
 -- TEMPORARY TESTING
 -- ============================
-RegisterItem(Item:new{id = "sample_item"})
 
-StateBuilder("my_other_state")
+RegisterItem(Item:new{id = "sample_item"})
+AddItem("sample_item")
+-- ============================
+-- INVENTORY UI
+-- ============================
+
+noInventoryStates = {}
+
+function BlackListState(stateId)
+    table.insert(noInventoryStates, stateId)
+end
+
+BlackListState("ui_inventory")
+BlackListState("ui_item_details")
+
+StateBuilder("ui_inventory")
         :Render(
             function(renderer, context)
                 renderer:SetBackgroundColor("Brown")
                 renderer:AddText("inventory.header")
-                renderer:AddAction(function() context:Exit() end, "inventory.close")
-                for entry in GetInventory() do
-                    renderer:AddText("inventory.item", {"item", entry.item.id}, {"amount", tostring(entry.amount)})
+                renderer:AddAction(function() context:ChangeState(oldState) end, "inventory.close")
+                for key, entry in ipairs(GetInventory()) do
+                    renderer:AddAction(function()
+                        activeDetailItem=entry
+                        context:ChangeState("ui_item_details")
+                    end, "inventory.item", { { "item", entry.item.id }, { "amount", tostring(entry.amount) } } )
                 end
             end
         )
         :Build()
+
+StateBuilder("ui_item_details")
+        :Render(
+            function(renderer, context)
+                renderer:SetBackgroundColor("Brown")
+                renderer:AddText("inventory.item.header", { { "item", activeDetailItem.item.id }, { "amount", tostring(activeDetailItem.amount) } })
+                renderer:AddAction(function() context:ChangeState("ui_inventory") end, "inventory.item.close")
+                
+            end
+        )
+        :Build()
+
+local function has_value (tab, val)
+    for index, value in ipairs(tab) do
+        if value == val then
+            return true
+        end
+    end
+
+    return false
+end
+
+Global:AddOnPostStateRender(
+        function(renderer, context)
+            if(has_value(noInventoryStates, context.ActiveStateId)) then
+                return
+            end
+            
+            oldState = context.ActiveStateId;
+            renderer:AddAction(function() context:ChangeState("ui_inventory") end, "inventory.open")
+        end
+)

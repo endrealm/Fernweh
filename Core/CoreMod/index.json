@@ -1,5 +1,6 @@
 {
   "scripts": [
+    "Scripts/inventory.lua",
     "States/testWorld.lua",
     "Scripts/effects.lua",
     "Scripts/abilities.lua",

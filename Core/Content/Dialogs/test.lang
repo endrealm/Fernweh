@@ -31,12 +31,22 @@
   },
   "inventory.close": {
     "translations": {
-      "EN_US": "<- Close>"
+      "EN_US": "<- Close"
+    }
+  },
+  "inventory.item.close": {
+    "translations": {
+      "EN_US": "<- Back"
     }
   },
   "inventory.item": {
     "translations": {
       "EN_US": " -> {amount}x {item}"
+    }
+  },
+  "inventory.item.header": {
+    "translations": {
+      "EN_US": " {amount}x {item}"
     }
   },
   "ability.noTargets": {
