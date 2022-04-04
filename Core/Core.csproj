@@ -14,4 +14,7 @@
     <ItemGroup>
       <ProjectReference Include="..\PipelineExtensionLibrary\PipelineExtensionLibrary.csproj" />
     </ItemGroup>
+    <ItemGroup>
+      <Folder Include="CoreMod" />
+    </ItemGroup>
 </Project>

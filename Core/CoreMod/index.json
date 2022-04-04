@@ -1,0 +1,8 @@
+{
+  "scripts": [
+    "States/testWorld.lua",
+    "Scripts/effects.lua",
+    "Scripts/abilities.lua",
+    "Scripts/participants.lua"
+  ]
+}

@@ -4,13 +4,6 @@ using System.IO;
 
 namespace Core.Content;
 
-public interface IFileLoader
-{
-
-    IArchiveLoader LoadArchive(string archiveFolder);
-    
-}
-
 
 public interface IArchiveLoader: IDisposable
 {

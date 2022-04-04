@@ -6,13 +6,18 @@ using Core.Content;
 
 namespace CrossPlatformDesktop;
 
-public class FileLoader: IFileLoader
+public class FileLoader
 {
     
     public IArchiveLoader LoadArchive(string archiveFolder)
     {
         var file = File.OpenRead(archiveFolder);
         return new ArchiveLoader(new ZipArchive(file, ZipArchiveMode.Read), file);
+    }
+
+    public IArchiveLoader LoadDirectory(string directory)
+    {
+        return new DirectoryLoader(directory);
     }
     
 }
@@ -53,4 +58,36 @@ public class ArchiveLoader : IArchiveLoader
         this._stream.Dispose();
     }
     
+}
+
+
+public class DirectoryLoader : IArchiveLoader
+{
+
+    private readonly string _dir;
+
+    public DirectoryLoader(string dir)
+    {
+        _dir = dir;
+    }
+    
+    public void Dispose()
+    {
+        
+    }
+
+    public string LoadFile(string file)
+    {
+        return File.ReadAllText(GetPath(file));
+    }
+
+    public Stream LoadFileAsStream(string file)
+    {
+        return System.IO.File.OpenRead(GetPath(file));
+    }
+
+    private string GetPath(string file)
+    {
+        return _dir + "/" + file;
+    }
 }

@@ -28,16 +28,12 @@ namespace Core
         private Scene _activeScene;
         private TopLevelRenderContext _renderContext;
 
-        public CoreGame(IUpdateableClickInput clickInput, IFileLoader fileLoader, string contentDir, [CanBeNull] string modContentDir)
+        public CoreGame(IUpdateableClickInput clickInput, List<IArchiveLoader> mods)
         {
             _clickInput = clickInput;
             _graphics = new GraphicsDeviceManager(this);
 
             Content.RootDirectory = "Content";
-
-            var mods = new List<IArchiveLoader>() { fileLoader.LoadArchive(contentDir) };
-            if(modContentDir != null)
-                mods.Add(fileLoader.LoadArchive(modContentDir));
             
             _contentLoader = new ContentLoader(_graphics, Content, new SimpleFontManager(),  mods );
             
