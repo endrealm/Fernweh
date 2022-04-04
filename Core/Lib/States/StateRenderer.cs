@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Scenes.Ingame.Chat;
 using Microsoft.Xna.Framework;
 using NLua;
@@ -23,8 +24,9 @@ public class StateRenderer
         _font = font;
         _changeBackgroundColor = changeBackgroundColor;
     }
-    public void AddText(string key, LuaFunction callback = null)
+    public void AddText(string key, LuaFunction callback = null, params LuaTable[] rawReplacements)
     {
+        var replacements = rawReplacements.Select(table => new Replacement((string) table[0], table[1].ToString())).ToArray();
         var groups = _translationData.TranslationGroups;
         IChatComponent text;
         if (!groups.ContainsKey(key) || !groups[key].TranslatedComponents.ContainsKey(_language))
@@ -33,19 +35,20 @@ public class StateRenderer
             text = new ChatCompoundData(new List<IChatComponentData>()
             {
                 new ChatTextData(Color.Red, key)
-            }).BuildAnimated(_font.GetChatFont(), () => callback?.Call());
+            }).BuildAnimated(_font.GetChatFont(), () => callback?.Call(), replacements);
         }
         else
         {
             // select actual translation
             text = groups[key].TranslatedComponents[_language]
-                .BuildAnimated(_font.GetChatFont(), () => callback?.Call());
+                .BuildAnimated(_font.GetChatFont(), () => callback?.Call(), replacements);
         }
         _components.Enqueue(text);
     }
 
-    public void AddAction(LuaFunction callback, string key)
+    public void AddAction(LuaFunction callback, string key, params LuaTable[] rawReplacements)
     {
+        var replacements = rawReplacements.Select(table => new Replacement((string) table[0], table[1].ToString())).ToArray();
         var groups = _translationData.TranslationGroups;
         IChatComponent text;
         if (!groups.ContainsKey(key) || !groups[key].TranslatedComponents.ContainsKey(_language))
@@ -54,13 +57,13 @@ public class StateRenderer
             text = new ChatCompoundData(new List<IChatComponentData>()
             {
                 new ChatTextData(Color.Red, key)
-            }).BuildAnimatedAction(_font.GetChatFont(), () => callback.Call());
+            }).BuildAnimatedAction(_font.GetChatFont(), () => callback.Call(), replacements);
         }
         else
         {
             // select actual translation
             text = groups[key].TranslatedComponents[_language]
-                .BuildAnimatedAction(_font.GetChatFont(), () => callback.Call());
+                .BuildAnimatedAction(_font.GetChatFont(), () => callback.Call(), replacements);
         }
         _components.Enqueue(text);
     }
