@@ -17,8 +17,6 @@ public class ScriptLoader
     private readonly StateRegistry _stateRegistry;
     private readonly BattleRegistry _battleRegistry;
     private Color _defaultBackgroundColor = new(18, 14, 18);
-
-    private readonly NamespaceWrapper _rootNamespace = new(new Namespace("root", new SimpleNamespaceAccessPolicy()));
     
     public ScriptLoader(StateRegistry stateRegistry, BattleRegistry battleRegistry)
     {
@@ -41,7 +39,7 @@ public class ScriptLoader
         lua["BattleAction"] = new BattleActionsLuaBridge();
         lua["Global"] = _stateRegistry.GlobalEventHandler;
         
-        lua["Namespace"] = _rootNamespace;
+        lua["Namespace"] = context.GetName();
         lua["Context"] = context;
 
         #endregion

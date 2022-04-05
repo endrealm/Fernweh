@@ -1,4 +1,6 @@
 {
+  "id": "core",
+  "dependencies": [],
   "scripts": [
     "Scripts/inventory.lua",
     "States/testWorld.lua",

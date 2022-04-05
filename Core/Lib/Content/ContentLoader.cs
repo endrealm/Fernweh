@@ -68,23 +68,8 @@ public class ContentLoader
         return _contentManager.Load<DialogTranslationData>(file);
     }
 
-
-    public void LoadMods(ScriptLoader scriptLoader)
+    public List<IArchiveLoader> GetMods()
     {
-        for(var i = 0; i < _mods.Count; i++)
-        {
-            var mod = _mods[i];
-            
-            var index = JsonConvert.DeserializeObject<ModIndex>(mod.LoadFile("index.json"));
-            if(index == null) continue;
-            ;
-                
-            foreach (var scriptPath in index.Scripts)
-            {
-                scriptLoader.LoadScript(mod.LoadFile(scriptPath), new ScriptContext(scriptPath, i + ""));
-            }
-        }
+        return _mods;
     }
-    
-    
 }

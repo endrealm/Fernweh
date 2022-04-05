@@ -3,16 +3,16 @@
 public class ScriptContext
 {
 
-    private readonly string _name;
+    private readonly NamespacedKey _name;
     private readonly string _modId;
 
-    public ScriptContext(string name, string modId)
+    public ScriptContext(NamespacedKey name, string modId)
     {
         _name = name;
         _modId = modId;
     }
 
-    public string GetName()
+    public NamespacedKey GetName()
     {
         return _name;
     }
@@ -22,4 +22,17 @@ public class ScriptContext
         return _modId;
     }
     
+}
+
+public struct NamespacedKey
+{
+    public string Key { get; }
+    public string Value { get; }
+
+    public NamespacedKey(string key, string value)
+    {
+        Key = key;
+        Value = value;
+    }
+
 }

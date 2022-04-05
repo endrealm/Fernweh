@@ -23,6 +23,6 @@ stateBuilder('my_other_state')
         end
     )
     :build()
-", new ScriptContext("", ""));
+", new ScriptContext(new NamespacedKey("", ""), ""));
 
 Console.WriteLine("Done");
