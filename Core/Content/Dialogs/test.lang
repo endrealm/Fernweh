@@ -26,7 +26,7 @@
   },
   "inventory.header": {
     "translations": {
-      "EN_US": "Inventory"
+      "EN_US": "<color=\"Orange\">Inventory</color>"
     }
   },
   "inventory.close": {
@@ -41,12 +41,17 @@
   },
   "inventory.item": {
     "translations": {
-      "EN_US": " -> {amount}x {item}"
+      "EN_US": "-> {amount}x {item}"
+    }
+  },
+  "inventory.open": {
+    "translations": {
+      "EN_US": "<color=\"Orange\">Open Inventory</color>"
     }
   },
   "inventory.item.header": {
     "translations": {
-      "EN_US": " {amount}x {item}"
+      "EN_US": "<color=\"Orange\">{item} x{amount}</color>"
     }
   },
   "ability.noTargets": {
@@ -62,6 +67,11 @@
   "battle.continue": {
     "translations": {
       "EN_US": "Continue"
+    }
+  },
+  "inventory.item.noActions": {
+    "translations": {
+      "EN_US": "No actions available"
     }
   },
   "battle.participant.list.name": {

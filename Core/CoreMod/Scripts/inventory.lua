@@ -61,6 +61,10 @@ function Item:new(o)
     return o
 end
 
+function Item:ShowOptions(renderer, context)
+    renderer:AddText("inventory.item.noActions")
+end
+
 
 
 -- ============================
@@ -86,8 +90,8 @@ StateBuilder("ui_inventory")
         :Render(
             function(renderer, context)
                 renderer:SetBackgroundColor("Brown")
-                renderer:AddText("inventory.header")
                 renderer:AddAction(function() context:ChangeState(oldState) end, "inventory.close")
+                renderer:AddText("inventory.header")
                 for key, entry in ipairs(GetInventory()) do
                     renderer:AddAction(function()
                         activeDetailItem=entry
@@ -102,9 +106,9 @@ StateBuilder("ui_item_details")
         :Render(
             function(renderer, context)
                 renderer:SetBackgroundColor("Brown")
-                renderer:AddText("inventory.item.header", { { "item", activeDetailItem.item.id }, { "amount", tostring(activeDetailItem.amount) } })
                 renderer:AddAction(function() context:ChangeState("ui_inventory") end, "inventory.item.close")
-                
+                renderer:AddText("inventory.item.header", { { "item", activeDetailItem.item.id }, { "amount", tostring(activeDetailItem.amount) } })
+                activeDetailItem.item:ShowOptions(renderer, context)
             end
         )
         :Build()
