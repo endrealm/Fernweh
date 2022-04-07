@@ -1,19 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Core.Scenes.Ingame.Battle;
 using Core.Scenes.Ingame.Battle.Impl;
-using Core.States.ScriptApi;
 using Core.Scenes.Ingame.Battle.Impl.Actions;
+using Core.States;
+using Core.States.ScriptApi;
+using Core.Utils;
 using Microsoft.Xna.Framework;
+using MonoGame.Extended.Collections;
 using NLua;
 using PipelineExtensionLibrary;
 
-namespace Core.States;
+namespace Core.Scripting;
 
 public class ScriptLoader
 {
     private readonly List<Lua> _runtimes = new();
+    private readonly Dictionary<NamespacedKey, NamespacedDataStore> _dataStores = new();
     private readonly StateRegistry _stateRegistry;
     private readonly BattleRegistry _battleRegistry;
     private Color _defaultBackgroundColor = new(18, 14, 18);
@@ -22,12 +25,34 @@ public class ScriptLoader
     {
         _stateRegistry = stateRegistry;
         _battleRegistry = battleRegistry;
+        var lua = new Lua();
+        _runtimes.Add(lua);
     }
 
     public void LoadScript(string script, ScriptContext context)
     {
-        var lua = new Lua();
+        var lua = _runtimes[0];
 
+        #region Create import functions
+
+        DataStoreReader Import(string modId, string path = null)
+        {
+            if (path == null)
+            {
+                path = modId;
+                modId = context.GetModId();
+            }
+
+            var key = new NamespacedKey(modId, path);
+            var dataStore = _dataStores.GetOrCreate(key, () => new NamespacedDataStore(key));
+
+            return new DataStoreReader(dataStore);
+        }
+
+        #endregion
+
+        var dataStore = _dataStores.GetOrCreate(context.GetName(), () => new NamespacedDataStore(context.GetName()));
+        
         #region Exposed Lua Interfaces
 
         lua["CreateStatusEffect"] = CreateEffectFactoryBuilder;
@@ -38,16 +63,14 @@ public class ScriptLoader
         lua["SetDefaultBackgroundColor"] = SetDefaultBackgroundColor;
         lua["BattleAction"] = new BattleActionsLuaBridge();
         lua["Global"] = _stateRegistry.GlobalEventHandler;
-        
-        lua["Namespace"] = context.GetName();
-        lua["Context"] = context;
+        lua["Import"] = Import;
+        lua["Context"] = new DataStoreWriter(dataStore);
 
         #endregion
 
         lua.DoString("function createSandbox() " + LuaSandbox.Sandbox + " end");
         (((lua["createSandbox"] as LuaFunction)!.Call().First() as LuaTable)!["run"] as LuaFunction)!
             .Call(script);
-        _runtimes.Add(lua);
 
         if (_stateRegistry.ReadState("null") is NullState nullState)
         {

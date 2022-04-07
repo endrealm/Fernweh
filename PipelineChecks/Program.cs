@@ -1,6 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 using Core.Scenes.Ingame.Battle;
+using Core.Scripting;
 using Core.States;
 using Core.States.ScriptApi;
 using PipelineExtensionLibrary;

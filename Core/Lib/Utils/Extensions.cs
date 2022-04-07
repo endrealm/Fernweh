@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Core.Utils;
@@ -25,5 +26,12 @@ public static class Extensions
     public static void AddRange<T>(this Stack<T> queue, IEnumerable<T> range)
     {
         foreach (var x1 in range.Reverse()) queue.Push(x1);
+    }  
+    public static V GetOrCreate<K, V>(this Dictionary<K, V> dictionary, K key, Func<V> create)
+    {
+        if (dictionary.TryGetValue(key, out var data)) return data;
+        var value = create.Invoke();
+        dictionary.Add(key, value);
+        return value;
     }
 }

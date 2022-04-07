@@ -1,6 +1,7 @@
 ﻿using Core.Content;
 using Core.Scenes.Ingame.Battle;
 using Core.Scenes.Modding;
+using Core.Scripting;
 using Core.States;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
