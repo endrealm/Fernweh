@@ -8,7 +8,7 @@ public class DependencyGraph
 {
     private List<DependencyNode> _roots = new List<DependencyNode>();
 
-    public DependencyNode GerOrAdd(string id)
+    public DependencyNode GetOrAdd(string id)
     {
         foreach (var root in _roots)
         {

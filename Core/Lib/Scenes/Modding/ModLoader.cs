@@ -43,7 +43,7 @@ public class ModLoader
 
         foreach (var mod in mods)
         {
-            var node = graph.GerOrAdd(mod.Id);
+            var node = graph.GetOrAdd(mod.Id);
             foreach (var modDependency in mod.Dependencies)
             {
                 node.AddDependency(modDependency);
