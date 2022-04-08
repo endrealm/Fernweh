@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Core.Content;
-using Core.Content.Mod;
 using Core.Scripting;
 using Core.States;
 using Newtonsoft.Json;

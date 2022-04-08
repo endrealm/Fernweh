@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Core.Content.Mod;
+namespace Core.Scenes.Modding;
 
 public class ModIndex
 {

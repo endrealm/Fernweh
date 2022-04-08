@@ -5,8 +5,8 @@ namespace Core.Scenes.Modding;
 public class Namespace
 {
     private readonly Namespace _parent;
-    private Dictionary<string, Namespace> _children = new();
-    private List<IResource> _resources = new();
+    private readonly Dictionary<string, Namespace> _children = new();
+    private readonly List<IResource> _resources = new();
 
     public Namespace(string id, Namespace parent)
     {

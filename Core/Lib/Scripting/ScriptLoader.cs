@@ -4,7 +4,6 @@ using Core.Scenes.Ingame.Battle;
 using Core.Scenes.Ingame.Battle.Impl;
 using Core.Scenes.Ingame.Battle.Impl.Actions;
 using Core.States;
-using Core.States.ScriptApi;
 using Core.Utils;
 using Microsoft.Xna.Framework;
 using MonoGame.Extended.Collections;

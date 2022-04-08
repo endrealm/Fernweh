@@ -1,4 +1,4 @@
-﻿namespace Core.States.ScriptApi;
+﻿namespace Core.Scripting;
 
 public class ScriptContext
 {

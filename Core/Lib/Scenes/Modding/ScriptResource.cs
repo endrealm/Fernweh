@@ -2,7 +2,6 @@
 using Core.Content;
 using Core.Scripting;
 using Core.States;
-using Core.States.ScriptApi;
 
 namespace Core.Scenes.Modding;
 

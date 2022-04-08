@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Core.Content;
-using Core.Content.Mod;
 using Core.Scripting;
 using Core.States;
 

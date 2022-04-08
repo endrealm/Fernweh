@@ -3,7 +3,6 @@
 using Core.Scenes.Ingame.Battle;
 using Core.Scripting;
 using Core.States;
-using Core.States.ScriptApi;
 using PipelineExtensionLibrary;
 
 new XmlDialogParser().Parse("Some example <color=\"rgba(1,1,1,.4)\">text</color> here!");
