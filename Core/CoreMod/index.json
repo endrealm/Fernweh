@@ -3,9 +3,11 @@
   "dependencies": [],
   "scripts": [
     "Scripts/inventory.lua",
-    "States/testWorld.lua",
     "Scripts/effects.lua",
     "Scripts/abilities.lua",
-    "Scripts/participants.lua"
+    "Scripts/participants.lua",
+    "States/testWorld.lua",
+    "States/variableMaker.lua",
+    "States/variableReader.lua"
   ]
 }
