@@ -50,15 +50,11 @@ public class ContentLoader
         return archiveLoader.LoadFile(file);
     }
     
-    public Stream LoadFileAsString(string file, int modId = 0)
+    public Texture2D LoadTexture(string file, int modId = 0)
     {
         var archiveLoader = _mods.ToArray()[modId];
-        return archiveLoader.LoadFileAsStream(file);
-    }
 
-    public Texture2D LoadTexture(string file)
-    {
-        using var stream = LoadFileAsString(file);
+        using var stream = archiveLoader.LoadFileAsStream(file);
         var device = _deviceManager.GraphicsDevice;
         return Texture2D.FromStream(device, stream);
     }
