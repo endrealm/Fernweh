@@ -34,7 +34,7 @@ public class IngameScene: Scene
 
     public override void Load(ContentLoader content)
     {
-        _translationData = content.LoadTranslationData("Dialogs/test");
+        _translationData = content.Load<DialogTranslationData>("Dialogs/test");
         _gameManager = new GameManager(_battleRegistry, _stateRegistry, _fontManager, _translationData);
         _modLoader = new ModLoader(content.GetMods());
         _modLoader.Load(_scriptLoader, "core");

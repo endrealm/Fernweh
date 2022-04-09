@@ -44,7 +44,7 @@ namespace Core.Scenes.Ingame.World
 
         public void Load(ContentLoader content)
         {
-            _sprite = content.LoadTexture("Sprites/player.png");
+            _sprite = content.Load<Texture2D>("Sprites/player.png");
         }
 
         public void TeleportPlayer(Vector2 mapPos) // can be used to move to spawn

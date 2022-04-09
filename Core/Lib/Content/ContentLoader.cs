@@ -16,20 +16,40 @@ public enum ContentOrigin
     Mod
 }
 
+
+
+public interface ILoader
+{
+    
+}
+
+public interface ILoader<out TResource>: ILoader
+{
+
+    public TResource Load(string file, IArchiveLoader archiveLoader);
+
+}
+
+
 public class ContentLoader
 {
 
     private readonly List<IArchiveLoader> _mods;
     private readonly ContentManager _contentManager;
     private readonly IFontManager _fontManager;
-    private readonly GraphicsDeviceManager _deviceManager;
+
+    private readonly Dictionary<Type, ILoader> _loaders = new();
 
     public ContentLoader(GraphicsDeviceManager deviceManager, ContentManager contentManager, IFontManager fontManager, List<IArchiveLoader> mods)
     {
         _mods = mods;
-        _deviceManager = deviceManager;
         _contentManager = contentManager;
         _fontManager = fontManager;
+        
+        // Register default loaders
+        RegisterLoader(new FileLoader());
+        RegisterLoader(new TextureLoader(deviceManager));
+        RegisterLoader(new DialogLoader(_contentManager));
     }
 
     public void LoadFonts()
@@ -42,24 +62,22 @@ public class ContentLoader
         return _fontManager;
     }
 
-    public string LoadFile(string file, int modId = 0)
+    public TResource Load<TResource>(string file, int modId = 0)
     {
-        var archiveLoader = _mods.ToArray()[modId];
-        return archiveLoader.LoadFile(file);
-    }
-    
-    public Texture2D LoadTexture(string file, int modId = 0)
-    {
+        var loader = _loaders[typeof(TResource)];
+        if (loader == null)
+        {
+            throw new Exception("No loader specified for type");
+        }
+        
         var archiveLoader = _mods.ToArray()[modId];
 
-        using var stream = archiveLoader.LoadFileAsStream(file);
-        var device = _deviceManager.GraphicsDevice;
-        return Texture2D.FromStream(device, stream);
+        return ((ILoader<TResource>)loader).Load(file, archiveLoader);
     }
 
-    public DialogTranslationData LoadTranslationData(string file)
+    public void RegisterLoader<TResource>(ILoader<TResource> loader)
     {
-        return _contentManager.Load<DialogTranslationData>(file);
+        _loaders[typeof(TResource)] = loader;
     }
 
     public List<IArchiveLoader> GetMods()

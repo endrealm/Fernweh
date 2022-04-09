@@ -45,7 +45,7 @@ namespace Core
             base.LoadContent();
 
             // Init lua sandbox script
-            LuaSandbox.Sandbox = _contentLoader.LoadFile("Scripts/sandbox.lua");
+            LuaSandbox.Sandbox = _contentLoader.Load<string>("Scripts/sandbox.lua");
 
             // Init font manager
             _contentLoader.LoadFonts();
