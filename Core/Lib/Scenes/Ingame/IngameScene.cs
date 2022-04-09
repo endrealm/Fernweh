@@ -1,5 +1,7 @@
 ﻿using Core.Content;
 using Core.Scenes.Ingame.Battle;
+using Core.Scenes.Modding;
+using Core.Scripting;
 using Core.States;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -15,6 +17,7 @@ public class IngameScene: Scene
     private readonly StateRegistry _stateRegistry = new();
     private readonly BattleRegistry _battleRegistry = new();
     private GameManager _gameManager;
+    private ModLoader _modLoader;
     private readonly IFontManager _fontManager;
 
     /// <summary>
@@ -33,9 +36,8 @@ public class IngameScene: Scene
     {
         _translationData = content.LoadTranslationData("Dialogs/test");
         _gameManager = new GameManager(_battleRegistry, _stateRegistry, _fontManager, _translationData);
-        
-        content.LoadMods(_scriptLoader);
-        
+        _modLoader = new ModLoader(content.GetMods());
+        _modLoader.Load(_scriptLoader, "core");
         _gameManager.Load(content);
         _gameManager.StateManager.LoadState("my_state"); // selects initial state
     }

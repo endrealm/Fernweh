@@ -41,6 +41,7 @@ sandbox.bytecode_blocked = bytecode_blocked
 --
 local BASE_ENV = {
     print = print,
+    setmetatable = setmetatable,
     StateBuilder = StateBuilder,
     Global = Global,
     SetDefaultBackgroundColor = SetDefaultBackgroundColor,
@@ -62,7 +63,7 @@ local BASE_ENV = {
 -- * collectgarbage: can affect performance of other systems
 -- * dofile: can access the server filesystem
 -- * _G: It has access to everything. It can be mocked to other things though.
--- * load{file|string}: All unsafe because they can grant acces to global env
+-- * load{file|string}: All unsafe because they can grant access to global env
 -- * raw{get|set|equal}: Potentially unsafe
 -- * module|require|module: Can modify the host settings
 -- * string.dump: Can display confidential server info (implementation of functions)

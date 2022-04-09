@@ -47,9 +47,11 @@ public class OverworldMode: IMode, IStateManager
     public void LoadState(string stateId)
     {
         _stateRegistry.GlobalEventHandler.EmitPreStateChangeEvent();
+        var oldState = ActiveState;
         ActiveState = _stateRegistry.ReadState(stateId);
         StateChangedEvent?.Invoke(new StateChangedEventArgs()
         {
+            OldState = oldState,
             NewState = ActiveState
         });
 
@@ -63,7 +65,9 @@ public class OverworldMode: IMode, IStateManager
     private void OnStateChanged(StateChangedEventArgs args)
     {
         var renderer = new StateRenderer(_translationData, Language.EN_US, _fontManager, (color) => Background = color);
-        args.NewState.Render(renderer, new RenderContext(this, _gameManager));
+        var context = new RenderContext(this, _gameManager, args.OldState.Id, args.NewState.Id);
+        args.NewState.Render(renderer, context);
+        _stateRegistry.GlobalEventHandler.EmitPostStateChangeEvent(renderer, context);
         _chatView.RenderResults(renderer);
     }
 
@@ -73,5 +77,6 @@ public delegate void StateChangedEventHandler(StateChangedEventArgs args);
 
 public class StateChangedEventArgs : EventArgs
 {
+    public IState OldState { get; set; }
     public IState NewState { get; set; }
 }
