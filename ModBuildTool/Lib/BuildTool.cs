@@ -1,7 +1,10 @@
-﻿using ModBuildTool.Lib.File;
+﻿using Aspose.Zip;
+using Aspose.Zip.Saving;
+using ModBuildTool.Lib.File;
 using ModBuildTool.Lib.File.Impl;
 using ModBuildTool.Lib.Input;
 using ModBuildTool.Lib.Input.Impl;
+using ModBuildTool.Lib.Util;
 
 namespace ModBuildTool.Lib;
 
@@ -31,7 +34,7 @@ public class BuildTool
             try
             {
                 var instance = _typeRegistry.CreateInstanceByFileEnding(ending, _fileReader.ReadFile(filePath));
-                var file = new ContentFile( filePath.Remove(filePath.LastIndexOf('.')), instance);
+                var file = new ContentFile( filePath.Remove(filePath.LastIndexOf('.')).Remove(0, _directory.Length), instance);
                 _files.Add(file);
             }
             catch
@@ -51,11 +54,30 @@ public class BuildTool
 
     public void Export()
     {
-        foreach (var contentFile in _files)
+        var disposables = new List<IDisposable>();
+
+        using (FileStream zipFile = System.IO.File.Open(_directory + "mod.fwm", FileMode.Create)) 
         {
-            var type = contentFile.GetFileData().GetType();
-            Console.WriteLine("Writing: " + contentFile.GetName() +  " type: " + _typeRegistry.GetFileEndingByType(type));
+            using (var archive = new Archive(new ArchiveEntrySettings())) 
+            {
+                foreach (var contentFile in _files)
+                {
+                    var source = StreamUtil.FromString(contentFile.GetFileData().GetRaw());
+                    disposables.Add(source);
+                    
+                    var fileEnding = _typeRegistry.GetFileEndingByType(contentFile.GetFileData().GetType());
+                    Console.WriteLine(contentFile.GetName() + "." + fileEnding);
+                    archive.CreateEntry(contentFile.GetName() + "." + fileEnding,
+                        source);
+                }
+                
+                archive.Save(zipFile);
+            }
+        }
+        
+        foreach (var disposable in disposables)
+        {
+            disposable.Dispose();
         }
     }
-
 }
