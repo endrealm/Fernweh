@@ -12,6 +12,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PipelineExtension", "Pipeli
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PipelineChecks", "PipelineChecks\PipelineChecks.csproj", "{66E1974D-99E7-44FB-9FD3-FE219F25A4FD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModBuildTool", "ModBuildTool\ModBuildTool.csproj", "{2552CDB5-732C-4B4A-ADE0-C6943E4DBBBC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,5 +44,9 @@ Global
 		{66E1974D-99E7-44FB-9FD3-FE219F25A4FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66E1974D-99E7-44FB-9FD3-FE219F25A4FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{66E1974D-99E7-44FB-9FD3-FE219F25A4FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2552CDB5-732C-4B4A-ADE0-C6943E4DBBBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2552CDB5-732C-4B4A-ADE0-C6943E4DBBBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2552CDB5-732C-4B4A-ADE0-C6943E4DBBBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2552CDB5-732C-4B4A-ADE0-C6943E4DBBBC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
