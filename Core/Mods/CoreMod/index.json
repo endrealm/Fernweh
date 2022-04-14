@@ -1,8 +1,7 @@
 {
   "id": "core",
-  "dependencies": [],
+  "dependencies": ["inventory"],
   "scripts": [
-    "Scripts/inventory.lua",
     "Scripts/effects.lua",
     "Scripts/abilities.lua",
     "Scripts/participants.lua",

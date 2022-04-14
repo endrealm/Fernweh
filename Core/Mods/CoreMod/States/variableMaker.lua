@@ -2,5 +2,5 @@
 test:Set("example")
 
 Context:CreateFunction("test2", function()
-    print("ez noob")
+    print("Example function invoked")
 end)

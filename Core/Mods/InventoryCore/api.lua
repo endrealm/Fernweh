@@ -66,13 +66,6 @@ function Item:ShowOptions(renderer, context)
 end
 
 
-
--- ============================
--- TEMPORARY TESTING
--- ============================
-
-RegisterItem(Item:new{id = "sample_item"})
-AddItem("sample_item")
 -- ============================
 -- INVENTORY UI
 -- ============================
@@ -134,4 +127,10 @@ Global:AddOnPostStateRender(
         end
 )
 
+-- ============================
+-- EXPORTS
+-- ============================
+Context:CreateFunction("AddItem", AddItem)
+Context:CreateFunction("GetInventory", GetInventory)
+Context:CreateFunction("RegisterItem", RegisterItem)
 Context:CreateVariable("Item", Item)
