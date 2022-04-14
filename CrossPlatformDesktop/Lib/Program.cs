@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using Core;
@@ -15,9 +16,13 @@ namespace CrossPlatformDesktop
             var modDir = args.Length > 0 ? args[0] : null;
 
             var fileLoader = new FileLoader();
-
+            
             var mods = new List<IArchiveLoader>();
-            mods.Add(fileLoader.LoadDirectory("./../../../../Core/CoreMod"));
+            var scanDirs = ScanForMods(fileLoader);
+            scanDirs.ForEach(dir =>
+            {
+                mods.Add(dir);
+            });
             if (modDir != null)
             {
                 mods.Add(fileLoader.LoadArchive(modDir));
@@ -25,6 +30,25 @@ namespace CrossPlatformDesktop
             
             using (var game = new CoreGame(new MouseClickInput(),  mods))
                 game.Run();
+        }
+
+        private static List<IArchiveLoader> ScanForMods(FileLoader loader)
+        {
+            var archives = new List<IArchiveLoader>();
+#if DEV
+            var devPath = Path.Combine(".", "..", "..", "..", "..", "Core", "Mods");
+            foreach (var path in Directory.GetDirectories(devPath))
+            {
+                if(!File.Exists(Path.Combine(path, "index.json")))
+                {
+                    Console.WriteLine("Detected invalid mod directory: "+ path);
+                    continue;
+                }
+                archives.Add(loader.LoadDirectory(path));
+            }
+#endif
+
+            return archives;
         }
     }
 }

@@ -26,6 +26,8 @@ public class ScriptLoader
         _battleRegistry = battleRegistry;
         var lua = new Lua();
         _runtimes.Add(lua);
+        lua.DoString("function createSandbox() " + LuaSandbox.Sandbox + " end");
+
     }
 
     public void LoadScript(string script, ScriptContext context)
@@ -67,7 +69,6 @@ public class ScriptLoader
 
         #endregion
 
-        lua.DoString("function createSandbox() " + LuaSandbox.Sandbox + " end");
         (((lua["createSandbox"] as LuaFunction)!.Call().First() as LuaTable)!["run"] as LuaFunction)!
             .Call(script);
 
