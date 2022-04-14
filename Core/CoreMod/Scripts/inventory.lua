@@ -133,3 +133,5 @@ Global:AddOnPostStateRender(
             renderer:AddAction(function() context:ChangeState("ui_inventory") end, "inventory.open")
         end
 )
+
+Context:CreateVariable("Item", Item)

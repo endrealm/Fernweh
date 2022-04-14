@@ -7,9 +7,19 @@ public class DataStoreReader
 {
     private readonly NamespacedDataStore _dataStore;
 
-    public IDataType Get(string key)
+    public object Get(string key)
     {
-        return _dataStore.GetData(key);
+        var data = _dataStore.GetData(key);
+        if (data is VariableWrapper wrapper)
+        {
+            return wrapper.Get();
+        }
+        return data;
+    }
+    
+    public VariableWrapper GetVar(string key)
+    {
+        return (VariableWrapper)_dataStore.GetData(key);
     }
     public LuaFunction GetFunc(string key)
     {
