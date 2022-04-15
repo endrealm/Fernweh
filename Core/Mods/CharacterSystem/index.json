@@ -1,0 +1,7 @@
+{
+  "id": "character_system",
+  "dependencies": ["inventory"],
+  "scripts": [
+    "api.lua"
+  ]
+}
