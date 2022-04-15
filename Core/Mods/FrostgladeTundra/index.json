@@ -1,0 +1,7 @@
+{
+  "id": "frostglade_tundra",
+  "dependencies": ["core"],
+  "scripts": [
+    "states/chapter_1.lua"
+  ]
+}
