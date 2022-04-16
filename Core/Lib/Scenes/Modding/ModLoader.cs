@@ -54,4 +54,9 @@ public class ModLoader
 
         return modNode.CollectFlatHierarchy().Select(node => _mods[node.Id]).ToList();
     }
+
+    public IArchiveLoader GetArchiveLoader(string modId)
+    {
+        return _mods.Values.First(mod => mod.Id == modId).Archive;
+    }
 }

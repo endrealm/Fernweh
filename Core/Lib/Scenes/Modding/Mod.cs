@@ -20,6 +20,7 @@ public class Mod
     public string Id => _index.Id;
     public bool IsLoaded => _root != null;
     public string[] Dependencies => _index.Dependencies;
+    public IArchiveLoader Archive => _loader;
 
     public void Load()
     {

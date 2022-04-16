@@ -34,9 +34,10 @@ public class IngameScene: Scene
 
     public override void Load(ContentLoader content)
     {
+        _modLoader = new ModLoader(content.GetMods());
+        content.ModLoader = _modLoader;
         _translationData = content.Load<DialogTranslationData>("Dialogs/test");
         _gameManager = new GameManager(_battleRegistry, _stateRegistry, _fontManager, _translationData);
-        _modLoader = new ModLoader(content.GetMods());
         _modLoader.Load(_scriptLoader, "frostglade_tundra");
         _gameManager.Load(content);
         _gameManager.StateManager.LoadState("my_state"); // selects initial state

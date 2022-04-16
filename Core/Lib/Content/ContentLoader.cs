@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using Core.Scenes.Modding;
 using Core.States;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -39,6 +40,7 @@ public class ContentLoader
     private readonly IFontManager _fontManager;
 
     private readonly Dictionary<Type, ILoader> _loaders = new();
+    public ModLoader ModLoader { set; private get; }
 
     public ContentLoader(GraphicsDeviceManager deviceManager, ContentManager contentManager, IFontManager fontManager, List<IArchiveLoader> mods)
     {
@@ -62,15 +64,15 @@ public class ContentLoader
         return _fontManager;
     }
 
-    public TResource Load<TResource>(string file, int modId = 0)
+    public TResource Load<TResource>(string file, string modId = "core")
     {
         var loader = _loaders[typeof(TResource)];
         if (loader == null)
         {
             throw new Exception("No loader specified for type");
         }
-        
-        var archiveLoader = _mods.ToArray()[modId];
+
+        var archiveLoader = ModLoader.GetArchiveLoader(modId);
 
         return ((ILoader<TResource>)loader).Load(file, archiveLoader);
     }
