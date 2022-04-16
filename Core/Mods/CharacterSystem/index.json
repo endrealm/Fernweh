@@ -4,6 +4,8 @@
   "scripts": [
     "lib/registry.lua",
     "lib/character.lua",
+    "lib/party.lua",
+    "lib/equip.lua",
     "api.lua"
   ]
 }

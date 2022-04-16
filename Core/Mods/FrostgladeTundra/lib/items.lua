@@ -2,14 +2,17 @@
 -- Imports
 -- ============================
 
+local equip = Import("character_system", "lib/equip")
+local EquipItem = equip:Get("EquipItem")
+
 local inventory = Import("inventory", "api")
-local Item = inventory:Get("Item")
 local RegisterItem = inventory:GetFunc("RegisterItem")
 
 -- ============================
 -- Items
 -- ============================
-RegisterItem(Item:new({
+
+RegisterItem(EquipItem:new({
     id = "infinity_blade",
     tags = {"equip"},
     abilities = {

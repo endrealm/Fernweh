@@ -1,6 +1,6 @@
 {
   "id": "core",
-  "dependencies": ["inventory"],
+  "dependencies": ["inventory", "character_system"],
   "scripts": [
     "Scripts/effects.lua",
     "Scripts/abilities.lua",

@@ -1,7 +1,6 @@
 ﻿-- ============================
 -- INVENTORY
 -- ============================
-
 inventory = {}
 
 function AddItem(item)
