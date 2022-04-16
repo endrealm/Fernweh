@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Core.Content;
 using Core.Utils;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Core.Scenes.Ingame.Modes.Battle.Impl;

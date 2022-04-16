@@ -18,10 +18,12 @@ public class GameManager: ILoadable
     public IStateManager StateManager { get; set; }
     
     private Dictionary<string, IMode> _modes = new();
-    private StaticBattleSpriteManager _spriteManager = new StaticBattleSpriteManager();
+    private DynamicBattleSpriteManager _spriteManager = new ();
+    private readonly IGlobalEventHandler _eventHandler;
 
     public GameManager(BattleRegistry registry, StateRegistry stateRegistry, IFontManager fontManager, DialogTranslationData translationData)
     {
+        _eventHandler = stateRegistry.GlobalEventHandler;
         var overworld = new OverworldMode(this, stateRegistry.GlobalEventHandler, stateRegistry, fontManager, translationData);
         StateManager = overworld;
         _modes.Add("overworld", overworld);
@@ -42,7 +44,7 @@ public class GameManager: ILoadable
 
     public void Load(ContentLoader content)
     {
-        _spriteManager.Load(content);
+        _spriteManager.Load(content, _eventHandler);
         foreach (var mode in _modes.Values)
         {
             mode.ChatView.Load(content);
