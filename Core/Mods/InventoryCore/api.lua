@@ -42,6 +42,10 @@ function RegisterItem(item)
     itemRegistry[item.id] = item;
 end
 
+function GetItem(item)
+    return itemRegistry[item.id];
+end
+
 -- ============================
 -- ITEM CLASS
 -- ============================
@@ -55,6 +59,8 @@ function Item:new(o)
     if(o.id == nil) then
         error("Property id not set")
     end
+
+    o.data = o.data or {}
     
     setmetatable(o, self)
     self.__index = self
@@ -133,4 +139,5 @@ Global:AddOnPostStateRender(
 Context:CreateFunction("AddItem", AddItem)
 Context:CreateFunction("GetInventory", GetInventory)
 Context:CreateFunction("RegisterItem", RegisterItem)
+Context:CreateFunction("GetItem", GetItem)
 Context:CreateVariable("Item", Item)
