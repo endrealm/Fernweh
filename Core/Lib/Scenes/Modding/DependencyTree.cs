@@ -124,7 +124,7 @@ public class DependencyNode
     {
         if (parents.Contains(Id)) throw new Exception("Cyclic mod dependency detected");
         if (visited.Contains(Id)) return new List<DependencyNode>();
-
+        visited.Add(Id);
         var list = new List<DependencyNode>();
         var parentSet = new HashSet<string>(parents) {Id};
 

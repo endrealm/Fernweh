@@ -1,5 +1,5 @@
 ﻿local inventory = Import("inventory", "api")
-local Item = inventory.Get("Item")
+local Item = inventory:Get("Item")
 EquipItem = {}
 
 function EquipItem:new(o)
@@ -19,4 +19,4 @@ function EquipItem:ShowOptions(renderer, context)
     end)
 end
 
-context:CreateVar("EquipItem", EquipItem)
+Context:CreateVar("EquipItem", EquipItem)

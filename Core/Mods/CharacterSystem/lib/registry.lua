@@ -33,6 +33,6 @@ end)
 -- ============================
 -- Exports
 -- ============================
-context:CreateFunc("RegisterCharacterType", RegisterCharacterType)
-context:CreateFunc("LoadCharacterType", LoadCharacterType)
+Context:CreateFunc("RegisterCharacterType", RegisterCharacterType)
+Context:CreateFunc("LoadCharacterType", LoadCharacterType)
 

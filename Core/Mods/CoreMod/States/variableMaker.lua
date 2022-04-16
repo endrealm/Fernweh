@@ -1,6 +1,6 @@
-﻿local test = Context:CreateVariable("test")
+﻿local test = Context:CreateVar("test")
 test:Set("example")
 
-Context:CreateFunction("test2", function()
+Context:CreateFunc("test2", function()
     print("Example function invoked")
 end)

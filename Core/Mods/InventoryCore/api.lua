@@ -149,8 +149,8 @@ Global:AddOnPostStateRender(
 -- ============================
 -- EXPORTS
 -- ============================
-Context:CreateFunction("AddItem", AddItem)
-Context:CreateFunction("GetInventory", GetInventory)
-Context:CreateFunction("RegisterItem", RegisterItem)
-Context:CreateFunction("GetItem", GetItem)
-Context:CreateVariable("Item", Item)
+Context:CreateFunc("AddItem", AddItem)
+Context:CreateFunc("GetInventory", GetInventory)
+Context:CreateFunc("RegisterItem", RegisterItem)
+Context:CreateFunc("GetItem", GetItem)
+Context:CreateVar("Item", Item)

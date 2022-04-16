@@ -1,13 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Scenes.Ingame.Battle;
 using Core.Scenes.Ingame.Battle.Impl;
 using Core.Scenes.Ingame.Battle.Impl.Actions;
+using Core.Scenes.Modding;
 using Core.States;
 using Core.Utils;
 using Microsoft.Xna.Framework;
 using MonoGame.Extended.Collections;
 using NLua;
+using NLua.Exceptions;
 using PipelineExtensionLibrary;
 
 namespace Core.Scripting;
@@ -27,7 +30,6 @@ public class ScriptLoader
         var lua = new Lua();
         _runtimes.Add(lua);
         lua.DoString("function createSandbox() " + LuaSandbox.Sandbox + " end");
-
     }
 
     public void LoadScript(string script, ScriptContext context)
@@ -68,9 +70,20 @@ public class ScriptLoader
         lua["Context"] = new DataStoreWriter(dataStore);
 
         #endregion
-
-        (((lua["createSandbox"] as LuaFunction)!.Call().First() as LuaTable)!["run"] as LuaFunction)!
-            .Call(script);
+        try
+        {
+            (((lua["createSandbox"] as LuaFunction)!.Call().First() as LuaTable)!["run"] as LuaFunction)!
+                .Call(script);
+        }
+        catch (LuaScriptException e)
+        {
+            var parts = e.Message.Split(':');
+            if (parts.Length == 1)
+            {
+                parts = e.Source.Split(':');
+            }
+            throw new LuaModException(context, int.Parse(parts[parts.Length-2]), e);
+        }
 
         if (_stateRegistry.ReadState("null") is NullState nullState)
         {

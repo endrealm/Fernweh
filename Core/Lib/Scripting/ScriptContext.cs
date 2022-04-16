@@ -35,4 +35,10 @@ public struct NamespacedKey
         Value = value;
     }
 
+    public string Pretty()
+    {
+        return Key + "/" + Value;
+    }
+    
+    
 }
