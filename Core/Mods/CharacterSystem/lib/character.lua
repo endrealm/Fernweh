@@ -97,6 +97,15 @@ function Character:GenerateParticipant(builder, abilityBuilder)
             :Intellect(self.stats.intellect)
             :Spirit(self.stats.spirit)
             :Evasion(self.stats.evasion)
+
+    for _, value in ipairs(self:GetItems()) do
+        local abilities = value:ParseAbility(abilityBuilder)
+        if(abilities ~= nil) then
+            for _, ability in ipairs(abilities) do
+                builder:AddAbility(ability)
+            end
+        end
+    end
     
     return builder
             :Build();

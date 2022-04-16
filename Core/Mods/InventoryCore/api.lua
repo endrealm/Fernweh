@@ -59,16 +59,30 @@ function Item:new(o)
     if(o.id == nil) then
         error("Property id not set")
     end
+    self.__index = self
 
     o.data = o.data or {}
+    o.tags = o.tags or {}
     
     setmetatable(o, self)
-    self.__index = self
     return o
 end
 
 function Item:ShowOptions(renderer, context)
     renderer:AddText("inventory.item.noActions")
+end
+
+function Item:ParseAbility(abilityBuilder)
+    if(self.abilities == nil) then
+        return nil
+    end
+    local abilities = {}
+
+    for key, value in pairs(self.abilities) do
+        table.insert(abilities, abilityBuilder():Build())
+    end
+    
+    return abilities
 end
 
 

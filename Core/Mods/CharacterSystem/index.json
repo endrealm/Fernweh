@@ -2,6 +2,8 @@
   "id": "character_system",
   "dependencies": ["inventory"],
   "scripts": [
+    "lib/registry.lua",
+    "lib/character.lua",
     "api.lua"
   ]
 }
