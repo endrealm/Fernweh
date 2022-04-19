@@ -49,6 +49,7 @@ local BASE_ENV = {
     CreateConstantAbility = CreateConstantAbility,
     CreateAbility = CreateAbility,
     CreateParticipant = CreateParticipant,
+    RegisterFriendlyParticipantsProvider = RegisterFriendlyParticipantsProvider,
     BattleAction = BattleAction,
     Import = Import,
     

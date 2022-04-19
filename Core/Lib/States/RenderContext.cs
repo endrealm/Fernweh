@@ -37,34 +37,7 @@ public class RenderContext
     public void StartBattle(string victoryState = "null", string looseState = "null")
     {
         var config = new BattleConfig(
-            new List<string> {"test","test","test","test","test","test",}, 
-            new List<ParticipantConfig>
-            {
-                new ParticipantConfigBuilder("Yennifer")
-                    .Health(1000)
-                    .Mana(1000)
-                    .AddAbility(new LuaAbilityConfigBuilder("test_ability").Build())
-                    .AddAbility(new LuaAbilityConfigBuilder("test_ability_2").Build())
-                    .Build(),
-                new ParticipantConfigBuilder("Triss")
-                    .Health(1000)
-                    .Mana(1000)
-                    .AddAbility(new LuaAbilityConfigBuilder("test_ability").Build())
-                    .AddAbility(new LuaAbilityConfigBuilder("test_ability_2").Build())
-                    .Build(),
-                new ParticipantConfigBuilder("Geralt")
-                    .Health(1000)
-                    .Mana(1000)
-                    .AddAbility(new LuaAbilityConfigBuilder("test_ability").Build())
-                    .AddAbility(new LuaAbilityConfigBuilder("test_ability_2").Build())
-                    .Build(),
-                new ParticipantConfigBuilder("Ciri")
-                    .Health(1000)
-                    .Mana(1000)
-                    .AddAbility(new LuaAbilityConfigBuilder("test_ability").Build())
-                    .AddAbility(new LuaAbilityConfigBuilder("test_ability_2").Build())
-                    .Build(),
-            }
+            new List<string> {"test","test","test","test","test","test",}
             );
         _gameManager.LoadMode("battle", new ModeParameters()
             .AppendData("victoryState", victoryState)

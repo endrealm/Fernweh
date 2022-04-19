@@ -21,12 +21,16 @@ public class ScriptLoader
     private readonly Dictionary<NamespacedKey, NamespacedDataStore> _dataStores = new();
     private readonly StateRegistry _stateRegistry;
     private readonly BattleRegistry _battleRegistry;
+
+    private readonly LuaFriendlyParticipantsProvider _friendlyParticipantsProvider =
+        new LuaFriendlyParticipantsProvider();
     private Color _defaultBackgroundColor = new(18, 14, 18);
-    
+
     public ScriptLoader(StateRegistry stateRegistry, BattleRegistry battleRegistry)
     {
         _stateRegistry = stateRegistry;
         _battleRegistry = battleRegistry;
+        _battleRegistry.FriendlyParticipantsProvider = _friendlyParticipantsProvider;
         var lua = new Lua();
         _runtimes.Add(lua);
         lua.DoString("function createSandbox() " + LuaSandbox.Sandbox + " end");
@@ -65,6 +69,7 @@ public class ScriptLoader
         lua["StateBuilder"] = BuildState;
         lua["SetDefaultBackgroundColor"] = SetDefaultBackgroundColor;
         lua["BattleAction"] = new BattleActionsLuaBridge();
+        lua["RegisterFriendlyParticipantsProvider"] = _friendlyParticipantsProvider.RegisterFriendlyParticipantsProvider;
         lua["Global"] = _stateRegistry.GlobalEventHandler;
         lua["Import"] = Import;
         lua["Context"] = new DataStoreWriter(dataStore);
