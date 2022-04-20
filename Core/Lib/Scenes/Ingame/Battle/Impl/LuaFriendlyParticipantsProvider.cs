@@ -5,7 +5,7 @@ namespace Core.Scenes.Ingame.Battle.Impl;
 
 public class LuaFriendlyParticipantsProvider: IFriendlyParticipantsProvider
 {
-    private List<LuaFunction> _luaFunctions = new();
+    private readonly List<LuaFunction> _luaFunctions = new();
     
     
     public List<ParticipantConfig> Load()
