@@ -87,7 +87,8 @@ end
 -- Battle
 -- ============================
 
-function Character:GenerateParticipant(builder, abilityBuilder)
+function Character:GenerateParticipant(createBuilder, abilityBuilder)
+    local builder = createBuilder(self.id)
     builder
             :Health(self.stats.health)
             :Mana(self.stats.mana)

@@ -17,8 +17,8 @@ public class BasicParticipant : IBattleParticipant
         _config = config;
         ParticipantId = participantId;
         GroupId = groupId;
-        Health = (int)(config.Stats.Health*0.75f);
-        Mana = (int)(config.Stats.Mana*0.75f);
+        Health = config.Stats.Health;
+        Mana = config.Stats.Health;
     }
 
     #region Events
