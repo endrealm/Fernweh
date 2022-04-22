@@ -1,6 +1,9 @@
 ﻿-- ============================
 -- Imports
 -- ============================
+local party = Import("lib/party")
+GetMembers = party:GetFunc("GetMembers")
+
 local uiCompat = Import("ui_compat", "api")
 BlackListState = uiCompat:GetFunc("BlackListState")
 IsUI = uiCompat:GetFunc("IsUI")
@@ -25,7 +28,11 @@ StateBuilder("ui_equip_item")
                 renderer:SetBackgroundColor("Brown")
                 renderer:AddAction(function() context:ChangeState("ui_item_details") end, "inventory.close")
                 renderer:AddText("equip.header")
-                
+                for i, character in ipairs(GetMembers()) do
+                    renderer:AddAction(function()
+                        
+                    end, "equip.character", {{"name", character.id}})
+                end
             end
         )
         :Build()

@@ -15,7 +15,7 @@ local AddItem = inventory:GetFunc("AddItem")
 
 RegisterItem(EquipItem:new({
     id = "infinity_blade",
-    tags = {"equip"},
+    slot="weapon",
     abilities = {
         test_ability = {},
     },

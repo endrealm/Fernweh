@@ -52,6 +52,10 @@ function RemoveFromParty(character)
     return true
 end
 
+function GetMembers()
+    return currentParty;
+end
+
 -- ============================
 -- Events
 -- ============================
@@ -93,5 +97,6 @@ end)
 -- Exports
 -- ============================
 Context:CreateFunc("AddToParty", AddToParty)
+Context:CreateFunc("GetMembers", GetMembers)
 Context:CreateFunc("IsInParty", IsInParty)
 Context:CreateFunc("RemoveFromParty", RemoveFromParty)

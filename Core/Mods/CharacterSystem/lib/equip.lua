@@ -16,6 +16,7 @@ function EquipItem:new(o)
     setmetatable(obj, self)
 
     -- custom init code here
+    o.slot = o.slot or "head"
     
     return obj
 end
