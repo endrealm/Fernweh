@@ -1,6 +1,6 @@
 {
   "id": "inventory",
-  "dependencies": [],
+  "dependencies": ["ui_compat"],
   "scripts": [
     "api.lua"
   ]

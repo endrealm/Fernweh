@@ -46,6 +46,17 @@ namespace CrossPlatformDesktop
                 }
                 archives.Add(loader.LoadDirectory(path));
             }
+#else
+
+            foreach (var path in Directory.GetDirectories(Path.Combine(".", "mods"))
+            {
+                if(!File.Exists(Path.Combine(path, "index.json")))
+                {
+                    Console.WriteLine("Detected invalid mod directory: "+ path);
+                    continue;
+                }
+                archives.Add(loader.LoadDirectory(path));
+            }
 #endif
 
             return archives;

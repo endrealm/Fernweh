@@ -7,6 +7,7 @@ local EquipItem = equip:Get("EquipItem")
 
 local inventory = Import("inventory", "api")
 local RegisterItem = inventory:GetFunc("RegisterItem")
+local AddItem = inventory:GetFunc("AddItem")
 
 -- ============================
 -- Items
@@ -19,3 +20,5 @@ RegisterItem(EquipItem:new({
         test_ability = {},
     },
 }))
+
+AddItem("infinity_blade", 1)

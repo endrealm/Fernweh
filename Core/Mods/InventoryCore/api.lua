@@ -1,4 +1,12 @@
 ﻿-- ============================
+-- Imports
+-- ============================
+local uiCompat = Import("ui_compat", "api")
+BlackListState = uiCompat:GetFunc("BlackListState")
+IsUI = uiCompat:GetFunc("IsUI")
+OldState = uiCompat:GetVar("OldState")
+
+-- ============================
 -- INVENTORY
 -- ============================
 inventory = {}
@@ -88,13 +96,6 @@ end
 -- ============================
 -- INVENTORY UI
 -- ============================
-
-noInventoryStates = {}
-
-function BlackListState(stateId)
-    table.insert(noInventoryStates, stateId)
-end
-
 BlackListState("ui_inventory")
 BlackListState("ui_item_details")
 
@@ -102,7 +103,7 @@ StateBuilder("ui_inventory")
         :Render(
             function(renderer, context)
                 renderer:SetBackgroundColor("Brown")
-                renderer:AddAction(function() context:ChangeState(oldState) end, "inventory.close")
+                renderer:AddAction(function() context:ChangeState(OldState:Get()) end, "inventory.close")
                 renderer:AddText("inventory.header")
                 for key, entry in ipairs(GetInventory()) do
                     renderer:AddAction(function()
@@ -125,23 +126,11 @@ StateBuilder("ui_item_details")
         )
         :Build()
 
-local function has_value (tab, val)
-    for index, value in ipairs(tab) do
-        if value == val then
-            return true
-        end
-    end
-
-    return false
-end
-
 Global:AddOnPostStateRender(
         function(renderer, context)
-            if(has_value(noInventoryStates, context.ActiveStateId)) then
+            if(IsUI(context.ActiveStateId)) then
                 return
             end
-            
-            oldState = context.ActiveStateId;
             renderer:AddAction(function() context:ChangeState("ui_inventory") end, "inventory.open")
         end
 )

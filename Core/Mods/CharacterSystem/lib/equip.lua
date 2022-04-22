@@ -1,5 +1,12 @@
 ﻿local inventory = Import("inventory", "api")
 local Item = inventory:Get("Item")
+
+local equipUI = Import("lib/ui/equip")
+local SetEquipItem = equipUI:GetFunc("SetEquipItem")
+-- ============================
+-- Equip Item
+-- ============================
+
 EquipItem = {}
 
 function EquipItem:new(o)
@@ -14,9 +21,14 @@ function EquipItem:new(o)
 end
 
 function EquipItem:ShowOptions(renderer, context)
-    renderer:AddAction("inventory.item.equip", function() 
-        
-    end)
+    renderer:AddAction(function()
+        SetEquipItem(self)
+        context:ChangeState("ui_equip_item")
+    end, "inventory.item.equip")
 end
 
+
+-- ============================
+-- Exports
+-- ============================
 Context:CreateVar("EquipItem", EquipItem)

@@ -5,6 +5,7 @@
     "lib/registry.lua",
     "lib/character.lua",
     "lib/party.lua",
+    "lib/ui/equip.lua",
     "lib/equip.lua",
     "api.lua"
   ]

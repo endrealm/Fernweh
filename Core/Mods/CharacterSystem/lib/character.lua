@@ -21,6 +21,7 @@ function Character:new(o)
     
     o.type = o.type or "default"
     o.items = o.items or {}
+    o.equip = o.equip or {}
     o.stats = o.stats or {}
     
     -- Init base stats
@@ -84,6 +85,41 @@ function Character:GetItems()
 end
 
 -- ============================
+-- Equip
+-- ============================
+function Character:EquipItem(item, slot)
+    local id;
+
+    if(type(item) == "string") then
+        id = item
+    else
+        id = item.id
+    end
+
+    self.equip[slot] = item;
+end
+
+function Character:GetEquip()
+    local items = {}
+
+    for key, value in pairs(self.equip) do
+        if(value ~= nil) then
+            table.insert(items, GetItem(key))
+        end
+    end
+
+    return items
+end
+
+function Character:UnequipItem(slot)
+    self.equip[slot] = nil;
+end
+
+function Character:GetEquippedItem(slot)
+    return self.equip[slot];
+end
+
+-- ============================
 -- Battle
 -- ============================
 
@@ -99,7 +135,18 @@ function Character:GenerateParticipant(createBuilder, abilityBuilder)
             :Spirit(self.stats.spirit)
             :Evasion(self.stats.evasion)
 
+    -- Load abilities from held items
     for _, value in ipairs(self:GetItems()) do
+        local abilities = value.item:ParseAbility(abilityBuilder)
+        if(abilities ~= nil) then
+            for _, ability in ipairs(abilities) do
+                builder:AddAbility(ability)
+            end
+        end
+    end
+    
+    -- Load abilities from equipped items
+    for _, value in ipairs(self:GetEquip()) do
         local abilities = value:ParseAbility(abilityBuilder)
         if(abilities ~= nil) then
             for _, ability in ipairs(abilities) do
@@ -111,6 +158,10 @@ function Character:GenerateParticipant(createBuilder, abilityBuilder)
     return builder
             :Build();
 end
+
+-- ============================
+-- UI
+-- ============================
 
 -- ============================
 -- EXPORTS

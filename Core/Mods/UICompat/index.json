@@ -1,0 +1,7 @@
+﻿{
+    "id": "ui_compat",
+    "dependencies": [],
+    "scripts": [
+        "api.lua"
+    ]
+}
