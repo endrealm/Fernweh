@@ -11,8 +11,12 @@ OldState = uiCompat:GetVar("OldState")
 -- ============================
 inventory = {}
 
-function AddItem(item)
+function AddItem(item, add)
     local id;
+
+    if(add == nil) then
+        add = 1
+    end
 
     if(type(item) == "string") then
         id = item
@@ -24,7 +28,7 @@ function AddItem(item)
     if(amount == nil) then
         amount = 0;
     end
-    inventory[id] = amount +1;
+    inventory[id] = amount +add;
 end
 
 function RemoveItem(item)

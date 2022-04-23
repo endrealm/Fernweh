@@ -21,4 +21,13 @@ RegisterItem(EquipItem:new({
     },
 }))
 
-AddItem("infinity_blade", 1)
+RegisterItem(EquipItem:new({
+    id = "lethality_blade",
+    slot="weapon",
+    abilities = {
+        test_ability = {},
+    },
+}))
+
+AddItem("infinity_blade", 3)
+AddItem("lethality_blade", 2)
