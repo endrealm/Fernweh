@@ -27,6 +27,26 @@ function AddItem(item)
     inventory[id] = amount +1;
 end
 
+function RemoveItem(item)
+    local id;
+
+    if(type(item) == "string") then
+        id = item
+    else
+        id = item.id
+    end
+
+    local amount = inventory[id]
+    if(amount == nil) then
+        return
+    end
+    inventory[id] = amount - 1;
+    
+    if(inventory[id] <= 0) then
+        inventory[id] = nil;
+    end
+end
+
 function GetInventory()
     local items = {}
 
@@ -139,6 +159,7 @@ Global:AddOnPostStateRender(
 -- EXPORTS
 -- ============================
 Context:CreateFunc("AddItem", AddItem)
+Context:CreateFunc("RemoveItem", RemoveItem)
 Context:CreateFunc("GetInventory", GetInventory)
 Context:CreateFunc("RegisterItem", RegisterItem)
 Context:CreateFunc("GetItem", GetItem)
