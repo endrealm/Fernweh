@@ -28,6 +28,9 @@
 /processorParam:TextureFormat=Compressed
 /build:Fonts/TinyUnicode.spritefont
 
+#begin Fonts/TinyUnicode.ttf
+/copy:Fonts/TinyUnicode.ttf
+
 #begin Scripts/sandbox.lua
 /importer:LuaScriptImporter
 /processor:LuaScriptProcessor

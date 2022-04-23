@@ -24,7 +24,8 @@ public class MainMenuScene: Scene
         UpdateAlpha(deltaTime);
         if (Controls.AnyInput())
         {
-            SceneManager.LoadScene(new IngameScene(_fontManager));
+            // SceneManager.LoadScene(new IngameScene(_fontManager));
+            SceneManager.LoadScene(new CreateOrLoadScene(_fontManager));
         }
     }
 

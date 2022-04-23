@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Core.Content;
+using Core.Gui;
 using Core.Input;
 using Core.Scenes.MainMenu;
 using Core.States;
@@ -9,6 +10,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
 using MonoGame.Extended.ViewportAdapters;
+using FontStashSharp;
 
 namespace Core
 {
@@ -27,6 +29,7 @@ namespace Core
         
         private Scene _activeScene;
         private TopLevelRenderContext _renderContext;
+        private IMGUI _ui;
 
         public CoreGame(IUpdateableClickInput clickInput, List<IArchiveLoader> mods)
         {
@@ -43,7 +46,15 @@ namespace Core
         protected override void LoadContent()
         {
             base.LoadContent();
+            
+            var fontSystem = FontSystemFactory.Create(GraphicsDevice, 2048, 2048);
+            fontSystem.AddFont(TitleContainer.OpenStream($"{Content.RootDirectory}/Fonts/TinyUnicode.ttf"));
+            GuiHelper.Setup(this, fontSystem);
+            _ui = new IMGUI();
+            GuiHelper.CurrentIMGUI = _ui;
 
+            GuiHelper.GuiSampler = SamplerState.PointClamp;
+            
             // Init lua sandbox script
             LuaSandbox.Sandbox = Content.Load<string>("Scripts/sandbox");
 
@@ -81,10 +92,17 @@ namespace Core
 
         protected override void Update(GameTime gameTime)
         {
+            // Call UpdateSetup at the start.
+            GuiHelper.UpdateSetup(gameTime);
+            _ui.UpdateAll(gameTime);
+            
             base.Update(gameTime);
+
             _clickInput.Update(gameTime);
             _activeScene.Update((float) gameTime.ElapsedGameTime.TotalSeconds, new TopLevelUpdateContext(_clickInput, _camera));
             _controls.Update((float)gameTime.ElapsedGameTime.TotalSeconds, new TopLevelUpdateContext(_clickInput, _camera));
+            
+            GuiHelper.UpdateCleanup();
         }
 
         protected override void Draw(GameTime gameTime)
@@ -96,10 +114,13 @@ namespace Core
             
             // Render FPS overlay
             var fps = $"FPS: {_frameCounter.AverageFramesPerSecond}";
+            
             _spriteBatch.Begin();
             _spriteBatch.DrawString(_contentLoader.GetFontManager().GetChatFont(), fps, Vector2.Zero, Color.Gold);
             _spriteBatch.End();
             
+            _ui.Draw(gameTime);
+
             base.Draw(gameTime);
         }
 
