@@ -1,5 +1,6 @@
 {
   "id": "character_system",
+  "type": "library",
   "dependencies": ["inventory"],
   "scripts": [
     "lib/registry.lua",

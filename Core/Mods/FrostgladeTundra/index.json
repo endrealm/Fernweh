@@ -1,5 +1,6 @@
 {
   "id": "frostglade_tundra",
+  "type": "game",
   "dependencies": ["core"],
   "scripts": [
     "lib/items.lua",

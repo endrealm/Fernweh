@@ -1,5 +1,6 @@
 {
   "id": "core",
+  "type": "library",
   "dependencies": ["inventory", "character_system"],
   "scripts": [
     "Scripts/effects.lua",
