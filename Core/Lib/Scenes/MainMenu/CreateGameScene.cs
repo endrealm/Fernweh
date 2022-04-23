@@ -1,5 +1,7 @@
-﻿using Core.Gui;
+﻿using System.Linq;
+using Core.Gui;
 using Core.Scenes.Ingame;
+using Core.Scenes.Modding;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -10,6 +12,7 @@ public class CreateGameScene: Scene
     
     private IFontManager _fontManager;
     private string _gameName = "";
+    private int _currentModIndex = 0;
     public CreateGameScene(IFontManager fontManager)
     {
         _fontManager = fontManager;
@@ -35,10 +38,40 @@ public class CreateGameScene: Scene
         Label.Put("Save Name:");
         Label.Put(BuildProdName(), color: Color.Wheat);
         Horizontal.Pop();
+        
+        Horizontal.Push();
+        if (Button.Put("<").Clicked)
+        {
+            Cycle(-1, context.ModLoader);
+
+        }
+
+        var currentMod = context.ModLoader.GetGameMods().ElementAt(_currentModIndex);
+        Label.Put(currentMod.Id);
+        if (Button.Put(">").Clicked)
+        {
+            Cycle(1, context.ModLoader);
+        }
+        Horizontal.Pop();
+        
         if (Button.Put("Start Game", color: IsValidName() ? Color.White : Color.Gray).Clicked && IsValidName()) {
-            SceneManager.LoadScene(new IngameScene(_fontManager));
+            SceneManager.LoadScene(new IngameScene(_fontManager, context.ModLoader, currentMod.Id));
         }
         MenuPanel.Pop();
+    }
+
+    private void Cycle(int amount, ModLoader modLoader)
+    {
+        _currentModIndex += amount;
+        if (_currentModIndex < 0)
+        {
+            _currentModIndex = modLoader.GetGameMods().Count();
+        }
+
+        if (_currentModIndex >= modLoader.GetGameMods().Count())
+        {
+            _currentModIndex = 0;
+        }
     }
 
     private bool IsValidName()

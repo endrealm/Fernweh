@@ -21,6 +21,7 @@ public class Mod
     public bool IsLoaded => _root != null;
     public string[] Dependencies => _index.Dependencies;
     public IArchiveLoader Archive => _loader;
+    public ModType Type => _index.type;
 
     public void Load()
     {
@@ -58,5 +59,11 @@ public class Mod
             script.Load();
             script.Apply(this, scriptLoader);
         });
+    }
+
+    public void Unload()
+    {
+        _root?.Unload();
+        _root = null;
     }
 }

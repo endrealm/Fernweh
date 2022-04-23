@@ -18,6 +18,7 @@ public class IngameScene: Scene
     private readonly BattleRegistry _battleRegistry = new();
     private GameManager _gameManager;
     private ModLoader _modLoader;
+    private readonly string _currentModId;
     private readonly IFontManager _fontManager;
 
     /// <summary>
@@ -26,19 +27,20 @@ public class IngameScene: Scene
     private DialogTranslationData _translationData;
 
 
-    public IngameScene(IFontManager fontManager)
+    public IngameScene(IFontManager fontManager, ModLoader modLoader, string currentModId)
     {
+        _modLoader = modLoader;
+        _currentModId = currentModId;
         _fontManager = fontManager;
         _scriptLoader = new(_stateRegistry, _battleRegistry);
     }
 
     public override void Load(ContentLoader content)
     {
-        _modLoader = new ModLoader(content.GetMods());
-        content.ModLoader = _modLoader;
+        _modLoader.UnloadAllMods();
         _translationData = content.Load<DialogTranslationData>("Dialogs/test");
         _gameManager = new GameManager(_battleRegistry, _stateRegistry, _fontManager, _translationData);
-        _modLoader.Load(_scriptLoader, "frostglade_tundra");
+        _modLoader.Load(_scriptLoader, _currentModId);
         _gameManager.Load(content);
         _gameManager.StateManager.LoadState("my_state"); // selects initial state
     }

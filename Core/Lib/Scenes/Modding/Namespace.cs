@@ -32,4 +32,17 @@ public class Namespace
         _children.Add(id, newSpace);
         return newSpace;
     }
+
+    public void Unload()
+    {
+        foreach (var childrenValue in _children.Values)
+        {
+            childrenValue.Unload();
+        }
+
+        foreach (var resource in _resources)
+        {
+            resource.Clear();
+        }
+    }
 }

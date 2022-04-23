@@ -3,6 +3,7 @@ using Core.Content;
 using Core.Gui;
 using Core.Input;
 using Core.Scenes.MainMenu;
+using Core.Scenes.Modding;
 using Core.States;
 using Core.Utils;
 using JetBrains.Annotations;
@@ -24,6 +25,7 @@ namespace Core
         private bool _isFullscreen = false;
         private Controls _controls = new Controls();
         private FrameCounter _frameCounter = new();
+        private readonly ModLoader _modLoader;
 
         private readonly ContentLoader _contentLoader;
         
@@ -38,8 +40,12 @@ namespace Core
 
             Content.RootDirectory = "Content";
             
-            _contentLoader = new ContentLoader(_graphics, Content, new SimpleFontManager(),  mods );
-            
+            _modLoader = new ModLoader(mods);
+            _contentLoader = new ContentLoader(_graphics, Content, new SimpleFontManager(),  mods )
+            {
+                ModLoader = _modLoader
+            };
+
             IsMouseVisible = true;
         }
 
@@ -99,8 +105,8 @@ namespace Core
             base.Update(gameTime);
 
             _clickInput.Update(gameTime);
-            _activeScene.Update((float) gameTime.ElapsedGameTime.TotalSeconds, new TopLevelUpdateContext(_clickInput, _camera));
-            _controls.Update((float)gameTime.ElapsedGameTime.TotalSeconds, new TopLevelUpdateContext(_clickInput, _camera));
+            _activeScene.Update((float) gameTime.ElapsedGameTime.TotalSeconds, new TopLevelUpdateContext(_clickInput, _camera, _modLoader));
+            _controls.Update((float)gameTime.ElapsedGameTime.TotalSeconds, new TopLevelUpdateContext(_clickInput, _camera, _modLoader));
             
             GuiHelper.UpdateCleanup();
         }

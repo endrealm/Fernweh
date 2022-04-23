@@ -59,4 +59,17 @@ public class ModLoader
     {
         return _mods.Values.First(mod => mod.Id == modId).Archive;
     }
+
+    public void UnloadAllMods()
+    {
+        foreach (var mod in _mods.Values)
+        {
+            mod.Unload();
+        }
+    }
+
+    public IEnumerable<Mod> GetGameMods()
+    {
+        return _mods.Values.Where(mod => mod.Type == ModType.Game);
+    }
 }
