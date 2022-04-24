@@ -48,7 +48,7 @@ namespace CrossPlatformDesktop
             }
 #else
 
-            foreach (var path in Directory.GetDirectories(Path.Combine(".", "mods"))
+            foreach (var path in Directory.GetDirectories(Path.Combine(".", "mods")))
             {
                 if(!File.Exists(Path.Combine(path, "index.json")))
                 {
@@ -56,6 +56,16 @@ namespace CrossPlatformDesktop
                     continue;
                 }
                 archives.Add(loader.LoadDirectory(path));
+            }
+            
+            foreach (var path in Directory.GetFiles(Path.Combine(".", "mods")))
+            {
+                if(!path.EndsWith(".zip"))
+                {
+                    Console.WriteLine("Detected invalid mod directory: "+ path);
+                    continue;
+                }
+                archives.Add(loader.LoadArchive(path));
             }
 #endif
 
