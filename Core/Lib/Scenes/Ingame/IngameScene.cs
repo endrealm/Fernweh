@@ -33,7 +33,7 @@ public class IngameScene: Scene
         _modLoader = modLoader;
         _currentModId = currentModId;
         _fontManager = fontManager;
-        _scriptLoader = new(_stateRegistry, _battleRegistry);
+        _scriptLoader = new(_stateRegistry, _battleRegistry, gameSave);
     }
 
     public override void Load(ContentLoader content)

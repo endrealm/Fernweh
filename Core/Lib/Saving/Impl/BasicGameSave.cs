@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Core.Saving.Impl;
 
@@ -22,7 +24,35 @@ public class BasicGameSave: IGameSave
     public void Load()
     {
         var data = File.ReadAllText(_path);
-        _data = JsonConvert.DeserializeObject<Dictionary<string, object>>(data);
+        var raw = JObject.Parse(data);
+        _data = new();
+        
+        foreach (var jToken in raw)
+        {
+            _data.Add(jToken.Key, ParseData(jToken.Value));
+        }
+    }
+
+    private object ParseData(JToken jToken)
+    {
+        if (jToken is JArray array)
+        {
+            return array.Select(ParseData).ToList();
+        }
+        
+        if (jToken is JObject obj)
+        {
+            var fullObject = new Dictionary<string, object>();
+            
+            foreach (var token in obj)
+            {
+                fullObject.Add(token.Key, ParseData(token.Value));
+            }
+            
+            return fullObject;
+        }
+
+        return ((JValue) jToken).Value;
     }
 
     public Dictionary<string, object> Data

@@ -10,6 +10,10 @@ public class DataStoreWriter
     {
         return _dataStore.CreateVar(key, defaultValue);
     }
+    public VariableWrapper CreateStoredVar(string key, object defaultValue = null)
+    {
+        return _dataStore.CreateStoredVar(key, defaultValue);
+    }
     
     public VariableWrapper CreateFunc(string key, LuaFunction defaultValue)
     {

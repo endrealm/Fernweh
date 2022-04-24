@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Saving;
 using Core.Scenes.Ingame.Battle;
 using Core.Scenes.Ingame.Battle.Impl;
 using Core.Scenes.Ingame.Battle.Impl.Actions;
@@ -21,15 +22,16 @@ public class ScriptLoader
     private readonly Dictionary<NamespacedKey, NamespacedDataStore> _dataStores = new();
     private readonly StateRegistry _stateRegistry;
     private readonly BattleRegistry _battleRegistry;
+    private readonly IGameSave _gameSave;
 
-    private readonly LuaFriendlyParticipantsProvider _friendlyParticipantsProvider =
-        new LuaFriendlyParticipantsProvider();
+    private readonly LuaFriendlyParticipantsProvider _friendlyParticipantsProvider = new();
     private Color _defaultBackgroundColor = new(18, 14, 18);
 
-    public ScriptLoader(StateRegistry stateRegistry, BattleRegistry battleRegistry)
+    public ScriptLoader(StateRegistry stateRegistry, BattleRegistry battleRegistry, IGameSave gameSave)
     {
         _stateRegistry = stateRegistry;
         _battleRegistry = battleRegistry;
+        _gameSave = gameSave;
         _battleRegistry.FriendlyParticipantsProvider = _friendlyParticipantsProvider;
         var lua = new Lua();
         _runtimes.Add(lua);
@@ -51,14 +53,14 @@ public class ScriptLoader
             }
 
             var key = new NamespacedKey(modId, path);
-            var dataStore = _dataStores.GetOrCreate(key, () => new NamespacedDataStore(key));
+            var dataStore = _dataStores.GetOrCreate(key, () => new LuaNamespacedDataStore(key, lua, _gameSave));
 
             return new DataStoreReader(dataStore);
         }
 
         #endregion
 
-        var dataStore = _dataStores.GetOrCreate(context.GetName(), () => new NamespacedDataStore(context.GetName()));
+        var dataStore = _dataStores.GetOrCreate(context.GetName(), () => new LuaNamespacedDataStore(context.GetName(), lua, _gameSave));
         
         #region Exposed Lua Interfaces
 
