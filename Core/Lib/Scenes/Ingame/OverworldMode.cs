@@ -15,7 +15,20 @@ public class OverworldMode: IMode, IStateManager
     private readonly DialogTranslationData _translationData;
     private readonly ISaveSystem _saveSystem;
     private readonly StateChatView _chatView;
-    public string weakNextID { get;  set; }
+    private string _weakNextId;
+
+    public string weakNextID
+    {
+        get => _weakNextId;
+        set
+        {
+            if (ActiveState.AllowSave) LastSaveStateWeak = value;
+            _weakNextId = value;
+        }
+    }
+
+    private string LastSaveStateWeak { get;  set; }
+    private string LastSaveState { get;  set; }
 
     public OverworldMode(GameManager gameManager, IGlobalEventHandler eventHandler, StateRegistry stateRegistry,
         IFontManager fontManager, DialogTranslationData translationData, ISaveSystem saveSystem)
@@ -52,8 +65,9 @@ public class OverworldMode: IMode, IStateManager
 
     public void Save(Dictionary<string, object> data)
     {
-        data.Add("State", ActiveState.Id);
-        data.Add("WeakState", weakNextID);
+        
+        data.Add("State", LastSaveState);
+        data.Add("WeakState", LastSaveStateWeak);
     }
 
     public event StateChangedEventHandler StateChangedEvent;
@@ -75,7 +89,12 @@ public class OverworldMode: IMode, IStateManager
             LoadState(weakNextID);
             weakNextID = null;
         }
-        _saveSystem.SaveAll();
+
+        if (ActiveState.AllowSave)
+        {
+            LastSaveState = ActiveState.Id;
+            _saveSystem.SaveAll();
+        }
     }
     
     private void OnStateChanged(StateChangedEventArgs args)

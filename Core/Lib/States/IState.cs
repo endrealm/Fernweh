@@ -6,4 +6,5 @@ public interface IState
     void Render(StateRenderer renderer, RenderContext context);
     bool ShowExit { get; }
     bool AllowMove { get; }
+    bool AllowSave { get; }
 }

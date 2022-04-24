@@ -29,6 +29,7 @@ BlackListState("ui_equip_item")
 BlackListState("ui_equip_item_replace")
 
 StateBuilder("ui_equip_item")
+        :AllowSave(false)
         :Render(
             function(renderer, context)
                 renderer:SetBackgroundColor("Brown")
@@ -51,6 +52,7 @@ StateBuilder("ui_equip_item")
         :Build()
 
 StateBuilder("ui_equip_item_replace")
+        :AllowSave(false)
         :Render(
         function(renderer, context)
             renderer:SetBackgroundColor("Brown")

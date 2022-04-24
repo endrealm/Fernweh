@@ -140,6 +140,7 @@ StateBuilder("ui_inventory")
         :Build()
 
 StateBuilder("ui_item_details")
+        :AllowSave(false)
         :Render(
             function(renderer, context)
                 renderer:SetBackgroundColor("Brown")

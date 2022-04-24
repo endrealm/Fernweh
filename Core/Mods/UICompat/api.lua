@@ -1,5 +1,5 @@
 ﻿uiStates = {}
-local oldState = Context:CreateVar("OldState", nil)
+local oldState = Context:CreateStoredVar("OldState", nil)
 
 function BlackListState(stateId)
     table.insert(uiStates, stateId)
