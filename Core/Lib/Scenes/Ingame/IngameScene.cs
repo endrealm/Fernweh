@@ -1,4 +1,5 @@
 ﻿using Core.Content;
+using Core.Saving;
 using Core.Scenes.Ingame.Battle;
 using Core.Scenes.Modding;
 using Core.Scripting;
@@ -27,7 +28,7 @@ public class IngameScene: Scene
     private DialogTranslationData _translationData;
 
 
-    public IngameScene(IFontManager fontManager, ModLoader modLoader, string currentModId)
+    public IngameScene(IFontManager fontManager, ModLoader modLoader, string currentModId, IGameSave gameSave)
     {
         _modLoader = modLoader;
         _currentModId = currentModId;

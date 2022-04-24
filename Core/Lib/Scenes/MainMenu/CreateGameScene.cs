@@ -1,5 +1,7 @@
 ﻿using System.Linq;
+using System.Text.RegularExpressions;
 using Core.Gui;
+using Core.Saving;
 using Core.Scenes.Ingame;
 using Core.Scenes.Modding;
 using Microsoft.Xna.Framework;
@@ -13,6 +15,8 @@ public class CreateGameScene: Scene
     private IFontManager _fontManager;
     private string _gameName = "";
     private int _currentModIndex = 0;
+    private bool _nameUsed = false;
+    
     public CreateGameScene(IFontManager fontManager)
     {
         _fontManager = fontManager;
@@ -27,11 +31,17 @@ public class CreateGameScene: Scene
         Label.Put("Create new game?");
         var old = _gameName;
         var box = Textbox.Put(ref _gameName, "New Game");
-        
-        if (_gameName.Length > 16)
+
+        if (_gameName.Length > 16 || ContainsInvalidCharacters(_gameName))
         {
             _gameName = old;
             box.Text = old;
+        }
+        
+        // see if we need to check if file is valid
+        if (_gameName != old)
+        {
+            CheckForNameUsage(context.SaveGameManager);
         }
         
         Horizontal.Push();
@@ -43,7 +53,6 @@ public class CreateGameScene: Scene
         if (Button.Put("<").Clicked)
         {
             Cycle(-1, context.ModLoader);
-
         }
 
         var currentMod = context.ModLoader.GetGameMods().ElementAt(_currentModIndex);
@@ -53,11 +62,24 @@ public class CreateGameScene: Scene
             Cycle(1, context.ModLoader);
         }
         Horizontal.Pop();
+
+        if (_nameUsed)
+        {
+            Label.Put("Save name already used!", color: Color.Red);
+        }
         
-        if (Button.Put("Start Game", color: IsValidName() ? Color.White : Color.Gray).Clicked && IsValidName()) {
-            SceneManager.LoadScene(new IngameScene(_fontManager, context.ModLoader, currentMod.Id));
+        var validName = IsValidName();
+        if (Button.Put("Start Game", color: validName ? Color.White : Color.Gray).Clicked && validName)
+        {
+            var gameSave = context.SaveGameManager.CreateNew(BuildProdName());
+            SceneManager.LoadScene(new IngameScene(_fontManager, context.ModLoader, currentMod.Id, gameSave));
         }
         MenuPanel.Pop();
+    }
+
+    private bool ContainsInvalidCharacters(string gameName)
+    {
+        return gameName.Length > 0 && !Regex.IsMatch(gameName, @"^[a-zA-Z0-9_ ]+$");
     }
 
     private void Cycle(int amount, ModLoader modLoader)
@@ -76,17 +98,21 @@ public class CreateGameScene: Scene
 
     private bool IsValidName()
     {
-        return BuildProdName().Length > 0;
+        return BuildProdName().Length > 0 && !_nameUsed;
     }
 
     private string BuildProdName()
     {
         return _gameName.Trim().ToLower().Replace((char)32, '_');
     }
+    private void CheckForNameUsage(ISaveGameManager saveGameManager)
+    {
+        _nameUsed = saveGameManager.Exists(BuildProdName());
+    }
 
 
     public override void Render(SpriteBatch spriteBatch, TopLevelRenderContext context)
     {
-        context.GraphicsDevice.Clear(Color.CornflowerBlue);
+        context.GraphicsDevice.Clear(Color.DarkCyan);
     }
 }

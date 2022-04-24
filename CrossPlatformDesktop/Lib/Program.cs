@@ -5,6 +5,8 @@ using System.IO;
 using System.IO.Compression;
 using Core;
 using Core.Content;
+using Core.Saving;
+using Core.Saving.Impl;
 
 namespace CrossPlatformDesktop
 {
@@ -28,7 +30,7 @@ namespace CrossPlatformDesktop
                 mods.Add(fileLoader.LoadArchive(modDir));
             }
             
-            using (var game = new CoreGame(new MouseClickInput(),  mods))
+            using (var game = new CoreGame(new MouseClickInput(), CreateSaveGameManager(), mods))
                 game.Run();
         }
 
@@ -70,6 +72,15 @@ namespace CrossPlatformDesktop
 #endif
 
             return archives;
+        }
+
+        private static ISaveGameManager CreateSaveGameManager()
+        {
+#if DEV
+            return new BasicSaveGameManager(Path.Combine(".", "..", "..", "..", "..", "game_saves"));      
+#else
+            return new BasicSaveGameManager(Path.Combine(".", "game_saves"));
+#endif
         }
     }
 }

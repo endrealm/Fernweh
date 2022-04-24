@@ -1,7 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using Core.Content;
 using Core.Gui;
 using Core.Input;
+using Core.Saving;
+using Core.Saving.Impl;
 using Core.Scenes.MainMenu;
 using Core.Scenes.Modding;
 using Core.States;
@@ -26,6 +29,7 @@ namespace Core
         private Controls _controls = new Controls();
         private FrameCounter _frameCounter = new();
         private readonly ModLoader _modLoader;
+        private readonly ISaveGameManager _saveGameManager;
 
         private readonly ContentLoader _contentLoader;
         
@@ -33,9 +37,10 @@ namespace Core
         private TopLevelRenderContext _renderContext;
         private IMGUI _ui;
 
-        public CoreGame(IUpdateableClickInput clickInput, List<IArchiveLoader> mods)
+        public CoreGame(IUpdateableClickInput clickInput, ISaveGameManager saveGameManager, List<IArchiveLoader> mods)
         {
             _clickInput = clickInput;
+            _saveGameManager = saveGameManager;
             _graphics = new GraphicsDeviceManager(this);
 
             Content.RootDirectory = "Content";
@@ -105,8 +110,8 @@ namespace Core
             base.Update(gameTime);
 
             _clickInput.Update(gameTime);
-            _activeScene.Update((float) gameTime.ElapsedGameTime.TotalSeconds, new TopLevelUpdateContext(_clickInput, _camera, _modLoader));
-            _controls.Update((float)gameTime.ElapsedGameTime.TotalSeconds, new TopLevelUpdateContext(_clickInput, _camera, _modLoader));
+            _activeScene.Update((float) gameTime.ElapsedGameTime.TotalSeconds, new TopLevelUpdateContext(_clickInput, _camera, _modLoader, _saveGameManager));
+            _controls.Update((float)gameTime.ElapsedGameTime.TotalSeconds, new TopLevelUpdateContext(_clickInput, _camera, _modLoader, _saveGameManager));
             
             GuiHelper.UpdateCleanup();
         }
