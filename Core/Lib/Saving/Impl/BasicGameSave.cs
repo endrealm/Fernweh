@@ -8,11 +8,13 @@ namespace Core.Saving.Impl;
 
 public class BasicGameSave: IGameSave
 {
+    private readonly string _name;
     private readonly string _path;
     private Dictionary<string, object> _data = new();
 
-    public BasicGameSave(string path)
+    public BasicGameSave(string name, string path)
     {
+        _name = name;
         _path = path;
     }
 

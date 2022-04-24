@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 
 namespace Core.Saving.Impl;
 
@@ -19,15 +21,24 @@ public class BasicSaveGameManager: ISaveGameManager
 
     public IGameSave CreateNew(string name)
     {
-        var game = new BasicGameSave(Path.Combine(_path, name));
+        var game = new BasicGameSave(name, Path.Combine(_path, name));
         game.Save();
         return game;
     }
 
     public IGameSave Load(string name)
     {
-        var game = new BasicGameSave(Path.Combine(_path, name));
+        var game = new BasicGameSave(name, Path.Combine(_path, name));
         game.Load();
         return game;
+    }
+
+    public List<IGameSave> ListAll()
+    {
+        return Directory.EnumerateFiles(_path).Select(path =>
+        {
+            var name = Path.GetFileName(path);
+            return new BasicGameSave(name, path);
+        }).ToList<IGameSave>();
     }
 }
