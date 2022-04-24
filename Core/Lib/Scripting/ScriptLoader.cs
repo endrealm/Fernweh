@@ -70,6 +70,7 @@ public class ScriptLoader
         lua["CreateParticipant"] = CreateParticipantFactoryBuilder;
         lua["StateBuilder"] = BuildState;
         lua["SetDefaultBackgroundColor"] = SetDefaultBackgroundColor;
+        lua["SetEntryState"] = SetEntryState;
         lua["BattleAction"] = new BattleActionsLuaBridge();
         lua["RegisterFriendlyParticipantsProvider"] = _friendlyParticipantsProvider.RegisterFriendlyParticipantsProvider;
         lua["Global"] = _stateRegistry.GlobalEventHandler;
@@ -97,7 +98,12 @@ public class ScriptLoader
             nullState.SetBackground(_defaultBackgroundColor);
         }
     }
-    
+
+    public void SetEntryState(string state)
+    {
+        _stateRegistry.EntryState = state;
+    }
+
     ~ScriptLoader() {
         _runtimes.ForEach(run => run.Dispose());
     }

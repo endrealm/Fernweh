@@ -8,4 +8,5 @@ public interface IGameSave
     void Load();
     
     public Dictionary<string, object> Data { get; set; }
+    string Name { get; }
 }

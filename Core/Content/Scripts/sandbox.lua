@@ -51,6 +51,7 @@ local BASE_ENV = {
     CreateParticipant = CreateParticipant,
     RegisterFriendlyParticipantsProvider = RegisterFriendlyParticipantsProvider,
     BattleAction = BattleAction,
+    SetEntryState = SetEntryState,
     Import = Import,
     
     Context = Context,

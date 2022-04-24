@@ -72,6 +72,7 @@ public class CreateGameScene: Scene
         if (Button.Put("Start Game", color: validName ? Color.White : Color.Gray).Clicked && validName)
         {
             var gameSave = context.SaveGameManager.CreateNew(BuildProdName());
+            gameSave.Data.Add("Mod", currentMod.Id);
             SceneManager.LoadScene(new IngameScene(_fontManager, context.ModLoader, currentMod.Id, gameSave));
         }
         MenuPanel.Pop();

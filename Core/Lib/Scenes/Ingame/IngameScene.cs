@@ -22,6 +22,7 @@ public class IngameScene: Scene, ISaveSystem
     private readonly string _currentModId;
     private readonly IGameSave _gameSave;
     private readonly IFontManager _fontManager;
+    private bool _allowSave = false;
 
     /// <summary>
     /// Move to translation manager system to allow concatenating multiple files
@@ -45,7 +46,8 @@ public class IngameScene: Scene, ISaveSystem
         _gameManager = new GameManager(_battleRegistry, _stateRegistry, _fontManager, _translationData, _gameSave, this);
         _modLoader.Load(_scriptLoader, _currentModId);
         _gameManager.Load(content);
-        _gameManager.StateManager.LoadState("my_state"); // selects initial state
+        _allowSave = true;
+        _gameManager.LoadGameState();
     }
 
     public override void Update(float deltaTime, TopLevelUpdateContext context)
@@ -93,6 +95,7 @@ public class IngameScene: Scene, ISaveSystem
 
     public void SaveAll()
     {
+        if(!_allowSave) return;
         _gameManager?.Save();
         _scriptLoader?.Save();
         _gameSave.Save();

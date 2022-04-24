@@ -17,3 +17,5 @@ AddToParty(Character:new({id = "Geralt"}))
 AddToParty(Character:new({id = "Ciri"}))
 
 Context:CreateStoredVar("test", "value")
+
+SetEntryState("my_state")

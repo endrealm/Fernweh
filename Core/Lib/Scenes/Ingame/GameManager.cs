@@ -13,6 +13,7 @@ namespace Core.Scenes.Ingame;
 
 public class GameManager: ILoadable
 {
+    private readonly StateRegistry _stateRegistry;
     private readonly IGameSave _gameSave;
     private readonly ISaveSystem _saveSystem;
     public IMode Mode { get; private set; }
@@ -26,6 +27,7 @@ public class GameManager: ILoadable
 
     public GameManager(BattleRegistry registry, StateRegistry stateRegistry, IFontManager fontManager, DialogTranslationData translationData, IGameSave gameSave, ISaveSystem saveSystem)
     {
+        _stateRegistry = stateRegistry;
         _gameSave = gameSave;
         _saveSystem = saveSystem;
         _eventHandler = stateRegistry.GlobalEventHandler;
@@ -33,8 +35,7 @@ public class GameManager: ILoadable
         StateManager = overworld;
         _modes.Add("overworld", overworld);
         _modes.Add("battle", new BattleMode(this, _spriteManager, registry, translationData, fontManager));
-
-        LoadGameState();
+        LoadMode("overworld", new ModeParameters());
     }
 
     public void LoadState(string stateId)
@@ -74,11 +75,11 @@ public class GameManager: ILoadable
         _gameSave.Data.Add(SaveKey, dict);
     }
     
-    private void LoadGameState()
+    public void LoadGameState()
     {
         if (!_gameSave.Data.ContainsKey(SaveKey))
         {
-            LoadMode("overworld", new ModeParameters());
+            LoadMode("overworld", new ModeParameters().AppendData("state", _stateRegistry.EntryState));
             return;
         }
 

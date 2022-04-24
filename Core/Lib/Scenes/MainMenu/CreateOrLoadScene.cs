@@ -24,6 +24,7 @@ public class CreateOrLoadScene: Scene
             SceneManager.LoadScene(new CreateGameScene(_fontManager));
         }
         if (Button.Put("Load Game").Clicked) {
+            SceneManager.LoadScene(new LoadGameScene(_fontManager));
         }
         MenuPanel.Pop();
     }

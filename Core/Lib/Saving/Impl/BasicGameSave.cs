@@ -62,4 +62,6 @@ public class BasicGameSave: IGameSave
         get => _data;
         set => _data = value;
     }
+
+    public string Name => _name;
 }

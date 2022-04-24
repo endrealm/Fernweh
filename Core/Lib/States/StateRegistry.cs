@@ -16,6 +16,7 @@ public class StateRegistry
         {"null", new NullState()}
     };
 
+    public string EntryState { get; set; } = "null";
 
     public IState ReadState(string stateId)
     {
