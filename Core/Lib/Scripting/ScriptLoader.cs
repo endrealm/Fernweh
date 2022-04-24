@@ -132,5 +132,13 @@ public class ScriptLoader
     {
         return new LuaParticipantFactoryBuilder(id, factory => _battleRegistry.RegisterParticipant(factory));
     }
+
+    public void Save()
+    {
+        foreach (var dataStore in _dataStores.Values)
+        {
+            dataStore.Save();
+        }
+    }
     
 }

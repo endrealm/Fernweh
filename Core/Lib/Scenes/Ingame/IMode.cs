@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Core.Scenes.Ingame.Modes;
 using Core.Scenes.Ingame.Views;
 using Microsoft.Xna.Framework;
@@ -11,4 +12,6 @@ public interface IMode
     public IGameView GameView { get; }
 
     public void Load(ModeParameters parameters);
+    public void Load(Dictionary<string,object> data);
+    void Save(Dictionary<string,object> data);
 }

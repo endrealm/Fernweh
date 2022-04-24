@@ -1,5 +1,5 @@
 ﻿using System;
-using Core.Scenes.Ingame.Modes;
+using System.Collections.Generic;
 using Core.Scenes.Ingame.Views;
 using Core.States;
 using Microsoft.Xna.Framework;
@@ -13,15 +13,18 @@ public class OverworldMode: IMode, IStateManager
     private readonly StateRegistry _stateRegistry;
     private readonly IFontManager _fontManager;
     private readonly DialogTranslationData _translationData;
+    private readonly ISaveSystem _saveSystem;
     private readonly StateChatView _chatView;
     public string weakNextID { get;  set; }
 
-    public OverworldMode(GameManager gameManager, IGlobalEventHandler eventHandler, StateRegistry stateRegistry, IFontManager fontManager, DialogTranslationData translationData)
+    public OverworldMode(GameManager gameManager, IGlobalEventHandler eventHandler, StateRegistry stateRegistry,
+        IFontManager fontManager, DialogTranslationData translationData, ISaveSystem saveSystem)
     {
         _gameManager = gameManager;
         _stateRegistry = stateRegistry;
         _fontManager = fontManager;
         _translationData = translationData;
+        _saveSystem = saveSystem;
         _chatView = new StateChatView(translationData, fontManager);
         GameView = new WorldGameView(eventHandler, this);
         ActiveState = _stateRegistry.ReadState("null"); // Start with "null" state.
@@ -39,6 +42,18 @@ public class OverworldMode: IMode, IStateManager
         {
             LoadState(parameters.GetValue<string>("state"));
         }
+    }
+
+    public void Load(Dictionary<string, object> data)
+    {
+        weakNextID = (string) data["WeakState"];
+        Load(new ModeParameters().AppendData("state", (string) data["State"]));
+    }
+
+    public void Save(Dictionary<string, object> data)
+    {
+        data.Add("State", ActiveState.Id);
+        data.Add("WeakState", weakNextID);
     }
 
     public event StateChangedEventHandler StateChangedEvent;
@@ -60,6 +75,7 @@ public class OverworldMode: IMode, IStateManager
             LoadState(weakNextID);
             weakNextID = null;
         }
+        _saveSystem.SaveAll();
     }
     
     private void OnStateChanged(StateChangedEventArgs args)

@@ -11,7 +11,7 @@ using PipelineExtensionLibrary;
 
 namespace Core.Scenes.Ingame;
 
-public class IngameScene: Scene
+public class IngameScene: Scene, ISaveSystem
 {
  
     private readonly ScriptLoader _scriptLoader;
@@ -20,6 +20,7 @@ public class IngameScene: Scene
     private GameManager _gameManager;
     private ModLoader _modLoader;
     private readonly string _currentModId;
+    private readonly IGameSave _gameSave;
     private readonly IFontManager _fontManager;
 
     /// <summary>
@@ -32,6 +33,7 @@ public class IngameScene: Scene
     {
         _modLoader = modLoader;
         _currentModId = currentModId;
+        _gameSave = gameSave;
         _fontManager = fontManager;
         _scriptLoader = new(_stateRegistry, _battleRegistry, gameSave);
     }
@@ -40,7 +42,7 @@ public class IngameScene: Scene
     {
         _modLoader.UnloadAllMods();
         _translationData = content.Load<DialogTranslationData>("Dialogs/test");
-        _gameManager = new GameManager(_battleRegistry, _stateRegistry, _fontManager, _translationData);
+        _gameManager = new GameManager(_battleRegistry, _stateRegistry, _fontManager, _translationData, _gameSave, this);
         _modLoader.Load(_scriptLoader, _currentModId);
         _gameManager.Load(content);
         _gameManager.StateManager.LoadState("my_state"); // selects initial state
@@ -87,5 +89,12 @@ public class IngameScene: Scene
         );
         _gameManager.Mode.ChatView.Render(spriteBatch, subContext);
         spriteBatch.End();
+    }
+
+    public void SaveAll()
+    {
+        _gameManager?.Save();
+        _scriptLoader?.Save();
+        _gameSave.Save();
     }
 }

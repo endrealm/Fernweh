@@ -1,7 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Core.Scenes.Ingame.Battle;
 using Core.Scenes.Ingame.Views;
 using Microsoft.Xna.Framework;
+using Newtonsoft.Json;
 using PipelineExtensionLibrary;
 
 namespace Core.Scenes.Ingame.Modes.Battle;
@@ -19,6 +21,8 @@ public class BattleMode : IMode
     private readonly BattleRegistry _battleRegistry;
     private readonly BattleGameView _gameView;
 
+    private Dictionary<string, object> _snapshot = new();
+
     public BattleMode(
         GameManager gameManager,
         IBattleSpriteManager spriteManager, 
@@ -35,13 +39,41 @@ public class BattleMode : IMode
 
     public void Load(ModeParameters parameters)
     {
-        var battleManager = new BattleManager(ChatView, _battleRegistry, parameters.GetValue<BattleConfig>("config"), _chatView, 
-            () => LoadOverwoldState(parameters.GetValue<string>("victoryState")),
-            () => LoadOverwoldState(parameters.GetValue<string>("looseState"))
+        var config = parameters.GetValue<BattleConfig>("config");
+        var victoryState = parameters.GetValue<string>("victoryState");
+        var looseState = parameters.GetValue<string>("looseState");
+
+        _snapshot = new Dictionary<string, object>
+        {
+            {"victoryState", victoryState},
+            {"looseState", looseState},
+            {"config", JsonConvert.SerializeObject(config)},
+        };
+
+        var battleManager = new BattleManager(ChatView, _battleRegistry, config, _chatView, 
+            () => LoadOverwoldState(victoryState),
+            () => LoadOverwoldState(looseState)
         );
         _chatView.BattleManager = battleManager;
         _gameView.LoadBattle(battleManager);
         Task.Run(battleManager.DoRound);
+    }
+
+    public void Load(Dictionary<string, object> data)
+    {
+        Load(new ModeParameters()
+            .AppendData("victoryState", data["victoryState"])
+            .AppendData("looseState", data["looseState"])
+            .AppendData("config", JsonConvert.DeserializeObject<BattleConfig>((string) data["config"]))
+        );
+    }
+
+    public void Save(Dictionary<string, object> data)
+    {
+        foreach (var pair in _snapshot)
+        {
+            data.Add(pair.Key, pair.Value);
+        }
     }
 
     private void LoadOverwoldState(string state)
