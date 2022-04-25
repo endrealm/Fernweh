@@ -13,7 +13,7 @@ public class LuaStateBuilder
     private LuaFunction _renderFunc;
     private bool _showExit;
     private bool _allowMove;
-    private bool _allowSave;
+    private bool _allowSave = true;
 
     public LuaStateBuilder(string stateId, Color defaultBackgroundColor, Action<IState> onStateBuild)
     {
