@@ -5,6 +5,8 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using PipelineExtensionLibrary;
+using Newtonsoft.Json;
+using Core.Content;
 
 namespace Core.Scenes.Ingame.World
 {
@@ -20,34 +22,46 @@ namespace Core.Scenes.Ingame.World
             Right = 8
         }
 
-        public string Name;
-        public Texture2D[] Frames;
-        public int FramesPerSecond;
+        public string name;
+        [JsonIgnore]
+        public Texture2D[] frames;
+        public string[] framePaths;
+        public int framesPerSecond = 1;
 
-        public float EncounterChance; // range 0f - 1f
-        public OpenDirection OpenDirections;
+        //public float EncounterChance; // range 0f - 1f
+        public OpenDirection openDirections;
 
-        public DialogTranslationData OnEnter;
+        public void LoadSprites(ContentLoader content)
+        {
+            frames = new Texture2D[framePaths.Length];
+            for (int i = 0; i < framePaths.Length; i++)
+                frames[i] = content.Load<Texture2D>(framePaths[i]);
+        }
 
-        public TileData(string name, Texture2D[] frames, OpenDirection openDirections = OpenDirection.Up | OpenDirection.Down | OpenDirection.Left | OpenDirection.Right)
+        public TileData(string name, string[] frames, OpenDirection openDirections = OpenDirection.Up | OpenDirection.Down | OpenDirection.Left | OpenDirection.Right)
         { 
-            Name = name;
-            Frames = frames;
-            OpenDirections = openDirections;
+            this.name = name;
+            framePaths = frames;
+            this.openDirections = openDirections;
+        }
+
+        public Texture2D GetSprite()
+        {
+            return frames[0]; // return first frame for now, im not sure how ill implement anims. yet. but itll probably be calculated in here based from some tile parameter
         }
 
         public bool AllowsDirection(Vector2 direction)
         {
-            if (OpenDirections.HasFlag(OpenDirection.Up) && direction.Y == -1)
+            if (openDirections.HasFlag(OpenDirection.Up) && direction.Y == -1)
                 return true;
 
-            if (OpenDirections.HasFlag(OpenDirection.Down) && direction.Y == 1)
+            if (openDirections.HasFlag(OpenDirection.Down) && direction.Y == 1)
                 return true;
 
-            if (OpenDirections.HasFlag(OpenDirection.Left) && direction.X == -1)
+            if (openDirections.HasFlag(OpenDirection.Left) && direction.X == -1)
                 return true;
 
-            if (OpenDirections.HasFlag(OpenDirection.Right) && direction.X == 1)
+            if (openDirections.HasFlag(OpenDirection.Right) && direction.X == 1)
                 return true;
 
             return false;

@@ -44,7 +44,7 @@ public class WorldGameView: IGameView, IRenderer<IngameRenderContext>, IUpdate<I
 
                     if (tileData != null) // dont render whats not there :P
                         spriteBatch.Draw(
-                            tileDataRegistry.GetTile(tileData.name).Frames[0], // grab sprite
+                            tileDataRegistry.GetTile(tileData.name).GetSprite(), // grab sprite
                             new Rectangle((int)x * 32 + context.ChatWidth, y * 32, 32, 32), // get world position to render at
                             context.WorldTint);
                 }
