@@ -60,7 +60,7 @@ public class OverworldMode: IMode, IStateManager
     public void Load(Dictionary<string, object> data)
     {
         weakNextID = (string) data["WeakState"];
-        Load(new ModeParameters().AppendData("state", (string) data["State"]));
+        Load(new ModeParameters().AppendData("state", (string) data["State"] ?? "null"));
     }
 
     public void Save(Dictionary<string, object> data)

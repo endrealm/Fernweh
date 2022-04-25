@@ -99,11 +99,32 @@ public class StaticLetterAnimationEffect: ILetterAnimationEffect
             var newChar = remaining[0];
             if (_component.Font.MeasureString(accumulator + newChar).X > (width - (results.Count == 0 ? _component.FirstLineOffset : 0)))
             {
+                if (accumulator.Length != 0 && remaining.Length != 1 && (remaining[0] != ' ' && accumulator[accumulator.Length-1] != ' '))
+                {
+                    var parts = accumulator.Split(' ');
+                    if (parts.Length != 1)
+                    {
+                        accumulator = "";
+                        for (int i = 0; i < parts.Length-1; i++)
+                        {
+                            accumulator += parts[i] + " ";
+                        }
+
+                        accumulator = accumulator.Substring(0, accumulator.Length - 1);
+                        remaining =  parts[parts.Length-1] + remaining;
+                        newChar = remaining[0];
+                    }
+                }
+                
                 results.Add(accumulator);
                 accumulator = "";
             }
 
-            accumulator += newChar;
+            if (newChar != ' ' || accumulator.Length != 0)
+            {
+                accumulator += newChar;
+            }
+            
             remaining = remaining.Substring(1);
         }
 
