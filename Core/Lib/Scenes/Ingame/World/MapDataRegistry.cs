@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Core.Content;
+using Newtonsoft.Json;
+using System.IO;
 
 namespace Core.Scenes.Ingame.World
 {
@@ -12,11 +14,19 @@ namespace Core.Scenes.Ingame.World
         private Dictionary<string, MapData> _mapList = new Dictionary<string, MapData>();
         private string _loadedMap;
 
-        public void Load(ContentLoader content) // fake load tiles here. later will input json
+        public void Load(ContentLoader content) // load all maps here and load the first one
         {
-            _mapList.Add("test1", new MapData());
-            //_mapList.Add("test2", new MapData());
-            _loadedMap = "test1";
+            List<IArchiveLoader> mods = content.GetMods();
+            foreach (IArchiveLoader mod in mods)
+            {
+                string[] files = mod.LoadAllFiles("*.map");
+                for (int i = 0; i < files.Length; i++)
+                {
+                    MapData data = JsonConvert.DeserializeObject<MapData>(File.ReadAllText(files[i]));
+                    _mapList.Add(data.name, data);
+                    if (i == 0) _loadedMap = data.name;
+                }
+            }
         }
 
         public MapData GetMap(string name)
@@ -35,6 +45,11 @@ namespace Core.Scenes.Ingame.World
         public MapData LoadMap(string name)
         {
             return _mapList[_loadedMap = name];
+        }
+
+        private MapData CreateMapData(ContentLoader content, string path)
+        {
+            return JsonConvert.DeserializeObject<MapData>(content.Load<string>(path));
         }
     }
 }

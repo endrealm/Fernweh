@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
+using System.Linq;
 using Core.Content;
 
 namespace CrossPlatformDesktop;
@@ -45,6 +46,18 @@ public class ArchiveLoader : IArchiveLoader
         }
     }
 
+    public string[] LoadAllFiles(string name)
+    {
+        List<string> files = new List<string>();
+
+        foreach (ZipArchiveEntry entry in _archive.Entries)
+            if (entry.Name.ToLower() == name)
+                files.Add(entry.Name);
+        Console.WriteLine(files.Count);
+
+        return files.ToArray();
+    }
+
     public Stream LoadFileAsStream(string file)
     {
         var entry = this._archive.GetEntry(file);
@@ -79,6 +92,12 @@ public class DirectoryLoader : IArchiveLoader
     public string LoadFile(string file)
     {
         return File.ReadAllText(GetPath(file));
+    }
+
+    public string[] LoadAllFiles(string path)
+    {
+        var dir = new DirectoryInfo(_dir);
+        return dir.EnumerateFiles(path, SearchOption.AllDirectories).Select(x => x.FullName).ToArray();
     }
 
     public Stream LoadFileAsStream(string file)

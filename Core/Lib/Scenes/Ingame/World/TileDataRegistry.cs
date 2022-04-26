@@ -7,6 +7,7 @@ using Core.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Newtonsoft.Json;
 
 namespace Core.Scenes.Ingame.World
 {
@@ -14,13 +15,20 @@ namespace Core.Scenes.Ingame.World
     {
         private Dictionary<string, TileData> _tileList = new Dictionary<string, TileData>();
 
-        public void Load(ContentLoader content) // fake load tiles here. later will input json/xml
+        public void Load(ContentLoader content) // load all the tiles right now and load their sprites
         {
-            _tileList.Add("grass", new TileData("grass", new Texture2D[] { content.Load<Texture2D>("Sprites/grass.png") }));
-            _tileList.Add("forest", new TileData("forest", new Texture2D[] { content.Load<Texture2D>("Sprites/forest.png") }));
-            _tileList.Add("path", new TileData("path", new Texture2D[] { content.Load<Texture2D>("Sprites/path.png") }));
-            _tileList.Add("boulder", new TileData("boulder", new Texture2D[] { content.Load<Texture2D>("Sprites/boulder.png") }, TileData.OpenDirection.None));
-            _tileList.Add("castle", new TileData("castle", new Texture2D[] { content.Load<Texture2D>("Sprites/castle.png") }, TileData.OpenDirection.Down | TileData.OpenDirection.Left | TileData.OpenDirection.Right));
+            List<IArchiveLoader> mods = content.GetMods();
+            foreach (IArchiveLoader mod in mods)
+            {
+                string[] files = mod.LoadAllFiles("*.tile");
+                foreach (var file in files)
+                {
+                    TileData data = JsonConvert.DeserializeObject<TileData>(File.ReadAllText(file));
+                    data.LoadSprites(content);
+                    _tileList.Add(data.name, data);
+                }
+            }
+            //Console.WriteLine(JsonConvert.SerializeObject(new TileData("castle", new string[] { "Sprites/castle.png" }, TileData.OpenDirection.Down | TileData.OpenDirection.Left | TileData.OpenDirection.Right)));
         }
 
         public TileData GetTile(string name)
