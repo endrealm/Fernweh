@@ -1,0 +1,37 @@
+﻿{
+  "inventory.header": {
+    "translations": {
+      "EN_US": "<color=\"Orange\">Inventory</color>"
+    }
+  },
+  "inventory.close": {
+    "translations": {
+      "EN_US": "<- Close"
+    }
+  },
+  "inventory.item.close": {
+    "translations": {
+      "EN_US": "<- Back"
+    }
+  },
+  "inventory.item": {
+    "translations": {
+      "EN_US": "-> {amount}x {item}"
+    }
+  },
+  "inventory.open": {
+    "translations": {
+      "EN_US": "<color=\"Orange\">Open Inventory</color>"
+    }
+  },
+  "inventory.item.header": {
+    "translations": {
+      "EN_US": "<color=\"Orange\">{item} x{amount}</color>"
+    }
+  },
+  "inventory.item.noActions": {
+    "translations": {
+      "EN_US": "No actions available"
+    }
+  }
+}

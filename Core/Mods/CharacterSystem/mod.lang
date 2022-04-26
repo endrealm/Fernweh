@@ -1,0 +1,42 @@
+﻿{
+  "equip.header": {
+    "translations": {
+      "EN_US": "Who would you like to equip the item to?"
+    }
+  },
+  "equip.character": {
+    "translations": {
+      "EN_US": " -> {name} ({item})"
+    }
+  },
+  "equip.close": {
+    "translations": {
+      "EN_US": "<- Cancel"
+    }
+  },
+  "equip.replace.header.replace": {
+    "translations": {
+      "EN_US": "Replace {item}?"
+    }
+  },
+  "equip.replace.header.noReplace": {
+    "translations": {
+      "EN_US": "Equip item?"
+    }
+  },
+  "equip.replace.yes": {
+    "translations": {
+      "EN_US": " -> Yes"
+    }
+  },
+  "equip.replace.no": {
+    "translations": {
+      "EN_US": " -> No"
+    }
+  },
+  "inventory.item.equip": {
+    "translations": {
+      "EN_US": " -> Equip to Party"
+    }
+  }
+}

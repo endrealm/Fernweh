@@ -1,0 +1,117 @@
+﻿{
+  "battle.select.target": {
+    "translations": {
+      "EN_US": "Select a target:"
+    }
+  },
+  "ability.used": {
+    "translations": {
+      "EN_US": "{caster} used {ability}"
+    }
+  },
+  "battle.participant.death": {
+    "translations": {
+      "EN_US": "{name} died!"
+    }
+  },
+  "ability.doNothing": {
+    "translations": {
+      "EN_US": "{name} does nothing!"
+    }
+  },
+  "ability.noTargets": {
+    "translations": {
+      "EN_US": "No valid target remaining"
+    }
+  },
+  "battle.dealDamage": {
+    "translations": {
+      "EN_US": "{target} received {damage} damage!"
+    }
+  },
+  "battle.continue": {
+    "translations": {
+      "EN_US": "Continue"
+    }
+  },
+  "inventory.item.noActions": {
+    "translations": {
+      "EN_US": "No actions available"
+    }
+  },
+  "battle.participant.list.name": {
+    "translations": {
+      "EN_US": "<color=\"Orange\">{name}</color>: <color=\"Red\">{health}</color>\\<color=\"DarkRed\">{max_health}</color>HP <color=\"Aqua\">{mana}</color>\\<color=\"Blue\">{max_mana}</color>MP"
+    }
+  },
+  "battle.participant.list.ability.ability": {
+    "translations": {
+      "EN_US": "-> Abilities"
+    }
+  },
+  "battle.ability.category.ability": {
+    "translations": {
+      "EN_US": "Abilities:"
+    }
+  },
+  "battle.ability": {
+    "translations": {
+      "EN_US": "-> {ability}"
+    }
+  },
+  "battle.participant.list.attack": {
+    "translations": {
+      "EN_US": "-> Attack"
+    }
+  },
+  "battle.participant.list.defend": {
+    "translations": {
+      "EN_US": "-> Defend"
+    }
+  },
+  "battle.participant.list.items": {
+    "translations": {
+      "EN_US": "-> Items"
+    }
+  },
+  "battle.participant.list.skills": {
+    "translations": {
+      "EN_US": "-> Skills"
+    }
+  },
+  "battle.statsRow.name": {
+    "translations": {
+      "EN_US": "{name}"
+    }
+  },
+  "battle.statsRow.health": {
+    "translations": {
+      "EN_US": "{current} / {max} HP"
+    }
+  },
+  "battle.statsRow.mana": {
+    "translations": {
+      "EN_US": "{current} / {max} MP"
+    }
+  },
+  "battle.participant.select.single": {
+    "translations": {
+      "EN_US": "-> {name}"
+    }
+  },
+  "battle.participant.select.multiple": {
+    "translations": {
+      "EN_US": "-> {amount}x {name}"
+    }
+  },
+  "battle.participant.select.mixed": {
+    "translations": {
+      "EN_US": "-> {name}"
+    }
+  },
+  "battle.participant.list.back": {
+    "translations": {
+      "EN_US": "<- Back"
+    }
+  }
+}

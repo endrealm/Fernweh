@@ -16,11 +16,6 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin Dialogs/test.lang
-/importer:DialogDataImporter
-/processor:DialogDataProcessor
-/build:Dialogs/test.lang
-
 #begin Fonts/TinyUnicode.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor

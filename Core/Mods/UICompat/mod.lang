@@ -1,0 +1,187 @@
+﻿{
+  "battle.select.target": {
+    "translations": {
+      "EN_US": "Select a target:"
+    }
+  },
+  "ability.used": {
+    "translations": {
+      "EN_US": "{caster} used {ability}"
+    }
+  },
+  "battle.participant.death": {
+    "translations": {
+      "EN_US": "{name} died!"
+    }
+  },
+  "ability.doNothing": {
+    "translations": {
+      "EN_US": "{name} does nothing!"
+    }
+  },
+  "inventory.header": {
+    "translations": {
+      "EN_US": "<color=\"Orange\">Inventory</color>"
+    }
+  },
+  "inventory.close": {
+    "translations": {
+      "EN_US": "<- Close"
+    }
+  },
+  "inventory.item.close": {
+    "translations": {
+      "EN_US": "<- Back"
+    }
+  },
+  "inventory.item": {
+    "translations": {
+      "EN_US": "-> {amount}x {item}"
+    }
+  },
+  "inventory.open": {
+    "translations": {
+      "EN_US": "<color=\"Orange\">Open Inventory</color>"
+    }
+  },
+  "inventory.item.header": {
+    "translations": {
+      "EN_US": "<color=\"Orange\">{item} x{amount}</color>"
+    }
+  },
+  "ability.noTargets": {
+    "translations": {
+      "EN_US": "No valid target remaining"
+    }
+  },
+  "battle.dealDamage": {
+    "translations": {
+      "EN_US": "{target} received {damage} damage!"
+    }
+  },
+  "battle.continue": {
+    "translations": {
+      "EN_US": "Continue"
+    }
+  },
+  "inventory.item.noActions": {
+    "translations": {
+      "EN_US": "No actions available"
+    }
+  },
+  "battle.participant.list.name": {
+    "translations": {
+      "EN_US": "<color=\"Orange\">{name}</color>: <color=\"Red\">{health}</color>\\<color=\"DarkRed\">{max_health}</color>HP <color=\"Aqua\">{mana}</color>\\<color=\"Blue\">{max_mana}</color>MP"
+    }
+  },
+  "battle.participant.list.ability.ability": {
+    "translations": {
+      "EN_US": "-> Abilities"
+    }
+  },
+  "battle.ability.category.ability": {
+    "translations": {
+      "EN_US": "Abilities:"
+    }
+  },
+  "battle.ability": {
+    "translations": {
+      "EN_US": "-> {ability}"
+    }
+  },
+  "battle.participant.list.attack": {
+    "translations": {
+      "EN_US": "-> Attack"
+    }
+  },
+  "battle.participant.list.defend": {
+    "translations": {
+      "EN_US": "-> Defend"
+    }
+  },
+  "battle.participant.list.items": {
+    "translations": {
+      "EN_US": "-> Items"
+    }
+  },
+  "battle.participant.list.skills": {
+    "translations": {
+      "EN_US": "-> Skills"
+    }
+  },
+  "battle.statsRow.name": {
+    "translations": {
+      "EN_US": "{name}"
+    }
+  },
+  "battle.statsRow.health": {
+    "translations": {
+      "EN_US": "{current} / {max} HP"
+    }
+  },
+  "battle.statsRow.mana": {
+    "translations": {
+      "EN_US": "{current} / {max} MP"
+    }
+  },
+  "battle.participant.select.single": {
+    "translations": {
+      "EN_US": "-> {name}"
+    }
+  },
+  "battle.participant.select.multiple": {
+    "translations": {
+      "EN_US": "-> {amount}x {name}"
+    }
+  },
+  "battle.participant.select.mixed": {
+    "translations": {
+      "EN_US": "-> {name}"
+    }
+  },
+  "battle.participant.list.back": {
+    "translations": {
+      "EN_US": "<- Back"
+    }
+  },
+  "equip.header": {
+    "translations": {
+      "EN_US": "Who would you like to equip the item to?"
+    }
+  },
+  "equip.character": {
+    "translations": {
+      "EN_US": " -> {name} ({item})"
+    }
+  },
+  "equip.close": {
+    "translations": {
+      "EN_US": "<- Cancel"
+    }
+  },
+  "equip.replace.header.replace": {
+    "translations": {
+      "EN_US": "Replace {item}?"
+    }
+  },
+  "equip.replace.header.noReplace": {
+    "translations": {
+      "EN_US": "Equip item?"
+    }
+  },
+  "equip.replace.yes": {
+    "translations": {
+      "EN_US": " -> Yes"
+    }
+  },
+  "equip.replace.no": {
+    "translations": {
+      "EN_US": " -> No"
+    }
+  },
+  "inventory.item.equip": {
+    "translations": {
+      "EN_US": " -> Equip to Party"
+    }
+  }
+}
