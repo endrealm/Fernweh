@@ -59,6 +59,7 @@ public class BaseChatView : IChatView
         var item = QueuedComponents.Dequeue();
         RunningComponents.Add(item);
         item.SetOnDone(() => LoadNextComponentInQueue());
+        item.MaxWidth = Width - XMargin * 2;
         return item;
     }
 
