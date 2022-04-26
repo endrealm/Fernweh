@@ -1,26 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Core.Scenes.Ingame.Chat;
+using Core.Scenes.Ingame.Localization;
 using Microsoft.Xna.Framework;
 using NLua;
 using PipelineExtensionLibrary;
-using PipelineExtensionLibrary.Chat;
+using PipelineExtensionLibrary.Tokenizer.Chat;
 
 namespace Core.States;
 
 public class StateRenderer
 {
-    private readonly DialogTranslationData _translationData;
+    private readonly ILocalizationManager _localizationManager;
     private readonly Language _language;
     private readonly IFontManager _font;
     private readonly Action<Color> _changeBackgroundColor;
     private readonly Queue<IChatComponent> _components = new();
 
-    public StateRenderer(DialogTranslationData translationData, Language language, IFontManager font,
+    public StateRenderer(ILocalizationManager localizationManager, Language language, IFontManager font,
         Action<Color> changeBackgroundColor)
     {
-        _translationData = translationData;
+        _localizationManager = localizationManager;
         _language = language;
         _font = font;
         _changeBackgroundColor = changeBackgroundColor;
@@ -29,23 +29,9 @@ public class StateRenderer
     public void AddText(string key, LuaFunction callback = null, LuaTable rawReplacements = null)
     {
         var replacements = ReadReplacements(rawReplacements);
-        
-        var groups = _translationData.TranslationGroups;
-        IChatComponent text;
-        if (!groups.ContainsKey(key) || !groups[key].TranslatedComponents.ContainsKey(_language))
-        {
-            // Fallback to key
-            text = new ChatCompoundData(new List<IChatComponentData>()
-            {
-                new ChatTextData(Color.Red, key)
-            }).BuildAnimated(_font.GetChatFont(), () => callback?.Call(), replacements);
-        }
-        else
-        {
-            // select actual translation
-            text = groups[key].TranslatedComponents[_language]
-                .BuildAnimated(_font.GetChatFont(), () => callback?.Call(), replacements);
-        }
+        var text = _localizationManager.GetData(key, replacements)
+            .Compile()
+            .BuildAnimated(_font.GetChatFont(), () => callback?.Call());
 
         _components.Enqueue(text);
     }
@@ -54,23 +40,9 @@ public class StateRenderer
     {
         var replacements = ReadReplacements(rawReplacements);
 
-        var groups = _translationData.TranslationGroups;
-        IChatComponent text;
-        if (!groups.ContainsKey(key) || !groups[key].TranslatedComponents.ContainsKey(_language))
-        {
-            // Fallback to key
-            text = new ChatCompoundData(new List<IChatComponentData>()
-            {
-                new ChatTextData(Color.Red, key)
-            }).BuildAnimatedAction(_font.GetChatFont(), () => callback.Call(), replacements);
-        }
-        else
-        {
-            // select actual translation
-            text = groups[key].TranslatedComponents[_language]
-                .BuildAnimatedAction(_font.GetChatFont(), () => callback.Call(), replacements);
-        }
-
+        var text = _localizationManager.GetData(key, replacements)
+            .Compile()
+            .BuildAnimatedAction(_font.GetChatFont(), () => callback.Call());
         _components.Enqueue(text);
     }
 
@@ -89,21 +61,26 @@ public class StateRenderer
         _changeBackgroundColor.Invoke(color);
     }
 
-    private Replacement[] ReadReplacements(LuaTable rawReplacements)
+    private IReplacement[] ReadReplacements(LuaTable rawReplacements)
     {
-        var list = new List<Replacement>();
-        if (rawReplacements != null)
+        var list = new List<IReplacement>();
+        if (rawReplacements == null) return list.ToArray();
+        foreach (var replacement in rawReplacements.Values)
         {
-            foreach (var replacement in rawReplacements.Values)
-            {
-                if (!(replacement is LuaTable table)) throw new Exception("Invalid replacement parameter");
-                var values = table.Values.GetEnumerator();
-                values.MoveNext();
-                var key = values.Current;
-                values.MoveNext();
-                var value = values.Current;
+            if (!(replacement is LuaTable table)) throw new Exception("Invalid replacement parameter");
+            var values = table.Values.GetEnumerator();
+            values.MoveNext();
+            var key = values.Current;
+            values.MoveNext();
+            var value = values.Current;
 
-                list.Add(new Replacement(key.ToString(), value.ToString()));
+            if (value is ChatWrapper wrapper)
+            {
+                list.Add(new WrapperReplacement(key!.ToString(), wrapper));
+            }
+            else
+            {
+                list.Add(new TextReplacement(key!.ToString(), value!.ToString()));
             }
         }
 

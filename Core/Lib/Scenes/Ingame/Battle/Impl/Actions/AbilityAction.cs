@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Core.Scenes.Ingame.Chat;
+using PipelineExtensionLibrary.Tokenizer.Chat;
 
 namespace Core.Scenes.Ingame.Battle.Impl.Actions;
 
@@ -36,8 +37,8 @@ public class AbilityAction : IBattleAction
         _targets.ForEach(target => target.OnTargetedBySpell(spellEvent));
         context.QueueAction(
             new LogTextAction("ability.used",
-                new Replacement("ability", _ability.Id),
-                new Replacement("caster", Participant.DisplayName)
+                new TextReplacement("ability", _ability.Id),
+                new TextReplacement("caster", Participant.DisplayName)
             )
         );
         

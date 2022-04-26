@@ -1,9 +1,11 @@
 ﻿using Core.Scenes.Ingame.Battle;
 using Core.Scenes.Ingame.Chat;
+using Core.Scenes.Ingame.Localization;
 using Core.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using PipelineExtensionLibrary;
+using PipelineExtensionLibrary.Tokenizer.Chat;
 
 namespace Core.Scenes.Ingame.Modes.Battle;
 
@@ -11,7 +13,7 @@ public class PlayerStatsRow: IRenderer<PlayerStatsRowRenderContext>
 {
     private readonly IBattleParticipant _target;
     private readonly IFontManager _fontManager;
-    private readonly DialogTranslationData _translationData;
+    private readonly ILocalizationManager _localizationManager;
     private readonly IChatComponent _name;
     private IChatComponent _health;
     private int _lastHealth = -1;
@@ -20,12 +22,12 @@ public class PlayerStatsRow: IRenderer<PlayerStatsRowRenderContext>
     private int _width;
     private readonly StatBar _healthBar = new(Color.Green, Color.Gray);
     private readonly StatBar _manaBar = new(Color.SteelBlue, Color.Gray);
-    public PlayerStatsRow(IBattleParticipant target, IFontManager fontManager, DialogTranslationData translationData)
+    public PlayerStatsRow(IBattleParticipant target, IFontManager fontManager, ILocalizationManager localizationManager)
     {
         _target = target;
         _fontManager = fontManager;
-        _translationData = translationData;
-        _name = translationData.GetOrKey("battle.statsRow.name").Build(fontManager.GetChatFont(), new Replacement("name", target.DisplayName));
+        _localizationManager = localizationManager;
+        _name = _localizationManager.GetData("battle.statsRow.name", new TextReplacement("name", target.DisplayName)).Compile().Build(fontManager.GetChatFont());
         RebuildHealth();
         RebuildMana();
     }
@@ -38,11 +40,13 @@ public class PlayerStatsRow: IRenderer<PlayerStatsRowRenderContext>
         var current = _target.Health;
         var max = _target.GetStats().Health;
         
-        _health = _translationData.GetOrKey("battle.statsRow.health")
-            .Build(_fontManager.GetChatFont(), 
-                new Replacement("current", current.ToString()),
-                new Replacement("max", max.ToString())
-            );
+        _health = _localizationManager.GetData(
+                "battle.statsRow.health", 
+                new TextReplacement("current", current.ToString()),
+                new TextReplacement("max", max.ToString())
+            )
+            .Compile()
+            .Build(_fontManager.GetChatFont());
         
         _health.MaxWidth = _width;
         _healthBar.Percentage = current / (float) max;
@@ -55,11 +59,13 @@ public class PlayerStatsRow: IRenderer<PlayerStatsRowRenderContext>
         var current = _target.Mana;
         var max = _target.GetStats().Mana;
         
-        _mana = _translationData.GetOrKey("battle.statsRow.mana")
-            .Build(_fontManager.GetChatFont(), 
-                new Replacement("current", current.ToString()),
-                new Replacement("max", max.ToString())
-            );
+        _mana = _localizationManager.GetData(
+                "battle.statsRow.mana", 
+                new TextReplacement("current", current.ToString()),
+                new TextReplacement("max", max.ToString())
+            )
+            .Compile()
+            .Build(_fontManager.GetChatFont());
         _mana.MaxWidth = _width;
         _manaBar.Percentage = current / (float) max;
     }

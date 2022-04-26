@@ -5,16 +5,18 @@ using System.Threading.Tasks;
 using Core.Scenes.Ingame.Battle;
 using Core.Scenes.Ingame.Battle.Impl.Actions;
 using Core.Scenes.Ingame.Chat;
+using Core.Scenes.Ingame.Localization;
 using Core.Scenes.Ingame.Views;
 using Core.Utils;
 using PipelineExtensionLibrary;
+using PipelineExtensionLibrary.Tokenizer.Chat;
 
 namespace Core.Scenes.Ingame.Modes.Battle;
 
 public class BattleChatView: BaseChatView, IPlayerBattleInput
 {
     private const int SelectionPhaseHeaderLength = 1;
-    public BattleChatView(DialogTranslationData translationData, IFontManager fontManager) : base(translationData, fontManager)
+    public BattleChatView(ILocalizationManager localizationManager, IFontManager fontManager) : base(localizationManager, fontManager)
     {
     }
 
@@ -88,11 +90,11 @@ public class BattleChatView: BaseChatView, IPlayerBattleInput
     {
         var stats = participant.GetStats();
         AddText($"battle.participant.list.name", 
-            new Replacement("name", participant.DisplayName),
-            new Replacement("health", participant.Health.ToString()),
-            new Replacement("max_health", stats.Health.ToString()),
-            new Replacement("mana", participant.Mana.ToString()),
-            new Replacement("max_mana", stats.Mana.ToString())
+            new TextReplacement("name", participant.DisplayName),
+            new TextReplacement("health", participant.Health.ToString()),
+            new TextReplacement("max_health", stats.Health.ToString()),
+            new TextReplacement("mana", participant.Mana.ToString()),
+            new TextReplacement("max_mana", stats.Mana.ToString())
         );
     }
 
@@ -123,7 +125,7 @@ public class BattleChatView: BaseChatView, IPlayerBattleInput
                         Clear();
                         participant.NextAction = ability.ProduceAction(participant, targets);
                     });
-            }, new Replacement("ability", ability.Id));
+            }, new TextReplacement("ability", ability.Id));
         });
         LoadNextComponentInQueue();
     }
@@ -157,7 +159,7 @@ public class BattleChatView: BaseChatView, IPlayerBattleInput
             AddAction("battle.participant.select." + countMode, () =>
             {
                 onSelect.Invoke(targets);
-            }, new Replacement("amount", targets.Count.ToString()), new Replacement("name", string.Join(", ", types)));
+            }, new TextReplacement("amount", targets.Count.ToString()), new TextReplacement("name", string.Join(", ", types)));
         });
         LoadNextComponentInQueue();
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Core.Scenes.Ingame.Localization;
 using Core.Scenes.Ingame.Views;
 using Core.States;
 using Microsoft.Xna.Framework;
@@ -12,7 +13,7 @@ public class OverworldMode: IMode, IStateManager
     private readonly GameManager _gameManager;
     private readonly StateRegistry _stateRegistry;
     private readonly IFontManager _fontManager;
-    private readonly DialogTranslationData _translationData;
+    private readonly ILocalizationManager _localizationManager;
     private readonly ISaveSystem _saveSystem;
     private readonly StateChatView _chatView;
     private string _weakNextId;
@@ -31,14 +32,14 @@ public class OverworldMode: IMode, IStateManager
     private string LastSaveState { get;  set; }
 
     public OverworldMode(GameManager gameManager, IGlobalEventHandler eventHandler, StateRegistry stateRegistry,
-        IFontManager fontManager, DialogTranslationData translationData, ISaveSystem saveSystem)
+        IFontManager fontManager, ILocalizationManager localizationManager, ISaveSystem saveSystem)
     {
         _gameManager = gameManager;
         _stateRegistry = stateRegistry;
         _fontManager = fontManager;
-        _translationData = translationData;
+        _localizationManager = localizationManager;
         _saveSystem = saveSystem;
-        _chatView = new StateChatView(translationData, fontManager);
+        _chatView = new StateChatView(localizationManager, fontManager);
         GameView = new WorldGameView(eventHandler, this);
         ActiveState = _stateRegistry.ReadState("null"); // Start with "null" state.
         StateChangedEvent += OnStateChanged;
@@ -99,7 +100,7 @@ public class OverworldMode: IMode, IStateManager
     
     private void OnStateChanged(StateChangedEventArgs args)
     {
-        var renderer = new StateRenderer(_translationData, Language.EN_US, _fontManager, (color) => Background = color);
+        var renderer = new StateRenderer(_localizationManager, Language.EN_US, _fontManager, (color) => Background = color);
         var context = new RenderContext(this, _gameManager, args.OldState.Id, args.NewState.Id);
         args.NewState.Render(renderer, context);
         _stateRegistry.GlobalEventHandler.EmitPostStateChangeEvent(renderer, context);

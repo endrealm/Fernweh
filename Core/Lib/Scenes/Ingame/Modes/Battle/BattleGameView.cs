@@ -2,6 +2,7 @@
 using System.Linq;
 using Core.Content;
 using Core.Scenes.Ingame.Battle;
+using Core.Scenes.Ingame.Localization;
 using Core.Scenes.Ingame.Views;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -18,20 +19,20 @@ public class BattleGameView: IGameView
     private List<BattleAvatar> _enemyAvatars = new();
     private readonly IBattleSpriteManager _battleSpriteManager;
     private IFontManager _fontManager;
-    private readonly DialogTranslationData _translationData;
+    private readonly ILocalizationManager _localizationManager;
 
     public BattleGameView(IBattleSpriteManager battleSpriteManager, IFontManager fontManager,
-        DialogTranslationData translationData)
+        ILocalizationManager localizationManager)
     {
         _battleSpriteManager = battleSpriteManager;
         _fontManager = fontManager;
-        _translationData = translationData;
+        _localizationManager = localizationManager;
     }
 
     public void LoadBattle(BattleManager manager)
     {
         _manager = manager;
-        _statsRows = manager.Friendlies.Select(participant => new PlayerStatsRow(participant, _fontManager, _translationData)).ToList();
+        _statsRows = manager.Friendlies.Select(participant => new PlayerStatsRow(participant, _fontManager, _localizationManager)).ToList();
         _friendlyAvatars = manager.Friendlies.Select(participant => new BattleAvatar(_battleSpriteManager, participant)).ToList();
         _enemyAvatars = manager.Enemies.Select(participant => new BattleAvatar(_battleSpriteManager, participant)).ToList();
     }

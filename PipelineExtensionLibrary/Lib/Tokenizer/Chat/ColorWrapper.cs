@@ -17,4 +17,11 @@ public class ColorWrapper: ChatWrapper
         merge.Color = Color;
         return merge;
     }
+    
+    public override ChatWrapper Clone()
+    {
+        var wrapper = new ColorWrapper(Color);
+        CloneInto(wrapper);
+        return wrapper;
+    }
 }

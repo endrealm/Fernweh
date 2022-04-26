@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Xml.Linq;
 using Microsoft.Xna.Framework;
 using PipelineExtensionLibrary.Chat;
 using PipelineExtensionLibrary.Tokenizer;
@@ -9,11 +7,11 @@ using PipelineExtensionLibrary.Tokenizer.Chat;
 
 namespace PipelineExtensionLibrary;
 
-public class XmlDialogParser
+public class TranslationTextParser
 {
     private readonly List<TokenDefinition> _tokenDefinitions;
 
-    public XmlDialogParser()
+    public TranslationTextParser()
     {
         _tokenDefinitions = new()
         {
@@ -24,6 +22,16 @@ public class XmlDialogParser
     }
     
     public IChatComponentData Parse(string value)
+    {
+        var data = ParseWrapped(value).Flatten(new MergeResult
+        {
+            Color = Color.White
+        }).Select(result => new ChatTextData(result.Color, result.Text)).ToList<IChatComponentData>();
+        
+        return new ChatCompoundData(data);
+    }
+    
+    public ChatWrapper ParseWrapped(string value)
     {
         var stack = new Stack<ChatWrapper>();
         stack.Push(new ChatWrapper());
@@ -63,12 +71,7 @@ public class XmlDialogParser
         }
         while (stack.Count > 0);
 
-        var data = root.Flatten(new MergeResult
-        {
-            Color = Color.White
-        }).Select(result => new ChatTextData(result.Color, result.Text)).ToList<IChatComponentData>();
-        
-        return new ChatCompoundData(data);
+        return root;
     }
     
     private IEnumerable<TokenValue> Tokenize(string message)

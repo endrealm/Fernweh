@@ -4,6 +4,7 @@ using Core.Scenes.Ingame.Chat;
 using Core.Scenes.Ingame.Modes;
 using Core.Scenes.Ingame.Views;
 using PipelineExtensionLibrary;
+using PipelineExtensionLibrary.Tokenizer.Chat;
 
 namespace Core.Scenes.Ingame.Battle;
 
@@ -27,7 +28,7 @@ public class ActionContext
         _actions.Add(battleAction);
     }
 
-    public ActionContext AddText(string key, Action onDone, params Replacement[] replacements)
+    public ActionContext AddText(string key, Action onDone, params IReplacement[] replacements)
     {
         var item = _chatView.AddText(key, replacements);
         item.SetOnDone(onDone);
@@ -35,7 +36,7 @@ public class ActionContext
         return this;
     }
 
-    public ActionContext AddAction(string key, Action onClick, params Replacement[] replacements)
+    public ActionContext AddAction(string key, Action onClick, params IReplacement[] replacements)
     {
         _chatView.AddAction(key, onClick, replacements);
         _chatView.ForceLoadNext();

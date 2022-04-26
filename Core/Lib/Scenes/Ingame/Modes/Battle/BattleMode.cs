@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Core.Scenes.Ingame.Battle;
+using Core.Scenes.Ingame.Localization;
 using Core.Scenes.Ingame.Views;
 using Microsoft.Xna.Framework;
 using Newtonsoft.Json;
@@ -27,14 +28,14 @@ public class BattleMode : IMode
         GameManager gameManager,
         IBattleSpriteManager spriteManager, 
         BattleRegistry battleRegistry, 
-        DialogTranslationData translationData, 
+        ILocalizationManager localizationManager, 
         IFontManager fontManager
     ) {
         _gameManager = gameManager;
         _battleRegistry = battleRegistry;
 
-        _chatView = new BattleChatView(translationData, fontManager);
-        _gameView = new BattleGameView(spriteManager, fontManager, translationData);
+        _chatView = new BattleChatView(localizationManager, fontManager);
+        _gameView = new BattleGameView(spriteManager, fontManager, localizationManager);
     }
 
     public void Load(ModeParameters parameters)

@@ -15,7 +15,7 @@ namespace PipelineExtension
     {
         public override DialogTranslationData Process(LanguageFile input, ContentProcessorContext context)
         {
-            var parser = new XmlDialogParser();
+            var parser = new TranslationTextParser();
             var data = new Dictionary<string, DialogTranslationGroup>();
             foreach (var entry in input.Translations)
             {

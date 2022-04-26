@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Core.Scenes.Ingame.Battle.Impl.Actions;
 using Core.Scenes.Ingame.Chat;
+using PipelineExtensionLibrary.Tokenizer.Chat;
 
 namespace Core.Scenes.Ingame.Battle.Impl;
 
@@ -126,7 +127,7 @@ public class BasicParticipant : IBattleParticipant
         Health = 0;
         if (State == ParticipantState.Alive)
         {
-            updateContext.QueueAction(new LogTextAction("battle.participant.death", new Replacement("name", DisplayName)));
+            updateContext.QueueAction(new LogTextAction("battle.participant.death", new TextReplacement("name", DisplayName)));
             updateContext.QueueAction(new AwaitNextAction());
         }
         State = ParticipantState.Dead;

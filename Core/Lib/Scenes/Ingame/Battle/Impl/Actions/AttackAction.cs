@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Core.Scenes.Ingame.Chat;
+using PipelineExtensionLibrary.Tokenizer.Chat;
 
 namespace Core.Scenes.Ingame.Battle.Impl.Actions;
 
@@ -17,7 +18,7 @@ public class AttackAction: IBattleAction
     public async Task DoAction(ActionContext context)
     {
         Participant.Defending = true;
-        context.QueueAction(new LogTextAction("battle.action.attack", new Replacement("name", Participant.DisplayName)));
+        context.QueueAction(new LogTextAction("battle.action.attack", new TextReplacement("name", Participant.DisplayName)));
         // Filter for dead targets if the spell does not allow this
         if (_target.State != ParticipantState.Alive)
         {

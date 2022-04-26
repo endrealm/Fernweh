@@ -5,6 +5,7 @@ using Core.Scenes.Ingame.Modes.Battle;
 using Core.Scenes.Ingame.Modes.Battle.Impl;
 using Core.Content;
 using Core.Saving;
+using Core.Scenes.Ingame.Localization;
 using Core.States;
 using Core.Utils;
 using PipelineExtensionLibrary;
@@ -25,16 +26,16 @@ public class GameManager: ILoadable
     private const string SaveKey = "_internal:Mode";
 
 
-    public GameManager(BattleRegistry registry, StateRegistry stateRegistry, IFontManager fontManager, DialogTranslationData translationData, IGameSave gameSave, ISaveSystem saveSystem)
+    public GameManager(BattleRegistry registry, StateRegistry stateRegistry, IFontManager fontManager, ILocalizationManager localizationManager, IGameSave gameSave, ISaveSystem saveSystem)
     {
         _stateRegistry = stateRegistry;
         _gameSave = gameSave;
         _saveSystem = saveSystem;
         _eventHandler = stateRegistry.GlobalEventHandler;
-        var overworld = new OverworldMode(this, stateRegistry.GlobalEventHandler, stateRegistry, fontManager, translationData, saveSystem);
+        var overworld = new OverworldMode(this, stateRegistry.GlobalEventHandler, stateRegistry, fontManager, localizationManager, saveSystem);
         StateManager = overworld;
         _modes.Add("overworld", overworld);
-        _modes.Add("battle", new BattleMode(this, _spriteManager, registry, translationData, fontManager));
+        _modes.Add("battle", new BattleMode(this, _spriteManager, registry, localizationManager, fontManager));
         LoadMode("overworld", new ModeParameters());
     }
 

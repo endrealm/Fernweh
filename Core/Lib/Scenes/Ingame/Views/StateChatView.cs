@@ -1,4 +1,5 @@
-﻿using Core.States;
+﻿using Core.Scenes.Ingame.Localization;
+using Core.States;
 using PipelineExtensionLibrary;
 
 namespace Core.Scenes.Ingame.Views;
@@ -13,7 +14,7 @@ public class StateChatView: BaseChatView
         LoadNextComponentInQueue();
     }
 
-    public StateChatView(DialogTranslationData translationData, IFontManager fontManager) : base(translationData, fontManager)
+    public StateChatView(ILocalizationManager localizationManager, IFontManager fontManager) : base(localizationManager, fontManager)
     {
     }
 }

@@ -8,7 +8,7 @@ using PipelineExtensionLibrary;
 
 var watch = new Stopwatch();
 var iterations = 1000;
-var parser = new XmlDialogParser();
+var parser = new TranslationTextParser();
 watch.Start();
 for (int i = 0; i < iterations; i++)
 {

@@ -30,4 +30,28 @@ public class ChatWrapper
         return parent;
     }
 
+    public virtual void Replace(IReplacement[] replacements)
+    {
+        _wrappers.ForEach(wrapper =>
+        {
+            wrapper.Replace(replacements);
+        });
+
+    }
+
+    public virtual ChatWrapper Clone()
+    {
+        var wrapper = new ChatWrapper();
+        CloneInto(wrapper);
+        return wrapper;
+    }
+
+    protected void CloneInto(ChatWrapper wrapper)
+    {
+        foreach (var chatWrapper in _wrappers)
+        {
+            wrapper.AddChild(chatWrapper.Clone());
+        }
+    }
+
 }

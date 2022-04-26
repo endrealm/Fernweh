@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Core.Scenes.Ingame.Chat;
+using PipelineExtensionLibrary.Tokenizer.Chat;
 
 namespace Core.Scenes.Ingame.Battle.Impl.Actions;
 
@@ -24,8 +25,8 @@ public class DealDamageAction: IBattleAction
             Participant.OnDealDamage(new DamageDealEvent(target, Participant, data));
             target.OnReceiveDamage(new DamageReceiveEvent(target, Participant, data));
             context.QueueAction(new LogTextAction("battle.dealDamage", 
-                new Replacement("target", target.DisplayName),
-                    new Replacement("damage", data.Damage.ToString())
+                new TextReplacement("target", target.DisplayName),
+                    new TextReplacement("damage", data.Damage.ToString())
                 ));
         });
         context.QueueAction(new AwaitNextAction());

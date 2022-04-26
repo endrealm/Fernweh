@@ -1,6 +1,7 @@
 ﻿using Core.Content;
 using Core.Saving;
 using Core.Scenes.Ingame.Battle;
+using Core.Scenes.Ingame.Localization;
 using Core.Scenes.Modding;
 using Core.Scripting;
 using Core.States;
@@ -23,11 +24,8 @@ public class IngameScene: Scene, ISaveSystem
     private readonly IGameSave _gameSave;
     private readonly IFontManager _fontManager;
     private bool _allowSave = false;
-
-    /// <summary>
-    /// Move to translation manager system to allow concatenating multiple files
-    /// </summary>
-    private DialogTranslationData _translationData;
+    
+    private ILocalizationManager _localizationManager;
 
 
     public IngameScene(IFontManager fontManager, ModLoader modLoader, string currentModId, IGameSave gameSave)
@@ -36,14 +34,15 @@ public class IngameScene: Scene, ISaveSystem
         _currentModId = currentModId;
         _gameSave = gameSave;
         _fontManager = fontManager;
+        _localizationManager = new BasicLocalizationManager();
         _scriptLoader = new(_stateRegistry, _battleRegistry, gameSave);
     }
 
     public override void Load(ContentLoader content)
     {
         _modLoader.UnloadAllMods();
-        _translationData = content.Load<DialogTranslationData>("Dialogs/test");
-        _gameManager = new GameManager(_battleRegistry, _stateRegistry, _fontManager, _translationData, _gameSave, this);
+        // TODO: _localizationManager.TranslationData = content.Load<DialogTranslationData>("Dialogs/test");
+        _gameManager = new GameManager(_battleRegistry, _stateRegistry, _fontManager, _localizationManager, _gameSave, this);
         _modLoader.Load(_scriptLoader, _currentModId);
         _gameManager.Load(content);
         _allowSave = true;

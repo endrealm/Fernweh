@@ -1,14 +1,15 @@
 ﻿using System.Threading.Tasks;
 using Core.Scenes.Ingame.Chat;
+using PipelineExtensionLibrary.Tokenizer.Chat;
 
 namespace Core.Scenes.Ingame.Battle.Impl.Actions;
 
 public class LogTextAction : IBattleAction
 {
     private readonly string _key;
-    private readonly Replacement[] _replacements;
+    private readonly IReplacement[] _replacements;
 
-    public LogTextAction(string key, params Replacement[] replacements)
+    public LogTextAction(string key, params IReplacement[] replacements)
     {
         _key = key;
         _replacements = replacements;
