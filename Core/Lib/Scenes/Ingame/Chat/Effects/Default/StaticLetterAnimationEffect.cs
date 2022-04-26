@@ -120,7 +120,7 @@ public class StaticLetterAnimationEffect: ILetterAnimationEffect
                 accumulator = "";
             }
 
-            if (newChar != ' ' || accumulator.Length != 0)
+            if (newChar != ' ' || results.Count == 0 || accumulator.Length != 0)
             {
                 accumulator += newChar;
             }
