@@ -8,6 +8,13 @@
         "enterState": "enter_grass",
         "leaveState": "leave_grass"
       }
+    },
+    "1": {
+      "0": {
+        "name": "castle",
+        "enterState": "enter_castle",
+        "leaveState": "leave_castle"
+      }
     }
   }
 }
