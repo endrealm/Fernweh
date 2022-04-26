@@ -97,7 +97,9 @@ public class DirectoryLoader : IArchiveLoader
     public string[] LoadAllFiles(string path)
     {
         var dir = new DirectoryInfo(_dir);
-        return dir.EnumerateFiles(path, SearchOption.AllDirectories).Select(x => x.FullName).ToArray();
+        return dir.EnumerateFiles(path, SearchOption.AllDirectories)
+            .Select(x => Path.GetRelativePath(_dir, x.FullName))
+            .ToArray();
     }
 
     public Stream LoadFileAsStream(string file)

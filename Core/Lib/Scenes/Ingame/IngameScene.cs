@@ -41,9 +41,16 @@ public class IngameScene: Scene, ISaveSystem
     public override void Load(ContentLoader content)
     {
         _modLoader.UnloadAllMods();
-        // TODO: _localizationManager.TranslationData = content.Load<DialogTranslationData>("Dialogs/test");
         _gameManager = new GameManager(_battleRegistry, _stateRegistry, _fontManager, _localizationManager, _gameSave, this);
-        _modLoader.Load(_scriptLoader, _currentModId);
+        
+        // Loads all mods
+        _modLoader.Load(_currentModId);
+        
+        _localizationManager.LoadLangs(_modLoader.ActiveModOrder, content);
+        
+        // Loads scripts of all mods
+        _modLoader.RunActiveModScripts(_scriptLoader);
+        
         _gameManager.Load(content);
         _allowSave = true;
         _gameManager.LoadGameState();

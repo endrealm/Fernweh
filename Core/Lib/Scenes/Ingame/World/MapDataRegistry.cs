@@ -1,17 +1,13 @@
 ﻿using Core.Utils;
-using Microsoft.Xna.Framework.Content;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using Core.Content;
 using Newtonsoft.Json;
-using System.IO;
 
 namespace Core.Scenes.Ingame.World
 {
     public class MapDataRegistry: ILoadable
     {
-        private Dictionary<string, MapData> _mapList = new Dictionary<string, MapData>();
+        private Dictionary<string, MapData> _mapList = new();
         private string _loadedMap;
 
         public void Load(ContentLoader content) // load all maps here and load the first one
@@ -22,7 +18,7 @@ namespace Core.Scenes.Ingame.World
                 string[] files = mod.LoadAllFiles("*.map");
                 for (int i = 0; i < files.Length; i++)
                 {
-                    MapData data = JsonConvert.DeserializeObject<MapData>(File.ReadAllText(files[i]));
+                    MapData data = JsonConvert.DeserializeObject<MapData>(mod.LoadFile(files[i]));
                     _mapList.Add(data.name, data);
                     if (i == 0) _loadedMap = data.name;
                 }

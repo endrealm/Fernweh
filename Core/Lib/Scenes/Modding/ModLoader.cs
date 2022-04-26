@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core.Content;
 using Core.Scripting;
@@ -10,6 +11,7 @@ namespace Core.Scenes.Modding;
 public class ModLoader
 {
     private readonly Dictionary<string, Mod> _mods = new();
+    private List<Mod> _activeModOrder = new();
 
     public ModLoader(List<IArchiveLoader> mods)
     {
@@ -19,21 +21,29 @@ public class ModLoader
         }
     }
 
+    public List<Mod> ActiveModOrder => _activeModOrder;
+
     private Mod LoadMod(IArchiveLoader loader)
     {
         var index = JsonConvert.DeserializeObject<ModIndex>(loader.LoadFile("index.json"));
         return new Mod(index, loader);
     }
 
-    public void Load(ScriptLoader scriptLoader, string gameMod)
+    public void Load(string gameMod)
     {
-        var loadMods = BuildOrder(gameMod);
-        
-        foreach (var mod in loadMods)
+        _activeModOrder = BuildOrder(gameMod);
+        foreach (var mod in _activeModOrder)
         {
             mod.Load();
-            mod.Apply(scriptLoader);
         }
+    }
+
+    public void RunActiveModScripts(ScriptLoader scriptLoader)
+    {
+        foreach (var mod in _activeModOrder)
+        {
+            mod.Apply(scriptLoader);
+        }    
     }
 
     private List<Mod> BuildOrder(string gameMod)

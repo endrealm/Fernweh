@@ -21,6 +21,21 @@ public class TranslationData
 
         return new TranslatedItem(key, new Dictionary<Language, string>());
     }
+
+    public void Merge(TranslationData translationData)
+    {
+        foreach (var pair in translationData.Translations)
+        {
+            if (Translations.ContainsKey(pair.Key))
+            {
+                Translations[pair.Key].Merge(pair.Value);
+            }
+            else
+            {
+                Translations.Add(pair.Key, pair.Value);
+            }
+        }
+    }
 }
 
 public class TranslatedItem
@@ -50,5 +65,20 @@ public class TranslatedItem
         // Fallback to key
         return $"<color=\"Red\">{_key}</color>";
 
+    }
+
+    public void Merge(TranslatedItem other)
+    {
+        foreach (var pair in other.Translations)
+        {
+            if (Translations.ContainsKey(pair.Key))
+            {
+                Translations[pair.Key] = pair.Value; // Overwrite if exists!
+            }
+            else
+            {
+                Translations.Add(pair.Key, pair.Value);
+            }
+        }
     }
 }

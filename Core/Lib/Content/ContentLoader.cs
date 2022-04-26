@@ -52,6 +52,7 @@ public class ContentLoader
         RegisterLoader(new FileLoader());
         RegisterLoader(new TextureLoader(deviceManager));
         RegisterLoader(new DialogLoader(_contentManager));
+        RegisterLoader(new LocaleLoader());
     }
 
     public void LoadFonts()

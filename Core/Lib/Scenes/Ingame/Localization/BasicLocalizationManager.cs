@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using Core.Content;
+using Core.Scenes.Modding;
 using PipelineExtensionLibrary;
 using PipelineExtensionLibrary.Tokenizer.Chat;
 
@@ -9,13 +12,13 @@ public class BasicLocalizationManager: ILocalizationManager
 {
 
     private Language _language = Language.EN_US;
-    public TranslationData TranslationData { private get; set; }
+    private readonly TranslationData _translationData;
     private TranslationTextParser _parser = new();
     
 
     public BasicLocalizationManager()
     {
-        TranslationData = new TranslationData(new Dictionary<string, TranslatedItem>());
+        _translationData = new TranslationData(new Dictionary<string, TranslatedItem>());
     }
 
     public ChatWrapper GetData(string key, params IReplacement[] replacements)
@@ -38,8 +41,21 @@ public class BasicLocalizationManager: ILocalizationManager
         return parsed;
     }
 
+    public void LoadLangs(List<Mod> mods, ContentLoader contentLoader)
+    {
+        mods.ForEach(mod =>
+        {
+            var files = mod.Archive.LoadAllFiles("*.lang");
+            foreach (var file in files)
+            {
+                var translationData = contentLoader.Load<TranslationData>(file, mod.Id);
+                _translationData.Merge(translationData);
+            }
+        });
+    }
+
     private TranslatedItem GetRawTranslation(string key)
     {
-        return TranslationData.Get(key);
+        return _translationData.Get(key);
     }
 }

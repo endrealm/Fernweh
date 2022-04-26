@@ -23,7 +23,7 @@ namespace Core.Scenes.Ingame.World
                 string[] files = mod.LoadAllFiles("*.tile");
                 foreach (var file in files)
                 {
-                    TileData data = JsonConvert.DeserializeObject<TileData>(File.ReadAllText(file));
+                    TileData data = JsonConvert.DeserializeObject<TileData>(mod.LoadFile(file));
                     data.LoadSprites(content);
                     _tileList.Add(data.name, data);
                 }
