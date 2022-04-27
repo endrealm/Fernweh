@@ -39,6 +39,9 @@ StateBuilder("ui_party_member_details")
                 renderer:SetBackgroundColor("Purple")
                 renderer:AddAction(function() context:ChangeState("ui_party") end, "party.back")
                 renderer:AddText("party.detail.header", { { "name", activeDetailMember.id } })
+                for key, value in pairs(activeDetailMember.stats) do
+                    renderer:AddText("party.detail.stat."..key, { { "value", value } })
+                end
                 
             end
         )

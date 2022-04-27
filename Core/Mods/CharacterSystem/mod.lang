@@ -68,5 +68,45 @@
     "translations": {
       "EN_US": "<color=\"Orange\">View Party</color>"
     }
+  },
+  "party.detail.stat.evasion": {
+    "translations": {
+      "EN_US": "<color=\"Orange\">Evasion:</color> {value}"
+    }
+  },
+  "party.detail.stat.agility": {
+    "translations": {
+      "EN_US": "<color=\"Orange\">Agility:</color> {value}"
+    }
+  },
+  "party.detail.stat.mana": {
+    "translations": {
+      "EN_US": "<color=\"Orange\">Mana:</color> {value}"
+    }
+  },
+  "party.detail.stat.defense": {
+    "translations": {
+      "EN_US": "<color=\"Orange\">Defense:</color> {value}"
+    }
+  },
+  "party.detail.stat.health": {
+    "translations": {
+      "EN_US": "<color=\"Orange\">Health:</color> {value}"
+    }
+  },
+  "party.detail.stat.intellect": {
+    "translations": {
+      "EN_US": "<color=\"Orange\">Intellect:</color> {value}"
+    }
+  },
+  "party.detail.stat.strength": {
+    "translations": {
+      "EN_US": "<color=\"Orange\">Strength:</color> {value}"
+    }
+  },
+  "party.detail.stat.spirit": {
+    "translations": {
+      "EN_US": "<color=\"Orange\">Spirit:</color> {value}"
+    }
   }
 }

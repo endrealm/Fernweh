@@ -1,3 +1,15 @@
 {
-    "discord.enabled": false
+    "discord.enabled": false,
+    "Lua.diagnostics.globals": [
+        "StateBuilder",
+        "RegisterFriendlyParticipantsProvider",
+        "Context",
+        "Import",
+        "Global",
+        "SetEntryState",
+        "CreateParticipant",
+        "CreateStatusEffect",
+        "CreateAbility",
+        "CreateConstantAbility"
+    ]
 }
