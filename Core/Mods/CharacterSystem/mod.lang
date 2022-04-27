@@ -38,5 +38,35 @@
     "translations": {
       "EN_US": " -> Equip to Party"
     }
+  },
+  "party.close": {
+    "translations": {
+      "EN_US": "<- Close"
+    }
+  },
+  "party.back": {
+    "translations": {
+      "EN_US": "<- Back"
+    }
+  },
+  "party.header": {
+    "translations": {
+      "EN_US": "Party Members:"
+    }
+  },
+  "party.list.member": {
+    "translations": {
+      "EN_US": "-> {name}"
+    }
+  },
+  "party.detail.header": {
+    "translations": {
+      "EN_US": "{name}'s Details:"
+    }
+  },
+  "party.open": {
+    "translations": {
+      "EN_US": "<color=\"Orange\">View Party</color>"
+    }
   }
 }
