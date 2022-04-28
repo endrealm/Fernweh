@@ -8,6 +8,7 @@
     "Scripts/participants.lua",
     "States/testWorld.lua",
     "States/variableMaker.lua",
-    "States/variableReader.lua"
+    "States/variableReader.lua",
+    "data.lua"
   ]
 }

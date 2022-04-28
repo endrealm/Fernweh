@@ -108,5 +108,30 @@
     "translations": {
       "EN_US": "<color=\"Orange\">Spirit:</color> {value}"
     }
+  },
+  "party.detail.items": {
+    "translations": {
+      "EN_US": "Item Slots:"
+    }
+  },
+  "party.detail.slot": {
+    "translations": {
+      "EN_US": "-> {slot} ({item})"
+    }
+  },
+  "party.detail.slot.header": {
+    "translations": {
+      "EN_US": "{slot} Slot:"
+    }
+  },
+  "party.detail.slot.current": {
+    "translations": {
+      "EN_US": "Currently: {item}"
+    }
+  },
+  "party.details.unequip": {
+    "translations": {
+      "EN_US": "-> Unequip Item"
+    }
   }
 }

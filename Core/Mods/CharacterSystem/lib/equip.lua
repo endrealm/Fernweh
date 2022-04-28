@@ -8,6 +8,7 @@ local SetEquipItem = equipUI:GetFunc("SetEquipItem")
 -- ============================
 
 EquipItem = {}
+Slots = {}
 
 function EquipItem:new(o)
     self.__index = self
@@ -28,8 +29,21 @@ function EquipItem:ShowOptions(renderer, context)
     end, "inventory.item.equip")
 end
 
+function RegisterSlot(slot)
+    if(type(slot) ~= "string") then
+        error("Slot must be a string value")
+    end
+    table.insert(Slots, slot)
+end
+
+function GetSlots()
+    return Slots
+end
+
 
 -- ============================
 -- Exports
 -- ============================
-Context:CreateVar("EquipItem", EquipItem)
+Context:CreateFunc("EquipItem", EquipItem)
+Context:CreateFunc("RegisterSlot", RegisterSlot)
+Context:CreateFunc("GetSlots", GetSlots)

@@ -7,8 +7,8 @@
     "lib/character.lua",
     "lib/party.lua",
     "lib/ui/equip.lua",
-    "lib/ui/party.lua",
     "lib/equip.lua",
+    "lib/ui/party.lua",
     "api.lua"
   ]
 }

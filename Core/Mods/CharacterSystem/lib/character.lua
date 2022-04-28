@@ -50,6 +50,11 @@ function Character:Serialize()
     }
 end
 
+function Character:DisplayName()
+    return GetTranslation("character."..self.id..".name")
+end
+
+
 function Character:Deserialize(data)
     self.items = data.items
     self.stats = data.stats
