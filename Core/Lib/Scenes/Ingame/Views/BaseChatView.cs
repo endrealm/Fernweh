@@ -23,6 +23,9 @@ public class BaseChatView : IChatView
     protected int Width;
     private readonly ILocalizationManager _localizationManager;
     private readonly IFontManager _fontManager;
+    private float _lastFrameHeight = 0;
+    private float _scrollOffset = 0;
+    private bool _sticky = true;
 
     public BaseChatView(ILocalizationManager localizationManager, IFontManager fontManager)
     {
@@ -43,6 +46,8 @@ public class BaseChatView : IChatView
         RunningComponents.Clear();
         RunningComponents.AddRange(remaining);
         Width = 0;
+        _scrollOffset = 0;
+        _sticky = true;
     }
     
     public void Clear()
@@ -50,6 +55,8 @@ public class BaseChatView : IChatView
         QueuedComponents = new Queue<IChatComponent>();
         RunningComponents.Clear();
         Width = 0;
+        _scrollOffset = 0;
+        _sticky = true;
     }
 
     [CanBeNull]
@@ -65,6 +72,8 @@ public class BaseChatView : IChatView
 
     public void Render(SpriteBatch spriteBatch, IngameRenderContext context)
     {
+        var screenHeight = context.BaseScreenSize.Y;
+        var allowScroll = _lastFrameHeight > screenHeight;
         // Do width auto resize
         if (context.ChatWidth != Width)
         {
@@ -74,9 +83,21 @@ public class BaseChatView : IChatView
                 component.MaxWidth = Width - XMargin * 2;
             });
         }
+
+        if (_scrollOffset < 0)
+        {
+            _scrollOffset = 0;
+        }
+
+        // Reset offset if chat has become smaller
+        if (_sticky || _scrollOffset + screenHeight > _lastFrameHeight)
+        {
+            _scrollOffset = Math.Max(_lastFrameHeight - screenHeight, 0);
+        }
+        
         // Draw UI here
         spriteBatch.FillRectangle(new Vector2(), new Size2(context.ChatWidth, context.BaseScreenSize.Y), context.BackgroundColor);
-        var offsetY = 0f;
+        var offsetY = 0f + -_scrollOffset;
         RunningComponents.ForEach(component =>
         {
             component.Render(spriteBatch, new ChatRenderContext(new Vector2(XMargin, offsetY)));
@@ -93,6 +114,12 @@ public class BaseChatView : IChatView
             component.Update(deltaTime, new ChatUpdateContext(context, new Vector2(XMargin, offsetY)));
             offsetY += component.Dimensions.Y;
         });
+
+        if (_sticky && context.TopLevelUpdateContext.ClickInput.ScrollWheelValue != 0) _sticky = false;
+
+        _scrollOffset += context.TopLevelUpdateContext.ClickInput.ScrollWheelValue*-.05f;
+
+        _lastFrameHeight = offsetY;
     }
     
     public IChatComponent AddText(string key, Action callback = null, params IReplacement[] replacements)
