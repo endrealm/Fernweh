@@ -92,6 +92,7 @@ public class BaseChatView : IChatView
         // Reset offset if chat has become smaller
         if (_sticky || _scrollOffset + screenHeight > _lastFrameHeight)
         {
+            _sticky = true;
             _scrollOffset = Math.Max(_lastFrameHeight - screenHeight, 0);
         }
         
