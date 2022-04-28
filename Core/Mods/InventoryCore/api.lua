@@ -103,6 +103,10 @@ function Item:ShowOptions(renderer, context)
     renderer:AddText("inventory.item.noActions")
 end
 
+function Item:DisplayName()
+    return GetTranslation("item."..self.id..".name")
+end
+
 function Item:ParseAbility(abilityBuilder)
     if(self.abilities == nil) then
         return nil
@@ -133,7 +137,7 @@ StateBuilder("ui_inventory")
                     renderer:AddAction(function()
                         activeDetailItem=entry
                         context:ChangeState("ui_item_details")
-                    end, "inventory.item", { { "item", entry.item.id }, { "amount", tostring(entry.amount) } } )
+                    end, "inventory.item", { { "item", entry.item:DisplayName() }, { "amount", tostring(entry.amount) } } )
                 end
             end
         )
@@ -145,7 +149,7 @@ StateBuilder("ui_item_details")
             function(renderer, context)
                 renderer:SetBackgroundColor("Brown")
                 renderer:AddAction(function() context:ChangeState("ui_inventory") end, "inventory.item.close")
-                renderer:AddText("inventory.item.header", { { "item", activeDetailItem.item.id }, { "amount", tostring(activeDetailItem.amount) } })
+                renderer:AddText("inventory.item.header", { { "item", activeDetailItem.item:DisplayName()}, { "amount", tostring(activeDetailItem.amount) } })
                 activeDetailItem.item:ShowOptions(renderer, context)
             end
         )

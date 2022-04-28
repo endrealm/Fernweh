@@ -35,7 +35,7 @@ public class IngameScene: Scene, ISaveSystem
         _gameSave = gameSave;
         _fontManager = fontManager;
         _localizationManager = new BasicLocalizationManager();
-        _scriptLoader = new(_stateRegistry, _battleRegistry, gameSave);
+        _scriptLoader = new(_stateRegistry, _battleRegistry, gameSave, _localizationManager);
     }
 
     public override void Load(ContentLoader content)

@@ -5,6 +5,7 @@ using Core.Saving;
 using Core.Scenes.Ingame.Battle;
 using Core.Scenes.Ingame.Battle.Impl;
 using Core.Scenes.Ingame.Battle.Impl.Actions;
+using Core.Scenes.Ingame.Localization;
 using Core.Scenes.Modding;
 using Core.States;
 using Core.Utils;
@@ -23,15 +24,17 @@ public class ScriptLoader
     private readonly StateRegistry _stateRegistry;
     private readonly BattleRegistry _battleRegistry;
     private readonly IGameSave _gameSave;
+    private readonly ILocalizationManager _localizationManager;
 
     private readonly LuaFriendlyParticipantsProvider _friendlyParticipantsProvider = new();
     private Color _defaultBackgroundColor = new(18, 14, 18);
 
-    public ScriptLoader(StateRegistry stateRegistry, BattleRegistry battleRegistry, IGameSave gameSave)
+    public ScriptLoader(StateRegistry stateRegistry, BattleRegistry battleRegistry, IGameSave gameSave, ILocalizationManager localizationManager)
     {
         _stateRegistry = stateRegistry;
         _battleRegistry = battleRegistry;
         _gameSave = gameSave;
+        _localizationManager = localizationManager;
         _battleRegistry.FriendlyParticipantsProvider = _friendlyParticipantsProvider;
         var lua = new Lua();
         _runtimes.Add(lua);
@@ -64,6 +67,7 @@ public class ScriptLoader
         
         #region Exposed Lua Interfaces
 
+        lua["GetTranslation"] = GetTranslation;
         lua["CreateStatusEffect"] = CreateEffectFactoryBuilder;
         lua["CreateAbility"] = CreateAbilityFactoryBuilder;
         lua["CreateConstantAbility"] = CreateConstantAbilityFactoryBuilder;
@@ -102,6 +106,11 @@ public class ScriptLoader
     public void SetEntryState(string state)
     {
         _stateRegistry.EntryState = state;
+    }
+
+    public WrappedTranslation GetTranslation(string key, LuaTable replacements = null)
+    {
+        return new WrappedTranslation(_localizationManager.GetData(key, LuaUtils.ReadReplacements(replacements)));
     }
 
     ~ScriptLoader() {
