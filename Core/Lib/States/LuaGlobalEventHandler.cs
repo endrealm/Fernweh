@@ -44,11 +44,11 @@ public class LuaGlobalEventHandler: IGlobalEventHandler
 
     public void EmitLoadBattleSprites(DynamicBattleSpriteManager spriteManager)
     {
-        _preStateChangeEventListeners.ForEach(fun => fun.Call(spriteManager));
+        _battleSpriteLoadListeners.ForEach(fun => fun.Call(spriteManager));
     }
 
     public void EmitPrePlayerMoveEvent()
     {
-        _battleSpriteLoadListeners.ForEach(fun => fun.Call());
+        _prePlayerMoveEventListeners.ForEach(fun => fun.Call());
     }
 }
