@@ -8,7 +8,10 @@ public class StateChatView: BaseChatView
 {
     public void RenderResults(StateRenderer renderer, bool sticky)
     {
-        Clear();
+        if (renderer.ClearRender)
+        {
+            Clear();
+        }
         SetSticky(sticky);
         QueuedComponents = renderer.Build();
         LoadNextComponentInQueue();

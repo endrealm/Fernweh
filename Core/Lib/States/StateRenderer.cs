@@ -16,16 +16,20 @@ public class StateRenderer
     private readonly Language _language;
     private readonly IFontManager _font;
     private readonly Action<Color> _changeBackgroundColor;
+    private readonly bool _clearRender;
     private readonly Queue<IChatComponent> _components = new();
 
     public StateRenderer(ILocalizationManager localizationManager, Language language, IFontManager font,
-        Action<Color> changeBackgroundColor)
+        Action<Color> changeBackgroundColor, bool clearRender)
     {
         _localizationManager = localizationManager;
         _language = language;
         _font = font;
         _changeBackgroundColor = changeBackgroundColor;
+        _clearRender = clearRender;
     }
+
+    public bool ClearRender => _clearRender;
 
     public void AddText(string key, LuaFunction callback = null, LuaTable rawReplacements = null)
     {

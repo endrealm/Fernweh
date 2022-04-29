@@ -100,7 +100,7 @@ public class OverworldMode: IMode, IStateManager
     
     private void OnStateChanged(StateChangedEventArgs args)
     {
-        var renderer = new StateRenderer(_localizationManager, Language.EN_US, _fontManager, (color) => Background = color);
+        var renderer = new StateRenderer(_localizationManager, Language.EN_US, _fontManager, (color) => Background = color, args.OldState.ClearScreenPost);
         var context = new RenderContext(this, _gameManager, args.OldState.Id, args.NewState.Id);
         args.NewState.Render(renderer, context);
         _stateRegistry.GlobalEventHandler.EmitPostStateChangeEvent(renderer, context);

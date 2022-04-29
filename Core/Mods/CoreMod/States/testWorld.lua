@@ -104,6 +104,7 @@ StateBuilder("castle_shops")
         :Build()
 
 StateBuilder("leave_grass")
+        :ClearScreenPost(false)
         :Render(
                 function(renderer, context)
                     renderer:AddText("leave.grass", function() context:Exit() end)
@@ -112,6 +113,7 @@ StateBuilder("leave_grass")
         :Build()
 
 StateBuilder("leave_forest")
+        :ClearScreenPost(false)
         :Render(
                 function(renderer, context)
                     renderer:AddText("leave.forest", function() context:Exit() end)
@@ -121,6 +123,7 @@ StateBuilder("leave_forest")
 
 
 StateBuilder("leave_path")
+        :ClearScreenPost(false)
         :Render(
                 function(renderer, context)
                     renderer:AddText("leave.path", function() context:Exit() end)
@@ -129,6 +132,7 @@ StateBuilder("leave_path")
         :Build()
 
 StateBuilder("leave_castle")
+        :ClearScreenPost(false)
         :Render(
                 function(renderer, context)
                     renderer:AddText("leave.castle", function() context:Exit() end)

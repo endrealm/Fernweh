@@ -8,4 +8,5 @@ public interface IState
     bool AllowMove { get; }
     bool AllowSave { get; }
     bool Sticky { get; }
+    public bool ClearScreenPost { get; }
 }

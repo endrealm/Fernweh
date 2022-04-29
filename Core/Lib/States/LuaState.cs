@@ -9,7 +9,7 @@ public class LuaState: IState
     private readonly Color _backgroundColor;
 
     public LuaState(string id, LuaFunction renderFunc, bool showExit, bool allowMove, Color backgroundColor,
-        bool allowSave, bool sticky)
+        bool allowSave, bool sticky, bool clearScreenPost)
     {
         Id = id;
         _renderFunc = renderFunc;
@@ -18,6 +18,7 @@ public class LuaState: IState
         AllowMove = allowMove;
         AllowSave = allowSave;
         Sticky = sticky;
+        ClearScreenPost = clearScreenPost;
     }
 
     public string Id { get; }
@@ -32,4 +33,5 @@ public class LuaState: IState
     public bool AllowMove { get; }
     public bool AllowSave { get; }
     public bool Sticky { get; }
+    public bool ClearScreenPost { get; }
 }
