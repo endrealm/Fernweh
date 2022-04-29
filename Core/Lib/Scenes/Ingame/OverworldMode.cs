@@ -78,24 +78,28 @@ public class OverworldMode: IMode, IStateManager
     {
         _stateRegistry.GlobalEventHandler.EmitPreStateChangeEvent();
         var oldState = ActiveState;
-        ActiveState = _stateRegistry.ReadState(stateId);
-        StateChangedEvent?.Invoke(new StateChangedEventArgs()
-        {
-            OldState = oldState,
-            NewState = ActiveState
-        });
+        
 
         if (stateId == "null" && weakNextID != null)
         {
-            LoadState(weakNextID);
-            weakNextID = null;
+            var weak = weakNextID;
+            weakNextID = null; // Clear before saved in next render
+            LoadState(weak);
+            return;
         }
+        ActiveState = _stateRegistry.ReadState(stateId);
 
         if (ActiveState.AllowSave)
         {
             LastSaveState = ActiveState.Id;
             _saveSystem.SaveAll();
         }
+        
+        StateChangedEvent?.Invoke(new StateChangedEventArgs()
+        {
+            OldState = oldState,
+            NewState = ActiveState
+        });
     }
     
     private void OnStateChanged(StateChangedEventArgs args)

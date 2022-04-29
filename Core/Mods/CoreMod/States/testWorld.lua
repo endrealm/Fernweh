@@ -1,4 +1,7 @@
-﻿StateBuilder("my_state")
+﻿local compat = Import("ui_compat", "api")
+BlackListState = compat:GetFunc("BlackListState")
+
+StateBuilder("my_state")
         :Render(
                 function(renderer, context)
                     renderer:AddText("intro")
@@ -103,6 +106,7 @@ StateBuilder("castle_shops")
         )
         :Build()
 
+BlackListState("leave_grass")
 StateBuilder("leave_grass")
         :ClearScreenPost(false)
         :Render(
@@ -112,6 +116,7 @@ StateBuilder("leave_grass")
         )
         :Build()
 
+BlackListState("leave_forest")
 StateBuilder("leave_forest")
         :ClearScreenPost(false)
         :Render(
@@ -122,6 +127,7 @@ StateBuilder("leave_forest")
         :Build()
 
 
+BlackListState("leave_path")
 StateBuilder("leave_path")
         :ClearScreenPost(false)
         :Render(
@@ -131,6 +137,7 @@ StateBuilder("leave_path")
         )
         :Build()
 
+BlackListState("leave_castle")
 StateBuilder("leave_castle")
         :ClearScreenPost(false)
         :Render(
