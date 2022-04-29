@@ -15,6 +15,7 @@ public class NullState: IState
     public bool ShowExit => false;
     public bool AllowMove => true;
     public bool AllowSave => true;
+    public bool Sticky => true;
 
     public void SetBackground(Color defaultBackgroundColor)
     {

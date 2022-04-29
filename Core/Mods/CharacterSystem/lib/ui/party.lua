@@ -23,6 +23,7 @@ BlackListState("ui_party_member_details_slot")
 
 
 StateBuilder("ui_party")
+        :Sticky(false)
         :Render(
             function(renderer, context)
                 renderer:SetBackgroundColor("Purple")
@@ -40,6 +41,7 @@ StateBuilder("ui_party")
 
 StateBuilder("ui_party_member_details")
         :AllowSave(false)
+        :Sticky(false)
         :Render(
             function(renderer, context)
                 renderer:SetBackgroundColor("Purple")

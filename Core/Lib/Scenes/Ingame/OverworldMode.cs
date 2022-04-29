@@ -104,7 +104,7 @@ public class OverworldMode: IMode, IStateManager
         var context = new RenderContext(this, _gameManager, args.OldState.Id, args.NewState.Id);
         args.NewState.Render(renderer, context);
         _stateRegistry.GlobalEventHandler.EmitPostStateChangeEvent(renderer, context);
-        _chatView.RenderResults(renderer);
+        _chatView.RenderResults(renderer, args.NewState.Sticky);
     }
 
 }

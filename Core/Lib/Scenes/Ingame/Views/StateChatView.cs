@@ -6,11 +6,11 @@ namespace Core.Scenes.Ingame.Views;
 
 public class StateChatView: BaseChatView
 {
-    public void RenderResults(StateRenderer renderer)
+    public void RenderResults(StateRenderer renderer, bool sticky)
     {
-        Width = 0; // reset width so rescale is triggered
+        Clear();
+        SetSticky(sticky);
         QueuedComponents = renderer.Build();
-        RunningComponents.Clear();
         LoadNextComponentInQueue();
     }
 

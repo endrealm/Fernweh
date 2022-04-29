@@ -12,4 +12,5 @@ public interface IChatView: IRenderer<IngameRenderContext>, IUpdate<IngameUpdate
     public IChatComponent AddAction(string key, Action callback, params IReplacement[] replacements);
     void ForceLoadNext();
     void Clear();
+    void SetSticky(bool sticky);
 }

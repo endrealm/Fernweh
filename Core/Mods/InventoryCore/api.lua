@@ -128,6 +128,7 @@ BlackListState("ui_inventory")
 BlackListState("ui_item_details")
 
 StateBuilder("ui_inventory")
+        :Sticky(false)
         :Render(
             function(renderer, context)
                 renderer:SetBackgroundColor("Brown")
@@ -144,6 +145,7 @@ StateBuilder("ui_inventory")
         :Build()
 
 StateBuilder("ui_item_details")
+        :Sticky(false)
         :AllowSave(false)
         :Render(
             function(renderer, context)

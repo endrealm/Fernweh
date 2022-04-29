@@ -7,4 +7,5 @@ public interface IState
     bool ShowExit { get; }
     bool AllowMove { get; }
     bool AllowSave { get; }
+    bool Sticky { get; }
 }

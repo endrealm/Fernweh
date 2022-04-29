@@ -59,6 +59,11 @@ public class BaseChatView : IChatView
         _sticky = true;
     }
 
+    public void SetSticky(bool sticky)
+    {
+        _sticky = sticky;
+    }
+
     [CanBeNull]
     protected IChatComponent LoadNextComponentInQueue()
     {
@@ -73,7 +78,6 @@ public class BaseChatView : IChatView
     public void Render(SpriteBatch spriteBatch, IngameRenderContext context)
     {
         var screenHeight = context.BaseScreenSize.Y;
-        var allowScroll = _lastFrameHeight > screenHeight;
         // Do width auto resize
         if (context.ChatWidth != Width)
         {
@@ -92,7 +96,10 @@ public class BaseChatView : IChatView
         // Reset offset if chat has become smaller
         if (_sticky || _scrollOffset + screenHeight > _lastFrameHeight)
         {
-            _sticky = true;
+            if (_scrollOffset != 0)
+            {
+                _sticky = true;
+            }
             _scrollOffset = Math.Max(_lastFrameHeight - screenHeight, 0);
         }
         

@@ -14,6 +14,7 @@ public class LuaStateBuilder
     private bool _showExit;
     private bool _allowMove;
     private bool _allowSave = true;
+    private bool _sticky = true;
 
     public LuaStateBuilder(string stateId, Color defaultBackgroundColor, Action<IState> onStateBuild)
     {
@@ -42,6 +43,11 @@ public class LuaStateBuilder
         _allowSave = save;
         return this;
     }
+    public LuaStateBuilder Sticky(bool sticky)
+    {
+        _sticky = sticky;
+        return this;
+    }
     
     public LuaStateBuilder BackgroundColor(string color)
     {
@@ -51,7 +57,7 @@ public class LuaStateBuilder
 
     public IState Build()
     {
-        var state = new LuaState(_stateId, _renderFunc, _showExit, _allowMove, _defaultBackgroundColor, _allowSave);
+        var state = new LuaState(_stateId, _renderFunc, _showExit, _allowMove, _defaultBackgroundColor, _allowSave, _sticky);
         _onStateBuild.Invoke(state);
         return state;
     }
