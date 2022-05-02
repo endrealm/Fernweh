@@ -13,4 +13,5 @@ public interface IChatView: IRenderer<IngameRenderContext>, IUpdate<IngameUpdate
     void ForceLoadNext();
     void Clear();
     void SetSticky(bool sticky);
+    public ILabel DrawLabel(LabelSettings settings);
 }

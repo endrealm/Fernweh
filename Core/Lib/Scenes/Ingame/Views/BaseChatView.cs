@@ -4,14 +4,10 @@ using System.Linq;
 using Core.Content;
 using Core.Scenes.Ingame.Chat;
 using Core.Scenes.Ingame.Localization;
-using Core.Scenes.Ingame.Views;
 using JetBrains.Annotations;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
-using PipelineExtensionLibrary;
-using PipelineExtensionLibrary.Chat;
 using PipelineExtensionLibrary.Tokenizer.Chat;
 
 namespace Core.Scenes.Ingame.Views;
@@ -20,6 +16,7 @@ public class BaseChatView : IChatView
 {
     protected Queue<IChatComponent> QueuedComponents = new();
     protected readonly List<IChatComponent> RunningComponents = new();
+    protected readonly List<ILabel> Labels = new();
     protected int Width;
     private readonly ILocalizationManager _localizationManager;
     private readonly IFontManager _fontManager;
@@ -41,6 +38,7 @@ public class BaseChatView : IChatView
 
     protected void Clear(int keepCount)
     {
+        Labels.Clear();
         QueuedComponents = new Queue<IChatComponent>();
         var remaining = RunningComponents.Take(keepCount).ToList();
         RunningComponents.Clear();
@@ -52,6 +50,7 @@ public class BaseChatView : IChatView
     
     public void Clear()
     {
+        Labels.Clear();
         QueuedComponents = new Queue<IChatComponent>();
         RunningComponents.Clear();
         Width = 0;
@@ -62,6 +61,13 @@ public class BaseChatView : IChatView
     public void SetSticky(bool sticky)
     {
         _sticky = sticky;
+    }
+
+    public ILabel DrawLabel(LabelSettings settings)
+    {
+        var label = new BasicLabel(settings, _fontManager.GetChatFont());
+        Labels.Add(label);
+        return label;
     }
 
     [CanBeNull]
@@ -111,6 +117,8 @@ public class BaseChatView : IChatView
             component.Render(spriteBatch, new ChatRenderContext(new Vector2(XMargin, offsetY)));
             offsetY += component.Dimensions.Y;
         });
+        
+        Labels.ForEach(label => label.Render(spriteBatch, new LabelRenderContext(context.BaseScreenSize, context.ChatWidth)));
     }
 
     public void Update(float deltaTime, IngameUpdateContext context)
