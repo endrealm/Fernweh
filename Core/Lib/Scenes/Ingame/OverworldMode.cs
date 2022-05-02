@@ -16,6 +16,7 @@ public class OverworldMode: IMode, IStateManager
     private readonly ILocalizationManager _localizationManager;
     private readonly ISaveSystem _saveSystem;
     private readonly StateChatView _chatView;
+    public WorldGameView worldGameView;
     private string _weakNextId;
 
     public string weakNextID
@@ -40,7 +41,8 @@ public class OverworldMode: IMode, IStateManager
         _localizationManager = localizationManager;
         _saveSystem = saveSystem;
         _chatView = new StateChatView(localizationManager, fontManager);
-        GameView = new WorldGameView(eventHandler, this);
+        worldGameView = new WorldGameView(eventHandler, this);
+        GameView = worldGameView;
         ActiveState = _stateRegistry.ReadState("null"); // Start with "null" state.
         StateChangedEvent += OnStateChanged;
     }
@@ -62,13 +64,16 @@ public class OverworldMode: IMode, IStateManager
     {
         weakNextID = (string) data["WeakState"];
         Load(new ModeParameters().AppendData("state", (string) data["State"] ?? "null"));
+        if(data.ContainsKey("PlayerPosX") && data.ContainsKey("PlayerPosY"))
+            worldGameView.player.TeleportPlayer(new Vector2(Int32.Parse((string)data["PlayerPosX"]), Int32.Parse((string)data["PlayerPosY"])));
     }
 
     public void Save(Dictionary<string, object> data)
     {
-        
         data.Add("State", LastSaveState);
         data.Add("WeakState", LastSaveStateWeak);
+        data.Add("PlayerPosX", (worldGameView.player.CurrentPos.X / 32).ToString());
+        data.Add("PlayerPosY", (worldGameView.player.CurrentPos.Y / 32).ToString());
     }
 
     public event StateChangedEventHandler StateChangedEvent;

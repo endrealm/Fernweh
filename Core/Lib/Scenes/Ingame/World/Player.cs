@@ -10,7 +10,7 @@ using static Core.Scenes.Ingame.World.MapData;
 
 namespace Core.Scenes.Ingame.World
 {
-    internal class Player: IRenderer<IngameRenderContext>, IUpdate<IngameUpdateContext>, ILoadable
+    public class Player: IRenderer<IngameRenderContext>, IUpdate<IngameUpdateContext>, ILoadable
     {
         private readonly IGlobalEventHandler _globalEventHandler;
         private readonly IStateManager _gameManager;

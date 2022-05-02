@@ -157,7 +157,7 @@ public class LuaNamespacedDataStore : NamespacedDataStore
             return dict;
         }
 
-        if (IsPrimitive(rawData.GetType()))
+        if (rawData == null || IsPrimitive(rawData.GetType()))
         {
             return rawData;
         }

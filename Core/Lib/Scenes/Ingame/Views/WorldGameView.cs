@@ -20,13 +20,13 @@ public class WorldGameView: IGameView, IRenderer<IngameRenderContext>, IUpdate<I
 
     public MapDataRegistry mapDataRegistry = new MapDataRegistry();
     public TileDataRegistry tileDataRegistry = new TileDataRegistry();
-    private Player _player;
+    public Player player;
 
     private Vector2 _cameraCulling;
 
     public WorldGameView(IGlobalEventHandler eventHandler, IStateManager gameManager)
     {
-        _player = new Player(eventHandler, gameManager, this);
+        player = new Player(eventHandler, gameManager, this);
     }
 
     public void Render(SpriteBatch spriteBatch, IngameRenderContext context)
@@ -51,7 +51,7 @@ public class WorldGameView: IGameView, IRenderer<IngameRenderContext>, IUpdate<I
             }
         }
 
-        _player.Render(spriteBatch, context);
+        player.Render(spriteBatch, context);
     }
 
     public void Load(ContentLoader content)
@@ -59,22 +59,22 @@ public class WorldGameView: IGameView, IRenderer<IngameRenderContext>, IUpdate<I
         tileDataRegistry.Load(content);
         mapDataRegistry.Load(content);
 
-        _player.Load(content);
-        _player.TeleportPlayer(new Vector2(0, 0));
+        player.Load(content);
+        player.TeleportPlayer(new Vector2(0, 0));
     }
 
     public void Update(float deltaTime, IngameUpdateContext context)
     {
-        _player.Update(deltaTime, context);
+        player.Update(deltaTime, context);
 
         if (Controls.MoveUp())
-            _player.MovePlayer(new Vector2(0, -1));
+            player.MovePlayer(new Vector2(0, -1));
         if (Controls.MoveDown())
-            _player.MovePlayer(new Vector2(0, 1));
+            player.MovePlayer(new Vector2(0, 1));
         if (Controls.MoveLeft())
-            _player.MovePlayer(new Vector2(-1, 0));
+            player.MovePlayer(new Vector2(-1, 0));
         if (Controls.MoveRight())
-            _player.MovePlayer(new Vector2(1, 0));
+            player.MovePlayer(new Vector2(1, 0));
 
         // world tints i liked in case we use them
         //new Color(110, 145, 155)); // night tint
