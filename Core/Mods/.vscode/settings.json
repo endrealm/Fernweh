@@ -10,6 +10,8 @@
         "CreateParticipant",
         "CreateStatusEffect",
         "CreateAbility",
-        "CreateConstantAbility"
+        "CreateConstantAbility",
+        "SetDataLoader",
+        "SetDataSaver"
     ]
 }

@@ -65,6 +65,24 @@ function GetInventory()
 end
 
 -- ============================
+-- Save inventory
+-- ============================
+
+
+SetDataLoader(function(data)
+    if(data == nil) then
+        return
+    end
+    inventory = data;
+end)
+
+SetDataSaver(function()
+    -- run your logic here
+    return inventory
+end)
+
+
+-- ============================
 -- ITEM REGISTRY
 -- ============================
 itemRegistry = {}
