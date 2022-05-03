@@ -54,6 +54,8 @@ local BASE_ENV = {
     SetEntryState = SetEntryState,
     GetTranslation = GetTranslation,
     Import = Import,
+    SetDataSaver = SetDataSaver,
+    SetDataLoader = SetDataLoader,
     
     Context = Context,
     Namespace = Namespace

@@ -7,6 +7,7 @@ using Core.Scenes.Ingame.Battle.Impl;
 using Core.Scenes.Ingame.Battle.Impl.Actions;
 using Core.Scenes.Ingame.Localization;
 using Core.Scenes.Modding;
+using Core.Scripting.Saving;
 using Core.States;
 using Core.Utils;
 using Microsoft.Xna.Framework;
@@ -25,6 +26,7 @@ public class ScriptLoader
     private readonly BattleRegistry _battleRegistry;
     private readonly IGameSave _gameSave;
     private readonly ILocalizationManager _localizationManager;
+    private readonly WeakList<NamespacedDataStore> _stores = new();
 
     private readonly LuaFriendlyParticipantsProvider _friendlyParticipantsProvider = new();
     private Color _defaultBackgroundColor = new(18, 14, 18);
@@ -57,13 +59,27 @@ public class ScriptLoader
 
             var key = new NamespacedKey(modId, path);
             var dataStore = _dataStores.GetOrCreate(key, () => new LuaNamespacedDataStore(key, lua, _gameSave));
-
             return new DataStoreReader(dataStore);
         }
 
         #endregion
 
+        #region Setup data store
+
         var dataStore = _dataStores.GetOrCreate(context.GetName(), () => new LuaNamespacedDataStore(context.GetName(), lua, _gameSave));
+        _stores.Add(dataStore);
+
+        void SetDataSaver(LuaFunction saveFunction)
+        {
+            dataStore.SetDataSaveFunction(new LuaDataSaveFunction(saveFunction));
+        }
+  
+        void SetDataLoader(LuaFunction loadFunction)
+        {
+            dataStore.SetDataLoadFunction(new LuaDataLoadFunction(loadFunction));
+        }
+
+        #endregion
         
         #region Exposed Lua Interfaces
 
@@ -80,13 +96,18 @@ public class ScriptLoader
         lua["Global"] = _stateRegistry.GlobalEventHandler;
         lua["Import"] = Import;
         lua["Context"] = new DataStoreWriter(dataStore);
+        lua["SetDataSaver"] = SetDataSaver;
+        lua["SetDataSaver"] = SetDataSaver;
+        lua["SetDataLoader"] = SetDataLoader;
 
         #endregion
+        
         try
         {
             (((lua["createSandbox"] as LuaFunction)!.Call().First() as LuaTable)!["run"] as LuaFunction)!
                 .Call(script);
         }
+        #region Format Error
         catch (LuaScriptException e)
         {
             var parts = e.Message.Split(':');
@@ -96,7 +117,10 @@ public class ScriptLoader
             }
             throw new LuaModException(context, int.Parse(parts[parts.Length-2]), e);
         }
+        #endregion
+        
 
+        // Update default color of null state
         if (_stateRegistry.ReadState("null") is NullState nullState)
         {
             nullState.SetBackground(_defaultBackgroundColor);
@@ -146,6 +170,17 @@ public class ScriptLoader
     private LuaParticipantFactoryBuilder CreateParticipantFactoryBuilder(string id)
     {
         return new LuaParticipantFactoryBuilder(id, factory => _battleRegistry.RegisterParticipant(factory));
+    }
+
+    /// <summary>
+    /// Runs all load hooks. Should be called after all scripts have been loaded
+    /// </summary>
+    public void Load()
+    {
+        foreach (var store in _stores)
+        {
+            store.Load();
+        }
     }
 
     public void Save()

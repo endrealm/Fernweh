@@ -43,7 +43,7 @@ public class ModLoader
         foreach (var mod in _activeModOrder)
         {
             mod.Apply(scriptLoader);
-        }    
+        }
     }
 
     private List<Mod> BuildOrder(string gameMod)

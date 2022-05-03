@@ -50,7 +50,7 @@ public class IngameScene: Scene, ISaveSystem
         
         // Loads scripts of all mods
         _modLoader.RunActiveModScripts(_scriptLoader);
-        
+        _scriptLoader.Load();
         _gameManager.Load(content);
         _allowSave = true;
         _gameManager.LoadGameState();
