@@ -33,7 +33,7 @@ public class OverworldMode: IMode, IStateManager
     private string LastSaveState { get;  set; }
 
     public OverworldMode(GameManager gameManager, IGlobalEventHandler eventHandler, StateRegistry stateRegistry,
-        IFontManager fontManager, ILocalizationManager localizationManager, ISaveSystem saveSystem)
+        IFontManager fontManager, ILocalizationManager localizationManager, ISaveSystem saveSystem, ISoundPlayer soundPlayer)
     {
         _gameManager = gameManager;
         _stateRegistry = stateRegistry;
@@ -41,7 +41,7 @@ public class OverworldMode: IMode, IStateManager
         _localizationManager = localizationManager;
         _saveSystem = saveSystem;
         _chatView = new StateChatView(localizationManager, fontManager);
-        worldGameView = new WorldGameView(eventHandler, this);
+        worldGameView = new WorldGameView(eventHandler, this, soundPlayer);
         GameView = worldGameView;
         ActiveState = _stateRegistry.ReadState("null"); // Start with "null" state.
         StateChangedEvent += OnStateChanged;

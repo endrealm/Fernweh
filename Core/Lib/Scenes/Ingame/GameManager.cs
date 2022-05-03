@@ -19,6 +19,7 @@ public class GameManager: ILoadable
     private readonly ISaveSystem _saveSystem;
     public IMode Mode { get; private set; }
     public IStateManager StateManager { get; set; }
+    public ISoundPlayer SoundPlayer { get; private set; }
     
     private Dictionary<string, IMode> _modes = new();
     private DynamicBattleSpriteManager _spriteManager = new ();
@@ -32,7 +33,8 @@ public class GameManager: ILoadable
         _gameSave = gameSave;
         _saveSystem = saveSystem;
         _eventHandler = stateRegistry.GlobalEventHandler;
-        var overworld = new OverworldMode(this, stateRegistry.GlobalEventHandler, stateRegistry, fontManager, localizationManager, saveSystem);
+        SoundPlayer = new SoundManager();
+        var overworld = new OverworldMode(this, stateRegistry.GlobalEventHandler, stateRegistry, fontManager, localizationManager, saveSystem, SoundPlayer);
         StateManager = overworld;
         _modes.Add("overworld", overworld);
         _modes.Add("battle", new BattleMode(this, _spriteManager, registry, localizationManager, fontManager));
@@ -53,6 +55,7 @@ public class GameManager: ILoadable
 
     public void Load(ContentLoader content)
     {
+        SoundPlayer.ScanForAudio(content);
         _spriteManager.Load(content, _eventHandler);
         foreach (var mode in _modes.Values)
         {

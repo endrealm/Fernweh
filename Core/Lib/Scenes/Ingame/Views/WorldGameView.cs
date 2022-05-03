@@ -24,9 +24,9 @@ public class WorldGameView: IGameView, IRenderer<IngameRenderContext>, IUpdate<I
 
     private Vector2 _cameraCulling;
 
-    public WorldGameView(IGlobalEventHandler eventHandler, IStateManager gameManager)
+    public WorldGameView(IGlobalEventHandler eventHandler, IStateManager gameManager, ISoundPlayer soundPlayer)
     {
-        player = new Player(eventHandler, gameManager, this);
+        player = new Player(eventHandler, gameManager, this, soundPlayer);
     }
 
     public void Render(SpriteBatch spriteBatch, IngameRenderContext context)
