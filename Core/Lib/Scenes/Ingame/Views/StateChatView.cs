@@ -13,6 +13,7 @@ public class StateChatView: BaseChatView
             Clear();
         }
         SetSticky(sticky);
+        renderer.GetLabelSettings().ForEach(settings => DrawLabel(settings));
         QueuedComponents = renderer.Build();
         LoadNextComponentInQueue();
     }

@@ -81,7 +81,6 @@ public class OverworldMode: IMode, IStateManager
     
     public void LoadState(string stateId)
     {
-        _stateRegistry.GlobalEventHandler.EmitPreStateChangeEvent();
         var oldState = ActiveState;
         
 
@@ -111,8 +110,9 @@ public class OverworldMode: IMode, IStateManager
     {
         var renderer = new StateRenderer(_localizationManager, Language.EN_US, _fontManager, (color) => Background = color, args.OldState.ClearScreenPost);
         var context = new RenderContext(this, _gameManager, args.OldState.Id, args.NewState.Id);
+        _stateRegistry.GlobalEventHandler.EmitPreStateRenderEvent(renderer, context);
         args.NewState.Render(renderer, context);
-        _stateRegistry.GlobalEventHandler.EmitPostStateChangeEvent(renderer, context);
+        _stateRegistry.GlobalEventHandler.EmitPostStateRenderEvent(renderer, context);
         _chatView.RenderResults(renderer, args.NewState.Sticky);
     }
 

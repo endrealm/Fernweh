@@ -6,6 +6,7 @@ public interface IGlobalEventHandler
 {
     void EmitPreStateChangeEvent();
     void EmitPrePlayerMoveEvent();
-    void EmitPostStateChangeEvent(StateRenderer renderer, RenderContext renderContext);
+    void EmitPreStateRenderEvent(StateRenderer renderer, RenderContext renderContext);
+    void EmitPostStateRenderEvent(StateRenderer renderer, RenderContext renderContext);
     void EmitLoadBattleSprites(DynamicBattleSpriteManager dynamicBattleSpriteManager);
 }

@@ -7,7 +7,8 @@ namespace Core.States;
 public class LuaGlobalEventHandler: IGlobalEventHandler
 {
     private readonly List<LuaFunction> _preStateChangeEventListeners = new();
-    private readonly List<LuaFunction> _postStateChangeEventListeners = new();
+    private readonly List<LuaFunction> _preStateRenderEventListeners = new();
+    private readonly List<LuaFunction> _postStateRenderEventListeners = new();
     private readonly List<LuaFunction> _prePlayerMoveEventListeners = new();
     private readonly List<LuaFunction> _battleSpriteLoadListeners = new();
 
@@ -16,15 +17,20 @@ public class LuaGlobalEventHandler: IGlobalEventHandler
         _prePlayerMoveEventListeners.Add(listener);
         return this;
     }
-    public LuaGlobalEventHandler AddOnPreStateRender(LuaFunction listener)
+    public LuaGlobalEventHandler AddOnPreStateChange(LuaFunction listener)
     {
         _preStateChangeEventListeners.Add(listener);
         return this;
     }
     
+    public LuaGlobalEventHandler AddOnPreStateRender(LuaFunction listener)
+    {
+        _preStateRenderEventListeners.Add(listener);
+        return this;
+    }
     public LuaGlobalEventHandler AddOnPostStateRender(LuaFunction listener)
     {
-        _postStateChangeEventListeners.Add(listener);
+        _postStateRenderEventListeners.Add(listener);
         return this;
     }
     public LuaGlobalEventHandler AddOnBattleSpriteLoad(LuaFunction listener)
@@ -37,9 +43,15 @@ public class LuaGlobalEventHandler: IGlobalEventHandler
     {
         _preStateChangeEventListeners.ForEach(fun => fun.Call());
     }
-    public void EmitPostStateChangeEvent(StateRenderer renderer, RenderContext renderContext)
+
+    public void EmitPreStateRenderEvent(StateRenderer renderer, RenderContext renderContext)
     {
-        _postStateChangeEventListeners.ForEach(fun => fun.Call(renderer, renderContext));
+        _preStateRenderEventListeners.ForEach(fun => fun.Call(renderer, renderContext));
+    }
+
+    public void EmitPostStateRenderEvent(StateRenderer renderer, RenderContext renderContext)
+    {
+        _postStateRenderEventListeners.ForEach(fun => fun.Call(renderer, renderContext));
     }
 
     public void EmitLoadBattleSprites(DynamicBattleSpriteManager spriteManager)
