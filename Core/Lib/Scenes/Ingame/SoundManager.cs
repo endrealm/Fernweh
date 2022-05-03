@@ -2,6 +2,7 @@
 using Core.Utils;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Media;
+using System;
 using System.Collections.Generic;
 
 namespace Core.Scenes.Ingame
@@ -9,9 +10,9 @@ namespace Core.Scenes.Ingame
     public class SoundManager : ISoundPlayer
     {
         private Dictionary<string, SoundEffect> _sounds = new();
-        private Dictionary<string, Song> _songs = new();
+        private Dictionary<string, SoundEffect> _songs = new();
         private float _soundVolume = 1;
-        private float _songVolume = 1;
+        private float _songVolume = 0.5f;
 
         public void ScanForAudio(ContentLoader content)
         {
@@ -23,11 +24,10 @@ namespace Core.Scenes.Ingame
                 string[] sngFiles = mod.LoadAllFiles("*.sng.wav");
                 foreach (var file in sfxFiles)
                     _sounds.Add(System.IO.Path.GetFileName(file).Replace(".sfx.wav", ""), SoundEffect.FromStream(mod.LoadFileAsStream(file)));
-            }
 
-            // setup music settings
-            MediaPlayer.IsRepeating = true;
-            MediaPlayer.Volume = _songVolume;
+                foreach (var file in sngFiles)
+                    _songs.Add(System.IO.Path.GetFileName(file).Replace(".sng.wav", ""), SoundEffect.FromStream(mod.LoadFileAsStream(file)));
+            }
         }
 
         public void PlaySFX(string name, float pitch = 0)
@@ -44,7 +44,10 @@ namespace Core.Scenes.Ingame
         {
             if (!_songs.ContainsKey(name)) return;
 
-            MediaPlayer.Play(_songs[name]);
+            var instance = _songs[name].CreateInstance();
+            instance.Volume = _songVolume;
+            instance.IsLooped = true;
+            instance.Play();
         }
     }
 }

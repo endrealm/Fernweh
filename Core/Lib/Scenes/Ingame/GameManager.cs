@@ -55,13 +55,13 @@ public class GameManager: ILoadable
 
     public void Load(ContentLoader content)
     {
+        SoundPlayer.ScanForAudio(content);
         _spriteManager.Load(content, _eventHandler);
         foreach (var mode in _modes.Values)
         {
             mode.ChatView.Load(content);
             mode.GameView.Load(content);
         }
-        SoundPlayer.ScanForAudio(content);
     }
 
     public void Save()
