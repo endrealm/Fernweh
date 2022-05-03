@@ -98,7 +98,7 @@ public class OverworldMode: IMode, IStateManager
             LastSaveState = ActiveState.Id;
             _saveSystem.SaveAll();
         }
-        
+        _stateRegistry.GlobalEventHandler.EmitPreStateChangeEvent();
         StateChangedEvent?.Invoke(new StateChangedEventArgs()
         {
             OldState = oldState,
