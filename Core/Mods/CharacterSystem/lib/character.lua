@@ -103,7 +103,7 @@ function Character:EquipItem(item, slot)
         id = item.id
     end
 
-    self.equip[slot] = item;
+    self.equip[slot] = id;
 end
 
 function Character:GetEquip()
@@ -123,7 +123,7 @@ function Character:UnequipItem(slot)
 end
 
 function Character:GetEquippedItem(slot)
-    return self.equip[slot];
+    return GetItem(self.equip[slot]);
 end
 
 -- ============================

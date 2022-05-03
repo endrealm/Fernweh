@@ -92,6 +92,15 @@ function RegisterItem(item)
 end
 
 function GetItem(item)
+    
+    if(item == nil) then
+        return nil;
+    end
+
+    if(type(item) == "string") then
+        return itemRegistry[item];
+    end
+    
     return itemRegistry[item.id];
 end
 
