@@ -11,8 +11,8 @@ namespace Core.Scenes.Ingame
     {
         private Dictionary<string, SoundEffect> _sounds = new();
         private Dictionary<string, SoundEffect> _songs = new();
-        private float _soundVolume = 1;
-        private float _songVolume = 0.5f;
+        private float _soundVolume = 0;
+        private float _songVolume = 0;
 
         public void ScanForAudio(ContentLoader content)
         {

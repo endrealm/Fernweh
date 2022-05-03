@@ -47,6 +47,7 @@ function Character:Serialize()
     return {
         items = self.items,
         stats = self.stats,
+        equip = self.equip,
     }
 end
 
@@ -58,6 +59,7 @@ end
 function Character:Deserialize(data)
     self.items = data.items
     self.stats = data.stats
+    self.equip = data.equip
 end
 
 -- ============================
@@ -163,10 +165,6 @@ function Character:GenerateParticipant(createBuilder, abilityBuilder)
     return builder
             :Build();
 end
-
--- ============================
--- UI
--- ============================
 
 -- ============================
 -- EXPORTS

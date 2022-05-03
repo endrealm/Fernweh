@@ -12,6 +12,7 @@
         "CreateAbility",
         "CreateConstantAbility",
         "SetDataLoader",
-        "SetDataSaver"
+        "SetDataSaver",
+        "GetTranslation"
     ]
 }

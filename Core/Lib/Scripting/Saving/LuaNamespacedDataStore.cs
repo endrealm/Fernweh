@@ -90,7 +90,7 @@ public class LuaNamespacedDataStore : NamespacedDataStore, IDataEncoder
                 listTable[i + 1] = DecodeData(list[i]);
             }
             
-            return rawData;
+            return listTable;
         }
         
         if (rawData is not Dictionary<string, object> dict)
@@ -141,7 +141,7 @@ public class LuaNamespacedDataStore : NamespacedDataStore, IDataEncoder
 
             var dict = new Dictionary<string, object>();
 
-            foreach (DictionaryEntry entry in table)
+            foreach (KeyValuePair<object, object> entry in table)
             {
                 dict.Add(entry.Key.ToString(), EncodeData(entry.Value));
             }
@@ -155,7 +155,7 @@ public class LuaNamespacedDataStore : NamespacedDataStore, IDataEncoder
         }
 
 
-        throw new Exception("Unsupported data type");
+        throw new Exception("Unsupported data type " + rawData.GetType());
     }
 
     private static bool IsPrimitive(Type t)

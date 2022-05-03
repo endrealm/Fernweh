@@ -1,4 +1,15 @@
-﻿currentParty = {}
+﻿-- ============================
+-- Imports
+-- ============================
+
+local registry = Import("lib/registry")
+local LoadCharacterType = registry:GetFunc("LoadCharacterType")
+
+-- ============================
+-- Data
+-- ============================
+
+currentParty = {}
 maxPartySize = 4
 -- ============================
 -- Methods
@@ -65,6 +76,34 @@ RegisterFriendlyParticipantsProvider(function(builder, abilityBuilder)
         table.insert(participants, character:GenerateParticipant(builder, abilityBuilder))
     end
     return participants
+end)
+
+-- ============================
+-- Save party
+-- ============================
+
+SetDataLoader(function(data)
+    if(data == nil) then
+        return
+    end
+    currentParty = {}
+    for _, characterData in pairs(data) do
+        table.insert(currentParty, LoadCharacterType(characterData.type, characterData.id, characterData.data))
+    end
+end)
+
+SetDataSaver(function()
+    local data = {}
+
+    for _, character in pairs(currentParty) do
+        table.insert(data, {
+            type=character.type,
+            id=character.id,
+            data=character:Serialize(),
+        })
+    end
+
+    return data
 end)
 
 -- ============================
