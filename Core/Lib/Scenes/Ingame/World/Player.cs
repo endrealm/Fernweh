@@ -7,6 +7,9 @@ using Core.Content;
 using Core.States;
 using Core.Scenes.Ingame.Views;
 using static Core.Scenes.Ingame.World.MapData;
+using Microsoft.Xna.Framework.Audio;
+using System.Collections.Generic;
+using System.IO;
 
 namespace Core.Scenes.Ingame.World
 {
@@ -24,6 +27,8 @@ namespace Core.Scenes.Ingame.World
 
         private Vector2 _targetPos;
         private Vector2 _moveDir;
+        private bool _movePitchToggle = true;
+        private float _movePitchVariance = 0.3f;
         private Texture2D _sprite;
         private MapTileData _previousTileData;
         private MapTileData _targetTileData;
@@ -35,11 +40,14 @@ namespace Core.Scenes.Ingame.World
              new (0,1),  
         };
 
-        public Player(IGlobalEventHandler globalEventHandler, IStateManager gameManager, WorldGameView worldRenderer)
+        private ISoundPlayer _soundPlayer;
+
+        public Player(IGlobalEventHandler globalEventHandler, IStateManager gameManager, WorldGameView worldRenderer, ISoundPlayer soundPlayer)
         {
             _globalEventHandler = globalEventHandler;
             _gameManager = gameManager;
             _worldRenderer = worldRenderer;
+            _soundPlayer = soundPlayer;
         }
 
         public void Load(ContentLoader content)
@@ -114,6 +122,9 @@ namespace Core.Scenes.Ingame.World
             {
                 CurrentPos = CurrentPos + _moveDir * _stepAmount;
                 _moveTimer = 0;
+
+                _soundPlayer.PlaySFX("step", _movePitchToggle ? _movePitchVariance : 0);
+                _movePitchToggle = !_movePitchToggle;
 
                 if (CurrentPos == _targetPos) // just finished moving
                 {
