@@ -1,8 +1,11 @@
-﻿using Core.Input;
+﻿using Core.Content;
+using Core.Input;
 using Core.Scenes.Ingame;
+using Core.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 
 namespace Core.Scenes.MainMenu;
 
@@ -13,6 +16,8 @@ public class MainMenuScene: Scene
 
     private float _alpha = 255;
     private bool _ascending;
+
+    private Texture2D _splashLogo;
 
     public MainMenuScene(IFontManager fontManager)
     {
@@ -27,6 +32,11 @@ public class MainMenuScene: Scene
             // SceneManager.LoadScene(new IngameScene(_fontManager));
             SceneManager.LoadScene(new CreateOrLoadScene(_fontManager));
         }
+    }
+
+    public override void Load(ContentLoader content)
+    {
+        _splashLogo = content.Load<Texture2D>("Sprites/splash_logo.png");
     }
 
     private void UpdateAlpha(float deltaTime)
@@ -49,7 +59,7 @@ public class MainMenuScene: Scene
 
     public override void Render(SpriteBatch spriteBatch, TopLevelRenderContext context)
     {
-        context.GraphicsDevice.Clear(Color.CornflowerBlue);
+        context.GraphicsDevice.Clear(new Color(18, 14, 18));
         
         spriteBatch.Begin(
             transformMatrix: context.Camera.GetViewMatrix(new Vector2()), // preserve screen spaced values
@@ -57,10 +67,21 @@ public class MainMenuScene: Scene
             sortMode: SpriteSortMode.Immediate // no clue, but doesnt do any harm?
         );
         
-        const string message = "Press any button to continue";
-        var measurement = _fontManager.GetChatFont().MeasureString(message);
-        spriteBatch.DrawString(_fontManager.GetChatFont(), message, context.BaseScreenSize/2 - measurement/2, new Color(255,255,255) * (_alpha/255f));
-        
+        RenderText(spriteBatch, context, "Press any button to continue", 190, new Color(255, 255, 255) * (_alpha / 255f));
+
+        RenderText(spriteBatch, context, "Copyright 1993 EndRealm Network", 130, Color.White);
+        RenderText(spriteBatch, context, "Fernweh and its logo are", 140, Color.White);
+        RenderText(spriteBatch, context, "copyright owned by EndRealm", 150, Color.White);
+        RenderText(spriteBatch, context, "All rights reserved", 160, Color.White);
+
+        spriteBatch.Draw(_splashLogo, new Rectangle(new Point(), new Point(398, 112)), Color.White);
+
         spriteBatch.End();
+    }
+
+    private void RenderText(SpriteBatch spriteBatch, TopLevelRenderContext context, string text, float y, Color color)
+    {
+        var measurement = _fontManager.GetChatFont().MeasureString(text);
+        spriteBatch.DrawString(_fontManager.GetChatFont(), text, new Vector2(context.BaseScreenSize.X / 2 - measurement.X / 2, y), color);
     }
 }

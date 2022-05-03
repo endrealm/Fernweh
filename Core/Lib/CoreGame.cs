@@ -1,20 +1,17 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using Core.Content;
+﻿using Core.Content;
 using Core.Gui;
 using Core.Input;
 using Core.Saving;
-using Core.Saving.Impl;
 using Core.Scenes.MainMenu;
 using Core.Scenes.Modding;
 using Core.States;
 using Core.Utils;
-using JetBrains.Annotations;
+using FontStashSharp;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
 using MonoGame.Extended.ViewportAdapters;
-using FontStashSharp;
+using System.Collections.Generic;
 
 namespace Core
 {
@@ -95,7 +92,10 @@ namespace Core
 
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            LoadScene(new MainMenuScene(_contentLoader.GetFontManager()));
+            Scene menuScene = new MainMenuScene(_contentLoader.GetFontManager());
+
+            menuScene.Load(_contentLoader);
+            LoadScene(menuScene);
 
             // Reuse instance to improve performance
             _renderContext = new TopLevelRenderContext(GraphicsDevice, _camera, _baseScreenSize);
