@@ -28,6 +28,8 @@ namespace Core
         private readonly ModLoader _modLoader;
         private readonly ISaveGameManager _saveGameManager;
 
+        private readonly string _windowName = "Fernweh";
+
         private readonly ContentLoader _contentLoader;
         
         private Scene _activeScene;
@@ -82,6 +84,7 @@ namespace Core
                 _graphics.HardwareModeSwitch = false;
                 _graphics.ApplyChanges();
             }
+            Window.Title = _windowName;
             
             var viewportAdapter = new BoxingViewportAdapter(Window, GraphicsDevice, (int) _baseScreenSize.X,
                 (int) _baseScreenSize.Y);
