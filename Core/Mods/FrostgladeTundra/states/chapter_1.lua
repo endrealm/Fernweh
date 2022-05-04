@@ -18,4 +18,22 @@ AddToParty(Character:new({id = "Ciri"}))
 
 Context:CreateStoredVar("test", "value")
 
-SetEntryState("my_state")
+SetEntryState("start_state")
+
+StateBuilder("start_state")
+    :Render(
+            function(renderer, context)
+                renderer:AddText("dolrom.quest.intro")
+                renderer:AddAction(function() context:Exit() end, "button.accept")
+            end
+    )
+    :Build()
+
+StateBuilder("tharmus_training")
+    :Render(
+            function(renderer, context)
+                renderer:AddText("tharmus.training.1")
+                renderer:AddAction(function() context:StartBattle() end, "button.battle")
+            end
+    )
+    :Build()

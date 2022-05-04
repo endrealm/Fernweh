@@ -1,6 +1,0 @@
-﻿{
-	"name":"grass",
-	"framePaths":["Sprites/grass.png"],
-	"framesPerSecond":2,
-	"openDirections":15
-}

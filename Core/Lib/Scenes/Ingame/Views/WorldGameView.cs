@@ -60,7 +60,7 @@ public class WorldGameView: IGameView, IRenderer<IngameRenderContext>, IUpdate<I
         mapDataRegistry.Load(content);
 
         player.Load(content);
-        player.TeleportPlayer(new Vector2(0, 0));
+        player.TeleportPlayer(new Vector2(8, 11));
     }
 
     public void Update(float deltaTime, IngameUpdateContext context)

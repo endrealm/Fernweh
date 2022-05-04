@@ -1,0 +1,34 @@
+﻿{
+  "dolrom.quest.intro": {
+    "translations": {
+      "EN_US": "Dolrom nods and thinks for a second, \"Sure, i think we have some work for you. Farcross always needs soldiers. But I need to make sure your battle ready first, head up north 5 tiles to meet Tharmus at the House of Mercenaries training camp.\" "
+    }
+  },
+  "tharmus.training.1": {
+    "translations": {
+      "EN_US": "\"Hm, Dolrom sent a new recruit? Well lets get to it, you'll face some other recruits.\""
+    }
+  },
+  "tharmus.training.2": {
+    "translations": {
+      "EN_US": "\"Impressive. Now how about you take me on?\""
+    }
+  },
+  "tharmus.training.3": {
+    "translations": {
+      "EN_US": "\"Alright i think you'll do about good as any other warrior from Farcross, how about you head down there to the House of Mercenaries office and see what mission Dolrom has for you.\""
+    }
+  },
+  "dolrom.quest.1": {
+    "translations": {
+      "EN_US": "\"Your first job is to clear a potato cellar of a local vegetable vendor here in Farcross. Cellar is infested by rats. You will find some old potions from there and you are allowed take those.\""
+    }
+  },
+  "dolrom.quest.2": {
+    "translations": {
+      "EN_US": "Dolrom is pleased that you were able to handle their first job. Dolrom explains how rest of jobs are rewarded:
+        \"Government of Frostglade Tundra has made a contract with House of Mercenaries to raid several Stone Axe Horde hideouts. House of Mercenaries hires mercenaries to raid known locations for per-job rewards. Our fixed payment is 25 gold coins per mercenary per day.\"
+        Dolrom instructs you to raid a kobold camp located at the shore of lake 4 tiles north-west form Farcross."
+    }
+  }
+}

@@ -2,5 +2,5 @@
 	"name":"castle",
 	"framePaths": [ "Sprites/castle.png" ],
 	"framesPerSecond":2,
-	"openDirections":14
+	"openDirections":15
 }

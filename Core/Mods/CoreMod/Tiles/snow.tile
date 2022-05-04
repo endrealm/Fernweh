@@ -1,0 +1,6 @@
+﻿{
+	"name":"snow",
+	"framePaths":["Sprites/snow.png"],
+	"framesPerSecond":2,
+	"openDirections":15
+}

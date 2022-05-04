@@ -113,5 +113,15 @@
     "translations": {
       "EN_US": "You leave the path, feeling adventurous."
     }
+  },
+  "button.accept": {
+    "translations": {
+      "EN_US": "You accept the task"
+    }
+  },
+  "button.battle": {
+    "translations": {
+      "EN_US": "You pull out your weapon for battle!"
+    }
   }
 }

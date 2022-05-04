@@ -1,6 +1,0 @@
-﻿{
-	"name":"boulder",
-	"framePaths": [ "Sprites/boulder.png" ],
-	"framesPerSecond":2,
-	"openDirections":0
-}
