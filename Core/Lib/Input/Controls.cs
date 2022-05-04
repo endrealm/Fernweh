@@ -21,6 +21,7 @@ namespace Core.Input
         public static bool AnyInput()
         {
             return _keyboardSnapshot.CurrentKeyState.GetPressedKeys().Length > 0
+                || Mouse.GetState().LeftButton == ButtonState.Pressed
                 || _gamePadSnapshot.AnyButtonPress();
         }
 
