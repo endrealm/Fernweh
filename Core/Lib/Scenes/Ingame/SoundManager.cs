@@ -11,8 +11,8 @@ namespace Core.Scenes.Ingame
     {
         private Dictionary<string, SoundEffect> _sounds = new();
         private Dictionary<string, SoundEffect> _songs = new();
-        private float _soundVolume = 0;
-        private float _songVolume = 0;
+        private float _soundVolume = 0f;
+        private float _songVolume = 0f;
 
         public void ScanForAudio(ContentLoader content)
         {
@@ -20,13 +20,17 @@ namespace Core.Scenes.Ingame
             List<IArchiveLoader> mods = content.GetMods();
             foreach (IArchiveLoader mod in mods)
             {
-                string[] sfxFiles = mod.LoadAllFiles("*.sfx.wav");
-                string[] sngFiles = mod.LoadAllFiles("*.sng.wav");
-                foreach (var file in sfxFiles)
-                    _sounds.Add(System.IO.Path.GetFileName(file).Replace(".sfx.wav", ""), SoundEffect.FromStream(mod.LoadFileAsStream(file)));
+                string[] soundFiles = mod.LoadAllFiles("*.wav");
+                foreach (var file in soundFiles)
+                {
+                    var name = System.IO.Path.GetFileName(file).Replace(".wav", "");
+                    var sound = SoundEffect.FromStream(mod.LoadFileAsStream(file));
 
-                foreach (var file in sngFiles)
-                    _songs.Add(System.IO.Path.GetFileName(file).Replace(".sng.wav", ""), SoundEffect.FromStream(mod.LoadFileAsStream(file)));
+                    if (file.Contains("sfx"))
+                        _sounds.Add(name, sound);
+                    else if (file.Contains("music"))
+                        _songs.Add(name, sound);
+                }
             }
         }
 
