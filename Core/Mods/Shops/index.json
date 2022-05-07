@@ -3,6 +3,7 @@
     "type": "library",
     "dependencies": ["inventory", "ui_compat"],
     "scripts": [
+        "money_hook.lua",
         "api.lua"
     ]
 }

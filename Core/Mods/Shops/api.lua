@@ -8,6 +8,10 @@ GetItem = inventory:GetFunc("GetItem")
 AddItemToInventory = inventory:GetFunc("AddItem")
 local uiCompat = Import("ui_compat", "api")
 BlackListState = uiCompat:GetFunc("BlackListState")
+local money = Import("money_hook")
+GetMoney = money:GetFunc("GetMoney")
+HasMoney = money:GetFunc("HasMoney")
+Purchase = money:GetFunc("Purchase")
 
 -- ============================
 -- UI
@@ -50,7 +54,8 @@ StateBuilder("ui_shop_buy")
             function(renderer, context)
                 renderer:SetBackgroundColor(BackgroundColor)
                 renderer:AddAction(function() context:ChangeState("ui_shop") end, "shop.back")
-    
+                renderer:AddText("shop.buy.title", {"balance", GetMoney()})
+
                 for _, offeredItem in ipairs(Settings.offer) do
                     renderer:AddAction(function()
                         ItemToBuy = offeredItem
@@ -73,18 +78,28 @@ StateBuilder("shop_shop_buy_amount")
         :Render(
             function(renderer, context)
                 renderer:SetBackgroundColor(BackgroundColor)
-                renderer:AddAction(function() context:ChangeState("ui_shop") end, "shop.back")
-                renderer:AddText("shop.buy.amount.title")
+                renderer:AddAction(function() context:ChangeState("ui_shop_buy") end, "shop.back")
+                renderer:AddText("shop.buy.amount.title", {"balance", GetMoney()})
                 
                 function CreatePurchaseOption(amount)
-                    renderer:AddAction(function() 
-                        -- purchase item
-                        AddItemToInventory(ItemToBuy.itemId, amount)
-                        context:ChangeState("ui_shop_buy")
-                    end, "shop.buy.amount", {
-                        {"amount", amount},
-                        {"price", ItemToBuy.price * amount},
-                    })
+                    if(HasMoney(ItemToBuy.price * amount)) then
+                        renderer:AddAction(function()
+                            -- purchase item
+                            Purchase(ItemToBuy.price * amount)
+                            AddItemToInventory(ItemToBuy.itemId, amount)
+                            context:ChangeState("ui_shop_buy")
+                        end, "shop.buy.amount", {
+                            {"amount", amount},
+                            {"price", ItemToBuy.price * amount},
+                            {"currency", Settings.currencyName}
+                        })
+                    else
+                        renderer:AddText("shop.buy.amount.insufficient_funds", {
+                            {"amount", amount},
+                            {"price", ItemToBuy.price * amount},
+                            {"currency", Settings.currencyName}
+                        })
+                    end
                 end
             end
         )
@@ -94,3 +109,9 @@ function OpenShop(context, settings)
     Settings = settings
     context:ChangeState("ui_shop")
 end
+
+
+-- ============================
+-- Export
+-- ============================
+Context:CreateFunc("OpenShop", OpenShop)

@@ -1,0 +1,37 @@
+﻿{
+  "shop.close": {
+    "translations": {
+      "EN_US": "<- Close Shop"
+    }
+  },
+  "shop.back": {
+    "translations": {
+      "EN_US": "<- Back"
+    }
+  },
+  "shop.buy.title": {
+    "translations": {
+      "EN_US": "Buy? Current Balance: {balance}"
+    }
+  },
+  "shop.buy.item": {
+    "translations": {
+      "EN_US": "-> {item} ({price}{currency})"
+    }
+  },
+  "shop.buy.amount.title": {
+    "translations": {
+      "EN_US": "How many? Current Balance: {balance}"
+    }
+  },
+  "shop.buy.amount": {
+    "translations": {
+      "EN_US": "-> x{amount} ({price}{currency})"
+    }
+  },
+  "shop.buy.amount.insufficient_funds": {
+    "translations": {
+      "EN_US": "-> x{amount} ({price}{currency})"
+    }
+  }
+}
