@@ -1,0 +1,8 @@
+﻿{
+    "id": "shops",
+    "type": "library",
+    "dependencies": ["inventory", "ui_compat"],
+    "scripts": [
+        "api.lua"
+    ]
+}
