@@ -43,6 +43,7 @@ public class StateRenderer
     
     public void AddText(string key, LuaFunction callback = null, LuaTable rawReplacements = null)
     {
+        if (key.Length == 0) key = " ";
         var replacements = LuaUtils.ReadReplacements(rawReplacements);
         var text = _localizationManager.GetData(key, replacements)
             .Compile()

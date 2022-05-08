@@ -4,6 +4,11 @@
       "EN_US": "<- Close Shop"
     }
   },
+  "shop.welcome": {
+    "translations": {
+      "EN_US": "Do you want to buy or sell something?"
+    }
+  },
   "shop.back": {
     "translations": {
       "EN_US": "<- Back"
@@ -16,7 +21,7 @@
   },
   "shop.buy.item": {
     "translations": {
-      "EN_US": "-> {item} ({price}{currency})"
+      "EN_US": "-> {item} ({price} {currency})"
     }
   },
   "shop.buy.amount.title": {
@@ -26,12 +31,12 @@
   },
   "shop.buy.amount": {
     "translations": {
-      "EN_US": "-> x{amount} ({price}{currency})"
+      "EN_US": "-> x{amount} ({price} {currency})"
     }
   },
   "shop.buy.amount.insufficient_funds": {
     "translations": {
-      "EN_US": "-> x{amount} ({price}{currency})"
+      "EN_US": "-> x{amount} (<color=\"Red\">{price}</color> {currency})"
     }
   }
 }

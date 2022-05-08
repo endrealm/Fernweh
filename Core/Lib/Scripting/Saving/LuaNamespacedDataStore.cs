@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Core.Saving;
 using NLua;
+using System.Linq;
 
 namespace Core.Scripting.Saving;
 
@@ -111,10 +112,10 @@ public class LuaNamespacedDataStore : NamespacedDataStore, IDataEncoder
     {
         if (rawData is LuaTable table)
         {
-            var isArray = table.Keys.Count == 0;
+            var isArray = table.Keys.Count > 0;
             foreach (var tableKey in table.Keys)
             {
-                if (tableKey is not int)
+                if ((tableKey is not int &&  tableKey is not long) && !(tableKey as string ?? string.Empty).All(char.IsDigit))
                 {
                     isArray = false;
                 }
@@ -123,16 +124,18 @@ public class LuaNamespacedDataStore : NamespacedDataStore, IDataEncoder
             if (isArray)
             {
                 var list = new List<object>();
-                var lastIndex = 0;
-                foreach (DictionaryEntry entry in table)
+                var lastIndex = 0l;
+                foreach (KeyValuePair<object, object> entry in table)
                 {
-                    var index = (int) entry.Key;
+                    var index = entry.Key is int or long ? (long) entry.Key : int.Parse(entry.Key as string ?? string.Empty);
 
                     // Fill nulls when lua is missing spaces
                     for (var i = lastIndex + 1; i < index; i++)
                     {
                         list.Add(null);
                     }
+
+                    lastIndex = index;
                     list.Add(EncodeData(entry.Value));
                 }
 

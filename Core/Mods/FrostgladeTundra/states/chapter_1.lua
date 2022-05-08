@@ -8,6 +8,9 @@ local party = Import("character_system", "lib/party")
 local Character = character:Get("Character")
 local AddToParty = party:GetFunc("AddToParty")
 
+local shop = Import("shops", "api")
+OpenShop = shop:GetFunc("OpenShop")
+
 -- ============================
 -- Temp testing
 -- ============================
@@ -25,6 +28,19 @@ StateBuilder("start_state")
             function(renderer, context)
                 renderer:AddText("dolrom.quest.intro")
                 renderer:AddAction(function() context:Exit() end, "button.accept")
+                renderer:AddAction(function() OpenShop(context, {
+                    exitState="start_state",
+                    offer= {
+                        {
+                            itemId= "infinity_blade",
+                            price=10,
+                        },
+                        {
+                            itemId= "lethality_blade",
+                            price=15,
+                        }
+                    }
+                }) end, "test.shop")
             end
     )
     :Build()

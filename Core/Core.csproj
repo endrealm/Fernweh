@@ -13,6 +13,8 @@
             <PrivateAssets>All</PrivateAssets>
         </PackageReference>
         <PackageReference Include="NLua" Version="1.6.0" />
+        <PackageReference Include="System.Linq" Version="4.3.0" />
+        <PackageReference Include="System.Linq.Expressions" Version="4.3.0" />
     </ItemGroup>
     <ItemGroup>
       <ProjectReference Include="..\PipelineExtensionLibrary\PipelineExtensionLibrary.csproj" />

@@ -1,7 +1,7 @@
 {
   "id": "core",
   "type": "library",
-  "dependencies": ["essentials","inventory", "character_system"],
+  "dependencies": ["essentials","inventory", "character_system", "shops"],
   "scripts": [
     "Scripts/effects.lua",
     "Scripts/abilities.lua",
