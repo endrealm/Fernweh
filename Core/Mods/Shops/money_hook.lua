@@ -1,11 +1,11 @@
-﻿Balance = 1000
+﻿Balance = Context:CreateStoredVar("Balance", 1000)
 
 Provider = Context:CreateVar("BalanceProvider", {
     GetMoney=function(self)
-        return Balance
+        return Balance:Get()
     end,
     SetMoney=function(self, newBal)
-        Balance = newBal
+        Balance:Set(newBal)
     end
 })
 
