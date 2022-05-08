@@ -37,7 +37,6 @@ StateBuilder("start_state")
                         },
                         {
                             itemId= "lethality_blade",
-                            price=15,
                         }
                     }
                 }) end, "test.shop")

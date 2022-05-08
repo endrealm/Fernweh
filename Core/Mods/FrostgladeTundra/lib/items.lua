@@ -24,6 +24,8 @@ RegisterItem(EquipItem:new({
 RegisterItem(EquipItem:new({
     id = "lethality_blade",
     slot="weapon",
+    price= 15,
+    sellPrice= 15,
     abilities = {
         test_ability = {},
     },
