@@ -797,7 +797,7 @@
       "7": {
         "name": "path",
         "enterState": "tharmus_training",
-        "leaveState": "tharmus_training"
+        "leaveState": "leave_path"
       },
       "6": {
         "name": "mountain",

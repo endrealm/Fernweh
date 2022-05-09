@@ -17,10 +17,10 @@ StateBuilder("my_state")
         )
         :Build()
 
-StateBuilder("enter_grass")
+StateBuilder("enter_snow")
         :Render(
                 function(renderer, context)
-                    renderer:AddText("enter.grass")
+                    renderer:AddText("enter.snow")
                     renderer:AddAction(function() context:Exit() end, "dialog.example.1.button")
                 end
         )
@@ -112,12 +112,12 @@ StateBuilder("castle_shops")
         )
         :Build()
 
-BlackListState("leave_grass")
-StateBuilder("leave_grass")
+BlackListState("leave_snow")
+StateBuilder("leave_snow")
         :ClearScreenPost(false)
         :Render(
                 function(renderer, context)
-                    renderer:AddText("leave.grass", function() context:Exit() end)
+                    renderer:AddText("leave.snow", function() context:Exit() end)
                 end
         )
         :Build()

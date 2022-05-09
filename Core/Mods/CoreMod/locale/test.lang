@@ -29,9 +29,9 @@
       "EN_US": "Waking up with a jolt, you look up and see an unknown world... Rubbing some dirt off your clothes, you notice a sword sheathed on your hip, you remember of all the fiends slain by it."
     }
   },
-  "enter.grass": {
+  "enter.snow": {
     "translations": {
-      "EN_US": "With the long grass brushing your legs with each step, you wonder what kind of insects are hiding in here."
+      "EN_US": "Your foot sinks into the snow, each step makes a crunching sound."
     }
   },
   "enter.forest": {
@@ -99,9 +99,9 @@
       "EN_US": "The market here is busy with people. The sound of people bartering orchestrates together terrible and is irritating. Realizing shops arent implemented, you realize theres nothing to do here :P"
     }
   },
-  "leave.grass": {
+  "leave.snow": {
     "translations": {
-      "EN_US": "Pushing the last tuff of grass out of your way, you pull the burs off your pants and shoes."
+      "EN_US": "You take off your snow shoes."
     }
   },
   "leave.forest": {
@@ -116,12 +116,17 @@
   },
   "button.accept": {
     "translations": {
-      "EN_US": "You accept the task"
+      "EN_US": "You <color=\"Green\">accept</color> the task"
     }
   },
   "button.battle": {
     "translations": {
-      "EN_US": "You pull out your weapon for battle!"
+      "EN_US": "You pull out your <color=\"Red\">weapon</color> for battle!"
+    }
+  },
+  "button.decline": {
+    "translations": {
+      "EN_US": "You <color=\"Red\">decline</color> the offer"
     }
   }
 }

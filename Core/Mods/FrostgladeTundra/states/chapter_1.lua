@@ -49,6 +49,7 @@ StateBuilder("tharmus_training")
             function(renderer, context)
                 renderer:AddText("tharmus.training.1")
                 renderer:AddAction(function() context:StartBattle() end, "button.battle")
+                renderer:AddAction(function() context:Exit() end, "button.decline")
             end
     )
     :Build()
