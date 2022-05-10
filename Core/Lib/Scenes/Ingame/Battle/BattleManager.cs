@@ -156,6 +156,6 @@ public class BattleManager
     
     private void PlayerWon()
     {
-        _onLoose.Invoke();
+        _onWin.Invoke();
     }
 }

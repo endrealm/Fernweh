@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Core.Scenes.Ingame;
 using Core.Scenes.Ingame.Battle;
 using Core.Scenes.Ingame.Battle.Impl;
+using NLua;
 
 namespace Core.States;
 
@@ -33,12 +34,14 @@ public class RenderContext
             throw e;
         }
     }
-    
-    public void StartBattle(string victoryState = "null", string looseState = "null")
+
+    public void StartBattle(LuaTable enemies, string victoryState = "null", string looseState = "null")
     {
-        var config = new BattleConfig(
-            new List<string> {"test","test","test","test","test","test",}
-            );
+        List<string> enemiesString = new();
+        foreach (var item in enemies.Values)
+            enemiesString.Add(item.ToString());
+
+        var config = new BattleConfig(enemiesString);
         _gameManager.LoadMode("battle", new ModeParameters()
             .AppendData("victoryState", victoryState)
             .AppendData("looseState", looseState)
