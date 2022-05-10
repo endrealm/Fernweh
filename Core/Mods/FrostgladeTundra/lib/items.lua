@@ -17,7 +17,10 @@ RegisterItem(EquipItem:new({
     id = "infinity_blade",
     slot="weapon",
     abilities = {
-        test_ability = {},
+        stats = {
+            strength=10,
+            dexterity=5,
+        },
     },
 }))
 
@@ -27,7 +30,9 @@ RegisterItem(EquipItem:new({
     price= 15,
     sellPrice= 15,
     abilities = {
-        test_ability = {},
+        stats = {
+            strength=10,
+        },
     },
 }))
 

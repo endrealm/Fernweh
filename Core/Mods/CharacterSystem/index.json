@@ -3,6 +3,7 @@
   "type": "library",
   "dependencies": ["inventory"],
   "scripts": [
+    "lib/abilities.lua",
     "lib/character.lua",
     "lib/registry.lua",
     "lib/party.lua",

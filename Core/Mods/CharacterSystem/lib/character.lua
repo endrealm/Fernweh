@@ -112,7 +112,7 @@ function Character:GetEquip()
 
     for key, value in pairs(self.equip) do
         if(value ~= nil) then
-            table.insert(items, GetItem(key))
+            table.insert(items, GetItem(value))
         end
     end
 
