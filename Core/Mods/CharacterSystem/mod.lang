@@ -119,6 +119,31 @@
       "EN_US": "Item Slots:"
     }
   },
+  "slot.weapon.name": {
+    "translations": {
+      "EN_US": "Weapon"
+    }
+  },
+  "slot.head.name": {
+    "translations": {
+      "EN_US": "Head"
+    }
+  },
+  "slot.body.name": {
+    "translations": {
+      "EN_US": "Body"
+    }
+  },
+  "slot.feet.name": {
+    "translations": {
+      "EN_US": "Feet"
+    }
+  },
+  "slot.accessory.name": {
+    "translations": {
+      "EN_US": "Accessory"
+    }
+  },
   "party.detail.slot": {
     "translations": {
       "EN_US": "-> {slot} ({item})"

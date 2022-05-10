@@ -2,14 +2,9 @@
 RegisterSlot = equip:GetFunc("RegisterSlot")
 
 RegisterSlot("weapon")
-RegisterSlot("helmet")
+RegisterSlot("head")
 RegisterSlot("body")
-RegisterSlot("cape")
-RegisterSlot("boots")
-RegisterSlot("accessory")
-RegisterSlot("accessory")
-RegisterSlot("accessory")
-RegisterSlot("accessory")
+RegisterSlot("feet")
 RegisterSlot("accessory")
 
 

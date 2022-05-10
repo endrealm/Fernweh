@@ -3,7 +3,7 @@ BlackListState = compat:GetFunc("BlackListState")
 
 Global:AddOnPreStateRender(
         function(renderer, context)
-            renderer:AddLabel(10, 10, "test.text")
+            -- renderer:AddLabel(10, 10, "test.text")
         end
 )
 
@@ -17,29 +17,32 @@ StateBuilder("my_state")
         )
         :Build()
 
+BlackListState("enter_snow")
 StateBuilder("enter_snow")
+:ClearScreenPost(false)
         :Render(
                 function(renderer, context)
-                    renderer:AddText("enter.snow")
-                    renderer:AddAction(function() context:Exit() end, "dialog.example.1.button")
+                    renderer:AddText("enter.snow", function() context:Exit() end)
                 end
         )
         :Build()
 
+BlackListState("enter_forest")
 StateBuilder("enter_forest")
+:ClearScreenPost(false)
         :Render(
                 function(renderer, context)
-                    renderer:AddText("enter.forest")
-                    renderer:AddAction(function() context:Exit() end, "dialog.example.1.button")
+                    renderer:AddText("enter.forest", function() context:Exit() end)
                 end
         )
         :Build()
 
+BlackListState("enter_path")
 StateBuilder("enter_path")
+:ClearScreenPost(false)
         :Render(
                 function(renderer, context)
-                    renderer:AddText("enter.path")
-                    renderer:AddAction(function() context:Exit() end, "dialog.example.1.button")
+                    renderer:AddText("enter.path", function() context:Exit() end)
                 end
         )
         :Build()
