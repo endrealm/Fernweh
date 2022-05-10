@@ -155,7 +155,7 @@ function Item:ParseAbility(abilityBuilder)
     local abilities = {}
 
     for key, value in pairs(self.abilities) do
-        table.insert(abilities, abilityBuilder(value):Build())
+        table.insert(abilities, abilityBuilder(key):Data(value):Build())
     end
     
     return abilities
