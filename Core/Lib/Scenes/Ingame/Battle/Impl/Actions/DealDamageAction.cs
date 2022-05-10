@@ -22,6 +22,8 @@ public class DealDamageAction: IBattleAction
         _targets.ForEach(target =>
         {
             var data = _data.Clone();
+            data.Damage -= target.GetStats().Constitution / 5 + target.GetStats().Armor;
+
             Participant.OnDealDamage(new DamageDealEvent(target, Participant, data));
             target.OnReceiveDamage(new DamageReceiveEvent(target, Participant, data));
             context.QueueAction(new LogTextAction("battle.dealDamage", 

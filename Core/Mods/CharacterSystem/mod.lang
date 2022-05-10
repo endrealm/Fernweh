@@ -69,14 +69,9 @@
       "EN_US": "<color=\"Orange\">View Party</color>"
     }
   },
-  "party.detail.stat.evasion": {
+  "party.detail.stat.health": {
     "translations": {
-      "EN_US": "<color=\"Orange\">Evasion:</color> {value}"
-    }
-  },
-  "party.detail.stat.agility": {
-    "translations": {
-      "EN_US": "<color=\"Orange\">Agility:</color> {value}"
+      "EN_US": "<color=\"Orange\">Health:</color> {value}"
     }
   },
   "party.detail.stat.mana": {
@@ -84,14 +79,24 @@
       "EN_US": "<color=\"Orange\">Mana:</color> {value}"
     }
   },
-  "party.detail.stat.defense": {
+  "party.detail.stat.armor": {
     "translations": {
-      "EN_US": "<color=\"Orange\">Defense:</color> {value}"
+      "EN_US": "<color=\"Orange\">Armor:</color> {value}"
     }
   },
-  "party.detail.stat.health": {
+  "party.detail.stat.charisma": {
     "translations": {
-      "EN_US": "<color=\"Orange\">Health:</color> {value}"
+      "EN_US": "<color=\"Orange\">Charisma:</color> {value}"
+    }
+  },
+  "party.detail.stat.dexterity": {
+    "translations": {
+      "EN_US": "<color=\"Orange\">Dexterity:</color> {value}"
+    }
+  },
+  "party.detail.stat.constitution": {
+    "translations": {
+      "EN_US": "<color=\"Orange\">Constitution:</color> {value}"
     }
   },
   "party.detail.stat.intellect": {
@@ -104,9 +109,9 @@
       "EN_US": "<color=\"Orange\">Strength:</color> {value}"
     }
   },
-  "party.detail.stat.spirit": {
+  "party.detail.stat.wisdom": {
     "translations": {
-      "EN_US": "<color=\"Orange\">Spirit:</color> {value}"
+      "EN_US": "<color=\"Orange\">Wisdom:</color> {value}"
     }
   },
   "party.detail.items": {

@@ -25,14 +25,15 @@ function Character:new(o)
     o.stats = o.stats or {}
     
     -- Init base stats
-    o.stats.health = o.stats.health or 1
+    o.stats.health = o.stats.health or 10
     o.stats.mana = o.stats.mana or 1
-    o.stats.agility = o.stats.agility or 1
+    o.stats.armor = o.stats.armor or 0
+    o.stats.dexterity = o.stats.dexterity or 1
     o.stats.strength = o.stats.strength or 1
-    o.stats.defense = o.stats.defense or 1
+    o.stats.constitution = o.stats.constitution or 1
     o.stats.intellect = o.stats.intellect or 1
-    o.stats.spirit = o.stats.spirit or 1
-    o.stats.evasion = o.stats.evasion or 1
+    o.stats.wisdom = o.stats.wisdom or 1
+    o.stats.charisma = o.stats.charisma or 1
     
     setmetatable(o, self)
     self.__index = self
@@ -135,12 +136,13 @@ function Character:GenerateParticipant(createBuilder, abilityBuilder)
     builder
             :Health(self.stats.health)
             :Mana(self.stats.mana)
-            :Agility(self.stats.agility)
+            :Armor(self.stats.armor)
+            :Dexterity(self.stats.dexterity)
             :Strength(self.stats.strength)
-            :Defense(self.stats.defense)
+            :Constitution(self.stats.constitution)
             :Intellect(self.stats.intellect)
-            :Spirit(self.stats.spirit)
-            :Evasion(self.stats.evasion)
+            :Wisdom(self.stats.wisdom)
+            :Charisma(self.stats.charisma)
 
     -- Load abilities from held items
     for _, value in ipairs(self:GetItems()) do

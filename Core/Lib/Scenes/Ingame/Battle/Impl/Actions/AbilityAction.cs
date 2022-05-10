@@ -54,7 +54,7 @@ public class AbilityAction : IBattleAction
         _ability.Use(new AbilityUseContext(context, spellEvent.Source, spellEvent.Targets));
     }
 
-    public int Priority => Participant.GetStats().Agility;
+    public int Priority => Participant.GetStats().Dexterity;
     public bool AllowDeath { get; }
     public bool CausesStateCheck { get; } = true;
 }

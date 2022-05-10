@@ -24,10 +24,15 @@ public class ParticipantConfigBuilder
         _stats.Mana = value;
         return this;
     }
-    
-    public ParticipantConfigBuilder Agility(int value)
+    public ParticipantConfigBuilder Armor(int value)
     {
-        _stats.Agility = value;
+        _stats.Armor = value;
+        return this;
+    }
+
+    public ParticipantConfigBuilder Dexterity(int value)
+    {
+        _stats.Dexterity = value;
         return this;
     }
     public ParticipantConfigBuilder Strength(int value)
@@ -35,9 +40,9 @@ public class ParticipantConfigBuilder
         _stats.Strength = value;
         return this;
     }
-    public ParticipantConfigBuilder Defense(int value)
+    public ParticipantConfigBuilder Constitution(int value)
     {
-        _stats.Defense = value;
+        _stats.Constitution = value;
         return this;
     }
     public ParticipantConfigBuilder Intellect(int value)
@@ -45,14 +50,14 @@ public class ParticipantConfigBuilder
         _stats.Intellect = value;
         return this;
     }
-    public ParticipantConfigBuilder Spirit(int value)
+    public ParticipantConfigBuilder Wisdom(int value)
     {
-        _stats.Spirit = value;
+        _stats.Wisdom = value;
         return this;
     }
-    public ParticipantConfigBuilder Evasion(int value)
+    public ParticipantConfigBuilder Charisma(int value)
     {
-        _stats.Evasion = value;
+        _stats.Charisma = value;
         return this;
     }
     

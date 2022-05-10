@@ -8,7 +8,7 @@ public class DoNothingAction: IBattleAction
 {
     public DoNothingAction(IBattleParticipant participant)
     {
-        Priority = participant.GetStats().Agility;
+        Priority = participant.GetStats().Dexterity;
         Participant = participant;
     }
 
