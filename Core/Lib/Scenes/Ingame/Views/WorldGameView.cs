@@ -16,7 +16,7 @@ namespace Core.Scenes.Ingame.Views;
 
 public class WorldGameView: IGameView, IRenderer<IngameRenderContext>, IUpdate<IngameUpdateContext>, ILoadable
 {
-    public List<Vector2> DiscoveredTiles = new List<Vector2>();
+    public Dictionary<string, List<Vector2>> DiscoveredTiles = new();
 
     public MapDataRegistry mapDataRegistry = new MapDataRegistry();
     public TileDataRegistry tileDataRegistry = new TileDataRegistry();
@@ -38,7 +38,7 @@ public class WorldGameView: IGameView, IRenderer<IngameRenderContext>, IUpdate<I
         {
             for (int y = (int)_cameraCulling.Y; y < (int)_cameraCulling.Y + 9; y++)
             {
-                if (DiscoveredTiles.Contains(new Vector2(x, y)) || !mapDataRegistry.GetLoadedMap().explorable) // only render tiles explored, unless the map isnt set to be explorable
+                if (DiscoveredTiles[mapDataRegistry.GetLoadedMap().name].Contains(new Vector2(x, y)) || !mapDataRegistry.GetLoadedMap().explorable) // only render tiles explored, unless the map isnt set to be explorable
                 {
                     var tileData = mapDataRegistry.GetLoadedMap().GetTile(new Vector2(x, y));
 
@@ -57,10 +57,10 @@ public class WorldGameView: IGameView, IRenderer<IngameRenderContext>, IUpdate<I
     public void Load(ContentLoader content)
     {
         tileDataRegistry.Load(content);
-        mapDataRegistry.Load(content);
+        mapDataRegistry.Load(content, DiscoveredTiles);
 
         player.Load(content);
-        player.TeleportPlayer(new Vector2(8, 11));
+        player.TeleportPlayer(new Vector2(7, 10));
     }
 
     public void Update(float deltaTime, IngameUpdateContext context)

@@ -148,10 +148,12 @@ namespace Core.Scenes.Ingame.World
 
         private void DiscoverTiles()
         {
+            if (!_worldRenderer.mapDataRegistry.GetLoadedMap().explorable) return; // dont save discovered tiles if map isnt explorable
+
             foreach (Vector2 offset in _discoverTileRadius)
             {
-                if (!_worldRenderer.DiscoveredTiles.Contains(offset + CurrentPos / 32))
-                    _worldRenderer.DiscoveredTiles.Add(offset + CurrentPos / 32);
+                if (!_worldRenderer.DiscoveredTiles[_worldRenderer.mapDataRegistry.GetLoadedMap().name].Contains(offset + CurrentPos / 32))
+                    _worldRenderer.DiscoveredTiles[_worldRenderer.mapDataRegistry.GetLoadedMap().name].Add(offset + CurrentPos / 32);
             }
         }
     }

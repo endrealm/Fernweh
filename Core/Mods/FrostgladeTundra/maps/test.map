@@ -1,6 +1,6 @@
 ﻿{
   "name": "testMap",
-  "explorable": false,
+  "explorable": true,
   "tilePositions": {
     "0": {
       "0": {

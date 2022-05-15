@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using Core.Content;
 using Newtonsoft.Json;
+using Microsoft.Xna.Framework;
 
 namespace Core.Scenes.Ingame.World
 {
-    public class MapDataRegistry: ILoadable
+    public class MapDataRegistry
     {
         private Dictionary<string, MapData> _mapList = new();
         private string _loadedMap;
 
-        public void Load(ContentLoader content) // load all maps here and load the first one
+        public void Load(ContentLoader content, Dictionary<string, List<Vector2>> discoveredTiles) // load all maps here and load the first one
         {
             List<IArchiveLoader> mods = content.GetMods();
             foreach (IArchiveLoader mod in mods)
@@ -20,6 +21,7 @@ namespace Core.Scenes.Ingame.World
                 {
                     MapData data = JsonConvert.DeserializeObject<MapData>(mod.LoadFile(files[i]));
                     _mapList.Add(data.name, data);
+                    discoveredTiles.Add(data.name, new List<Vector2>());
                     if (i == 0) _loadedMap = data.name;
                 }
             }

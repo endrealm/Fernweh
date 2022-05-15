@@ -5,6 +5,7 @@ using Core.Scenes.Ingame.Views;
 using Core.States;
 using Microsoft.Xna.Framework;
 using PipelineExtensionLibrary;
+using Newtonsoft.Json;
 
 namespace Core.Scenes.Ingame;
 
@@ -66,6 +67,8 @@ public class OverworldMode: IMode, IStateManager
         Load(new ModeParameters().AppendData("state", (string) data["State"] ?? "null"));
         if(data.ContainsKey("PlayerPosX") && data.ContainsKey("PlayerPosY"))
             worldGameView.player.TeleportPlayer(new Vector2(Int32.Parse((string)data["PlayerPosX"]), Int32.Parse((string)data["PlayerPosY"])));
+        if (data.ContainsKey("DiscoveredTiles"))
+            worldGameView.DiscoveredTiles = JsonConvert.DeserializeObject<Dictionary<string, List<Vector2>>>((string)data["DiscoveredTiles"]);
     }
 
     public void Save(Dictionary<string, object> data)
@@ -74,6 +77,7 @@ public class OverworldMode: IMode, IStateManager
         data.Add("WeakState", LastSaveStateWeak);
         data.Add("PlayerPosX", (worldGameView.player.CurrentPos.X / 32).ToString());
         data.Add("PlayerPosY", (worldGameView.player.CurrentPos.Y / 32).ToString());
+        data.Add("DiscoveredTiles", JsonConvert.SerializeObject(worldGameView.DiscoveredTiles));
     }
 
     public event StateChangedEventHandler StateChangedEvent;
