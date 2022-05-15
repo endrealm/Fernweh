@@ -1,6 +1,6 @@
 ﻿{
 	"name":"ice",
-	"framePaths":["Sprites/ice.png"],
+	"framePaths": [ "sprites/ice.png" ],
 	"framesPerSecond":2,
 	"openDirections":15
 }

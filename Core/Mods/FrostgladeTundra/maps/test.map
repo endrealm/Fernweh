@@ -1,0 +1,1332 @@
+﻿{
+  "name": "testMap",
+  "explorable": false,
+  "tilePositions": {
+    "0": {
+      "0": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "1": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "2": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "3": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "4": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "5": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "6": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "7": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "8": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "9": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "10": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "11": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "12": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "13": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "14": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "15": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "16": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "17": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "18": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "19": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      }
+    },
+    "1": {
+      "0": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "1": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "2": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "3": {
+        "name": "forest",
+        "enterState": "enter_forest",
+        "leaveState": "leave_forest"
+      },
+      "4": {
+        "name": "forest",
+        "enterState": "enter_forest",
+        "leaveState": "leave_forest"
+      },
+      "5": {
+        "name": "forest",
+        "enterState": "enter_forest",
+        "leaveState": "leave_forest"
+      },
+      "6": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "7": {
+        "name": "forest",
+        "enterState": "enter_forest",
+        "leaveState": "leave_forest"
+      },
+      "8": {
+        "name": "forest",
+        "enterState": "enter_forest",
+        "leaveState": "leave_forest"
+      },
+      "9": {
+        "name": "forest",
+        "enterState": "enter_forest",
+        "leaveState": "leave_forest"
+      },
+      "10": {
+        "name": "forest",
+        "enterState": "enter_forest",
+        "leaveState": "leave_forest"
+      },
+      "11": {
+        "name": "forest",
+        "enterState": "enter_forest",
+        "leaveState": "leave_forest"
+      },
+      "12": {
+        "name": "snow",
+        "enterState": "enter_snow",
+        "leaveState": "leave_snow"
+      },
+      "13": {
+        "name": "snow",
+        "enterState": "enter_snow",
+        "leaveState": "leave_snow"
+      },
+      "14": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "15": {
+        "name": "snow",
+        "enterState": "enter_snow",
+        "leaveState": "leave_snow"
+      },
+      "16": {
+        "name": "forest",
+        "enterState": "enter_forest",
+        "leaveState": "leave_forest"
+      },
+      "17": {
+        "name": "forest",
+        "enterState": "enter_forest",
+        "leaveState": "leave_forest"
+      },
+      "18": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "19": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      }
+    },
+    "2": {
+      "0": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "1": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "2": {
+        "name": "snow",
+        "enterState": "enter_snow",
+        "leaveState": "leave_snow"
+      },
+      "3": {
+        "name": "path",
+        "enterState": "enter_path",
+        "leaveState": "leave_path"
+      },
+      "4": {
+        "name": "path",
+        "enterState": "enter_path",
+        "leaveState": "leave_path"
+      },
+      "5": {
+        "name": "forest",
+        "enterState": "enter_forest",
+        "leaveState": "leave_forest"
+      },
+      "6": {
+        "name": "forest",
+        "enterState": "enter_forest",
+        "leaveState": "leave_forest"
+      },
+      "7": {
+        "name": "forest",
+        "enterState": "enter_forest",
+        "leaveState": "leave_forest"
+      },
+      "8": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "9": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "10": {
+        "name": "forest",
+        "enterState": "enter_forest",
+        "leaveState": "leave_forest"
+      },
+      "11": {
+        "name": "forest",
+        "enterState": "enter_forest",
+        "leaveState": "leave_forest"
+      },
+      "12": {
+        "name": "snow",
+        "enterState": "enter_snow",
+        "leaveState": "leave_snow"
+      },
+      "13": {
+        "name": "snow",
+        "enterState": "enter_snow",
+        "leaveState": "leave_snow"
+      },
+      "14": {
+        "name": "path",
+        "enterState": "enter_path",
+        "leaveState": "leave_path"
+      },
+      "15": {
+        "name": "path",
+        "enterState": "enter_path",
+        "leaveState": "leave_path"
+      },
+      "16": {
+        "name": "forest",
+        "enterState": "enter_forest",
+        "leaveState": "leave_forest"
+      },
+      "17": {
+        "name": "forest",
+        "enterState": "enter_forest",
+        "leaveState": "leave_forest"
+      },
+      "18": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "19": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      }
+    },
+    "3": {
+      "0": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "1": {
+        "name": "snow",
+        "enterState": "enter_snow",
+        "leaveState": "leave_snow"
+      },
+      "2": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "3": {
+        "name": "snow",
+        "enterState": "enter_snow",
+        "leaveState": "leave_snow"
+      },
+      "4": {
+        "name": "path",
+        "enterState": "enter_path",
+        "leaveState": "leave_path"
+      },
+      "5": {
+        "name": "path",
+        "enterState": "enter_path",
+        "leaveState": "leave_path"
+      },
+      "6": {
+        "name": "path",
+        "enterState": "enter_path",
+        "leaveState": "leave_path"
+      },
+      "7": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "8": {
+        "name": "snow",
+        "enterState": "enter_snow",
+        "leaveState": "leave_snow"
+      },
+      "9": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "10": {
+        "name": "forest",
+        "enterState": "enter_forest",
+        "leaveState": "leave_forest"
+      },
+      "11": {
+        "name": "ice",
+        "enterState": "enter_ice",
+        "leaveState": "leave_ice"
+      },
+      "12": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "13": {
+        "name": "snow",
+        "enterState": "enter_snow",
+        "leaveState": "leave_snow"
+      },
+      "14": {
+        "name": "path",
+        "enterState": "enter_path",
+        "leaveState": "leave_path"
+      },
+      "15": {
+        "name": "forest",
+        "enterState": "enter_forest",
+        "leaveState": "leave_forest"
+      },
+      "16": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "17": {
+        "name": "forest",
+        "enterState": "enter_forest",
+        "leaveState": "leave_forest"
+      },
+      "18": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "19": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      }
+    },
+    "4": {
+      "0": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "1": {
+        "name": "snow",
+        "enterState": "enter_snow",
+        "leaveState": "leave_snow"
+      },
+      "2": {
+        "name": "ice",
+        "enterState": "enter_ice",
+        "leaveState": "leave_ice"
+      },
+      "3": {
+        "name": "snow",
+        "enterState": "enter_snow",
+        "leaveState": "leave_snow"
+      },
+      "4": {
+        "name": "snow",
+        "enterState": "enter_snow",
+        "leaveState": "leave_snow"
+      },
+      "5": {
+        "name": "ice",
+        "enterState": "enter_ice",
+        "leaveState": "leave_ice"
+      },
+      "6": {
+        "name": "path",
+        "enterState": "enter_path",
+        "leaveState": "leave_path"
+      },
+      "7": {
+        "name": "path",
+        "enterState": "enter_path",
+        "leaveState": "leave_path"
+      },
+      "8": {
+        "name": "snow",
+        "enterState": "enter_snow",
+        "leaveState": "leave_snow"
+      },
+      "9": {
+        "name": "snow",
+        "enterState": "enter_snow",
+        "leaveState": "leave_snow"
+      },
+      "10": {
+        "name": "snow",
+        "enterState": "enter_snow",
+        "leaveState": "leave_snow"
+      },
+      "11": {
+        "name": "snow",
+        "enterState": "enter_snow",
+        "leaveState": "leave_snow"
+      },
+      "12": {
+        "name": "snow",
+        "enterState": "enter_snow",
+        "leaveState": "leave_snow"
+      },
+      "13": {
+        "name": "path",
+        "enterState": "enter_path",
+        "leaveState": "leave_path"
+      },
+      "14": {
+        "name": "path",
+        "enterState": "enter_path",
+        "leaveState": "leave_path"
+      },
+      "15": {
+        "name": "forest",
+        "enterState": "enter_forest",
+        "leaveState": "leave_forest"
+      },
+      "16": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "17": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "18": {
+        "name": "forest",
+        "enterState": "enter_forest",
+        "leaveState": "leave_forest"
+      },
+      "19": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      }
+    },
+    "5": {
+      "0": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "1": {
+        "name": "snow",
+        "enterState": "enter_snow",
+        "leaveState": "leave_snow"
+      },
+      "2": {
+        "name": "ice",
+        "enterState": "enter_ice",
+        "leaveState": "leave_ice"
+      },
+      "3": {
+        "name": "ice",
+        "enterState": "enter_ice",
+        "leaveState": "leave_ice"
+      },
+      "4": {
+        "name": "snow",
+        "enterState": "enter_snow",
+        "leaveState": "leave_snow"
+      },
+      "5": {
+        "name": "snow",
+        "enterState": "enter_snow",
+        "leaveState": "leave_snow"
+      },
+      "6": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "7": {
+        "name": "path",
+        "enterState": "enter_path",
+        "leaveState": "leave_path"
+      },
+      "8": {
+        "name": "snow",
+        "enterState": "enter_snow",
+        "leaveState": "leave_snow"
+      },
+      "9": {
+        "name": "ice",
+        "enterState": "enter_ice",
+        "leaveState": "leave_ice"
+      },
+      "10": {
+        "name": "ice",
+        "enterState": "enter_ice",
+        "leaveState": "leave_ice"
+      },
+      "11": {
+        "name": "snow",
+        "enterState": "enter_snow",
+        "leaveState": "leave_snow"
+      },
+      "12": {
+        "name": "snow",
+        "enterState": "enter_snow",
+        "leaveState": "leave_snow"
+      },
+      "13": {
+        "name": "path",
+        "enterState": "enter_path",
+        "leaveState": "leave_path"
+      },
+      "14": {
+        "name": "forest",
+        "enterState": "enter_forest",
+        "leaveState": "leave_forest"
+      },
+      "15": {
+        "name": "forest",
+        "enterState": "enter_forest",
+        "leaveState": "leave_forest"
+      },
+      "16": {
+        "name": "forest",
+        "enterState": "enter_forest",
+        "leaveState": "leave_forest"
+      },
+      "17": {
+        "name": "forest",
+        "enterState": "enter_forest",
+        "leaveState": "leave_forest"
+      },
+      "18": {
+        "name": "forest",
+        "enterState": "enter_forest",
+        "leaveState": "leave_forest"
+      },
+      "19": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      }
+    },
+    "6": {
+      "0": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "1": {
+        "name": "snow",
+        "enterState": "enter_snow",
+        "leaveState": "leave_snow"
+      },
+      "2": {
+        "name": "snow",
+        "enterState": "enter_snow",
+        "leaveState": "leave_snow"
+      },
+      "3": {
+        "name": "forest",
+        "enterState": "enter_forest",
+        "leaveState": "leave_forest"
+      },
+      "4": {
+        "name": "snow",
+        "enterState": "enter_snow",
+        "leaveState": "leave_snow"
+      },
+      "5": {
+        "name": "snow",
+        "enterState": "enter_snow",
+        "leaveState": "leave_snow"
+      },
+      "6": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "7": {
+        "name": "path",
+        "enterState": "enter_path",
+        "leaveState": "leave_path"
+      },
+      "8": {
+        "name": "path",
+        "enterState": "enter_path",
+        "leaveState": "leave_path"
+      },
+      "9": {
+        "name": "path",
+        "enterState": "enter_path",
+        "leaveState": "leave_path"
+      },
+      "10": {
+        "name": "ice",
+        "enterState": "enter_ice",
+        "leaveState": "leave_ice"
+      },
+      "11": {
+        "name": "path",
+        "enterState": "enter_path",
+        "leaveState": "leave_path"
+      },
+      "12": {
+        "name": "path",
+        "enterState": "enter_path",
+        "leaveState": "leave_path"
+      },
+      "13": {
+        "name": "path",
+        "enterState": "enter_path",
+        "leaveState": "leave_path"
+      },
+      "14": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "15": {
+        "name": "forest",
+        "enterState": "enter_forest",
+        "leaveState": "leave_forest"
+      },
+      "16": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "17": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "18": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "19": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      }
+    },
+    "7": {
+      "0": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "1": {
+        "name": "snow",
+        "enterState": "enter_snow",
+        "leaveState": "leave_snow"
+      },
+      "2": {
+        "name": "forest",
+        "enterState": "enter_forest",
+        "leaveState": "leave_forest"
+      },
+      "3": {
+        "name": "forest",
+        "enterState": "enter_forest",
+        "leaveState": "leave_forest"
+      },
+      "4": {
+        "name": "ice",
+        "enterState": "enter_ice",
+        "leaveState": "leave_ice"
+      },
+      "5": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "6": {
+        "name": "path",
+        "enterState": "tharmus_training",
+        "leaveState": "leave_path"
+      },
+      "7": {
+        "name": "path",
+        "enterState": "enter_path",
+        "leaveState": "leave_path"
+      },
+      "8": {
+        "name": "forest",
+        "enterState": "enter_forest",
+        "leaveState": "leave_forest"
+      },
+      "9": {
+        "name": "path",
+        "enterState": "enter_path",
+        "leaveState": "leave_path"
+      },
+      "10": {
+        "name": "castle",
+        "enterState": "enter_castle",
+        "leaveState": "leave_castle"
+      },
+      "11": {
+        "name": "path",
+        "enterState": "enter_path",
+        "leaveState": "leave_path"
+      },
+      "12": {
+        "name": "snow",
+        "enterState": "enter_snow",
+        "leaveState": "leave_snow"
+      },
+      "13": {
+        "name": "ice",
+        "enterState": "enter_ice",
+        "leaveState": "leave_ice"
+      },
+      "14": {
+        "name": "ice",
+        "enterState": "enter_ice",
+        "leaveState": "leave_ice"
+      },
+      "15": {
+        "name": "forest",
+        "enterState": "enter_forest",
+        "leaveState": "leave_forest"
+      },
+      "16": {
+        "name": "forest",
+        "enterState": "enter_forest",
+        "leaveState": "leave_forest"
+      },
+      "17": {
+        "name": "forest",
+        "enterState": "enter_forest",
+        "leaveState": "leave_forest"
+      },
+      "18": {
+        "name": "forest",
+        "enterState": "enter_forest",
+        "leaveState": "leave_forest"
+      },
+      "19": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      }
+    },
+    "8": {
+      "0": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "1": {
+        "name": "forest",
+        "enterState": "enter_forest",
+        "leaveState": "leave_forest"
+      },
+      "2": {
+        "name": "forest",
+        "enterState": "enter_forest",
+        "leaveState": "leave_forest"
+      },
+      "3": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "4": {
+        "name": "forest",
+        "enterState": "enter_forest",
+        "leaveState": "leave_forest"
+      },
+      "5": {
+        "name": "forest",
+        "enterState": "enter_forest",
+        "leaveState": "leave_forest"
+      },
+      "6": {
+        "name": "path",
+        "enterState": "enter_path",
+        "leaveState": "leave_path"
+      },
+      "7": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "8": {
+        "name": "forest",
+        "enterState": "enter_forest",
+        "leaveState": "leave_forest"
+      },
+      "9": {
+        "name": "path",
+        "enterState": "enter_path",
+        "leaveState": "leave_path"
+      },
+      "10": {
+        "name": "path",
+        "enterState": "enter_path",
+        "leaveState": "leave_path"
+      },
+      "11": {
+        "name": "path",
+        "enterState": "enter_path",
+        "leaveState": "leave_path"
+      },
+      "12": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "13": {
+        "name": "snow",
+        "enterState": "enter_snow",
+        "leaveState": "leave_snow"
+      },
+      "14": {
+        "name": "snow",
+        "enterState": "enter_snow",
+        "leaveState": "leave_snow"
+      },
+      "15": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "16": {
+        "name": "forest",
+        "enterState": "enter_forest",
+        "leaveState": "leave_forest"
+      },
+      "17": {
+        "name": "forest",
+        "enterState": "enter_forest",
+        "leaveState": "leave_forest"
+      },
+      "18": {
+        "name": "forest",
+        "enterState": "enter_forest",
+        "leaveState": "leave_forest"
+      },
+      "19": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      }
+    },
+    "9": {
+      "0": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "1": {
+        "name": "forest",
+        "enterState": "enter_forest",
+        "leaveState": "leave_forest"
+      },
+      "2": {
+        "name": "forest",
+        "enterState": "enter_forest",
+        "leaveState": "leave_forest"
+      },
+      "3": {
+        "name": "forest",
+        "enterState": "enter_forest",
+        "leaveState": "leave_forest"
+      },
+      "4": {
+        "name": "forest",
+        "enterState": "enter_forest",
+        "leaveState": "leave_forest"
+      },
+      "5": {
+        "name": "path",
+        "enterState": "enter_path",
+        "leaveState": "leave_path"
+      },
+      "6": {
+        "name": "path",
+        "enterState": "enter_path",
+        "leaveState": "leave_path"
+      },
+      "7": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "8": {
+        "name": "forest",
+        "enterState": "enter_forest",
+        "leaveState": "leave_forest"
+      },
+      "9": {
+        "name": "path",
+        "enterState": "enter_path",
+        "leaveState": "leave_path"
+      },
+      "10": {
+        "name": "snow",
+        "enterState": "enter_snow",
+        "leaveState": "leave_snow"
+      },
+      "11": {
+        "name": "path",
+        "enterState": "enter_path",
+        "leaveState": "leave_path"
+      },
+      "12": {
+        "name": "path",
+        "enterState": "enter_path",
+        "leaveState": "leave_path"
+      },
+      "13": {
+        "name": "path",
+        "enterState": "enter_path",
+        "leaveState": "leave_path"
+      },
+      "14": {
+        "name": "path",
+        "enterState": "enter_path",
+        "leaveState": "leave_path"
+      },
+      "15": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "16": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "17": {
+        "name": "forest",
+        "enterState": "enter_forest",
+        "leaveState": "leave_forest"
+      },
+      "18": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "19": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      }
+    },
+    "10": {
+      "0": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "1": {
+        "name": "forest",
+        "enterState": "enter_forest",
+        "leaveState": "leave_forest"
+      },
+      "2": {
+        "name": "forest",
+        "enterState": "enter_forest",
+        "leaveState": "leave_forest"
+      },
+      "3": {
+        "name": "path",
+        "enterState": "enter_path",
+        "leaveState": "leave_path"
+      },
+      "4": {
+        "name": "path",
+        "enterState": "enter_path",
+        "leaveState": "leave_path"
+      },
+      "5": {
+        "name": "path",
+        "enterState": "enter_path",
+        "leaveState": "leave_path"
+      },
+      "6": {
+        "name": "forest",
+        "enterState": "enter_forest",
+        "leaveState": "leave_forest"
+      },
+      "7": {
+        "name": "ice",
+        "enterState": "enter_ice",
+        "leaveState": "leave_ice"
+      },
+      "8": {
+        "name": "ice",
+        "enterState": "enter_ice",
+        "leaveState": "leave_ice"
+      },
+      "9": {
+        "name": "path",
+        "enterState": "enter_path",
+        "leaveState": "leave_path"
+      },
+      "10": {
+        "name": "snow",
+        "enterState": "enter_snow",
+        "leaveState": "leave_snow"
+      },
+      "11": {
+        "name": "ice",
+        "enterState": "enter_ice",
+        "leaveState": "leave_ice"
+      },
+      "12": {
+        "name": "ice",
+        "enterState": "enter_ice",
+        "leaveState": "leave_ice"
+      },
+      "13": {
+        "name": "snow",
+        "enterState": "enter_snow",
+        "leaveState": "leave_snow"
+      },
+      "14": {
+        "name": "path",
+        "enterState": "enter_path",
+        "leaveState": "leave_path"
+      },
+      "15": {
+        "name": "path",
+        "enterState": "enter_path",
+        "leaveState": "leave_path"
+      },
+      "16": {
+        "name": "path",
+        "enterState": "enter_path",
+        "leaveState": "leave_path"
+      },
+      "17": {
+        "name": "path",
+        "enterState": "enter_path",
+        "leaveState": "leave_path"
+      },
+      "18": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "19": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      }
+    },
+    "11": {
+      "0": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "1": {
+        "name": "forest",
+        "enterState": "enter_forest",
+        "leaveState": "leave_forest"
+      },
+      "2": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "3": {
+        "name": "snow",
+        "enterState": "enter_snow",
+        "leaveState": "leave_snow"
+      },
+      "4": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "5": {
+        "name": "forest",
+        "enterState": "enter_forest",
+        "leaveState": "leave_forest"
+      },
+      "6": {
+        "name": "forest",
+        "enterState": "enter_forest",
+        "leaveState": "leave_forest"
+      },
+      "7": {
+        "name": "forest",
+        "enterState": "enter_forest",
+        "leaveState": "leave_forest"
+      },
+      "8": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "9": {
+        "name": "snow",
+        "enterState": "enter_snow",
+        "leaveState": "leave_snow"
+      },
+      "10": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "11": {
+        "name": "ice",
+        "enterState": "enter_ice",
+        "leaveState": "leave_ice"
+      },
+      "12": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "13": {
+        "name": "snow",
+        "enterState": "enter_snow",
+        "leaveState": "leave_snow"
+      },
+      "14": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "15": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "16": {
+        "name": "snow",
+        "enterState": "enter_snow",
+        "leaveState": "leave_snow"
+      },
+      "17": {
+        "name": "path",
+        "enterState": "enter_path",
+        "leaveState": "leave_path"
+      },
+      "18": {
+        "name": "path",
+        "enterState": "enter_path",
+        "leaveState": "leave_path"
+      },
+      "19": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      }
+    },
+    "12": {
+      "0": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "1": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "2": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "3": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "4": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "5": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "6": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "7": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "8": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "9": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "10": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "11": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "12": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "13": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "14": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "15": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "16": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "17": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "18": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      },
+      "19": {
+        "name": "mountain",
+        "enterState": "enter_mountain",
+        "leaveState": "leave_mountain"
+      }
+    }
+  }
+}

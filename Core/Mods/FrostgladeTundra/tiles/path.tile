@@ -1,6 +1,6 @@
 ﻿{
 	"name":"path",
-	"framePaths":["Sprites/path.png"],
+	"framePaths": [ "sprites/path.png" ],
 	"framesPerSecond":2,
 	"openDirections":15
 }
