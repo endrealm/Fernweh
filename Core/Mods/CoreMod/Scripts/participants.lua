@@ -3,7 +3,7 @@
     
             return builder
                     :Health(15)
-                    :Mana(1)
+                    :Mana(5)
                     :AddAbility(abilityBuilder("test_ability"):Build())
                     :AddAbility(abilityBuilder("test_ability_2"):Build())
                     :Build();
@@ -18,6 +18,26 @@ CreateParticipant("tharmus")
                     :Mana(10)
                     :AddAbility(abilityBuilder("test_ability"):Build())
                     :AddAbility(abilityBuilder("test_ability_2"):Build())
+                    :Build();
+        end)
+        :Build();
+
+CreateParticipant("rat")
+        :Instantiate(function(builder, abilityBuilder)
+    
+            return builder
+                    :Health(10)
+                    :Mana(0)
+                    :Build();
+        end)
+        :Build();
+
+CreateParticipant("large_rat")
+        :Instantiate(function(builder, abilityBuilder)
+    
+            return builder
+                    :Health(25)
+                    :Mana(0)
                     :Build();
         end)
         :Build();

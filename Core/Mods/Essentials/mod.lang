@@ -1,4 +1,9 @@
 ﻿{
+  "battle.action.attack": {
+    "translations": {
+      "EN_US": "{name} attacks the enemy with their equipped item!"
+    }
+  },
   "battle.select.target": {
     "translations": {
       "EN_US": "Select a target:"

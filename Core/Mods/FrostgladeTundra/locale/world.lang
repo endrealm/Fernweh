@@ -1,0 +1,53 @@
+﻿{
+  "enter.snow": {
+    "translations": {
+      "EN_US": "Your foot sinks into the snow, each step makes a crunching sound."
+    }
+  },
+  "enter.ice": {
+    "translations": {
+      "EN_US": "You slowly inch your way over the ice, trying to ignore the crackling."
+    }
+  },
+  "enter.forest": {
+    "translations": {
+      "EN_US": "You hear different animals chatter as you enter the forest."
+    }
+  },
+  "enter.path": {
+    "translations": {
+      "EN_US": "Each step you take on the dirt path makes a satisfying crunch sound."
+    }
+  },
+  "enter.castle": {
+    "translations": {
+      "EN_US": "In the center of Farcross, theres a market. Besides the wall you can see Dolrom's House of Mercenaries office."
+    }
+  },
+
+  "leave.snow": {
+    "translations": {
+      "EN_US": "You take off your snow shoes."
+    }
+  },
+  "leave.ice": {
+    "translations": {
+      "EN_US": "You lounge off the ice, glad you didnt fall through."
+    }
+  },
+  "leave.forest": {
+    "translations": {
+      "EN_US": "Walking out of the forest, you block the sun with your hands. Your glad to feel the its warmth again."
+    }
+  },
+  "leave.path": {
+    "translations": {
+      "EN_US": "You leave the path, feeling adventurous."
+    }
+  },
+  "leave.castle": {
+    "translations": {
+      "EN_US": "You leave the castle doors."
+    }
+  }
+}

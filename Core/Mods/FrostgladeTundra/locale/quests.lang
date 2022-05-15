@@ -1,0 +1,80 @@
+﻿{
+  "button.checkquest.dolrom": {
+    "translations": {
+      "EN_US": "    -> You check the House of Mercenaries office to see if Dolrom has any work for you."
+    }
+  },
+  "dolrom.quest.intro": {
+    "translations": {
+      "EN_US": "Dolrom nods and thinks for a second, \"Sure, i think we have some work for you. Farcross always needs soldiers. But I need to make sure your battle ready first, follow the path north to meet Tharmus at the House of Mercenaries training camp.\" "
+    }
+  },
+  "dolrom.quest.intro.direct": {
+    "translations": {
+      "EN_US": "\"Come back once you've trained with Tharmus.\" "
+    }
+  },
+  "tharmus.training.1": {
+    "translations": {
+      "EN_US": "\"Hm, Dolrom sent a new recruit? Well lets get to it, you'll face some other recruits.\""
+    }
+  },
+  "tharmus.training.2": {
+    "translations": {
+      "EN_US": "\"Impressive. Now how about you and Olma take me on then?\""
+    }
+  },
+  "tharmus.training.3": {
+    "translations": {
+      "EN_US": "\"Alright i think you'll do about good as any other warrior from Farcross, how about you head down there to the House of Mercenaries office and see what mission Dolrom has for you.\"
+
+Olma decides to join your party."
+    }
+  },
+  "tharmus.training.4": {
+    "translations": {
+      "EN_US": "\"You want to train some more? How about you face up against a few gaurds training today.\""
+    }
+  },
+  "dolrom.quest.1": {
+    "translations": {
+      "EN_US": "\"Your first job is to clear a potato cellar of a local vegetable vendor here in Farcross. Cellar is infested by rats. You will find some old potions from there and you are allowed take those.\""
+    }
+  },
+  "dolrom.quest.1.1": {
+    "translations": {
+      "EN_US": "\"Oh, thank goodness you've come to clear my cellar\", expresses the local vendor. He shows you downstairs where the rats are.
+      
+On the last step, you almost step on a rat!"
+    }
+  },
+  "dolrom.quest.1.2": {
+    "translations": {
+      "EN_US": "You clear the first room, and wonder over to the next. The cellar is full of potatos. While inspecting a pile of potatos a large rat jumps at you!"
+    }
+  },
+  "dolrom.quest.1.3": {
+    "translations": {
+      "EN_US": "Before you get a chance to recover, another group of rats swarm you!"
+    }
+  },
+  "dolrom.quest.1.4": {
+    "translations": {
+      "EN_US": "With this room finally cleared of rats, you take a breather, and continue on.
+
+The next room has a loud scratching sound, slowly peering around the corner you see a large rat!"
+    }
+  },
+  "dolrom.quest.1.5": {
+    "translations": {
+      "EN_US": "\"Oh thank you so much for the help!\", cries the vendor. He pays you X gold, and leads you out."
+    }
+  },
+  "dolrom.quest.2": {
+    "translations": {
+      "EN_US": "Dolrom is pleased that you were able to handle their first job.
+
+Dolrom instructs you to raid a kobold camp with a ranger Luneiros located at the shore of lake 4 tiles north-west form Farcross"
+    }
+  }
+}

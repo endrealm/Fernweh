@@ -1,3 +1,9 @@
+Global:AddOnPreStateRender(
+        function(renderer, context)
+            -- renderer:AddLabel(10, 10, "test.text")
+        end
+)
+
 StateBuilder("my_state")
         :Render(
                 function(renderer, context) 

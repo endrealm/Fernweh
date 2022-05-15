@@ -4,7 +4,6 @@
   "dependencies": ["core"],
   "scripts": [
     "lib/items.lua",
-    "states/chapter_1.lua",
-    "States/testWorld.lua"
+    "states/chapter_1.lua"
   ]
 }
