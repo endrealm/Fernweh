@@ -1,4 +1,4 @@
-﻿Balance = Context:CreateStoredVar("Balance", 1000)
+﻿Balance = Context:CreateStoredVar("Balance", 0)
 
 Provider = Context:CreateVar("BalanceProvider", {
     GetMoney=function(self)
@@ -26,7 +26,13 @@ function Purchase(balance)
     return SetMoney(GetMoney() - balance)
 end
 
+function AddMoney(balance)
+    SetMoney(GetMoney() + balance)
+    return balance
+end
+
 Context:CreateFunc("GetMoney", GetMoney)
 Context:CreateFunc("SetMoney", SetMoney)
 Context:CreateFunc("HasMoney", HasMoney)
 Context:CreateFunc("Purchase", Purchase)
+Context:CreateFunc("AddMoney", AddMoney)

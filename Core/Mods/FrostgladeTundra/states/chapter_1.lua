@@ -12,7 +12,14 @@ local Character = character:Get("Character")
 local AddToParty = party:GetFunc("AddToParty")
 
 local shop = Import("shops", "api")
+local moneyHook = Import("shops", "money_hook")
+AddMoney = moneyHook:GetFunc("AddMoney")
 OpenShop = shop:GetFunc("OpenShop")
+
+local questProg = Context:CreateStoredVar("questProg", "0")
+function GetQuestProg()
+    return questProg:Get();
+end
 
 -- ============================
 -- Temp testing
@@ -25,11 +32,6 @@ AddToParty(Character:new({id = "Gardain", stats = {health=13, mana=6, strength=1
 -- ============================
 -- Quests
 -- ============================
-
-local questProg = Context:CreateStoredVar("questProg", "0")
-function GetQuestProg()
-    return questProg:Get();
-end
 
 SetEntryState("start_state")
 
@@ -73,7 +75,7 @@ StateBuilder("tharmus_training_finish")
     :Render(
             function(renderer, context)
                 questProg:Set("1")
-                renderer:AddText("tharmus.training.3")
+                renderer:AddText("tharmus.training.3", { { "reward", AddMoney(15) } })
                 renderer:AddAction(function() context:Exit() end, "button.accept")
             end
     )
@@ -129,7 +131,7 @@ StateBuilder("dolrom_quest1.5")
     :Render(
             function(renderer, context)
                 questProg:Set("2")
-                renderer:AddText("dolrom.quest.1.5")
+                renderer:AddText("dolrom.quest.1.5", { { "reward", AddMoney(25) } })
                 renderer:AddAction(function() context:ChangeState("enter_castle") end, "button.leave")
             end
     )
@@ -200,8 +202,6 @@ StateBuilder("enter_castle")
 
                         renderer:AddText("enter.castle")
                     
-                        questProg:Set("2")
-
                         if(GetQuestProg() == "1")
                         then
                             renderer:AddAction(function() context:ChangeState("dolrom_quest1") end, "button.checkquest.dolrom")
