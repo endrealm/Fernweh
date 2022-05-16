@@ -1,4 +1,20 @@
 ﻿{
+  "button.enter.armorer": {
+    "translations": {
+      "EN_US": "  -> You look at the armorer's <color=\"Gray\">equipment</color>"
+    }
+  },
+  "button.enter.blacksmith": {
+    "translations": {
+      "EN_US": "  -> You look at the backsmiths's <color=\"Pink\">weapons</color>"
+    }
+  },
+  "button.enter.jeweler": {
+    "translations": {
+      "EN_US": "  -> You look at the jewelers's <color=\"Yellow\">accessories</color>"
+    }
+  },
+
   "enter.snow": {
     "translations": {
       "EN_US": "Your foot sinks into the snow, each step makes a crunching sound."

@@ -1,7 +1,7 @@
 ﻿{
   "button.checkquest.dolrom": {
     "translations": {
-      "EN_US": "    -> You check the House of Mercenaries office to see if Dolrom has any work for you."
+      "EN_US": "  -> You check the House of Mercenaries office to see if Dolrom has any work for you."
     }
   },
   "dolrom.quest.intro": {

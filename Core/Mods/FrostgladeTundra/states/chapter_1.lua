@@ -24,7 +24,7 @@ end
 -- ============================
 -- Temp testing
 -- ============================
-AddToParty(Character:new({id = "Gardain", stats = {health=13, mana=6, strength=17, intellect=13, dexterity=10, constitution=16, wisdom=12, charisma=12}}))
+AddToParty(Character:new({id = "Gardain", stats = {health=13, mana=6, strength=17, intellect=13, dexterity=10, constitution=16, wisdom=12, charisma=12}, equip = {weapon="knife", body="clothes", feet="shoes"}}))
 -- AddToParty(Character:new({id = "Triss"}))
 -- AddToParty(Character:new({id = "Geralt"}))
 -- AddToParty(Character:new({id = "Ciri"}))
@@ -65,7 +65,7 @@ StateBuilder("tharmus_training_2")
     :Render(
             function(renderer, context)
                 renderer:AddText("tharmus.training.2")
-                AddToParty(Character:new({id = "Olma", stats = {health=13, mana=6, strength=15, intellect=9, dexterity=12, constitution=16, wisdom=11, charisma=14}}))
+                AddToParty(Character:new({id = "Olma", stats = {health=13, mana=6, strength=15, intellect=9, dexterity=12, constitution=16, wisdom=11, charisma=14}, equip = {weapon="dagger", body="clothes", feet="fur_boots"}}))
                 renderer:AddAction(function() context:StartBattle({"tharmus"}, "tharmus_training_finish") end, "button.battle")
             end
     )
@@ -141,7 +141,7 @@ StateBuilder("dolrom_quest2")
     :Render(
             function(renderer, context)
                 renderer:AddText("dolrom.quest.2")
-                AddToParty(Character:new({id = "Luneiros", stats = {health=12, mana=2, strength=8, intellect=10, dexterity=17, constitution=14, wisdom=9, charisma=12}}))
+                AddToParty(Character:new({id = "Luneiros", stats = {health=12, mana=2, strength=8, intellect=10, dexterity=17, constitution=14, wisdom=9, charisma=12}, equip = {weapon="shortsword", body="leather_armor", feet="fur_boots"}}))
                 renderer:AddAction(function() context:Exit() end, "button.accept")
             end
     )
@@ -214,14 +214,82 @@ StateBuilder("enter_castle")
                         exitState="enter_castle",
                         offer= {
                             {
-                                itemId= "infinity_blade",
-                                price=10,
+                                itemId= "knife",
                             },
                             {
-                                itemId= "lethality_blade",
+                                itemId= "dagger",
+                            },
+                            {
+                                itemId= "shortsword",
+                            },
+                            {
+                                itemId= "spear",
+                            },
+                            {
+                                itemId= "wand",
+                            },
+                            {
+                                itemId= "wooden_staff",
                             }
                             }
-                        }) end, "button.enter.shop")
+                        }) end, "button.enter.blacksmith")
+
+                        renderer:AddAction(function() OpenShop(context, {
+                        exitState="enter_castle",
+                        offer= {
+                            {
+                                itemId= "toque",
+                            },
+                            {
+                                itemId= "fur_hood",
+                            },
+                            {
+                                itemId= "wizards_hat",
+                            },
+                            {
+                                itemId= "clothes",
+                            },
+                            {
+                                itemId= "wizards_robe",
+                            },
+                            {
+                                itemId= "leather_armor",
+                            },
+                            {
+                                itemId= "shoes",
+                            },
+                            {
+                                itemId= "fur_boots",
+                            },
+                            {
+                                itemId= "leather_boots",
+                            }
+                            }
+                        }) end, "button.enter.armorer")
+
+                        renderer:AddAction(function() OpenShop(context, {
+                        exitState="enter_castle",
+                        offer= {
+                            {
+                                itemId= "ruby_ring",
+                            },
+                            {
+                                itemId= "silver_armlet",
+                            },
+                            {
+                                itemId= "gold_necklace",
+                            },
+                            {
+                                itemId= "pearl_earrings",
+                            },
+                            {
+                                itemId= "book_charm",
+                            },
+                            {
+                                itemId= "holy_talisman",
+                            }
+                            }
+                        }) end, "button.enter.jeweler")
 
                         renderer:AddAction(function() context:Exit() end, "button.leave")
                     end
