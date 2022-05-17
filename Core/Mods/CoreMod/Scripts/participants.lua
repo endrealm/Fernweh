@@ -10,6 +10,18 @@
         end)
         :Build();
 
+CreateParticipant("bandit")
+        :Instantiate(function(builder, abilityBuilder)
+    
+            return builder
+                    :Health(15)
+                    :Mana(5)
+                    :AddAbility(abilityBuilder("test_ability"):Build())
+                    :AddAbility(abilityBuilder("test_ability_2"):Build())
+                    :Build();
+        end)
+        :Build();
+
 CreateParticipant("tharmus")
         :Instantiate(function(builder, abilityBuilder)
     
@@ -37,6 +49,16 @@ CreateParticipant("large_rat")
     
             return builder
                     :Health(25)
+                    :Mana(0)
+                    :Build();
+        end)
+        :Build();
+
+CreateParticipant("polar_bear")
+        :Instantiate(function(builder, abilityBuilder)
+    
+            return builder
+                    :Health(35)
                     :Mana(0)
                     :Build();
         end)

@@ -15,6 +15,12 @@
     }
   },
 
+  "encounter": {
+    "translations": {
+      "EN_US": "Encounter!"
+    }
+  },
+
   "enter.snow": {
     "translations": {
       "EN_US": "Your foot sinks into the snow, each step makes a crunching sound."

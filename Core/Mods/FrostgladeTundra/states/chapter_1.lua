@@ -21,6 +21,10 @@ function GetQuestProg()
     return questProg:Get();
 end
 
+function Random(amount)
+    return math.random(1, amount);
+end
+
 -- ============================
 -- Temp testing
 -- ============================
@@ -44,7 +48,7 @@ StateBuilder("start_state")
     )
     :Build()
 
-StateBuilder("tharmus_training")
+StateBuilder("first_tharmus_training")
     :Render(
             function(renderer, context)
                 if(GetQuestProg() == "0")
@@ -156,7 +160,15 @@ StateBuilder("enter_snow")
 :ClearScreenPost(false)
         :Render(
                 function(renderer, context)
-                    renderer:AddText("enter.snow", function() context:Exit() end)
+                    if(Random(10) <= 4)
+                    then
+                        renderer:AddText("")
+                        renderer:AddText("encounter", function() context:Exit() end)
+                        renderer:AddAction(function() context:StartBattle({"polar_bear"}) end, "button.battle")
+                        renderer:AddAction(function() context:Exit() end, "button.leave")
+                    else
+                        renderer:AddText("", function() context:Exit() end)
+                    end
                 end
         )
         :Build()
@@ -166,7 +178,15 @@ StateBuilder("enter_forest")
 :ClearScreenPost(false)
         :Render(
                 function(renderer, context)
-                    renderer:AddText("enter.forest", function() context:Exit() end)
+                    if(Random(10) <= 6)
+                    then
+                        renderer:AddText("")
+                        renderer:AddText("encounter", function() context:Exit() end)
+                        renderer:AddAction(function() context:StartBattle({"polar_bear", "bandit"}) end, "button.battle")
+                        renderer:AddAction(function() context:Exit() end, "button.leave")
+                    else
+                        renderer:AddText("", function() context:Exit() end)
+                    end
                 end
         )
         :Build()
@@ -176,7 +196,16 @@ StateBuilder("enter_path")
 :ClearScreenPost(false)
         :Render(
                 function(renderer, context)
-                    renderer:AddText("enter.path", function() context:Exit() end)
+                    if(Random(10) <= 3)
+                    then
+                        renderer:AddText("")
+                        renderer:AddText("encounter", function() context:Exit() end)
+                        renderer:AddAction(function() context:StartBattle({"bandit", "bandit"}) end, "button.battle")
+                        renderer:AddAction(function() context:Exit() end, "button.leave")
+
+                    else
+                        renderer:AddText("", function() context:Exit() end)
+                    end
                 end
         )
         :Build()
@@ -186,12 +215,64 @@ StateBuilder("enter_ice")
 :ClearScreenPost(false)
         :Render(
                 function(renderer, context)
-                    renderer:AddText("enter.ice", function() context:Exit() end)
+                    if(Random(10) <= 5)
+                    then
+                        renderer:AddText("")
+                        renderer:AddText("encounter", function() context:Exit() end)
+                        renderer:AddAction(function() context:StartBattle({"polar_bear", "polar_bear"}) end, "button.battle") 
+                        renderer:AddAction(function() context:Exit() end, "button.leave")
+                    else
+                        renderer:AddText("", function() context:Exit() end)
+                    end
                 end
         )
         :Build()
 
-StateBuilder("enter_castle")
+-- ============================
+-- World First Enter
+-- ============================
+
+BlackListState("first_enter_snow")
+StateBuilder("first_enter_snow")
+:ClearScreenPost(false)
+        :Render(
+                function(renderer, context)
+                    renderer:AddText("enter.snow", function() context:ChangeState("enter_snow") end)
+                end
+        )
+        :Build()
+
+BlackListState("first_enter_forest")
+StateBuilder("first_enter_forest")
+:ClearScreenPost(false)
+        :Render(
+                function(renderer, context)
+                    renderer:AddText("enter.forest", function() context:ChangeState("enter_forest") end)
+                end
+        )
+        :Build()
+
+BlackListState("first_enter_path")
+StateBuilder("first_enter_path")
+:ClearScreenPost(false)
+        :Render(
+                function(renderer, context)
+                    renderer:AddText("enter.path", function() context:ChangeState("enter_path") end)
+                end
+        )
+        :Build()
+
+BlackListState("first_enter_ice")
+StateBuilder("first_enter_ice")
+:ClearScreenPost(false)
+        :Render(
+                function(renderer, context)
+                    renderer:AddText("enter.ice", function() context:ChangeState("enter_ice") end)
+                end
+        )
+        :Build()
+
+StateBuilder("first_enter_castle")
         :Render(
                 function(renderer, context)
                     if(GetQuestProg() == "0")
@@ -298,11 +379,11 @@ StateBuilder("enter_castle")
         :Build()
 
 -- ============================
--- World Leave
+-- World Last Leave
 -- ============================
 
-        BlackListState("leave_snow")
-StateBuilder("leave_snow")
+BlackListState("last_leave_snow")
+StateBuilder("last_leave_snow")
         :ClearScreenPost(false)
         :Render(
                 function(renderer, context)
@@ -311,8 +392,8 @@ StateBuilder("leave_snow")
         )
         :Build()
 
-BlackListState("leave_forest")
-StateBuilder("leave_forest")
+BlackListState("last_leave_forest")
+StateBuilder("last_leave_forest")
         :ClearScreenPost(false)
         :Render(
                 function(renderer, context)
@@ -322,8 +403,8 @@ StateBuilder("leave_forest")
         :Build()
 
 
-BlackListState("leave_path")
-StateBuilder("leave_path")
+BlackListState("last_leave_path")
+StateBuilder("last_leave_path")
         :ClearScreenPost(false)
         :Render(
                 function(renderer, context)
@@ -332,8 +413,8 @@ StateBuilder("leave_path")
         )
         :Build()
 
-BlackListState("leave_ice")
-StateBuilder("leave_ice")
+BlackListState("last_leave_ice")
+StateBuilder("last_leave_ice")
         :ClearScreenPost(false)
         :Render(
                 function(renderer, context)
@@ -342,8 +423,8 @@ StateBuilder("leave_ice")
         )
         :Build()
 
-BlackListState("leave_castle")
-StateBuilder("leave_castle")
+BlackListState("last_leave_castle")
+StateBuilder("last_leave_castle")
         :ClearScreenPost(false)
         :Render(
                 function(renderer, context)

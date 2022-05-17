@@ -130,17 +130,15 @@ namespace Core.Scenes.Ingame.World
                 if (CurrentPos == _targetPos) // just finished moving
                 {
                     DiscoverTiles();
-                    if(_previousTileData.enterState != _targetTileData.enterState) // load any tile states that are different from previous tile
-                    {
-                        if (_previousTileData.leaveState != _targetTileData.leaveState)
-                        {
-                            _gameManager.LoadState(_previousTileData.leaveState);
-                            _gameManager.weakNextID = _targetTileData.enterState;
-                        }
-                        else
-                            _gameManager.LoadState(_targetTileData.enterState);
-                    }
-                    else if (_previousTileData.leaveState != _targetTileData.leaveState)
+
+                    if (_previousTileData.enterState != _targetTileData.enterState) // load proper states
+                        _gameManager.weakNextID = "first_" + _targetTileData.enterState;
+                    else
+                        _gameManager.weakNextID = _targetTileData.enterState;
+
+                    if (_previousTileData.leaveState != _targetTileData.leaveState)
+                        _gameManager.LoadState("last_" + _previousTileData.leaveState);
+                    else
                         _gameManager.LoadState(_previousTileData.leaveState);
                 }
             }
