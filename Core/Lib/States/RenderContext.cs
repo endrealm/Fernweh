@@ -13,6 +13,8 @@ public class RenderContext
     private readonly GameManager _gameManager;
     public string PreviousStateId { get; }
     public string ActiveStateId { get; }
+    public bool IsRunning { get; set; } = true;
+    public bool ExitEarly { get; private set; }
 
     public RenderContext(IStateManager stateManager, GameManager gameManager, string previousStateId, string activeStateId)
     {
@@ -49,6 +51,11 @@ public class RenderContext
     }
     public void Exit()
     {
+        if (IsRunning)
+        {
+            ExitEarly = true;
+            return;
+        }
         _stateManager.LoadState("null");
     }
 }

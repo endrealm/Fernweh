@@ -116,7 +116,12 @@ public class OverworldMode: IMode, IStateManager
         _stateRegistry.GlobalEventHandler.EmitPreStateRenderEvent(renderer, context);
         args.NewState.Render(renderer, context);
         _stateRegistry.GlobalEventHandler.EmitPostStateRenderEvent(renderer, context);
+        context.IsRunning = false;
         _chatView.RenderResults(renderer, args.NewState.Sticky);
+        if (context.ExitEarly)
+        {
+            _gameManager.StateManager.LoadState("null");
+        }
     }
 
 }
