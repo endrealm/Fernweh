@@ -19,6 +19,9 @@ public class CreateOrLoadScene: Scene
 
     public override void Update(float deltaTime, TopLevelUpdateContext context)
     {
+        if (Button.Put("Settings").Clicked) {
+            SceneManager.LoadScene(new SettingsScene(_fontManager, this));
+        }
         MenuPanel.Push();
         if (Button.Put("New Game").Clicked) {
             SceneManager.LoadScene(new CreateGameScene(_fontManager));

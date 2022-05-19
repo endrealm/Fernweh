@@ -38,6 +38,7 @@ namespace Core
 
         public CoreGame(IUpdateableClickInput clickInput, ISaveGameManager saveGameManager, List<IArchiveLoader> mods)
         {
+            new GameSettings();
             _clickInput = clickInput;
             _saveGameManager = saveGameManager;
             _graphics = new GraphicsDeviceManager(this);

@@ -49,7 +49,7 @@ namespace Core.Scenes.Ingame
             if (!_songs.ContainsKey(name)) return;
 
             var instance = _songs[name].CreateInstance();
-            instance.Volume = _songVolume;
+            instance.Volume = GameSettings.Instance.GetMusicVolume();
             instance.IsLooped = true;
             instance.Play();
         }
