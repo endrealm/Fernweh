@@ -48,7 +48,7 @@ StateBuilder("start_state")
     )
     :Build()
 
-StateBuilder("first_tharmus_training")
+StateBuilder("tharmus_training")
     :Render(
             function(renderer, context)
                 if(GetQuestProg() == "0")
@@ -162,12 +162,11 @@ StateBuilder("enter_snow")
                 function(renderer, context)
                     if(Random(10) <= 4)
                     then
-                        renderer:AddText("")
                         renderer:AddText("encounter", function() context:Exit() end)
                         renderer:AddAction(function() context:StartBattle({"polar_bear"}) end, "button.battle")
                         renderer:AddAction(function() context:Exit() end, "button.leave")
                     else
-                        renderer:AddText("", function() context:Exit() end)
+                        context:Exit()
                     end
                 end
         )
@@ -180,12 +179,11 @@ StateBuilder("enter_forest")
                 function(renderer, context)
                     if(Random(10) <= 6)
                     then
-                        renderer:AddText("")
                         renderer:AddText("encounter", function() context:Exit() end)
                         renderer:AddAction(function() context:StartBattle({"polar_bear", "bandit"}) end, "button.battle")
                         renderer:AddAction(function() context:Exit() end, "button.leave")
                     else
-                        renderer:AddText("", function() context:Exit() end)
+                        context:Exit()
                     end
                 end
         )
@@ -198,13 +196,12 @@ StateBuilder("enter_path")
                 function(renderer, context)
                     if(Random(10) <= 3)
                     then
-                        renderer:AddText("")
                         renderer:AddText("encounter", function() context:Exit() end)
                         renderer:AddAction(function() context:StartBattle({"bandit", "bandit"}) end, "button.battle")
                         renderer:AddAction(function() context:Exit() end, "button.leave")
 
                     else
-                        renderer:AddText("", function() context:Exit() end)
+                        context:Exit()
                     end
                 end
         )
@@ -217,12 +214,11 @@ StateBuilder("enter_ice")
                 function(renderer, context)
                     if(Random(10) <= 5)
                     then
-                        renderer:AddText("")
                         renderer:AddText("encounter", function() context:Exit() end)
                         renderer:AddAction(function() context:StartBattle({"polar_bear", "polar_bear"}) end, "button.battle") 
                         renderer:AddAction(function() context:Exit() end, "button.leave")
                     else
-                        renderer:AddText("", function() context:Exit() end)
+                        context:Exit()
                     end
                 end
         )
@@ -272,7 +268,7 @@ StateBuilder("first_enter_ice")
         )
         :Build()
 
-StateBuilder("first_enter_castle")
+StateBuilder("enter_castle")
         :Render(
                 function(renderer, context)
                     if(GetQuestProg() == "0")
@@ -423,7 +419,7 @@ StateBuilder("last_leave_ice")
         )
         :Build()
 
-BlackListState("last_leave_castle")
+BlackListState("leave_castle")
 StateBuilder("last_leave_castle")
         :ClearScreenPost(false)
         :Render(

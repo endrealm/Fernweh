@@ -87,14 +87,14 @@ public class OverworldMode: IMode, IStateManager
     {
         var oldState = ActiveState;
 
-        ActiveState = _stateRegistry.ReadState(stateId);
-        if (ActiveState.Id == "null" && weakNextID != null)
+        if ((stateId == null || stateId == "null") && weakNextID != null)
         {
             var weak = weakNextID;
             weakNextID = null; // Clear before saved in next render
             LoadState(weak);
             return;
         }
+        ActiveState = _stateRegistry.ReadState(stateId);
 
         if (ActiveState.AllowSave)
         {

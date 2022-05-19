@@ -131,13 +131,13 @@ namespace Core.Scenes.Ingame.World
                 {
                     DiscoverTiles();
 
-                    if (_previousTileData.enterState != _targetTileData.enterState) // load proper states
-                        _gameManager.weakNextID = "first_" + _targetTileData.enterState;
+                    if (_previousTileData.firstEnterState != _targetTileData.firstEnterState) // load proper states
+                        _gameManager.weakNextID = _targetTileData.firstEnterState;
                     else
                         _gameManager.weakNextID = _targetTileData.enterState;
 
-                    if (_previousTileData.leaveState != _targetTileData.leaveState)
-                        _gameManager.LoadState("last_" + _previousTileData.leaveState);
+                    if (_previousTileData.lastLeaveState != _targetTileData.lastLeaveState)
+                        _gameManager.LoadState(_previousTileData.lastLeaveState);
                     else
                         _gameManager.LoadState(_previousTileData.leaveState);
                 }
