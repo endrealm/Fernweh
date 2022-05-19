@@ -4,6 +4,11 @@
       "EN_US": "{name} attacks the enemy with their equipped item!"
     }
   },
+  "battle.action.defend": {
+    "translations": {
+      "EN_US": "{name} takes a defensive stance!"
+    }
+  },
   "battle.select.target": {
     "translations": {
       "EN_US": "Select a target:"

@@ -1,23 +1,33 @@
 ﻿{
   "button.enter.armorer": {
     "translations": {
-      "EN_US": "  -> You look at the armorer's <color=\"Gray\">equipment</color>"
+      "EN_US": "  -> Buy <color=\"Gray\">equipment</color>"
     }
   },
   "button.enter.blacksmith": {
     "translations": {
-      "EN_US": "  -> You look at the backsmiths's <color=\"Pink\">weapons</color>"
+      "EN_US": "  -> Buy <color=\"Pink\">weapons</color>"
     }
   },
   "button.enter.jeweler": {
     "translations": {
-      "EN_US": "  -> You look at the jewelers's <color=\"Yellow\">accessories</color>"
+      "EN_US": "  -> Buy <color=\"Yellow\">accessories</color>"
     }
   },
 
   "encounter": {
     "translations": {
       "EN_US": "Encounter!"
+    }
+  },
+  "encounter.bandit": {
+    "translations": {
+      "EN_US": "A group of bandits jump out and attack you!"
+    }
+  },
+  "encounter.polar_bear": {
+    "translations": {
+      "EN_US": "A polar bear sneaks up to you and tries to claw at you!"
     }
   },
 

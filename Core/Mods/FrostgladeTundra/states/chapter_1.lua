@@ -79,7 +79,7 @@ StateBuilder("tharmus_training_finish")
     :Render(
             function(renderer, context)
                 questProg:Set("1")
-                renderer:AddText("tharmus.training.3", { { "reward", AddMoney(15) } })
+                renderer:AddText("tharmus.training.3", { { "reward", AddMoney(25) } })
                 renderer:AddAction(function() context:Exit() end, "button.accept")
             end
     )
@@ -99,7 +99,7 @@ StateBuilder("dolrom_quest1.1")
     :Render(
             function(renderer, context)
                 renderer:AddText("dolrom.quest.1.1")
-                renderer:AddAction(function() context:StartBattle({"rat", "rat", "rat"}, "dolrom_quest1.2") end, "button.battle")
+                renderer:AddAction(function() context:StartBattle({"rat", "rat"}, "dolrom_quest1.2") end, "button.battle")
             end
     )
     :Build()
@@ -108,7 +108,7 @@ StateBuilder("dolrom_quest1.2")
     :Render(
             function(renderer, context)
                 renderer:AddText("dolrom.quest.1.2")
-                renderer:AddAction(function() context:StartBattle({"large_rat", "large_rat"}, "dolrom_quest1.3") end, "button.battle")
+                renderer:AddAction(function() context:StartBattle({"large_rat"}, "dolrom_quest1.3") end, "button.battle")
             end
     )
     :Build()
@@ -117,7 +117,7 @@ StateBuilder("dolrom_quest1.3")
     :Render(
             function(renderer, context)
                 renderer:AddText("dolrom.quest.1.3")
-                renderer:AddAction(function() context:StartBattle({"rat", "rat", "rat", "rat", "rat"}, "dolrom_quest1.4") end, "button.battle")
+                renderer:AddAction(function() context:StartBattle({"rat", "rat", "rat", "rat"}, "dolrom_quest1.4") end, "button.battle")
             end
     )
     :Build()
@@ -126,7 +126,7 @@ StateBuilder("dolrom_quest1.4")
     :Render(
             function(renderer, context)
                 renderer:AddText("dolrom.quest.1.4")
-                renderer:AddAction(function() context:StartBattle({"large_rat", "large_rat", "large_rat"}, "dolrom_quest1.5") end, "button.battle")
+                renderer:AddAction(function() context:StartBattle({"large_rat", "large_rat"}, "dolrom_quest1.5") end, "button.battle")
             end
     )
     :Build()
@@ -135,7 +135,7 @@ StateBuilder("dolrom_quest1.5")
     :Render(
             function(renderer, context)
                 questProg:Set("2")
-                renderer:AddText("dolrom.quest.1.5", { { "reward", AddMoney(25) } })
+                renderer:AddText("dolrom.quest.1.5", { { "reward", AddMoney(35) } })
                 renderer:AddAction(function() context:ChangeState("enter_castle") end, "button.leave")
             end
     )
@@ -162,9 +162,8 @@ StateBuilder("enter_snow")
                 function(renderer, context)
                     if(Random(10) <= 4)
                     then
-                        renderer:AddText("encounter", function() context:Exit() end)
+                        renderer:AddText("encounter.polar_bear", function() context:Exit() end)
                         renderer:AddAction(function() context:StartBattle({"polar_bear"}) end, "button.battle")
-                        renderer:AddAction(function() context:Exit() end, "button.leave")
                     else
                         context:Exit()
                     end
@@ -179,9 +178,8 @@ StateBuilder("enter_forest")
                 function(renderer, context)
                     if(Random(10) <= 6)
                     then
-                        renderer:AddText("encounter", function() context:Exit() end)
+                        renderer:AddText("encounter.polar_bear", function() context:Exit() end)
                         renderer:AddAction(function() context:StartBattle({"polar_bear", "bandit"}) end, "button.battle")
-                        renderer:AddAction(function() context:Exit() end, "button.leave")
                     else
                         context:Exit()
                     end
@@ -196,9 +194,8 @@ StateBuilder("enter_path")
                 function(renderer, context)
                     if(Random(10) <= 3)
                     then
-                        renderer:AddText("encounter", function() context:Exit() end)
+                        renderer:AddText("encounter.bandit", function() context:Exit() end)
                         renderer:AddAction(function() context:StartBattle({"bandit", "bandit"}) end, "button.battle")
-                        renderer:AddAction(function() context:Exit() end, "button.leave")
 
                     else
                         context:Exit()
@@ -214,9 +211,8 @@ StateBuilder("enter_ice")
                 function(renderer, context)
                     if(Random(10) <= 5)
                     then
-                        renderer:AddText("encounter", function() context:Exit() end)
+                        renderer:AddText("encounter.polar_bear", function() context:Exit() end)
                         renderer:AddAction(function() context:StartBattle({"polar_bear", "polar_bear"}) end, "button.battle") 
-                        renderer:AddAction(function() context:Exit() end, "button.leave")
                     else
                         context:Exit()
                     end
@@ -420,7 +416,7 @@ StateBuilder("last_leave_ice")
         :Build()
 
 BlackListState("leave_castle")
-StateBuilder("last_leave_castle")
+StateBuilder("leave_castle")
         :ClearScreenPost(false)
         :Render(
                 function(renderer, context)
