@@ -14,7 +14,8 @@ public class StaticContentEffect: ITextContentEffect
     public StaticContentEffect(float timerPerParagraph = 0.3f, Action onFinish = null)
     {
         _timePerParagraph = timerPerParagraph;
-        OnFinish = new List<Action>() {onFinish};
+        OnFinish = new List<Action>();
+        if(onFinish != null) OnFinish.Add(onFinish);
     }
 
     public void Attach(TextComponent component)
@@ -28,7 +29,7 @@ public class StaticContentEffect: ITextContentEffect
 
         if(_timeDone > _timePerParagraph)
         {
-            OnFinish.ForEach(action => action.Invoke());
+            OnFinish?.ForEach(action => action?.Invoke());
             _done = true;
         }
     }

@@ -37,20 +37,21 @@ public static class DialogTranslationDataExtensions
         return new ChatCompoundData(data);
     }
 
-    public static IChatComponent BuildAnimated(this IChatComponentData data, SpriteFont font, Action onFinish)
+    public static IChatComponent BuildAnimated(this IChatComponentData data, SpriteFont font, Action onFinish, bool animated = true)
     {
-        return data.BuildAnimatedInternal(font, onFinish:onFinish);
+        return data.BuildAnimatedInternal(font, onFinish: onFinish, animated: animated);
     }
-    public static IChatComponent BuildAnimatedAction(this IChatComponentData data, SpriteFont font, Action onClick)
+    public static IChatComponent BuildAnimatedAction(this IChatComponentData data, SpriteFont font, Action onClick, bool animated = true)
     {
-        return data.BuildAnimatedInternal(font,true, onClick);
+        return data.BuildAnimatedInternal(font,true, onClick, animated: animated);
     }
     private static IChatComponent BuildAnimatedInternal(
         this IChatComponentData data,
         SpriteFont font,
         bool clickable = false,
         Action onClick = null,
-        Action onFinish = null
+        Action onFinish = null,
+        bool animated = true
     ) {
         switch (data)
         {
@@ -88,7 +89,7 @@ public static class DialogTranslationDataExtensions
                 return compoundElement;
             }
             case ChatTextData text:
-                return new TextComponent(font, text.Text, text.Color, contentEffect: new TypeWriterContentEffect(timePerParagraph: 0));
+                return new TextComponent(font, text.Text, text.Color, contentEffect: animated ? new TypeWriterContentEffect(timePerParagraph: 0) : new StaticContentEffect(timerPerParagraph: 0));
             default:
                 return null;
         }
