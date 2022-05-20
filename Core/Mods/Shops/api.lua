@@ -114,7 +114,7 @@ StateBuilder("shop_shop_buy_amount")
                     else
                         renderer:AddText("shop.buy.amount.insufficient_funds", {
                             {"amount", amount},
-                            {"price", ItemToBuy:Get().price * amount},
+                            {"price", basePrice * amount},
                             {"currency", Settings:Get().currencyName}
                         })
                     end
