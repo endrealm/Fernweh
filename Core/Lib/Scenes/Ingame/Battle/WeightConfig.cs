@@ -12,6 +12,7 @@ public struct WeightConfig
     public int Heal { get; private set; } = 0;
     public int Revive { get; private set; } = 0;
     public int Buff { get; private set; } = 0;
+    public int Debuff { get; private set; } = 0;
 
     public static WeightConfig Produce(LuaTable value)
     {
@@ -21,6 +22,7 @@ public struct WeightConfig
             Heal = (int) value["heal"],
             Revive = (int) value["revive"],
             Buff = (int) value["buff"],
+            Debuff = (int) value["debuff"],
         };
     }
 }
