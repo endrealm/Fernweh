@@ -12,5 +12,7 @@ public interface IAbility : IBattleEventReceiver
     int ManaCost { get; }
     bool AllowDeadTargets { get; }
     bool AllowLivingTargets { get; }
+    public bool HideBlocked { get; }
+    public bool Hidden { get; }
     IBattleAction ProduceAction(IBattleParticipant participant, List<IBattleParticipant> targets);
 }

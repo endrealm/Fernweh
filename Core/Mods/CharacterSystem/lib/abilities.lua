@@ -2,6 +2,7 @@
         :Instantiate(
         function(builder, config)
             return builder
+                :Hidden(true)
                 :OnCalculateStats(
                 function(stats)
                     if(config.Data.health ~= nil) then

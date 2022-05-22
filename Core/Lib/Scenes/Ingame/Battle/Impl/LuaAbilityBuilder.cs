@@ -20,6 +20,8 @@ public class LuaAbilityBuilder
     private int _manaCost = 0;
     private bool _allowDeadTargets = false;
     private bool _allowLivingTargets = true;
+    private bool _hideBlocked = false;
+    private bool _hidden = false;
     private AbilityTargetType _targetType = AbilityTargetType.EnemySingle;
     private readonly string _id;
 
@@ -109,6 +111,17 @@ public class LuaAbilityBuilder
         return this;
     }
     
+    public LuaAbilityBuilder HideBlocked(bool hide)
+    {
+        _hideBlocked = hide;
+        return this;
+    }
+    public LuaAbilityBuilder Hidden(bool hide)
+    {
+        _hidden = hide;
+        return this;
+    }
+    
     public LuaAbilityBuilder AllowLivingTargets(bool allow)
     {
         _allowLivingTargets = allow;
@@ -118,7 +131,8 @@ public class LuaAbilityBuilder
     public IAbility Build()
     {
         var ability = new LuaAbility(_onReceiveDamage, _onDealDamage, _onTargetWithSpell, _onTargetedBySpell,
-            _onCalculateStats, _onNextTurn, _onUse, _canUse, _onTurnEnd, _category, _id, _manaCost, _targetType, _allowDeadTargets, _allowLivingTargets);
+            _onCalculateStats, _onNextTurn, _onUse, _canUse, _onTurnEnd, _category, _id, _manaCost, _targetType,
+            _allowDeadTargets, _allowLivingTargets, _hideBlocked, _hidden);
         _onAbilityBuild?.Invoke(ability);
         return ability;
     }

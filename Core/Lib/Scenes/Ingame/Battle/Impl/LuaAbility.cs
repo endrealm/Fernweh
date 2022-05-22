@@ -22,6 +22,8 @@ public class LuaAbility : IAbility
     public int ManaCost { get; }
     public bool AllowDeadTargets { get; }
     public bool AllowLivingTargets { get; }
+    public bool HideBlocked { get; }
+    public bool Hidden { get; }
 
     public LuaAbility(
         LuaFunction onReceiveDamage,
@@ -38,7 +40,9 @@ public class LuaAbility : IAbility
         int manaCost,
         AbilityTargetType targetType, 
         bool allowDeadTargets, 
-        bool allowLivingTargets
+        bool allowLivingTargets,
+        bool hideBlocked,
+        bool hidden
     ) {
         _onReceiveDamage = onReceiveDamage;
         _onDealDamage = onDealDamage;
@@ -55,6 +59,8 @@ public class LuaAbility : IAbility
         TargetType = targetType;
         AllowDeadTargets = allowDeadTargets;
         AllowLivingTargets = allowLivingTargets;
+        HideBlocked = hideBlocked;
+        Hidden = hidden;
     }
 
     public void OnReceiveDamage(DamageReceiveEvent evt)

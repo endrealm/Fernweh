@@ -53,12 +53,12 @@ public class BattleChatView: BaseChatView, IPlayerBattleInput
         var dict = new Dictionary<string, List<IAbility>>();
         participant.GetAbilities().ForEach(ability =>
         {
+            if(ability.Hidden) return;
             if (dict.ContainsKey(ability.CategoryId))
             {
                 dict[ability.CategoryId].Add(ability);
                 return;
             }
-
             dict.Add(ability.CategoryId, new List<IAbility> { ability });
         });
 
@@ -111,8 +111,11 @@ public class BattleChatView: BaseChatView, IPlayerBattleInput
 
         abilities.ForEach(ability =>
         {
+            if(ability.Hidden) return;
+            
             if (!ability.CanUse(new AbilityUseCheckContext(participant)))
             {
+                if(ability.HideBlocked) return;
                 AddText("battle.ability." + ability.Id + ".blocked");
                 return;
             }
