@@ -30,3 +30,12 @@ public class AbilityUseCheckContext
 
     public IBattleParticipant Participant { get; }
 }
+public class AbilityWeightContext
+{
+    public AbilityWeightContext(IBattleParticipant participant)
+    {
+        Participant = participant;
+    }
+
+    public IBattleParticipant Participant { get; }
+}

@@ -6,6 +6,7 @@ public interface IAbility : IBattleEventReceiver
 {
     void Use(AbilityUseContext context);
     bool CanUse(AbilityUseCheckContext context);
+    WeightConfig CalculateWeight(AbilityWeightContext context);
     string CategoryId { get; }
     AbilityTargetType TargetType { get; }
     string Id { get; }

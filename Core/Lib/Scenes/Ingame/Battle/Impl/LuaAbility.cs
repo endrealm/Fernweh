@@ -12,10 +12,12 @@ public class LuaAbility : IAbility
     private readonly LuaFunction _onTargetWithSpell;
     private readonly LuaFunction _onTargetedBySpell;
     private readonly LuaFunction _onCalculateStats;
+    private readonly LuaFunction _onCalculateWeight;
     private readonly LuaFunction _onNextTurn;
     private readonly LuaFunction _onUse;
     private readonly LuaFunction _canUse;
     private readonly LuaFunction _onTurnEnd;
+
     public string CategoryId { get; }
     public AbilityTargetType TargetType { get; }
     public string Id { get; }
@@ -66,6 +68,14 @@ public class LuaAbility : IAbility
     public void OnReceiveDamage(DamageReceiveEvent evt)
     {
         _onReceiveDamage?.Call(evt);
+    }
+    
+    public WeightConfig CalculateWeight(AbilityWeightContext context)
+    {
+        if (_onCalculateWeight == null) return new WeightConfig();
+        var value = _onCalculateWeight.Call(context).First() as LuaTable;
+
+        return WeightConfig.Produce(value);
     }
 
     public void OnDealDamage(DamageDealEvent evt)
