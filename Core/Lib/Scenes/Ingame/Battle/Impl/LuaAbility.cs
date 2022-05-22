@@ -29,6 +29,7 @@ public class LuaAbility : IAbility
 
     public LuaAbility(
         LuaFunction onReceiveDamage,
+        LuaFunction onCalculateWeight,
         LuaFunction onDealDamage,
         LuaFunction onTargetWithSpell,
         LuaFunction onTargetedBySpell,
@@ -51,6 +52,7 @@ public class LuaAbility : IAbility
         _onTargetWithSpell = onTargetWithSpell;
         _onTargetedBySpell = onTargetedBySpell;
         _onCalculateStats = onCalculateStats;
+        _onCalculateWeight = onCalculateWeight;
         _onNextTurn = onNextTurn;
         _onUse = onUse;
         _canUse = canUse;

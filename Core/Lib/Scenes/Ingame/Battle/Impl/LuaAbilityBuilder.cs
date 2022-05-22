@@ -10,6 +10,7 @@ public class LuaAbilityBuilder
     private LuaFunction _onReceiveDamage;
     private LuaFunction _onDealDamage;
     private LuaFunction _onTargetWithSpell;
+    private LuaFunction _onCalculateWeight;
     private LuaFunction _onTargetedBySpell;
     private LuaFunction _onCalculateStats;
     private LuaFunction _onNextTurn;
@@ -40,6 +41,12 @@ public class LuaAbilityBuilder
     public LuaAbilityBuilder OnDealDamage(LuaFunction function)
     {
         _onDealDamage = function;
+        return this;
+    }
+
+    public LuaAbilityBuilder OnCalculateWeight(LuaFunction function)
+    {
+        _onCalculateWeight = function;
         return this;
     }
 
@@ -130,7 +137,7 @@ public class LuaAbilityBuilder
 
     public IAbility Build()
     {
-        var ability = new LuaAbility(_onReceiveDamage, _onDealDamage, _onTargetWithSpell, _onTargetedBySpell,
+        var ability = new LuaAbility(_onReceiveDamage, _onCalculateWeight, _onDealDamage, _onTargetWithSpell, _onTargetedBySpell,
             _onCalculateStats, _onNextTurn, _onUse, _canUse, _onTurnEnd, _category, _id, _manaCost, _targetType,
             _allowDeadTargets, _allowLivingTargets, _hideBlocked, _hidden);
         _onAbilityBuild?.Invoke(ability);
