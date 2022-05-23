@@ -39,6 +39,7 @@ public class BattleGameView: IGameView
     
     public void Render(SpriteBatch spriteBatch, IngameRenderContext context)
     {
+        // draw player stat bars
         for (var i = 0; i < _statsRows.Count; i++)
         {
             _statsRows[i].Render(spriteBatch, new PlayerStatsRowRenderContext(
@@ -50,21 +51,24 @@ public class BattleGameView: IGameView
             ));
         }
 
+        // draw player participants 
         var halfPlayerAvatar = BattleAvatar.PlayerSize / 2;
         for (var i = 0; i < _friendlyAvatars.Count; i++)
         {
             _friendlyAvatars[i].Render(spriteBatch, new BattleAvatarRenderContext(
                 i,
-                new Vector2(context.BaseScreenSize.X - halfPlayerAvatar.X, -halfPlayerAvatar.Y),
+                new Vector2(context.BaseScreenSize.X - halfPlayerAvatar.X - 32, -halfPlayerAvatar.Y + 15),
                 BattleAvatar.PlayerSize
             ));
         }
+
+        // draw enemy participants
         var halfAvatar = BattleAvatar.DefaultSize / 2;
         for (var i = 0; i < _enemyAvatars.Count; i++)
         {
             _enemyAvatars[i].Render(spriteBatch, new BattleAvatarRenderContext(
                 i,
-                new Vector2(context.ChatWidth + halfAvatar.X, -halfAvatar.Y),
+                new Vector2(context.ChatWidth + halfAvatar.X + 12, -halfAvatar.Y + 15),
                 BattleAvatar.DefaultSize,
                 3,
                 false

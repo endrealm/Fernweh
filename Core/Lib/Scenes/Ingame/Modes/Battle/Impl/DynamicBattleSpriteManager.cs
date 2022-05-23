@@ -19,7 +19,7 @@ public class DynamicBattleSpriteManager: IBattleSpriteManager
         _sprites.Add("fallback", content.Load<Texture2D>("Sprites/Battle/player.png"));
         
         _sprites.Add("bandit", content.Load<Texture2D>("Sprites/Battle/bandit.png"));
-        _sprites.Add("gaint_rat", content.Load<Texture2D>("Sprites/Battle/gaint_rat.png"));
+        _sprites.Add("large_rat", content.Load<Texture2D>("Sprites/Battle/gaint_rat.png"));
         _sprites.Add("gaint_weasel", content.Load<Texture2D>("Sprites/Battle/gaint_weasel.png"));
         _sprites.Add("guard", content.Load<Texture2D>("Sprites/Battle/guard.png"));
         _sprites.Add("kobold_melee", content.Load<Texture2D>("Sprites/Battle/kobold.png"));

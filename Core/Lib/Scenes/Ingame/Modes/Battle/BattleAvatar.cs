@@ -8,8 +8,8 @@ namespace Core.Scenes.Ingame.Modes.Battle;
 
 public class BattleAvatar: IRenderer<BattleAvatarRenderContext>
 {
-    public static readonly Vector2 DefaultSize = new(32,32);
-    public static readonly Vector2 PlayerSize = new(15,24);
+    public static readonly Vector2 DefaultSize = new(40,40);
+    public static readonly Vector2 PlayerSize = new(19,29);
     private readonly IBattleSpriteManager _spriteManager;
     private readonly IBattleParticipant _participant;
     private Texture2D _sprite;
