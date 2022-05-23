@@ -376,13 +376,28 @@ StateBuilder("enter_castle")
                                 itemId= "shortsword",
                             },
                             {
+                                itemId= "longsword",
+                            },
+                            {
+                                itemId= "infinity_blade",
+                            },
+                            {
+                                itemId= "lethality_blade",
+                            },
+                            {
                                 itemId= "spear",
+                            },
+                            {
+                                itemId= "halberd",
                             },
                             {
                                 itemId= "wand",
                             },
                             {
                                 itemId= "wooden_staff",
+                            },
+                            {
+                                itemId= "sages_staff",
                             }
                             }
                         }) end, "button.enter.blacksmith")
@@ -400,13 +415,28 @@ StateBuilder("enter_castle")
                                 itemId= "wizards_hat",
                             },
                             {
+                                itemId= "leather_cap",
+                            },
+                            {
+                                itemId= "iron_helm",
+                            },
+                            {
                                 itemId= "clothes",
                             },
                             {
                                 itemId= "wizards_robe",
                             },
                             {
+                                itemId= "sages_robe",
+                            },
+                            {
                                 itemId= "leather_armor",
+                            },
+                            {
+                                itemId= "scaled_armor",
+                            },
+                            {
+                                itemId= "iron_armor",
                             },
                             {
                                 itemId= "shoes",
@@ -416,6 +446,12 @@ StateBuilder("enter_castle")
                             },
                             {
                                 itemId= "leather_boots",
+                            },
+                            {
+                                itemId= "plated_boots",
+                            },
+                            {
+                                itemId= "iron_boots",
                             }
                             }
                         }) end, "button.enter.armorer")

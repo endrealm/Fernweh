@@ -18,6 +18,8 @@ local AddItem = inventory:GetFunc("AddItem")
 RegisterItem(EquipItem:new({
     id = "toque",
     slot="head",
+    price= 10,
+    sellPrice= 5,
     abilities = {
         stats = {
             armor=1,
@@ -29,6 +31,8 @@ RegisterItem(EquipItem:new({
 RegisterItem(EquipItem:new({
     id = "fur_hood",
     slot="head",
+    price= 15,
+    sellPrice= 10,
     abilities = {
         stats = {
             armor=2,
@@ -39,6 +43,8 @@ RegisterItem(EquipItem:new({
 RegisterItem(EquipItem:new({
     id = "wizards_hat",
     slot="head",
+    price= 15,
+    sellPrice= 10,
     abilities = {
         stats = {
             armor=2,
@@ -50,6 +56,8 @@ RegisterItem(EquipItem:new({
 RegisterItem(EquipItem:new({
     id = "leather_cap",
     slot="head",
+    price= 20,
+    sellPrice= 15,
     abilities = {
         stats = {
             armor=3,
@@ -59,8 +67,10 @@ RegisterItem(EquipItem:new({
 
 
 RegisterItem(EquipItem:new({
-    id = "irom_helm",
+    id = "iron_helm",
     slot="head",
+    price= 30,
+    sellPrice= 25,
     abilities = {
         stats = {
             armor=5,
@@ -73,6 +83,8 @@ RegisterItem(EquipItem:new({
 RegisterItem(EquipItem:new({
     id = "clothes",
     slot="body",
+    price= 10,
+    sellPrice= 5,
     abilities = {
         stats = {
             armor=1,
@@ -84,6 +96,8 @@ RegisterItem(EquipItem:new({
 RegisterItem(EquipItem:new({
     id = "wizards_robe",
     slot="body",
+    price= 15,
+    sellPrice= 10,
     abilities = {
         stats = {
             armor=2,
@@ -95,6 +109,8 @@ RegisterItem(EquipItem:new({
 RegisterItem(EquipItem:new({
     id = "sages_robe",
     slot="body",
+    price= 20,
+    sellPrice= 15,
     abilities = {
         stats = {
             armor=3,
@@ -106,6 +122,8 @@ RegisterItem(EquipItem:new({
 RegisterItem(EquipItem:new({
     id = "leather_armor",
     slot="body",
+    price= 20,
+    sellPrice= 15,
     abilities = {
         stats = {
             armor=4,
@@ -118,6 +136,8 @@ RegisterItem(EquipItem:new({
 RegisterItem(EquipItem:new({
     id = "scaled_armor",
     slot="body",
+    price= 25,
+    sellPrice= 20,
     abilities = {
         stats = {
             armor=6,
@@ -128,6 +148,8 @@ RegisterItem(EquipItem:new({
 RegisterItem(EquipItem:new({
     id = "iron_armor",
     slot="body",
+    price= 30,
+    sellPrice= 25,
     abilities = {
         stats = {
             armor=8,
@@ -140,6 +162,8 @@ RegisterItem(EquipItem:new({
 RegisterItem(EquipItem:new({
     id = "shoes",
     slot="feet",
+    price= 10,
+    sellPrice= 5,
     abilities = {
         stats = {
             dexterity=3,
@@ -150,6 +174,8 @@ RegisterItem(EquipItem:new({
 RegisterItem(EquipItem:new({
     id = "fur_boots",
     slot="feet",
+    price= 15,
+    sellPrice= 10,
     abilities = {
         stats = {
             armor=1,
@@ -161,6 +187,8 @@ RegisterItem(EquipItem:new({
 RegisterItem(EquipItem:new({
     id = "leather_boots",
     slot="feet",
+    price= 20,
+    sellPrice= 15,
     abilities = {
         stats = {
             armor=2,
@@ -172,6 +200,8 @@ RegisterItem(EquipItem:new({
 RegisterItem(EquipItem:new({
     id = "plated_boots",
     slot="feet",
+    price= 25,
+    sellPrice= 20,
     abilities = {
         stats = {
             armor=3,
@@ -183,6 +213,8 @@ RegisterItem(EquipItem:new({
 RegisterItem(EquipItem:new({
     id = "iron_boots",
     slot="feet",
+    price= 30,
+    sellPrice= 25,
     abilities = {
         stats = {
             armor=4,
