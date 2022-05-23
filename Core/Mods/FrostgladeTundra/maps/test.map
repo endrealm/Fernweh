@@ -318,7 +318,7 @@
       },
       "6": {
         "name": "path",
-        "firstEnterState": "first_enter_path",
+        "firstEnterState": "kobold_camp1",
         "enterState": "enter_path",
         "lastLeaveState": "last_leave_path"
       },
@@ -785,6 +785,7 @@
       "6": {
         "name": "path",
         "firstEnterState": "tharmus_training",
+        "enterState": "enter_path",
         "lastLeaveState": "last_leave_path"
       },
       "7": {

@@ -11,6 +11,9 @@ local party = Import("character_system", "lib/party")
 local Character = character:Get("Character")
 local AddToParty = party:GetFunc("AddToParty")
 
+local inventory = Import("inventory", "api")
+local AddItem = inventory:GetFunc("AddItem")
+
 local shop = Import("shops", "api")
 local moneyHook = Import("shops", "money_hook")
 AddMoney = moneyHook:GetFunc("AddMoney")
@@ -151,6 +154,81 @@ StateBuilder("dolrom_quest2")
     )
     :Build()
 
+StateBuilder("kobold_camp1")
+    :Render(
+            function(renderer, context)
+                if(GetQuestProg() == "2")
+                then
+                    renderer:AddText("koboldcamp.quest.1")
+                    renderer:AddAction(function() context:StartBattle({"gaint_weasel", "gaint_weasel"}, "kobold_camp1.1") end, "button.battle")
+                elseif(GetQuestProg() == "0" or GetQuestProg() == "1")
+                then
+                    context:Exit()
+                else
+                    context:ChangeState("kobold_camp_remains")
+                end
+            end
+    )
+    :Build()
+
+BlackListState("kobold_camp_remains")
+StateBuilder("kobold_camp_remains")
+:ClearScreenPost(false)
+    :Render(
+            function(renderer, context)
+                renderer:AddText("koboldcamp.quest.1.6")
+                renderer:AddAction(function() context:Exit() end, "button.leave")
+            end
+    )
+    :Build()
+
+StateBuilder("kobold_camp1.1")
+    :Render(
+            function(renderer, context)
+                renderer:AddText("koboldcamp.quest.1.1")
+                renderer:AddAction(function() context:StartBattle({"kobold_melee", "kobold_melee"}, "kobold_camp1.2") end, "button.battle")
+            end
+    )
+    :Build()
+
+StateBuilder("kobold_camp1.2")
+    :Render(
+            function(renderer, context)
+                renderer:AddText("koboldcamp.quest.1.2")
+                renderer:AddAction(function() context:StartBattle({"kobold_melee", "kobold_ranged"}, "kobold_camp1.3") end, "button.battle")
+            end
+    )
+    :Build()
+
+StateBuilder("kobold_camp1.3")
+    :Render(
+            function(renderer, context)
+                renderer:AddText("koboldcamp.quest.1.3")
+                renderer:AddAction(function() context:StartBattle({"wolf"}, "kobold_camp1.4") end, "button.battle")
+            end
+    )
+    :Build()
+
+StateBuilder("kobold_camp1.4")
+    :Render(
+            function(renderer, context)
+                renderer:AddText("koboldcamp.quest.1.4")
+                renderer:AddAction(function() context:StartBattle({"kobold_ranged", "kobold_melee", "kobold_ranged", "gaint_weasel", "gaint_weasel", "wolf"}, "kobold_camp1.5") end, "button.battle")
+            end
+    )
+    :Build()
+
+StateBuilder("kobold_camp1.5")
+    :Render(
+            function(renderer, context)
+                renderer:AddText("koboldcamp.quest.1.5", { { "reward", AddMoney(50) } })
+                renderer:AddAction(function() context:Exit() end, "button.leave")
+                questProg:Set("3")
+                AddItem("halberd", 1)
+            end
+    )
+    :Build()
+
 -- ============================
 -- World Enter
 -- ============================
@@ -162,8 +240,9 @@ StateBuilder("enter_snow")
                 function(renderer, context)
                     if(Random(10) <= 4)
                     then
-                        renderer:AddText("encounter.polar_bear", function() context:Exit() end)
+                        renderer:AddText("encounter.polar_bear")
                         renderer:AddAction(function() context:StartBattle({"polar_bear"}) end, "button.battle")
+                        renderer:AddAction(function() context:Exit() end, "button.battle.run")
                     else
                         context:Exit()
                     end
@@ -178,8 +257,9 @@ StateBuilder("enter_forest")
                 function(renderer, context)
                     if(Random(10) <= 6)
                     then
-                        renderer:AddText("encounter.polar_bear", function() context:Exit() end)
+                        renderer:AddText("encounter.polar_bear")
                         renderer:AddAction(function() context:StartBattle({"polar_bear", "bandit"}) end, "button.battle")
+                        renderer:AddAction(function() context:Exit() end, "button.battle.run")
                     else
                         context:Exit()
                     end
@@ -194,9 +274,9 @@ StateBuilder("enter_path")
                 function(renderer, context)
                     if(Random(10) <= 3)
                     then
-                        renderer:AddText("encounter.bandit", function() context:Exit() end)
+                        renderer:AddText("encounter.bandit")
                         renderer:AddAction(function() context:StartBattle({"bandit", "bandit"}) end, "button.battle")
-
+                        renderer:AddAction(function() context:Exit() end, "button.battle.run")
                     else
                         context:Exit()
                     end
@@ -211,8 +291,9 @@ StateBuilder("enter_ice")
                 function(renderer, context)
                     if(Random(10) <= 5)
                     then
-                        renderer:AddText("encounter.polar_bear", function() context:Exit() end)
+                        renderer:AddText("encounter.polar_bear")
                         renderer:AddAction(function() context:StartBattle({"polar_bear", "polar_bear"}) end, "button.battle") 
+                        renderer:AddAction(function() context:Exit() end, "button.battle.run")
                     else
                         context:Exit()
                     end

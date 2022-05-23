@@ -63,3 +63,43 @@ CreateParticipant("polar_bear")
                     :Build();
         end)
         :Build();
+
+CreateParticipant("gaint_weasel")
+        :Instantiate(function(builder, abilityBuilder)
+    
+            return builder
+                    :Health(30)
+                    :Mana(0)
+                    :Build();
+        end)
+        :Build();
+
+CreateParticipant("wolf")
+        :Instantiate(function(builder, abilityBuilder)
+    
+            return builder
+                    :Health(20)
+                    :Mana(0)
+                    :Build();
+        end)
+        :Build();
+
+CreateParticipant("kobold_melee")
+        :Instantiate(function(builder, abilityBuilder)
+    
+            return builder
+                    :Health(20)
+                    :Mana(0)
+                    :Build();
+        end)
+        :Build();
+
+CreateParticipant("kobold_ranged")
+        :Instantiate(function(builder, abilityBuilder)
+    
+            return builder
+                    :Health(20)
+                    :Mana(0)
+                    :Build();
+        end)
+        :Build();
