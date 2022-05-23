@@ -111,5 +111,20 @@ Dolrom instructs you to raid a kobold camp with a ranger Luneiros located at the
     "translations": {
       "EN_US": "Theres a camp here, it was once lively, but completely dead now. You did the right thing."
     }
+  },
+  "game.conclusion": {
+    "translations": {
+      "EN_US": "This is the end of the Ferweh Frostglade Tundra demo (for now)!
+This was meant to share the idea of the game, and give an idea of what the finished product might look like.
+
+Whats yet to come? First we're gonna finish Frostglade Tundra, and make it a full campaign hopefully giving it the magic I initially envisioned.
+After that we'll create more modding tools (more lua support + libraries, online docs, and a map editor), which we (and you!) can use to afterwards create more campaigns, as Frostglade Tundra is only the start of Fernweh!
+
+Thanks for playtesting this, any feedback is most appreciated :)
+
+Cheers,
+Devs
+"
+    }
   }
 }

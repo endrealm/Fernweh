@@ -165,19 +165,18 @@ StateBuilder("kobold_camp1")
                 then
                     context:Exit()
                 else
-                    context:ChangeState("kobold_camp_remains")
+                    renderer:AddText("koboldcamp.quest.1.6")
+                    renderer:AddAction(function() context:Exit() end, "button.leave")
                 end
             end
     )
     :Build()
 
-BlackListState("kobold_camp_remains")
-StateBuilder("kobold_camp_remains")
-:ClearScreenPost(false)
+StateBuilder("game_conclusion")
     :Render(
             function(renderer, context)
-                renderer:AddText("koboldcamp.quest.1.6")
-                renderer:AddAction(function() context:Exit() end, "button.leave")
+                renderer:AddText("game.conclusion")
+                renderer:AddAction(function() context:Exit() end, "button.accept")
             end
     )
     :Build()
@@ -221,10 +220,10 @@ StateBuilder("kobold_camp1.4")
 StateBuilder("kobold_camp1.5")
     :Render(
             function(renderer, context)
-                renderer:AddText("koboldcamp.quest.1.5", { { "reward", AddMoney(50) } })
-                renderer:AddAction(function() context:Exit() end, "button.leave")
                 questProg:Set("3")
                 AddItem("halberd", 1)
+                renderer:AddText("koboldcamp.quest.1.5", { { "reward", AddMoney(50) } })
+                renderer:AddAction(function() context:ChangeState("game_conclusion") end, "button.leave")
             end
     )
     :Build()
