@@ -239,8 +239,8 @@ StateBuilder("enter_snow")
                 function(renderer, context)
                     if(Random(10) <= 4)
                     then
-                        renderer:AddText("encounter.polar_bear")
-                        renderer:AddAction(function() context:StartBattle({"polar_bear"}) end, "button.battle")
+                        renderer:AddText("encounter.wolf")
+                        renderer:AddAction(function() context:StartBattle({"wolf"}) end, "button.battle")
                         renderer:AddAction(function() context:Exit() end, "button.battle.run")
                     else
                         context:Exit()
@@ -256,8 +256,8 @@ StateBuilder("enter_forest")
                 function(renderer, context)
                     if(Random(10) <= 6)
                     then
-                        renderer:AddText("encounter.polar_bear")
-                        renderer:AddAction(function() context:StartBattle({"polar_bear", "bandit"}) end, "button.battle")
+                        renderer:AddText("encounter.wolf")
+                        renderer:AddAction(function() context:StartBattle({"wolf", "bandit"}) end, "button.battle")
                         renderer:AddAction(function() context:Exit() end, "button.battle.run")
                     else
                         context:Exit()
@@ -290,8 +290,8 @@ StateBuilder("enter_ice")
                 function(renderer, context)
                     if(Random(10) <= 5)
                     then
-                        renderer:AddText("encounter.polar_bear")
-                        renderer:AddAction(function() context:StartBattle({"polar_bear", "polar_bear"}) end, "button.battle") 
+                        renderer:AddText("encounter.wolf")
+                        renderer:AddAction(function() context:StartBattle({"wolf", "wolf"}) end, "button.battle") 
                         renderer:AddAction(function() context:Exit() end, "button.battle.run")
                     else
                         context:Exit()

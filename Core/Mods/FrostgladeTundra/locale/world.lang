@@ -25,9 +25,9 @@
       "EN_US": "A group of bandits jump out and attack you!"
     }
   },
-  "encounter.polar_bear": {
+  "encounter.wolf": {
     "translations": {
-      "EN_US": "A polar bear sneaks up to you and tries to claw at you!"
+      "EN_US": "A wolf sneaks up to you and tries to claw at you!"
     }
   },
 

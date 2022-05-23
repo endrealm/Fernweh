@@ -54,16 +54,6 @@ CreateParticipant("large_rat")
         end)
         :Build();
 
-CreateParticipant("polar_bear")
-        :Instantiate(function(builder, abilityBuilder)
-    
-            return builder
-                    :Health(35)
-                    :Mana(0)
-                    :Build();
-        end)
-        :Build();
-
 CreateParticipant("gaint_weasel")
         :Instantiate(function(builder, abilityBuilder)
     
