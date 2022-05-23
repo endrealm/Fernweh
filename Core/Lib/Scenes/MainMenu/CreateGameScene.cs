@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Text.RegularExpressions;
 using Core.Gui;
 using Core.Saving;
@@ -13,19 +14,22 @@ public class CreateGameScene: Scene
 {
     
     private IFontManager _fontManager;
+    private Action _quit;
+
     private string _gameName = "";
     private int _currentModIndex = 0;
     private bool _nameUsed = false;
     
-    public CreateGameScene(IFontManager fontManager)
+    public CreateGameScene(IFontManager fontManager, Action quit)
     {
         _fontManager = fontManager;
+        _quit = quit;
     }
 
     public override void Update(float deltaTime, TopLevelUpdateContext context)
     {
         if (Button.Put("Back").Clicked) {
-            SceneManager.LoadScene(new CreateOrLoadScene(_fontManager));
+            SceneManager.LoadScene(new CreateOrLoadScene(_fontManager, _quit));
         }
         MenuPanel.Push();
         Label.Put("Create new game?");

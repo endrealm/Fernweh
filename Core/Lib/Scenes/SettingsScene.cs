@@ -12,6 +12,7 @@ public class SettingsScene: Scene
     private IFontManager _fontManager;
     private readonly Scene _previousScene;
 
+    private bool _fullscreen = GameSettings.Instance.Fullscreen;
 
     public SettingsScene(IFontManager fontManager, Scene previousScene)
     {
@@ -24,16 +25,18 @@ public class SettingsScene: Scene
         Vertical.Push();
         if (Button.Put("Back").Clicked) {
             SceneManager.LoadScene(_previousScene);
-        }   
-        Horizontal.Push();
-        Label.Put("Master Volume").PrefWidth = context.Camera.BoundingRectangle.Width/2;
-        Slider.Put(ref GameSettings.Instance.Volume, 0, 1);
-        Horizontal.Pop();
-        Horizontal.Push();
-        Label.Put("Volume").PrefWidth = context.Camera.BoundingRectangle.Width/2;
-        Slider.Put(ref GameSettings.Instance.Volume, 0, 1);
+        }
+        MenuPanel.Push();
+        Label.Put("Music Volume").PrefWidth = context.Camera.BoundingRectangle.Width/2;
+        Slider.Put(ref GameSettings.Instance.Music, 0, 1);
+        Label.Put("SFX Volume").PrefWidth = context.Camera.BoundingRectangle.Width/2;
+        Slider.Put(ref GameSettings.Instance.Sfx, 0, 1);
+        Label.Put("Fullscreen").PrefWidth = context.Camera.BoundingRectangle.Width / 2;
+        Checkbox.Put(ref _fullscreen);
         Horizontal.Pop();
         MenuPanel.Pop();
+
+        GameSettings.Instance.Fullscreen = _fullscreen;
     }
 
 

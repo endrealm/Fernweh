@@ -22,7 +22,6 @@ namespace Core
         private SpriteBatch _spriteBatch;
         private OrthographicCamera _camera;
         private readonly Vector2 _baseScreenSize = new(398, 224);
-        private bool _isFullscreen = false;
         private Controls _controls = new Controls();
         private FrameCounter _frameCounter = new();
         private readonly ModLoader _modLoader;
@@ -76,15 +75,9 @@ namespace Core
 
             #region Configure camera
 
-            // make game borderless fullscreen
-            if(_isFullscreen)
-            {
-                _graphics.PreferredBackBufferWidth = GraphicsDevice.DisplayMode.Width;
-                _graphics.PreferredBackBufferHeight = GraphicsDevice.DisplayMode.Height;
-                _graphics.IsFullScreen = true;
-                _graphics.HardwareModeSwitch = false;
-                _graphics.ApplyChanges();
-            }
+            UpdateVideo();
+            GameSettings.Instance.OnVideoSettingsChanged += UpdateVideo;
+
             Window.Title = _windowName;
             
             var viewportAdapter = new BoxingViewportAdapter(Window, GraphicsDevice, (int) _baseScreenSize.X,
@@ -96,7 +89,7 @@ namespace Core
 
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            Scene menuScene = new MainMenuScene(_contentLoader.GetFontManager());
+            Scene menuScene = new MainMenuScene(_contentLoader.GetFontManager(), () => { Exit(); });
 
             menuScene.Load(_contentLoader);
             LoadScene(menuScene);
@@ -145,6 +138,25 @@ namespace Core
             scene.InjectSceneManager(this);
             scene.Load(_contentLoader);
             _activeScene = scene;
+        }
+
+        private void UpdateVideo()
+        {
+            // make game borderless fullscreen
+            if (GameSettings.Instance.Fullscreen)
+            {
+                _graphics.PreferredBackBufferWidth = GraphicsDevice.DisplayMode.Width;
+                _graphics.PreferredBackBufferHeight = GraphicsDevice.DisplayMode.Height;
+                _graphics.IsFullScreen = true;
+            }
+            else
+            {
+                _graphics.PreferredBackBufferWidth = (int)_baseScreenSize.X * 2;
+                _graphics.PreferredBackBufferHeight = (int)_baseScreenSize.Y * 2;
+                _graphics.IsFullScreen = false;
+            }
+            _graphics.HardwareModeSwitch = false;
+            _graphics.ApplyChanges();
         }
     }
 }

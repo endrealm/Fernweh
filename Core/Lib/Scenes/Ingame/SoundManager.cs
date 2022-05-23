@@ -11,8 +11,6 @@ namespace Core.Scenes.Ingame
     {
         private Dictionary<string, SoundEffect> _sounds = new();
         private Dictionary<string, SoundEffect> _songs = new();
-        private float _soundVolume = 0f;
-        private float _songVolume = 0f;
 
         public void ScanForAudio(ContentLoader content)
         {
@@ -39,7 +37,7 @@ namespace Core.Scenes.Ingame
             if (!_sounds.ContainsKey(name)) return;
 
             var instance = _sounds[name].CreateInstance();
-            instance.Volume = _soundVolume;
+            instance.Volume = GameSettings.Instance.Sfx;
             instance.Pitch = pitch;
             instance.Play();
         }
@@ -49,7 +47,7 @@ namespace Core.Scenes.Ingame
             if (!_songs.ContainsKey(name)) return;
 
             var instance = _songs[name].CreateInstance();
-            instance.Volume = GameSettings.Instance.GetMusicVolume();
+            instance.Volume = GameSettings.Instance.Music;
             instance.IsLooped = true;
             instance.Play();
         }

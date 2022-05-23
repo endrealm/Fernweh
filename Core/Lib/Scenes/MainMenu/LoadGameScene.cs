@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Core.Gui;
 using Core.Input;
 using Core.Saving;
@@ -10,21 +11,21 @@ namespace Core.Scenes.MainMenu;
 
 public class LoadGameScene: Scene
 {
-    
-    
     private IFontManager _fontManager;
+    private Action _quit;
 
     private List<IGameSave> _gameSaves;
-    public LoadGameScene(IFontManager fontManager)
+    public LoadGameScene(IFontManager fontManager, Action quit)
     {
         _fontManager = fontManager;
+        _quit = quit;
     }
 
     public override void Update(float deltaTime, TopLevelUpdateContext context)
     {
         _gameSaves ??= context.SaveGameManager.ListAll();
         if (Button.Put("Back").Clicked) {
-            SceneManager.LoadScene(new CreateOrLoadScene(_fontManager));
+            SceneManager.LoadScene(new CreateOrLoadScene(_fontManager, _quit));
         }
         MenuPanel.Push();
         

@@ -3,6 +3,7 @@ using Core.Input;
 using Core.Scenes.Ingame;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 
 namespace Core.Scenes.MainMenu;
 
@@ -10,11 +11,13 @@ public class CreateOrLoadScene: Scene
 {
     
     private IFontManager _fontManager;
+    private Action _quit;
 
 
-    public CreateOrLoadScene(IFontManager fontManager)
+    public CreateOrLoadScene(IFontManager fontManager, Action quit)
     {
         _fontManager = fontManager;
+        _quit = quit;
     }
 
     public override void Update(float deltaTime, TopLevelUpdateContext context)
@@ -24,10 +27,14 @@ public class CreateOrLoadScene: Scene
         }
         MenuPanel.Push();
         if (Button.Put("New Game").Clicked) {
-            SceneManager.LoadScene(new CreateGameScene(_fontManager));
+            SceneManager.LoadScene(new CreateGameScene(_fontManager, _quit));
         }
         if (Button.Put("Load Game").Clicked) {
-            SceneManager.LoadScene(new LoadGameScene(_fontManager));
+            SceneManager.LoadScene(new LoadGameScene(_fontManager, _quit));
+        }
+        if (Button.Put("Quit").Clicked)
+        {
+            _quit.Invoke();
         }
         MenuPanel.Pop();
     }

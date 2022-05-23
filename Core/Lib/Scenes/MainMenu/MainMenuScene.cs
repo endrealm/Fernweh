@@ -13,15 +13,17 @@ public class MainMenuScene: Scene
 {
     
     private IFontManager _fontManager;
+    private Action _quit;
 
     private float _alpha = 255;
     private bool _ascending;
 
     private Texture2D _splashLogo;
 
-    public MainMenuScene(IFontManager fontManager)
+    public MainMenuScene(IFontManager fontManager, Action quit)
     {
         _fontManager = fontManager;
+        _quit = quit;
     }
 
     public override void Update(float deltaTime, TopLevelUpdateContext context)
@@ -30,7 +32,7 @@ public class MainMenuScene: Scene
         if (Controls.AnyInput())
         {
             // SceneManager.LoadScene(new IngameScene(_fontManager));
-            SceneManager.LoadScene(new CreateOrLoadScene(_fontManager));
+            SceneManager.LoadScene(new CreateOrLoadScene(_fontManager, _quit));
         }
     }
 
