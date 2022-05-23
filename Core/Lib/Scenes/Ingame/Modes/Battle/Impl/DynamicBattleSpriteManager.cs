@@ -16,17 +16,22 @@ public class DynamicBattleSpriteManager: IBattleSpriteManager
         if(content == null) return;
         _content = content;
 
-        _sprites.Add("fallback", content.Load<Texture2D>("Sprites/Battle/player.png"));
-        
-        _sprites.Add("bandit", content.Load<Texture2D>("Sprites/Battle/bandit.png"));
-        _sprites.Add("large_rat", content.Load<Texture2D>("Sprites/Battle/gaint_rat.png"));
-        _sprites.Add("gaint_weasel", content.Load<Texture2D>("Sprites/Battle/gaint_weasel.png"));
-        _sprites.Add("guard", content.Load<Texture2D>("Sprites/Battle/guard.png"));
-        _sprites.Add("kobold_melee", content.Load<Texture2D>("Sprites/Battle/kobold.png"));
-        _sprites.Add("kobold_ranged", content.Load<Texture2D>("Sprites/Battle/kobold.png"));
-        _sprites.Add("rat", content.Load<Texture2D>("Sprites/Battle/rat.png"));
-        _sprites.Add("tharmus", content.Load<Texture2D>("Sprites/Battle/tharmus.png"));
-        _sprites.Add("wolf", content.Load<Texture2D>("Sprites/Battle/wolf.png"));
+        List<IArchiveLoader> mods = content.GetMods();
+        foreach (IArchiveLoader mod in mods)
+        {
+            string[] files = mod.LoadAllFiles("*.png");
+            foreach (var file in files)
+            {
+                if (file.ToLower().Contains("battle"))
+                {
+                    if(_sprites.Count == 0)
+                        _sprites.Add("fallback", content.Load<Texture2D>(file));
+
+                    var name = System.IO.Path.GetFileName(file).Replace(".png", "");
+                    _sprites.Add(name, content.Load<Texture2D>(file));
+                }
+            }
+        }
 
         eventHandler.EmitLoadBattleSprites(this);
     }
