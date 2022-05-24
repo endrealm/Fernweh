@@ -1,7 +1,7 @@
 ﻿{
   "battle.action.attack": {
     "translations": {
-      "EN_US": "{name} attacks {targets} with their equipped item!"
+      "EN_US": "{name} attacks {target} with their equipped item!"
     }
   },
   "battle.action.defend": {
