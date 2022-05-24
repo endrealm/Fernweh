@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Core.Scenes.Ingame.Battle.Impl.Strategy;
 
 public abstract class AbstractStrategy: IBattleStrategy
 {
-    public abstract IBattleAction SelectAction(BattleManager manager, IBattleParticipant participant);
+    public abstract IBattleAction SelectAction(Random random, BattleManager manager, IBattleParticipant participant);
 
     /// <summary>
     /// Finds all usable abilities

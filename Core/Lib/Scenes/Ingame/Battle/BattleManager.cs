@@ -18,6 +18,7 @@ public class BattleManager
     private readonly Action _onLoose;
     private readonly List<IBattleParticipant> _friendlies;
     private readonly List<IBattleParticipant> _enemies;
+    private readonly Random _random = new Random();
 
     public BattleManager(IChatView chatView, BattleRegistry registry, BattleConfig config, IPlayerBattleInput playerInput, Action onWin, Action onLoose)
     {
@@ -78,7 +79,7 @@ public class BattleManager
         {
             participant.OnNextTurn(out var skip);
             if (skip) return;
-            participant.NextAction ??= participant.Strategy.SelectAction(this, participant);
+            participant.NextAction ??= participant.Strategy.SelectAction(_random, this, participant);
             actions.Add(participant.NextAction);
             participant.NextAction = null;
         });
@@ -86,7 +87,7 @@ public class BattleManager
         {
             participant.OnNextTurn(out var skip);
             if (skip) return;
-            participant.NextAction ??= participant.Strategy.SelectAction(this, participant);
+            participant.NextAction ??= participant.Strategy.SelectAction(_random, this, participant);
             actions.Add(participant.NextAction);
             participant.NextAction = null;
         });

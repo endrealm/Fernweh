@@ -1,6 +1,8 @@
-﻿namespace Core.Scenes.Ingame.Battle;
+﻿using System;
+
+namespace Core.Scenes.Ingame.Battle;
 
 public interface IBattleStrategy
 {
-    public IBattleAction SelectAction(BattleManager manager, IBattleParticipant participant);
+    public IBattleAction SelectAction(Random random, BattleManager manager, IBattleParticipant participant);
 }

@@ -7,7 +7,7 @@ namespace Core.Scenes.Ingame.Battle.Impl.Strategy;
 
 public class AggressiveStrategy: AbstractStrategy
 {
-    public override IBattleAction SelectAction(BattleManager manager, IBattleParticipant participant)
+    public override IBattleAction SelectAction(Random random, BattleManager manager, IBattleParticipant participant)
     {
         var highestAbility = GetValidAbilities(participant)
             .SelectMany(ability =>
