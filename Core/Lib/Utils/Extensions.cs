@@ -34,4 +34,31 @@ public static class Extensions
         dictionary.Add(key, value);
         return value;
     }
+    
+    public static T MaxValue<T>(this IEnumerable<T> list, Converter<T, int> transformer)
+    {
+        var maxValue = int.MinValue;
+        T maxItem = default;
+        foreach (var item in list)
+        {
+            var value = transformer(item);
+            if (value <= maxValue) continue;
+            maxValue = value;
+            maxItem = item;
+        }
+        return maxItem;
+    }
+    public static (T maxItem, int maxValue) MaxValuePair<T>(this IEnumerable<T> list, Converter<T, int> transformer)
+    {
+        var maxValue = int.MinValue;
+        T maxItem = default;
+        foreach (var item in list)
+        {
+            var value = transformer(item);
+            if (value <= maxValue) continue;
+            maxValue = value;
+            maxItem = item;
+        }
+        return (maxItem, maxValue);
+    }
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Core.Scenes.Ingame.Battle.Impl.Actions;
+using Core.Scenes.Ingame.Battle.Impl.Strategy;
 using Core.Scenes.Ingame.Chat;
 using PipelineExtensionLibrary.Tokenizer.Chat;
 

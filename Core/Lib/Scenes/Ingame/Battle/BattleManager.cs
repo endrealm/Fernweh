@@ -78,7 +78,7 @@ public class BattleManager
         {
             participant.OnNextTurn(out var skip);
             if (skip) return;
-            participant.NextAction ??= participant.Strategy.SelectAction(participant);
+            participant.NextAction ??= participant.Strategy.SelectAction(this, participant);
             actions.Add(participant.NextAction);
             participant.NextAction = null;
         });
@@ -86,7 +86,7 @@ public class BattleManager
         {
             participant.OnNextTurn(out var skip);
             if (skip) return;
-            participant.NextAction ??= participant.Strategy.SelectAction(participant);
+            participant.NextAction ??= participant.Strategy.SelectAction(this, participant);
             actions.Add(participant.NextAction);
             participant.NextAction = null;
         });
@@ -157,5 +157,10 @@ public class BattleManager
     private void PlayerWon()
     {
         _onWin.Invoke();
+    }
+
+    public bool IsFriendly(IBattleParticipant participant)
+    {
+        return _friendlies.Contains(participant);
     }
 }

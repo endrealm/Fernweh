@@ -175,41 +175,7 @@ public class BattleChatView: BaseChatView, IPlayerBattleInput
 
     private List<List<IBattleParticipant>> GetTargetsByType(AbilityTargetType targetType)
     {
-        switch (targetType)
-        {
-            case AbilityTargetType.FriendlySingle:
-            {
-                var type = new List<List<IBattleParticipant>>();
-                BattleManager.Friendlies.ForEach(participant => type.Add(new() {participant}));
-                return type;
-            }
-            case AbilityTargetType.EnemySingle:
-            {
-                var type = new List<List<IBattleParticipant>>();
-                BattleManager.Enemies.ForEach(participant => type.Add(new() {participant}));
-                return type;
-            }
-            case AbilityTargetType.EnemyGroup:
-            {
-
-                return BattleManager.Enemies
-                    .GroupBy(participant => participant.GroupId)
-                    .Select(grouping => grouping.ToList())
-                    .ToList();
-            }
-            case AbilityTargetType.EnemyAll: return new()
-            {
-                BattleManager.Enemies.ToList()
-            };
-            case AbilityTargetType.FriendlyGroup: return new() 
-            {
-                BattleManager.Friendlies.ToList()
-            };
-            default:
-            case AbilityTargetType.All: return new()
-            {
-                BattleManager.All.ToList()
-            };
-        }
+        return TargetTypeUtils.GetTargetsByType(BattleManager.Enemies, BattleManager.Friendlies, BattleManager.All,
+            targetType);
     }
 }
