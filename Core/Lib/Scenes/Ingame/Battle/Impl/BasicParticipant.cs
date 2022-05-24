@@ -98,7 +98,7 @@ public class BasicParticipant : IBattleParticipant
     public int Mana { get; private set; }
     public bool Defending { get; set; }
 
-    public IBattleStrategy Strategy { get; set; } = new FallbackStrategy();
+    public IBattleStrategy Strategy { get; set; } = new AggressiveStrategy();
 
     public List<IAbility> GetAbilities()
     {
