@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Core.Scenes.Ingame.Chat;
 using PipelineExtensionLibrary.Tokenizer.Chat;
@@ -23,7 +24,7 @@ public class DealDamageAction: IBattleAction
         {
             var data = _data.Clone();
             data.Damage -= target.GetStats().Constitution / 5 + target.GetStats().Armor;
-
+            data.Damage = Math.Max(data.Damage, 0);
             Participant.OnDealDamage(new DamageDealEvent(target, Participant, data));
             target.OnReceiveDamage(new DamageReceiveEvent(target, Participant, data));
             context.QueueAction(new LogTextAction("battle.dealDamage", 
