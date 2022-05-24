@@ -18,7 +18,7 @@ public class AttackAction: IBattleAction
     public async Task DoAction(ActionContext context)
     {
         Participant.Defending = true;
-        context.QueueAction(new LogTextAction("battle.action.attack", new TextReplacement("name", Participant.DisplayName)));
+        context.QueueAction(new LogTextAction("battle.action.attack", new TextReplacement("name", Participant.DisplayName), new TextReplacement("target", _target.DisplayName)));
         // Filter for dead targets if the spell does not allow this
         if (_target.State != ParticipantState.Alive)
         {
