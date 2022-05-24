@@ -26,7 +26,7 @@ public class AggressiveStrategy: AbstractStrategy
                 highestAbility = highestAbility.Append(new WrappedAction(() => new AttackAction(participant, targets.First()),
                     attackWeight));
             });
-        return highestAbility.MaxValuePair(action => action.Config.Damage).maxItem.Action.Invoke();
+        return highestAbility.MaxValues(action => action.Config.Damage).Random(random).Action.Invoke();
     }
 }
 

@@ -61,4 +61,25 @@ public static class Extensions
         }
         return (maxItem, maxValue);
     }
+    public static List<T> MaxValues<T>(this IEnumerable<T> list, Converter<T, int> transformer)
+    {
+        var maxValue = int.MinValue;
+        List<T> maxItem = new();
+        foreach (var item in list)
+        {
+            var value = transformer(item);
+            if (value < maxValue) continue;
+            if (value > maxValue)
+            {
+                maxItem.Clear();
+            }
+            maxValue = value;
+            maxItem.Add(item);
+        }
+        return maxItem;
+    }
+    public static T Random<T>(this List<T> list, Random random)
+    {
+        return list[random.Next(list.Count)];
+    }
 }
