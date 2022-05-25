@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Scenes.Ingame.Chat.Effects.Default;
+using Core.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using PipelineExtensionLibrary.Chat;
@@ -89,7 +90,7 @@ public static class DialogTranslationDataExtensions
                 return compoundElement;
             }
             case ChatTextData text:
-                return new TextComponent(font, text.Text, text.Color, contentEffect: animated ? new TypeWriterContentEffect(timePerParagraph: 0) : new StaticContentEffect(timerPerParagraph: 0));
+                return new TextComponent(font, text.Text, text.Color, contentEffect: animated && GameSettings.Instance.TypingSpeed > 0 ? new TypeWriterContentEffect() : new StaticContentEffect());
             default:
                 return null;
         }

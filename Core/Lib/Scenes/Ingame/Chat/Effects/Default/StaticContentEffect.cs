@@ -11,7 +11,7 @@ public class StaticContentEffect: ITextContentEffect
     private float _timeDone;
     private bool _done;
 
-    public StaticContentEffect(float timerPerParagraph = 0.3f, Action onFinish = null)
+    public StaticContentEffect(float timerPerParagraph = 0f, Action onFinish = null)
     {
         _timePerParagraph = timerPerParagraph;
         OnFinish = new List<Action>();
