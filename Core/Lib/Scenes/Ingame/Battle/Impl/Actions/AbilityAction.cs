@@ -32,6 +32,14 @@ public class AbilityAction : IBattleAction
         {
             _targets.RemoveAll(target => target.State == ParticipantState.Alive);
         }
+
+        if (Participant.Mana < _ability.ManaCost)
+        {
+            context.QueueAction(new LogTextAction("ability.noMana"));
+            context.QueueAction(new AwaitNextAction());
+            return;
+        }
+        
         var spellEvent = new SpellTargetEvent(_targets, Participant, false, new SpellData(_ability.ManaCost));
         Participant.OnTargetWithSpell(spellEvent);
         _targets.ForEach(target => target.OnTargetedBySpell(spellEvent));
@@ -42,13 +50,16 @@ public class AbilityAction : IBattleAction
             )
         );
         
-        // Spell has been reflected
         if (spellEvent.Targets.Count == 0)
         {
             context.QueueAction(new LogTextAction("ability.noTargets"));
             context.QueueAction(new AwaitNextAction());
             return;
         }
+
+        Participant.DeductMana(_ability.ManaCost);
+
+        // Spell has been reflected
         if (spellEvent.Source != Participant) context.QueueAction(new LogTextAction("ability.reflected"));
         context.QueueAction(new AwaitNextAction());
         _ability.Use(new AbilityUseContext(context, spellEvent.Source, spellEvent.Targets));

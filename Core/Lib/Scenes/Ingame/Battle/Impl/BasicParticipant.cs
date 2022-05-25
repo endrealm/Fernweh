@@ -133,4 +133,9 @@ public class BasicParticipant : IBattleParticipant
         }
         State = ParticipantState.Dead;
     }
+
+    public void DeductMana(int mana)
+    {
+        Mana = Math.Max(0, Mana - mana);
+    }
 }

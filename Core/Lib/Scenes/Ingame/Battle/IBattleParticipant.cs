@@ -32,4 +32,6 @@ public interface IBattleParticipant : IBattleEventReceiver
     /// </summary>
     /// <param name="updateContext"></param>
     public void UpdateParticipantState(ActionContext updateContext);
+
+    void DeductMana(int mana);
 }
