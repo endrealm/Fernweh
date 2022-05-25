@@ -26,7 +26,7 @@ public class AttackAction: IBattleAction
             context.QueueAction(new AwaitNextAction());
             return;
         }
-        context.QueueAction(new AwaitNextAction());
+        //context.QueueAction(new AwaitNextAction());
         var data = new DamageData(Participant.GetStats().Strength, Element.None);
         context.QueueAction(new DealDamageAction(data, Participant, new List<IBattleParticipant>() {_target}));
     }

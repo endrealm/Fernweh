@@ -21,7 +21,7 @@
   },
   "battle.participant.death": {
     "translations": {
-      "EN_US": "{name} died!"
+      "EN_US": "<color=\"Orange\">{name}</color> <color=\"Red\">died!</color>"
     }
   },
   "ability.doNothing": {
@@ -36,12 +36,12 @@
   },
   "battle.dealDamage": {
     "translations": {
-      "EN_US": "{target} received {damage} damage!"
+      "EN_US": "<color=\"Orange\">{target}</color> received <color=\"Red\">{damage} damage!</color>"
     }
   },
   "battle.continue": {
     "translations": {
-      "EN_US": "Continue"
+      "EN_US": "  -> Continue"
     }
   },
   "inventory.item.noActions": {
@@ -51,7 +51,7 @@
   },
   "battle.participant.list.name": {
     "translations": {
-      "EN_US": "<color=\"Orange\">{name}</color>: <color=\"Red\">{health}</color>\\<color=\"DarkRed\">{max_health}</color>HP <color=\"Aqua\">{mana}</color>\\<color=\"Blue\">{max_mana}</color>MP"
+      "EN_US": "<color=\"Orange\">{name}</color> decides what to do..."
     }
   },
   "battle.participant.list.ability.ability": {
