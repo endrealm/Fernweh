@@ -4,7 +4,7 @@
             return builder
                     :Health(15)
                     :Mana(5)
-                    :Strength(17)
+                    :Strength(13)
                     :Constitution(15)
                     :Dexterity(12)
                     :AddAbility(abilityBuilder("test_ability"):Build())
@@ -19,7 +19,7 @@ CreateParticipant("bandit")
             return builder
                     :Health(15)
                     :Mana(5)
-                    :Strength(15)
+                    :Strength(11)
                     :Constitution(13)
                     :Dexterity(16)
                     :AddAbility(abilityBuilder("test_ability"):Build())
@@ -34,7 +34,7 @@ CreateParticipant("tharmus")
             return builder
                     :Health(90)
                     :Mana(10)
-                    :Strength(20)
+                    :Strength(16)
                     :Constitution(20)
                     :Dexterity(14)
                     :AddAbility(abilityBuilder("test_ability"):Build())
@@ -49,7 +49,7 @@ CreateParticipant("rat")
             return builder
                     :Health(10)
                     :Mana(0)
-                    :Strength(12)
+                    :Strength(8)
                     :Constitution(5)
                     :Dexterity(16)
                     :Build();
@@ -62,7 +62,7 @@ CreateParticipant("large_rat")
             return builder
                     :Health(25)
                     :Mana(0)
-                    :Strength(16)
+                    :Strength(12)
                     :Constitution(13)
                     :Dexterity(14)
                     :Build();
@@ -75,7 +75,7 @@ CreateParticipant("gaint_weasel")
             return builder
                     :Health(30)
                     :Mana(0)
-                    :Strength(17)
+                    :Strength(15)
                     :Constitution(15)
                     :Dexterity(16)
                     :Build();
@@ -88,7 +88,7 @@ CreateParticipant("wolf")
             return builder
                     :Health(20)
                     :Mana(0)
-                    :Strength(19)
+                    :Strength(15)
                     :Constitution(13)
                     :Dexterity(16)
                     :Build();
@@ -101,7 +101,7 @@ CreateParticipant("kobold_melee")
             return builder
                     :Health(20)
                     :Mana(0)
-                    :Strength(19)
+                    :Strength(16)
                     :Constitution(17)
                     :Dexterity(14)
                     :Build();
@@ -114,7 +114,7 @@ CreateParticipant("kobold_ranged")
             return builder
                     :Health(20)
                     :Mana(0)
-                    :Strength(17)
+                    :Strength(14)
                     :Constitution(15)
                     :Dexterity(16)
                     :Build();

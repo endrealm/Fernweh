@@ -194,7 +194,7 @@ StateBuilder("kobold_camp1.2")
     :Render(
             function(renderer, context)
                 renderer:AddText("koboldcamp.quest.1.2")
-                renderer:AddAction(function() context:StartBattle({"kobold_melee", "kobold_ranged"}, "kobold_camp1.3") end, "button.battle")
+                renderer:AddAction(function() context:StartBattle({"kobold_melee", "kobold_ranged", "kobold_ranged"}, "kobold_camp1.3") end, "button.battle")
             end
     )
     :Build()
@@ -203,7 +203,7 @@ StateBuilder("kobold_camp1.3")
     :Render(
             function(renderer, context)
                 renderer:AddText("koboldcamp.quest.1.3")
-                renderer:AddAction(function() context:StartBattle({"wolf"}, "kobold_camp1.4") end, "button.battle")
+                renderer:AddAction(function() context:StartBattle({"wolf", "wolf"}, "kobold_camp1.4") end, "button.battle")
             end
     )
     :Build()
