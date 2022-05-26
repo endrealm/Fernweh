@@ -43,6 +43,6 @@ public class CreateOrLoadScene: Scene
 
     public override void Render(SpriteBatch spriteBatch, TopLevelRenderContext context)
     {
-        context.GraphicsDevice.Clear(Color.CornflowerBlue);
+        context.GraphicsDevice.Clear(new Color(18, 14, 18));
     }
 }

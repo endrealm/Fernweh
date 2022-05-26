@@ -6,7 +6,7 @@
   },
   "battle.action.defend": {
     "translations": {
-      "EN_US": "{name} takes a defensive stance!"
+      "EN_US": "{name} takes a <color=\"LightBlue\">defensive</color> stance!"
     }
   },
   "battle.select.target": {
@@ -31,7 +31,7 @@
   },
   "ability.noTargets": {
     "translations": {
-      "EN_US": "No valid target remaining"
+      "EN_US": "<color=\"Orange\">No valid target</color> remaining"
     }
   },
   "battle.dealDamage": {

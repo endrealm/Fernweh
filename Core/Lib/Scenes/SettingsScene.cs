@@ -48,7 +48,7 @@ public class SettingsScene: Scene
 
     public override void Render(SpriteBatch spriteBatch, TopLevelRenderContext context)
     {
-        context.GraphicsDevice.Clear(Color.CornflowerBlue);
+        context.GraphicsDevice.Clear(Color.Coral);
     }
 }
 

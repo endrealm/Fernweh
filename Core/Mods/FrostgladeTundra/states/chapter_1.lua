@@ -31,7 +31,7 @@ end
 -- ============================
 -- Temp testing
 -- ============================
-AddToParty(Character:new({id = "Gardain", stats = {health=13, mana=6, strength=17, intellect=13, dexterity=10, constitution=16, wisdom=12, charisma=12}, equip = {weapon="knife", body="clothes", feet="shoes"}}))
+AddToParty(Character:new({id = "Gardain", stats = {health=22, mana=6, strength=17, intellect=13, dexterity=10, constitution=16, wisdom=12, charisma=8}, equip = {weapon="knife", body="clothes", feet="shoes"}}))
 -- AddToParty(Character:new({id = "Triss"}))
 -- AddToParty(Character:new({id = "Geralt"}))
 -- AddToParty(Character:new({id = "Ciri"}))
@@ -72,7 +72,7 @@ StateBuilder("tharmus_training_2")
     :Render(
             function(renderer, context)
                 renderer:AddText("tharmus.training.2")
-                AddToParty(Character:new({id = "Olma", stats = {health=13, mana=6, strength=15, intellect=9, dexterity=12, constitution=16, wisdom=11, charisma=14}, equip = {weapon="dagger", body="clothes", feet="fur_boots"}}))
+                AddToParty(Character:new({id = "Olma", stats = {health=23, mana=6, strength=15, intellect=9, dexterity=14, constitution=17, wisdom=11, charisma=12}, equip = {weapon="dagger", body="clothes", feet="fur_boots"}}))
                 renderer:AddAction(function() context:StartBattle({"tharmus"}, "tharmus_training_finish") end, "button.battle")
             end
     )
@@ -82,7 +82,7 @@ StateBuilder("tharmus_training_finish")
     :Render(
             function(renderer, context)
                 questProg:Set("1")
-                renderer:AddText("tharmus.training.3", { { "reward", AddMoney(25) } })
+                renderer:AddText("tharmus.training.3", { { "reward", AddMoney(35) } })
                 renderer:AddAction(function() context:Exit() end, "button.accept")
             end
     )
@@ -111,7 +111,7 @@ StateBuilder("dolrom_quest1.2")
     :Render(
             function(renderer, context)
                 renderer:AddText("dolrom.quest.1.2")
-                renderer:AddAction(function() context:StartBattle({"large_rat"}, "dolrom_quest1.3") end, "button.battle")
+                renderer:AddAction(function() context:StartBattle({"large_rat", "large_rat"}, "dolrom_quest1.3") end, "button.battle")
             end
     )
     :Build()
@@ -129,7 +129,7 @@ StateBuilder("dolrom_quest1.4")
     :Render(
             function(renderer, context)
                 renderer:AddText("dolrom.quest.1.4")
-                renderer:AddAction(function() context:StartBattle({"large_rat", "large_rat"}, "dolrom_quest1.5") end, "button.battle")
+                renderer:AddAction(function() context:StartBattle({"large_rat", "large_rat", "rat", "rat", "rat"}, "dolrom_quest1.5") end, "button.battle")
             end
     )
     :Build()
@@ -138,7 +138,7 @@ StateBuilder("dolrom_quest1.5")
     :Render(
             function(renderer, context)
                 questProg:Set("2")
-                renderer:AddText("dolrom.quest.1.5", { { "reward", AddMoney(35) } })
+                renderer:AddText("dolrom.quest.1.5", { { "reward", AddMoney(55) } })
                 renderer:AddAction(function() context:ChangeState("enter_castle") end, "button.leave")
             end
     )
@@ -148,7 +148,7 @@ StateBuilder("dolrom_quest2")
     :Render(
             function(renderer, context)
                 renderer:AddText("dolrom.quest.2")
-                AddToParty(Character:new({id = "Luneiros", stats = {health=12, mana=2, strength=8, intellect=10, dexterity=17, constitution=14, wisdom=9, charisma=12}, equip = {weapon="shortsword", body="leather_armor", feet="fur_boots"}}))
+                AddToParty(Character:new({id = "Luneiros", stats = {health=20, mana=2, strength=8, intellect=10, dexterity=17, constitution=14, wisdom=10, charisma=12}, equip = {weapon="shortsword", body="leather_armor", feet="fur_boots"}}))
                 renderer:AddAction(function() context:Exit() end, "button.accept")
             end
     )

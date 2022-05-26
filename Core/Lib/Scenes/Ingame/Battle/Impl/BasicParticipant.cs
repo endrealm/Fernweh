@@ -34,7 +34,7 @@ public class BasicParticipant : IBattleParticipant
             evt.Data.Damage = (int)Math.Ceiling(evt.Data.Damage / 2f);
         }
         if(evt.Data.Damage <= 0) return; // damage was somehow blocked
-        Health -= evt.Data.Damage;
+        Health =  Math.Max(0, Health - evt.Data.Damage);
     }
 
     public void OnDealDamage(DamageDealEvent evt)
