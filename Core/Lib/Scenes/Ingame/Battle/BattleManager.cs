@@ -73,7 +73,7 @@ public class BattleManager
     public async void DoRound()
     {
         // Assigns actions to all player controlled units
-        await _playerInput.HandlePlayerInput(_friendlies);
+        await _playerInput.HandlePlayerInput(_friendlies.Where(x => x.State == ParticipantState.Alive).ToList());
         var actions = new List<IBattleAction>();
         _friendlies.ForEach(participant =>
         {
@@ -128,7 +128,7 @@ public class BattleManager
         
         if (CheckForEndCondition()) return;
 
-        await Task.Delay(2000);
+        await Task.Delay(1000);
 
         Task.Run(DoRound);
     }

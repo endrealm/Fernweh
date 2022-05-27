@@ -71,7 +71,7 @@ public class MainMenuScene: Scene
         
         RenderText(spriteBatch, context, "Press any button to continue", 190, new Color(255, 255, 255) * (_alpha / 255f));
 
-        RenderText(spriteBatch, context, "Copyright 1993 EndRealm Network", 130, Color.White);
+        RenderText(spriteBatch, context, "Copyright 2022 EndRealm Network", 130, Color.White);
         RenderText(spriteBatch, context, "Fernweh and its logo are", 140, Color.White);
         RenderText(spriteBatch, context, "copyright owned by EndRealm", 150, Color.White);
         RenderText(spriteBatch, context, "All rights reserved", 160, Color.White);

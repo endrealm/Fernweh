@@ -3,6 +3,7 @@ using Core.Scenes.MainMenu;
 using Core.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 
 namespace Core.Scenes;
 
@@ -11,8 +12,6 @@ public class SettingsScene: Scene
     
     private IFontManager _fontManager;
     private readonly Scene _previousScene;
-
-    private bool _fullscreen = GameSettings.Instance.Fullscreen;
 
     public SettingsScene(IFontManager fontManager, Scene previousScene)
     {
@@ -27,23 +26,29 @@ public class SettingsScene: Scene
             SceneManager.LoadScene(_previousScene);
         }
         MenuPanel.Push();
-        Label.Put("Music Volume").PrefWidth = context.Camera.BoundingRectangle.Width/2;
+        Label.Put("Music Volume: " + (int)(GameSettings.Instance.Music*100) + "%").PrefWidth = context.Camera.BoundingRectangle.Width/2;
         Slider.Put(ref GameSettings.Instance.Music, 0, 1);
-        Label.Put("SFX Volume").PrefWidth = context.Camera.BoundingRectangle.Width/2;
+        Label.Put("SFX Volume: " + (int)(GameSettings.Instance.Sfx * 100) + "%").PrefWidth = context.Camera.BoundingRectangle.Width/2;
         Slider.Put(ref GameSettings.Instance.Sfx, 0, 1);
         Label.Put("Fullscreen").PrefWidth = context.Camera.BoundingRectangle.Width / 2;
-        Checkbox.Put(ref _fullscreen);
+        Checkbox.Put(ref GameSettings.Instance.Fullscreen);
+        Label.Put("Typing Speed: " + GameSettings.Instance.TypingSpeed).PrefWidth = context.Camera.BoundingRectangle.Width / 2;
+        Slider.Put(ref GameSettings.Instance.TypingSpeed, 0, 0.02f);
         Horizontal.Pop();
         MenuPanel.Pop();
 
-        GameSettings.Instance.Fullscreen = _fullscreen;
+        // round values + update graphics for fullscreen
+        GameSettings.Instance.Music = (float)Math.Round(GameSettings.Instance.Music, 2);
+        GameSettings.Instance.Sfx = (float)Math.Round(GameSettings.Instance.Sfx, 2);
+        GameSettings.Instance.TypingSpeed = (float)Math.Round(GameSettings.Instance.TypingSpeed, 3);
+        GameSettings.Instance.UpdateVideoSettings();
     }
 
 
 
     public override void Render(SpriteBatch spriteBatch, TopLevelRenderContext context)
     {
-        context.GraphicsDevice.Clear(Color.CornflowerBlue);
+        context.GraphicsDevice.Clear(Color.Coral);
     }
 }
 

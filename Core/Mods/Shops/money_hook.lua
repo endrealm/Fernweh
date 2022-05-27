@@ -19,7 +19,7 @@ function SetMoney(balance)
 end
 
 function HasMoney(balance) 
-    return GetMoney() > balance
+    return GetMoney() >= balance
 end
 
 function Purchase(balance)

@@ -7,18 +7,20 @@ public class GameSettings
     public delegate void SettingsChange();
     public event SettingsChange OnVideoSettingsChanged;
 
-    private bool _fullscreen = false;
-    public bool Fullscreen
-    {
-        get { return _fullscreen; }
-        set { OnVideoSettingsChanged.Invoke(); _fullscreen = value; }
-    }
-
     public float Music = 0f;
     public float Sfx = 0f;
+
+    public bool Fullscreen = false;
+
+    public float TypingSpeed = 0.01f;
 
     public GameSettings()
     {
         Instance = this;
+    }
+
+    public void UpdateVideoSettings()
+    {
+        OnVideoSettingsChanged.Invoke();
     }
 }

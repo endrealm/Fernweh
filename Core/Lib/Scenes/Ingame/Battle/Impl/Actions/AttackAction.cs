@@ -17,7 +17,6 @@ public class AttackAction: IBattleAction
 
     public async Task DoAction(ActionContext context)
     {
-        Participant.Defending = true;
         context.QueueAction(new LogTextAction("battle.action.attack", new TextReplacement("name", Participant.DisplayName), new TextReplacement("target", _target.DisplayName)));
         // Filter for dead targets if the spell does not allow this
         if (_target.State != ParticipantState.Alive)
@@ -26,7 +25,7 @@ public class AttackAction: IBattleAction
             context.QueueAction(new AwaitNextAction());
             return;
         }
-        context.QueueAction(new AwaitNextAction());
+        //context.QueueAction(new AwaitNextAction());
         var data = new DamageData(Participant.GetStats().Strength, Element.None);
         context.QueueAction(new DealDamageAction(data, Participant, new List<IBattleParticipant>() {_target}));
     }
