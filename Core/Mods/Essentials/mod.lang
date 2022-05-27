@@ -34,6 +34,11 @@
       "EN_US": "<color=\"Orange\">No valid target</color> remaining"
     }
   },
+  "ability.noMana": {
+    "translations": {
+      "EN_US": "{name} attempts at attacking but falls to their knees as they realize they <color=\"Orange\">don't have enough mana...</color>"
+    }
+  },
   "battle.dealDamage": {
     "translations": {
       "EN_US": "<color=\"Orange\">{target}</color> received <color=\"Red\">{damage} damage!</color>"

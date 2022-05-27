@@ -304,6 +304,8 @@ RegisterItem(EquipItem:new({
     price= 20,
     sellPrice= 15,
     abilities = {
+        power_stab = {},
+        spinning_slash = {},
         stats = {
             strength=4,
             dexterity=3,
@@ -317,6 +319,8 @@ RegisterItem(EquipItem:new({
     price= 30,
     sellPrice= 25,
     abilities = {
+        power_stab = {},
+        spinning_slash = {},
         stats = {
             strength=7,
             dexterity=2,
@@ -330,6 +334,7 @@ RegisterItem(EquipItem:new({
     price= 20,
     sellPrice= 15,
     abilities = {
+        power_stab = {},
         stats = {
             strength=6,
             dexterity=1,
@@ -343,6 +348,8 @@ RegisterItem(EquipItem:new({
     price= 30,
     sellPrice= 25,
     abilities = {
+        power_stab = {},
+        spinning_slash = {},
         stats = {
             strength=8,
         },
@@ -368,6 +375,7 @@ RegisterItem(EquipItem:new({
     price= 15,
     sellPrice= 10,
     abilities = {
+        power_stab = {},
         stats = {
             strength=4,
             dexterity=2,
@@ -381,6 +389,7 @@ RegisterItem(EquipItem:new({
     price= 15,
     sellPrice= 10,
     abilities = {
+        fire = {},
         stats = {
             intellect=3,
         },
@@ -390,9 +399,11 @@ RegisterItem(EquipItem:new({
 RegisterItem(EquipItem:new({
     id = "wooden_staff",
     slot="weapon",
-    price= 15,
+    price= 20,
     sellPrice= 15,
     abilities = {
+        fire = {},
+
         stats = {
             intellect=6,
             wisdom=1,
@@ -406,6 +417,8 @@ RegisterItem(EquipItem:new({
     price= 30,
     sellPrice= 25,
     abilities = {
+        fire = {},
+        blizzard = {},
         stats = {
             intellect=8,
             wisdom=3,
@@ -419,6 +432,8 @@ RegisterItem(EquipItem:new({
     price= 35,
     sellPrice= 30,
     abilities = {
+        power_stab = {},
+        spinning_slash = {},
         stats = {
             strength=8,
             dexterity=3,
@@ -432,6 +447,8 @@ RegisterItem(EquipItem:new({
     price= 35,
     sellPrice= 30,
     abilities = {
+        power_stab = {},
+        spinning_slash = {},
         stats = {
             strength=10,
         },

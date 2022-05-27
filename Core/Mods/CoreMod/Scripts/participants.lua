@@ -4,11 +4,11 @@
             return builder
                     :Health(15)
                     :Mana(5)
-                    :Strength(13)
+                    :Strength(11)
                     :Constitution(15)
                     :Dexterity(12)
-                    :AddAbility(abilityBuilder("test_ability"):Build())
-                    :AddAbility(abilityBuilder("test_ability_2"):Build())
+                    --:AddAbility(abilityBuilder("test_ability"):Build())
+                    --:AddAbility(abilityBuilder("test_ability_2"):Build())
                     :Build();
         end)
         :Build();
@@ -19,11 +19,9 @@ CreateParticipant("bandit")
             return builder
                     :Health(15)
                     :Mana(5)
-                    :Strength(11)
+                    :Strength(9)
                     :Constitution(13)
                     :Dexterity(16)
-                    :AddAbility(abilityBuilder("test_ability"):Build())
-                    :AddAbility(abilityBuilder("test_ability_2"):Build())
                     :Build();
         end)
         :Build();
@@ -37,8 +35,6 @@ CreateParticipant("tharmus")
                     :Strength(16)
                     :Constitution(20)
                     :Dexterity(14)
-                    :AddAbility(abilityBuilder("test_ability"):Build())
-                    :AddAbility(abilityBuilder("test_ability_2"):Build())
                     :Build();
         end)
         :Build();

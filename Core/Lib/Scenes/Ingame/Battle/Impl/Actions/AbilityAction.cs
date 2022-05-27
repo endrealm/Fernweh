@@ -35,7 +35,7 @@ public class AbilityAction : IBattleAction
 
         if (Participant.Mana < _ability.ManaCost)
         {
-            context.QueueAction(new LogTextAction("ability.noMana"));
+            context.QueueAction(new LogTextAction("ability.noMana", new TextReplacement("name", Participant.DisplayName)));
             context.QueueAction(new AwaitNextAction());
             return;
         }
@@ -57,7 +57,7 @@ public class AbilityAction : IBattleAction
             return;
         }
 
-        Participant.DeductMana(_ability.ManaCost);
+        //Participant.DeductMana(_ability.ManaCost); // Calling this will use double the mana?
 
         // Spell has been reflected
         if (spellEvent.Source != Participant) context.QueueAction(new LogTextAction("ability.reflected"));

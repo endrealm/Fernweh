@@ -31,7 +31,7 @@ end
 -- ============================
 -- Temp testing
 -- ============================
-AddToParty(Character:new({id = "Gardain", stats = {health=22, mana=6, strength=17, intellect=13, dexterity=10, constitution=16, wisdom=12, charisma=8}, equip = {weapon="knife", body="clothes", feet="shoes"}}))
+AddToParty(Character:new({id = "Gardain", stats = {health=22, mana=10, strength=17, intellect=13, dexterity=10, constitution=16, wisdom=12, charisma=8}, equip = {weapon="knife", body="clothes", feet="shoes"}}))
 -- AddToParty(Character:new({id = "Triss"}))
 -- AddToParty(Character:new({id = "Geralt"}))
 -- AddToParty(Character:new({id = "Ciri"}))
@@ -72,7 +72,7 @@ StateBuilder("tharmus_training_2")
     :Render(
             function(renderer, context)
                 renderer:AddText("tharmus.training.2")
-                AddToParty(Character:new({id = "Olma", stats = {health=23, mana=6, strength=15, intellect=9, dexterity=14, constitution=17, wisdom=11, charisma=12}, equip = {weapon="dagger", body="clothes", feet="fur_boots"}}))
+                AddToParty(Character:new({id = "Olma", stats = {health=23, mana=16, strength=15, intellect=9, dexterity=14, constitution=17, wisdom=11, charisma=12}, equip = {weapon="wooden_staff", body="clothes", feet="fur_boots"}}))
                 renderer:AddAction(function() context:StartBattle({"tharmus"}, "tharmus_training_finish") end, "button.battle")
             end
     )
@@ -148,7 +148,7 @@ StateBuilder("dolrom_quest2")
     :Render(
             function(renderer, context)
                 renderer:AddText("dolrom.quest.2")
-                AddToParty(Character:new({id = "Luneiros", stats = {health=20, mana=2, strength=8, intellect=10, dexterity=17, constitution=14, wisdom=10, charisma=12}, equip = {weapon="shortsword", body="leather_armor", feet="fur_boots"}}))
+                AddToParty(Character:new({id = "Luneiros", stats = {health=20, mana=12, strength=8, intellect=10, dexterity=17, constitution=14, wisdom=10, charisma=12}, equip = {weapon="halberd", body="leather_armor", feet="fur_boots"}}))
                 renderer:AddAction(function() context:Exit() end, "button.accept")
             end
     )
@@ -223,7 +223,7 @@ StateBuilder("kobold_camp1.5")
                 questProg:Set("3")
                 AddItem("halberd", 1)
                 renderer:AddText("koboldcamp.quest.1.5", { { "reward", AddMoney(50) } })
-                renderer:AddAction(function() context:ChangeState("game_conclusion") end, "button.leave")
+                renderer:AddAction(function() context:Exit() end, "button.leave")
             end
     )
     :Build()

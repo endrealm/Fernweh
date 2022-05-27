@@ -5,6 +5,7 @@ public enum Element
     None,
     Ice,
     Air,
+    Ground,
     Thunder,
     Water,
     Fire,
