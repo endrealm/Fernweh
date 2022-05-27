@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Core.Scenes.Ingame.Battle.Impl;
 using Core.Scenes.Ingame.Modes;
 using Core.Scenes.Ingame.Views;
+using Core.States;
 using Core.Utils;
 
 namespace Core.Scenes.Ingame.Battle;
@@ -19,14 +20,16 @@ public class BattleManager
     private readonly List<IBattleParticipant> _friendlies;
     private readonly List<IBattleParticipant> _enemies;
     private readonly Random _random = new Random();
+    private readonly IGlobalEventHandler _globalEventManager;
 
-    public BattleManager(IChatView chatView, BattleRegistry registry, BattleConfig config, IPlayerBattleInput playerInput, Action onWin, Action onLoose)
+    public BattleManager(IChatView chatView, BattleRegistry registry, BattleConfig config, IPlayerBattleInput playerInput, Action onWin, Action onLoose, IGlobalEventHandler globalEventManager)
     {
         _chatView = chatView;
         _registry = registry;
         _playerInput = playerInput;
         _onWin = onWin;
         _onLoose = onLoose;
+        _globalEventManager = globalEventManager;
         var enemyDict = new Dictionary<string, int>();
         _enemies = config.Enemies
             .Select(id =>
@@ -152,12 +155,23 @@ public class BattleManager
 
     private void PlayerLost()
     {
+        _globalEventManager.EmitPostBattle(false, CreateSnapshot());
         _onLoose.Invoke();
     } 
     
     private void PlayerWon()
     {
+        _globalEventManager.EmitPostBattle(true, CreateSnapshot());
         _onWin.Invoke();
+    }
+
+    private BattleSnapshot CreateSnapshot()
+    {
+        return new BattleSnapshot()
+        {
+            Friendlies = Friendlies.Select(participant => participant.CreateSnapshot()).ToList(),
+            Enemies = Enemies.Select(participant => participant.CreateSnapshot()).ToList(),
+        };
     }
 
     public bool IsFriendly(IBattleParticipant participant)

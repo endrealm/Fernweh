@@ -53,7 +53,8 @@ public class BattleMode : IMode
 
         var battleManager = new BattleManager(ChatView, _battleRegistry, config, _chatView, 
             () => LoadOverwoldState(victoryState),
-            () => LoadOverwoldState(looseState)
+            () => LoadOverwoldState(looseState),
+            _gameManager.EventHandler
         );
         _chatView.BattleManager = battleManager;
         _gameView.LoadBattle(battleManager);

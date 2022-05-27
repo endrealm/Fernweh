@@ -23,7 +23,7 @@ public class GameManager: ILoadable
     
     private Dictionary<string, IMode> _modes = new();
     private DynamicBattleSpriteManager _spriteManager = new ();
-    private readonly IGlobalEventHandler _eventHandler;
+    public IGlobalEventHandler EventHandler { get; }
     private const string SaveKey = "_internal:Mode";
 
 
@@ -32,7 +32,7 @@ public class GameManager: ILoadable
         _stateRegistry = stateRegistry;
         _gameSave = gameSave;
         _saveSystem = saveSystem;
-        _eventHandler = stateRegistry.GlobalEventHandler;
+        EventHandler = stateRegistry.GlobalEventHandler;
         SoundPlayer = new SoundManager();
         var overworld = new OverworldMode(this, stateRegistry.GlobalEventHandler, stateRegistry, fontManager, localizationManager, saveSystem, SoundPlayer);
         StateManager = overworld;
@@ -56,7 +56,7 @@ public class GameManager: ILoadable
     public void Load(ContentLoader content)
     {
         SoundPlayer.ScanForAudio(content);
-        _spriteManager.Load(content, _eventHandler);
+        _spriteManager.Load(content, EventHandler);
         foreach (var mode in _modes.Values)
         {
             mode.ChatView.Load(content);

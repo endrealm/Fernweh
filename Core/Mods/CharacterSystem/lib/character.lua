@@ -23,6 +23,7 @@ function Character:new(o)
     o.items = o.items or {}
     o.equip = o.equip or {}
     o.stats = o.stats or {}
+    o.current = o.current or {}
     
     -- Init base stats
     o.stats.health = o.stats.health or 10
@@ -40,6 +41,13 @@ function Character:new(o)
     return o
 end
 
+function Character:SetCurrentHealth(health)
+    self.current.health = health;
+end
+function Character:SetCurrentMana(mana)
+    self.current.mana = mana;
+end
+
 -- ============================
 -- Data Serialization
 -- ============================
@@ -49,6 +57,7 @@ function Character:Serialize()
         items = self.items,
         stats = self.stats,
         equip = self.equip,
+        current = self.current,
     }
 end
 
@@ -58,9 +67,10 @@ end
 
 
 function Character:Deserialize(data)
-    self.items = data.items
-    self.stats = data.stats
-    self.equip = data.equip
+    self.items = data.items;
+    self.stats = data.stats;
+    self.equip = data.equip;
+    self.current = data.current;
 end
 
 -- ============================
@@ -142,7 +152,16 @@ function Character:GenerateParticipant(createBuilder, abilityBuilder)
             :Constitution(self.stats.constitution)
             :Intellect(self.stats.intellect)
             :Wisdom(self.stats.wisdom)
-            :Charisma(self.stats.charisma)
+            :Charisma(self.stats.charisma);
+
+    -- Check if we have a different current health value
+    if(self.current.health ~= nil) then
+        builder:CurrentHealth(self.current.health)
+    end
+    -- Check if we have a different current mana value
+    if(self.current.mana ~= nil) then
+        builder:CurrentMana(self.current.mana)
+    end
 
     -- Load abilities from held items
     for _, value in ipairs(self:GetItems()) do

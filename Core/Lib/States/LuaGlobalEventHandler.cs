@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Core.Scenes.Ingame.Battle;
 using Core.Scenes.Ingame.Modes.Battle.Impl;
 using NLua;
 
@@ -11,6 +12,7 @@ public class LuaGlobalEventHandler: IGlobalEventHandler
     private readonly List<LuaFunction> _postStateRenderEventListeners = new();
     private readonly List<LuaFunction> _prePlayerMoveEventListeners = new();
     private readonly List<LuaFunction> _battleSpriteLoadListeners = new();
+    private readonly List<LuaFunction> _postBattleListeners = new();
 
     public LuaGlobalEventHandler AddOnPrePlayerMove(LuaFunction listener)
     {
@@ -38,6 +40,11 @@ public class LuaGlobalEventHandler: IGlobalEventHandler
         _battleSpriteLoadListeners.Add(listener);
         return this;
     }
+    public LuaGlobalEventHandler AddOnPostBattle(LuaFunction listener)
+    {
+        _postBattleListeners.Add(listener);
+        return this;
+    }
 
     public void EmitPreStateChangeEvent()
     {
@@ -57,6 +64,11 @@ public class LuaGlobalEventHandler: IGlobalEventHandler
     public void EmitLoadBattleSprites(DynamicBattleSpriteManager spriteManager)
     {
         _battleSpriteLoadListeners.ForEach(fun => fun.Call(spriteManager));
+    }
+
+    public void EmitPostBattle(bool victory, BattleSnapshot snapshot)
+    {
+        _postBattleListeners.ForEach(fun => fun.Call(victory, snapshot));
     }
 
     public void EmitPrePlayerMoveEvent()

@@ -67,6 +67,15 @@ function GetMembers()
     return currentParty;
 end
 
+function GetMemberById(id)
+    for index, value in ipairs(currentParty) do
+        if(id == value.id) then
+            return value;
+        end
+    end
+    return nil;
+end
+
 -- ============================
 -- Events
 -- ============================
@@ -76,6 +85,19 @@ RegisterFriendlyParticipantsProvider(function(builder, abilityBuilder)
         table.insert(participants, character:GenerateParticipant(builder, abilityBuilder))
     end
     return participants
+end)
+
+Global:AddOnPostBattle(function(victory, snapshot)
+    print("Starting party post battle save")
+    for candidateCount = 0, snapshot.Friendlies.Count - 1 do
+        local candidate = snapshot.Friendlies[candidateCount]
+        local id = candidate.Config.Id
+        local char = GetMemberById(id)
+        if(char ~= nil) then
+            char:SetCurrentHealth(candidate.Health)
+            char:SetCurrentMana(candidate.Mana)
+        end
+    end
 end)
 
 -- ============================

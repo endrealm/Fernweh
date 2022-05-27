@@ -19,8 +19,9 @@ public class BasicParticipant : IBattleParticipant
         _config = config;
         ParticipantId = participantId;
         GroupId = groupId;
-        Health = config.Stats.Health;
-        Mana = config.Stats.Mana;
+        var stats = GetStats();
+        Health = config.Health < 0 ? stats.Health : Math.Min(stats.Health, config.Health);
+        Mana = config.Mana < 0 ? stats.Mana : Math.Min(stats.Mana, config.Mana);
     }
 
     #region Events
@@ -137,5 +138,15 @@ public class BasicParticipant : IBattleParticipant
     public void DeductMana(int mana)
     {
         Mana = Math.Max(0, Mana - mana);
+    }
+
+    public ParticipantSnapshot CreateSnapshot()
+    {
+        return new ParticipantSnapshot()
+        {
+            Config = _config,
+            Health = Health,
+            Mana = Mana,
+        };
     }
 }

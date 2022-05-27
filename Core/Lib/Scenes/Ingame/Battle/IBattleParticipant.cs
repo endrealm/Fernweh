@@ -34,4 +34,5 @@ public interface IBattleParticipant : IBattleEventReceiver
     public void UpdateParticipantState(ActionContext updateContext);
 
     void DeductMana(int mana);
+    ParticipantSnapshot CreateSnapshot();
 }

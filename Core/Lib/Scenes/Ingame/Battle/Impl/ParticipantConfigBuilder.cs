@@ -7,6 +7,8 @@ public class ParticipantConfigBuilder
 {
     private readonly string _id;
     private Stats _stats = new();
+    private int _health = -1;
+    private int _mana = -1;
     private List<AbilityConfig> _abilities = new();
 
     public ParticipantConfigBuilder(string id)
@@ -14,6 +16,16 @@ public class ParticipantConfigBuilder
         _id = id;
     }
 
+    public ParticipantConfigBuilder CurrentHealth(int value)
+    {
+        _health = value;
+        return this;
+    }
+    public ParticipantConfigBuilder CurrentMana(int value)
+    {
+        _mana = value;
+        return this;
+    }
     public ParticipantConfigBuilder Health(int value)
     {
         _stats.Health = value;
@@ -73,7 +85,9 @@ public class ParticipantConfigBuilder
         return new ParticipantConfig(
             _id,
             _stats,
-            _abilities
+            _abilities,
+            _health,
+            _mana
         );
     }
 }
