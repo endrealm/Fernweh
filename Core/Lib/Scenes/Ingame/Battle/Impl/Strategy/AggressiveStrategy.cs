@@ -12,7 +12,7 @@ public class AggressiveStrategy: AbstractStrategy
         var highestAbility = GetValidAbilities(participant)
             .SelectMany(ability =>
             {
-                return GetTargets(manager, participant, ability.TargetType)
+                return GetTargets(manager, participant, ability.TargetType, ability.AllowDeadTargets, ability.AllowLivingTargets)
                     .Select(targets =>
                     {
                         return new WrappedAction(() => ability.ProduceAction(participant, targets),

@@ -18,11 +18,29 @@ public abstract class AbstractStrategy: IBattleStrategy
         return participant.GetAbilities().Where(ability => ability.ManaCost >= participant.Mana);
     }
 
-    protected List<List<IBattleParticipant>> GetTargets(BattleManager manager, IBattleParticipant participant, AbilityTargetType type)
+    protected List<List<IBattleParticipant>> GetTargets(BattleManager manager, IBattleParticipant participant, AbilityTargetType type, bool allowDeadTargets = false, bool allowLivingTargets = true)
     {
-        return manager.IsFriendly(participant) ? 
+        var results = manager.IsFriendly(participant) ? 
             TargetTypeUtils.GetTargetsByType(manager.Enemies, manager.Friendlies, manager.All, type) 
             : TargetTypeUtils.GetTargetsByType(manager.Friendlies, manager.Enemies, manager.All, type);
+
+        return results.Where(targets =>
+        {
+            // Filter for dead targets if the spell does not allow this
+            if (!allowDeadTargets)
+            {
+                targets.RemoveAll(target => target.State == ParticipantState.Dead);
+            }
+
+            // Filter for living if only dead are allowed
+            if (!allowLivingTargets)
+            {
+                targets.RemoveAll(target => target.State == ParticipantState.Alive);
+            }
+
+            // skip now empty target groupings
+            return targets.Count != 0;
+        }).ToList();
     }
 
     protected WeightConfig CalculateAttackWeight(IBattleParticipant participant)
