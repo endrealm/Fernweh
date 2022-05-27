@@ -7,6 +7,16 @@ IsUI = uiCompat:GetFunc("IsUI")
 OldState = uiCompat:GetVar("OldState")
 
 -- ============================
+-- Stats approximation
+-- ============================
+
+local statsAbilityApproximationHandlers = {}
+
+function AddStatApproximationHandler(callback)
+    table.insert(statsAbilityApproximationHandlers, callback)
+end
+
+-- ============================
 -- INVENTORY
 -- ============================
 inventory = {}
@@ -148,6 +158,16 @@ function Item:DisplayName()
     return GetTranslation("item."..self.id..".name")
 end
 
+
+function Item:GetApproximateStats()
+    local stats = {}
+    for i, v in ipairs(statsAbilityApproximationHandlers) do
+        v(self, stats)
+    end
+    return stats
+end
+
+
 function Item:ParseAbility(abilityBuilder)
     if(self.abilities == nil) then
         return nil
@@ -210,6 +230,7 @@ Global:AddOnPostStateRender(
 -- ============================
 -- EXPORTS
 -- ============================
+Context:CreateFunc("AddStatApproximationHandler", AddStatApproximationHandler)
 Context:CreateFunc("AddItem", AddItem)
 Context:CreateFunc("GetInventoryStack", GetInventoryStack)
 Context:CreateFunc("GetAmount", GetInventoryStack) -- alternative name for GetInventoryStack

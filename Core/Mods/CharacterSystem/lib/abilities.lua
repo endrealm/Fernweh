@@ -1,4 +1,6 @@
-﻿CreateAbility("stats")
+﻿local AddStatApproximationHandler = Import("inventory", "api"):GetFunc("AddStatApproximationHandler")
+
+CreateAbility("stats")
         :Instantiate(
         function(builder, config)
             return builder
@@ -37,3 +39,18 @@
 
         end)
         :Build();
+
+AddStatApproximationHandler(function(item, stats)
+    if(item.abilities == nil) then
+        return
+    end
+
+    for key, value in pairs(item.abilities) do
+        if(key == "stats") then
+            for statKey, statValue in pairs(value) do
+                stats[statKey] = (stats[statKey] or 0) + statValue;
+            end
+        end
+    end
+
+end)

@@ -48,6 +48,19 @@ function Character:SetCurrentMana(mana)
     self.current.mana = mana;
 end
 
+function Character:GetItemStats()
+    local stats = {}
+    for i, item in ipairs(self:GetEquip()) do
+        local itemStats = item:GetApproximateStats();
+
+        for statKey, statValue in pairs(itemStats) do
+            stats[statKey] = (stats[statKey] or 0) + statValue;
+        end
+    end
+    
+    return stats
+end
+
 -- ============================
 -- Data Serialization
 -- ============================
