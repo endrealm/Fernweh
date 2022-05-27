@@ -124,18 +124,18 @@ public class BaseChatView : IChatView
     public void Update(float deltaTime, IngameUpdateContext context)
     {
         var tempRunningComponents = new List<IChatComponent>(RunningComponents);
-        var offsetY = 0f;
+        var offsetY = 0f + -_scrollOffset;
         tempRunningComponents.ForEach(component =>
         {
             component.Update(deltaTime, new ChatUpdateContext(context, new Vector2(XMargin, offsetY)));
             offsetY += component.Dimensions.Y;
         });
 
+        _lastFrameHeight = offsetY + _scrollOffset;
+        
         if (_sticky && context.TopLevelUpdateContext.ClickInput.ScrollWheelValue != 0) _sticky = false;
 
         _scrollOffset += context.TopLevelUpdateContext.ClickInput.ScrollWheelValue*-.05f;
-
-        _lastFrameHeight = offsetY;
     }
     
     public IChatComponent AddText(string key, Action callback = null, params IReplacement[] replacements)

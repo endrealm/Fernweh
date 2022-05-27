@@ -1,4 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using MonoGame.Extended;
 
 namespace Core.Utils.Math;
 
@@ -23,5 +25,10 @@ public class RectangleShape: IShape
     public IShape WithOffset(Vector2 offset)
     {
         return new RectangleShape(Position + offset, Width, Height);
+    }
+
+    public void DebugDraw(SpriteBatch spriteBatch, Color color)
+    {
+        spriteBatch.DrawRectangle(new RectangleF(Position.X, Position.Y, Width, Height), color);
     }
 }

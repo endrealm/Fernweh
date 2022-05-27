@@ -55,6 +55,9 @@ public class CompoundTextComponent: BaseComponent
             component.Render(spriteBatch, new ChatRenderContext(context.Position + new Vector2(0, yOffset)));
             yOffset += component.Dimensions.Y - component.LastLineHeight;
         }
+        
+        // Debug text shape
+        // Shape.WithOffset(context.Position).DebugDraw(spriteBatch, Color.Red);
     }
 
     public override float MaxWidth
