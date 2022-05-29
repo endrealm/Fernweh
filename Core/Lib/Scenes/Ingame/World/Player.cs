@@ -53,7 +53,6 @@ namespace Core.Scenes.Ingame.World
         public void Load(ContentLoader content)
         {
             _sprite = content.Load<Texture2D>("Sprites/player.png");
-            _soundPlayer.PlaySong("overworld");
         }
 
         public void TeleportPlayer(Vector2 mapPos) // can be used to move to spawn

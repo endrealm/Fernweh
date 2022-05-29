@@ -18,6 +18,7 @@ public class BattleMode : IMode
 
     public IGameView GameView => _gameView;
 
+    private readonly ISoundPlayer _soundPlayer;
     private readonly GameManager _gameManager;
     private readonly BattleRegistry _battleRegistry;
     private readonly BattleGameView _gameView;
@@ -29,10 +30,12 @@ public class BattleMode : IMode
         IBattleSpriteManager spriteManager, 
         BattleRegistry battleRegistry, 
         ILocalizationManager localizationManager, 
-        IFontManager fontManager
+        IFontManager fontManager,
+        ISoundPlayer soundPlayer
     ) {
         _gameManager = gameManager;
         _battleRegistry = battleRegistry;
+        _soundPlayer = soundPlayer;
 
         _chatView = new BattleChatView(localizationManager, fontManager);
         _gameView = new BattleGameView(spriteManager, fontManager, localizationManager);
@@ -40,6 +43,8 @@ public class BattleMode : IMode
 
     public void Load(ModeParameters parameters)
     {
+        _soundPlayer.PlaySong("battle");
+
         var config = parameters.GetValue<BattleConfig>("config");
         var victoryState = parameters.GetValue<string>("victoryState");
         var looseState = parameters.GetValue<string>("looseState");

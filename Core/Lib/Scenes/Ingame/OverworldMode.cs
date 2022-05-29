@@ -16,6 +16,7 @@ public class OverworldMode: IMode, IStateManager
     private readonly IFontManager _fontManager;
     private readonly ILocalizationManager _localizationManager;
     private readonly ISaveSystem _saveSystem;
+    private readonly ISoundPlayer _soundPlayer;
     private readonly StateChatView _chatView;
     public WorldGameView worldGameView;
     private string _weakNextId;
@@ -41,6 +42,7 @@ public class OverworldMode: IMode, IStateManager
         _fontManager = fontManager;
         _localizationManager = localizationManager;
         _saveSystem = saveSystem;
+        _soundPlayer = soundPlayer;
         _chatView = new StateChatView(localizationManager, fontManager);
         worldGameView = new WorldGameView(eventHandler, this, soundPlayer);
         GameView = worldGameView;
@@ -55,7 +57,9 @@ public class OverworldMode: IMode, IStateManager
     public IGameView GameView { get; }
     public void Load(ModeParameters parameters)
     {
-        if(parameters.HasKey("state"))
+        _soundPlayer.PlaySong("overworld");
+
+        if (parameters.HasKey("state"))
         {
             LoadState(parameters.GetValue<string>("state"));
         }

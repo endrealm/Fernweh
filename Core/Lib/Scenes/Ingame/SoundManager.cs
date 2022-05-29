@@ -11,6 +11,7 @@ namespace Core.Scenes.Ingame
     {
         private Dictionary<string, SoundEffect> _sounds = new();
         private Dictionary<string, SoundEffect> _songs = new();
+        private SoundEffectInstance _currentSong;
 
         public void ScanForAudio(ContentLoader content)
         {
@@ -46,10 +47,12 @@ namespace Core.Scenes.Ingame
         {
             if (!_songs.ContainsKey(name)) return;
 
-            var instance = _songs[name].CreateInstance();
-            instance.Volume = GameSettings.Instance.Music;
-            instance.IsLooped = true;
-            instance.Play();
+            if(_currentSong != null) _currentSong.Dispose();
+
+            _currentSong = _songs[name].CreateInstance();
+            _currentSong.Volume = GameSettings.Instance.Music;
+            _currentSong.IsLooped = true;
+            _currentSong.Play();
         }
     }
 }
