@@ -28,6 +28,17 @@ function Random(amount)
     return math.random(1, amount);
 end
 
+function StartEncounter(renderer, context, translation, enemies, chance)
+	if(Random(100) <= chance)
+    then
+        renderer:AddText(translation)
+        renderer:AddAction(function() context:StartBattle(enemies) end, "button.battle")
+        renderer:AddAction(function() context:Exit() end, "button.battle.run")
+    else
+        context:Exit()
+    end
+end
+
 -- ============================
 -- Temp testing
 -- ============================
@@ -236,14 +247,7 @@ BlackListState("enter_snow")
 StateBuilder("enter_snow")
         :Render(
                 function(renderer, context)
-                    if(Random(10) <= 4)
-                    then
-                        renderer:AddText("encounter.wolf")
-                        renderer:AddAction(function() context:StartBattle({"wolf"}) end, "button.battle")
-                        renderer:AddAction(function() context:Exit() end, "button.battle.run")
-                    else
-                        context:Exit()
-                    end
+                    StartEncounter(renderer, context, "encounter.wolf", {"wolf"}, 40)
                 end
         )
         :Build()
@@ -252,14 +256,7 @@ BlackListState("enter_forest")
 StateBuilder("enter_forest")
         :Render(
                 function(renderer, context)
-                    if(Random(10) <= 6)
-                    then
-                        renderer:AddText("encounter.wolf")
-                        renderer:AddAction(function() context:StartBattle({"wolf", "bandit"}) end, "button.battle")
-                        renderer:AddAction(function() context:Exit() end, "button.battle.run")
-                    else
-                        context:Exit()
-                    end
+                    StartEncounter(renderer, context, "encounter.wolf", {"wolf", "bandit"}, 50)
                 end
         )
         :Build()
@@ -268,14 +265,7 @@ BlackListState("enter_path")
 StateBuilder("enter_path")
         :Render(
                 function(renderer, context)
-                    if(Random(10) <= 3)
-                    then
-                        renderer:AddText("encounter.bandit")
-                        renderer:AddAction(function() context:StartBattle({"bandit", "bandit"}) end, "button.battle")
-                        renderer:AddAction(function() context:Exit() end, "button.battle.run")
-                    else
-                        context:Exit()
-                    end
+                    StartEncounter(renderer, context, "encounter.bandit", {"bandit", "bandit"}, 20)
                 end
         )
         :Build()
@@ -284,14 +274,7 @@ BlackListState("enter_ice")
 StateBuilder("enter_ice")
         :Render(
                 function(renderer, context)
-                    if(Random(10) <= 5)
-                    then
-                        renderer:AddText("encounter.wolf")
-                        renderer:AddAction(function() context:StartBattle({"wolf", "wolf"}) end, "button.battle") 
-                        renderer:AddAction(function() context:Exit() end, "button.battle.run")
-                    else
-                        context:Exit()
-                    end
+                    StartEncounter(renderer, context, "encounter.wolf", {"wolf", "wolf"}, 30)
                 end
         )
         :Build()
@@ -302,40 +285,40 @@ StateBuilder("enter_ice")
 
 BlackListState("first_enter_snow")
 StateBuilder("first_enter_snow")
-:ClearScreenPost(false)
         :Render(
                 function(renderer, context)
-                    renderer:AddText("enter.snow", function() context:ChangeState("enter_snow") end)
+                    renderer:AddText("enter.snow")
+                    StartEncounter(renderer, context, "encounter.wolf", {"wolf"}, 40)
                 end
         )
         :Build()
 
 BlackListState("first_enter_forest")
 StateBuilder("first_enter_forest")
-:ClearScreenPost(false)
         :Render(
                 function(renderer, context)
-                    renderer:AddText("enter.forest", function() context:ChangeState("enter_forest") end)
+                    renderer:AddText("enter.forest")
+                    StartEncounter(renderer, context, "encounter.wolf", {"wolf", "bandit"}, 50)
                 end
         )
         :Build()
 
 BlackListState("first_enter_path")
 StateBuilder("first_enter_path")
-:ClearScreenPost(false)
         :Render(
                 function(renderer, context)
-                    renderer:AddText("enter.path", function() context:ChangeState("enter_path") end)
+                    renderer:AddText("enter.path")
+                    StartEncounter(renderer, context, "encounter.bandit", {"bandit", "bandit"}, 20)
                 end
         )
         :Build()
 
 BlackListState("first_enter_ice")
 StateBuilder("first_enter_ice")
-:ClearScreenPost(false)
         :Render(
                 function(renderer, context)
-                    renderer:AddText("enter.ice", function() context:ChangeState("enter_ice") end)
+                    renderer:AddText("enter.ice")
+                    StartEncounter(renderer, context, "encounter.wolf", {"wolf", "wolf"}, 30)
                 end
         )
         :Build()
