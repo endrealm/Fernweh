@@ -28,6 +28,7 @@ public class AttackAction: IBattleAction
         //context.QueueAction(new AwaitNextAction());
         var data = new DamageData(Participant.GetStats().Strength, Element.None);
         context.QueueAction(new DealDamageAction(data, Participant, new List<IBattleParticipant>() {_target}));
+        context.SoundPlayer.PlaySFX("damage_small");
     }
 
     public int Priority => 99999999; // Defends trigger at beginning

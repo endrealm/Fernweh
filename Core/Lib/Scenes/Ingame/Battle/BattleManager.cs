@@ -21,8 +21,9 @@ public class BattleManager
     private readonly List<IBattleParticipant> _enemies;
     private readonly Random _random = new Random();
     private readonly IGlobalEventHandler _globalEventManager;
+    private readonly ISoundPlayer _soundPlayer;
 
-    public BattleManager(IChatView chatView, BattleRegistry registry, BattleConfig config, IPlayerBattleInput playerInput, Action onWin, Action onLoose, IGlobalEventHandler globalEventManager)
+    public BattleManager(IChatView chatView, BattleRegistry registry, BattleConfig config, IPlayerBattleInput playerInput, Action onWin, Action onLoose, IGlobalEventHandler globalEventManager, ISoundPlayer soundPlayer)
     {
         _chatView = chatView;
         _registry = registry;
@@ -30,6 +31,7 @@ public class BattleManager
         _onWin = onWin;
         _onLoose = onLoose;
         _globalEventManager = globalEventManager;
+        _soundPlayer = soundPlayer;
         var enemyDict = new Dictionary<string, int>();
         _enemies = config.Enemies
             .Select(id =>
@@ -109,14 +111,14 @@ public class BattleManager
                 continue;
             }
             
-            var context = new ActionContext(_chatView);
+            var context = new ActionContext(_chatView, _soundPlayer);
             await action.DoAction(context);
             actionQueue.AddRange(context.GetActionList());
 
             if (action.CausesStateCheck)
             {
                 // Check for any changed states
-                var updateContext = new ActionContext(_chatView);
+                var updateContext = new ActionContext(_chatView, _soundPlayer);
                 _friendlies.ForEach(participant => participant.UpdateParticipantState(updateContext));
                 _enemies.ForEach(participant => participant.UpdateParticipantState(updateContext));
                 actionQueue.AddRange(updateContext.GetActionList());

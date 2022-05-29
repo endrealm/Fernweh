@@ -10,11 +10,14 @@ namespace Core.Scenes.Ingame.Battle;
 
 public class ActionContext
 {
+    public ISoundPlayer SoundPlayer { get; set; }
+
     private readonly IChatView _chatView;
     private readonly List<IBattleAction> _actions = new();
 
-    public ActionContext(IChatView chatView)
+    public ActionContext(IChatView chatView, ISoundPlayer soundPlayer)
     {
+        SoundPlayer = soundPlayer;
         _chatView = chatView;
     }
     

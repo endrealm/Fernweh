@@ -130,6 +130,7 @@ public class BasicParticipant : IBattleParticipant
         if (State == ParticipantState.Alive)
         {
             updateContext.QueueAction(new LogTextAction("battle.participant.death", new TextReplacement("name", DisplayName)));
+            updateContext.SoundPlayer.PlaySFX("death");
             updateContext.QueueAction(new AwaitNextAction());
         }
         State = ParticipantState.Dead;

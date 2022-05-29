@@ -234,7 +234,6 @@ StateBuilder("kobold_camp1.5")
 
 BlackListState("enter_snow")
 StateBuilder("enter_snow")
-:ClearScreenPost(false)
         :Render(
                 function(renderer, context)
                     if(Random(10) <= 4)
@@ -251,7 +250,6 @@ StateBuilder("enter_snow")
 
 BlackListState("enter_forest")
 StateBuilder("enter_forest")
-:ClearScreenPost(false)
         :Render(
                 function(renderer, context)
                     if(Random(10) <= 6)
@@ -268,7 +266,6 @@ StateBuilder("enter_forest")
 
 BlackListState("enter_path")
 StateBuilder("enter_path")
-:ClearScreenPost(false)
         :Render(
                 function(renderer, context)
                     if(Random(10) <= 3)
@@ -285,7 +282,6 @@ StateBuilder("enter_path")
 
 BlackListState("enter_ice")
 StateBuilder("enter_ice")
-:ClearScreenPost(false)
         :Render(
                 function(renderer, context)
                     if(Random(10) <= 5)
