@@ -26,9 +26,7 @@
   },
   "tharmus.training.3": {
     "translations": {
-      "EN_US": "\"Alright i think you'll do about good as any other warrior from Farcross, how about you head down there to the House of Mercenaries office and see what mission Dolrom has for you. Take {reward} gold and buy yourself a weapon too!\"
-
-Olma decides to join your party."
+      "EN_US": "\"Alright i think you'll do about good as any other warrior from Farcross, how about you head down there to the House of Mercenaries office and see what mission Dolrom has for you. Take <color=\"Yellow\">{reward} gold</color> and buy yourself a weapon too!\" <color=\"Green\">Olma decides to join your party.</color>"
     }
   },
   "tharmus.training.4": {
@@ -67,7 +65,7 @@ The next room has a loud scratching sound, slowly peering around the corner you 
   },
   "dolrom.quest.1.5": {
     "translations": {
-      "EN_US": "\"Oh thank you so much for the help!\", cries the vendor. He pays you {reward} gold, and leads you out."
+      "EN_US": "\"Oh thank you so much for the help!\", cries the vendor. He pays you <color=\"Yellow\">{reward} gold</color>, and leads you out."
     }
   },
   "dolrom.quest.2": {
@@ -104,7 +102,7 @@ Dolrom instructs you to raid a kobold camp with a ranger Luneiros located at the
   },
   "koboldcamp.quest.1.5": {
     "translations": {
-      "EN_US": "Satisfied with the quite sounds of the once busy camp you search around for loot. You find a halberd and {reward} gold."
+      "EN_US": "Satisfied with the quite sounds of the once busy camp you search around for loot. You find a <color=\"Yellow\">halberd and {reward} gold</color>."
     }
   },
   "koboldcamp.quest.1.6": {

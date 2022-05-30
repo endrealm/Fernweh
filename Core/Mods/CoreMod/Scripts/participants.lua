@@ -4,7 +4,7 @@
             return builder
                     :Health(15)
                     :Mana(5)
-                    :Strength(11)
+                    :Strength(10)
                     :Constitution(15)
                     :Dexterity(12)
                     --:AddAbility(abilityBuilder("test_ability"):Build())
@@ -32,7 +32,7 @@ CreateParticipant("tharmus")
             return builder
                     :Health(90)
                     :Mana(10)
-                    :Strength(16)
+                    :Strength(14)
                     :Constitution(20)
                     :Dexterity(14)
                     :Build();
