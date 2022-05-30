@@ -285,6 +285,7 @@ StateBuilder("enter_ice")
 
 BlackListState("first_enter_snow")
 StateBuilder("first_enter_snow")
+:ClearScreenPost(false)
         :Render(
                 function(renderer, context)
                     renderer:AddText("enter.snow")
@@ -295,6 +296,7 @@ StateBuilder("first_enter_snow")
 
 BlackListState("first_enter_forest")
 StateBuilder("first_enter_forest")
+:ClearScreenPost(false)
         :Render(
                 function(renderer, context)
                     renderer:AddText("enter.forest")
@@ -305,6 +307,7 @@ StateBuilder("first_enter_forest")
 
 BlackListState("first_enter_path")
 StateBuilder("first_enter_path")
+:ClearScreenPost(false)
         :Render(
                 function(renderer, context)
                     renderer:AddText("enter.path")
@@ -315,6 +318,7 @@ StateBuilder("first_enter_path")
 
 BlackListState("first_enter_ice")
 StateBuilder("first_enter_ice")
+:ClearScreenPost(false)
         :Render(
                 function(renderer, context)
                     renderer:AddText("enter.ice")

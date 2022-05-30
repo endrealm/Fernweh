@@ -22,6 +22,7 @@ public class BasicParticipant : IBattleParticipant
         var stats = GetStats();
         Health = config.Health < 0 ? stats.Health : Math.Min(stats.Health, config.Health);
         Mana = config.Mana < 0 ? stats.Mana : Math.Min(stats.Mana, config.Mana);
+        State = Health > 0 ? ParticipantState.Alive : ParticipantState.Dead;
     }
 
     #region Events

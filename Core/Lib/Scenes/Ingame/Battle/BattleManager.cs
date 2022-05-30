@@ -77,6 +77,8 @@ public class BattleManager
 
     public async void DoRound()
     {
+        if (CheckForEndCondition()) return;
+
         // Assigns actions to all player controlled units
         await _playerInput.HandlePlayerInput(_friendlies.Where(x => x.State == ParticipantState.Alive).ToList());
         var actions = new List<IBattleAction>();
