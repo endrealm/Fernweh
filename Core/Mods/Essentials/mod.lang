@@ -9,6 +9,16 @@
       "EN_US": "{name} takes a <color=\"LightBlue\">defensive</color> stance!"
     }
   },
+  "battle.action.healHealth": {
+    "translations": {
+      "EN_US": "{name} restores <color=\"Green\">{amount} health</color> for <color=\"Orange\">{target}</color>"
+    }
+  },
+  "battle.action.healMana": {
+    "translations": {
+      "EN_US": "{name} restores <color=\"LightBlue\">{amount} mana</color> for <color=\"Orange\">{target}</color>"
+    }
+  },
   "battle.select.target": {
     "translations": {
       "EN_US": "Select a target:"

@@ -12,7 +12,6 @@
                         }, context.Participant, context.Targets))
                     end)
                     :Build();
-
         end)
         :Build();
 
@@ -30,7 +29,22 @@ CreateAbility("blizzard")
                         }, context.Participant, context.Targets))
                     end)
                     :Build();
+        end)
+        :Build();
 
+CreateAbility("heal")
+        :Instantiate(
+        function(builder, config)
+            return builder
+                    :TargetType(0)
+                    :ManaCost(4)
+                    :OnUse(
+                    function(context)
+                        context:QueueAction(BattleAction:HealHealth({
+                            Health = 20
+                        }, context.Participant, context.Targets))
+                    end)
+                    :Build();
         end)
         :Build();
 
@@ -48,7 +62,6 @@ CreateAbility("power_stab")
                         }, context.Participant, context.Targets))
                     end)
                     :Build();
-
         end)
         :Build();
 
@@ -66,7 +79,6 @@ CreateAbility("spinning_slash")
                         }, context.Participant, context.Targets))
                     end)
                     :Build();
-
         end)
         :Build();
 

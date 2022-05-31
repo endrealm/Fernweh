@@ -137,6 +137,20 @@ public class BasicParticipant : IBattleParticipant
         State = ParticipantState.Dead;
     }
 
+    public int HealHealth(int health)
+    {
+        var amount = Math.Min(_config.Stats.Health, Health + health) - Health;
+        Health = amount + Health;
+        return amount;
+    }
+
+    public int HealMana(int mana)
+    {
+        var amount = Math.Min(_config.Stats.Mana, Mana + mana) - Mana;
+        Mana = amount + Mana;
+        return amount;
+    }
+
     public void DeductMana(int mana)
     {
         Mana = Math.Max(0, Mana - mana);

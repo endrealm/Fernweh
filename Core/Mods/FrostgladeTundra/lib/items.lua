@@ -403,7 +403,7 @@ RegisterItem(EquipItem:new({
     sellPrice= 15,
     abilities = {
         fire = {},
-
+        heal = {},
         stats = {
             intellect=6,
             wisdom=1,
@@ -418,6 +418,7 @@ RegisterItem(EquipItem:new({
     sellPrice= 25,
     abilities = {
         fire = {},
+        heal = {},
         blizzard = {},
         stats = {
             intellect=8,

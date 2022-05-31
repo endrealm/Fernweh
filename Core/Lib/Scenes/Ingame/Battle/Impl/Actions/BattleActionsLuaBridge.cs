@@ -23,4 +23,14 @@ public class BattleActionsLuaBridge
     {
         return new DealDamageAction(new DamageData((int)(long)data["Damage"], (Element)(int)(long)data["Element"]), actor, targets);
     }
+
+    public IBattleAction HealHealth (LuaTable data, IBattleParticipant actor, List<IBattleParticipant> targets)
+    {
+        return new HealHealthAction(actor, targets, (int)(long)data["Health"]);
+    }
+
+    public IBattleAction HealMana(LuaTable data, IBattleParticipant actor, List<IBattleParticipant> targets)
+    {
+        return new HealManaAction(actor, targets, (int)(long)data["Mana"]);
+    }
 }

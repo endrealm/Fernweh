@@ -31,7 +31,7 @@ public class AttackAction: IBattleAction
         context.SoundPlayer.PlaySFX("damage_small");
     }
 
-    public int Priority => 99999999; // Defends trigger at beginning
+    public int Priority => Participant.GetStats().Dexterity; // Defends trigger at beginning
     public bool AllowDeath { get; } = false;
     public bool CausesStateCheck { get; } = false;
 }

@@ -61,7 +61,6 @@ public class AbilityAction : IBattleAction
 
         // Spell has been reflected
         if (spellEvent.Source != Participant) context.QueueAction(new LogTextAction("ability.reflected"));
-        context.QueueAction(new AwaitNextAction());
         _ability.Use(new AbilityUseContext(context, spellEvent.Source, spellEvent.Targets));
     }
 

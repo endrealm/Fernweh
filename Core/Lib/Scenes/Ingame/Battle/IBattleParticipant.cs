@@ -33,6 +33,8 @@ public interface IBattleParticipant : IBattleEventReceiver
     /// <param name="updateContext"></param>
     public void UpdateParticipantState(ActionContext updateContext);
 
+    int HealHealth(int health);
+    int HealMana(int mana);
     void DeductMana(int mana);
     ParticipantSnapshot CreateSnapshot();
 }
