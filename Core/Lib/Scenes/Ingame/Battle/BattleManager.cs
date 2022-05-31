@@ -13,7 +13,7 @@ namespace Core.Scenes.Ingame.Battle;
 public class BattleManager
 {
     private readonly IChatView _chatView;
-    private readonly BattleRegistry _registry;
+    public BattleRegistry Registry { get; }
     private readonly IPlayerBattleInput _playerInput;
     private readonly Action _onWin;
     private readonly Action _onLoose;
@@ -26,7 +26,7 @@ public class BattleManager
     public BattleManager(IChatView chatView, BattleRegistry registry, BattleConfig config, IPlayerBattleInput playerInput, Action onWin, Action onLoose, IGlobalEventHandler globalEventManager, ISoundPlayer soundPlayer)
     {
         _chatView = chatView;
-        _registry = registry;
+        Registry = registry;
         _playerInput = playerInput;
         _onWin = onWin;
         _onLoose = onLoose;
@@ -48,7 +48,7 @@ public class BattleManager
                 return CreateParticipant(id+ " " + index, registry.GetParticipantFactory(id).Produce());
             })
             .ToList();
-        _friendlies = _registry.FriendlyParticipantsProvider.Load().Select(config1 => CreateParticipant(config1.Id, config1)).ToList();
+        _friendlies = Registry.FriendlyParticipantsProvider.Load().Select(config1 => CreateParticipant(config1.Id, config1)).ToList();
     }
 
     public List<IBattleParticipant> Enemies => _enemies;
@@ -69,7 +69,7 @@ public class BattleManager
         var participant = new BasicParticipant(particpantId, config.Id, config);
         config.Abilities.ForEach(abilityConfig =>
         {
-            var ability = _registry.GetAbilityFactory(abilityConfig.Id).Produce(abilityConfig);
+            var ability = Registry.GetAbilityFactory(abilityConfig.Id).Produce(abilityConfig);
             participant.GetAbilities().Add(ability);
         });
         return participant;

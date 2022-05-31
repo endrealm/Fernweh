@@ -9,6 +9,7 @@ public class BattleRegistry
     private readonly Dictionary<string, IParticipantFactory> _participantFactories = new();
     private readonly Dictionary<string, IAbilityFactory> _abilityFactories = new();
     public IFriendlyParticipantsProvider FriendlyParticipantsProvider {get; set;}
+    private readonly List<IConsumableProvider> _consumableProviders = new();
     public void RegisterEffect(IEffectFactory effectFactory)
     {
         _effectFactories.Add(effectFactory.EffectId, effectFactory);
@@ -22,6 +23,10 @@ public class BattleRegistry
     public void RegisterAbility(IAbilityFactory factory)
     {
         _abilityFactories.Add(factory.Id, factory);
+    }
+    public void RegisterConsumableProvider(IConsumableProvider provider)
+    {
+        _consumableProviders.Add(provider);
     }
 
     public IEffectFactory GetEffectFactory(string id)
@@ -37,5 +42,15 @@ public class BattleRegistry
     public IAbilityFactory GetAbilityFactory(string id)
     {
         return _abilityFactories[id];
+    }
+
+    public List<IConsumable> CollectConsumables()
+    {
+        if (_consumableProviders.Count == 1) return _consumableProviders[0].Collect();
+        var results = new List<IConsumable>();
+
+        _consumableProviders.ForEach(provider => results.AddRange(provider.Collect()));
+
+        return results;
     }
 }

@@ -4,11 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Core.Scenes.Ingame.Battle;
 using Core.Scenes.Ingame.Battle.Impl.Actions;
-using Core.Scenes.Ingame.Chat;
 using Core.Scenes.Ingame.Localization;
 using Core.Scenes.Ingame.Views;
 using Core.Utils;
-using PipelineExtensionLibrary;
 using PipelineExtensionLibrary.Tokenizer.Chat;
 
 namespace Core.Scenes.Ingame.Modes.Battle;
@@ -81,7 +79,10 @@ public class BattleChatView: BaseChatView, IPlayerBattleInput
             {
                 ShowAbilities(participant, pair.Key, pair.Value);
             });
-        AddText("battle.participant.list.items");
+        AddAction("battle.participant.list.items", () =>
+        {
+            ShowItems(participant);
+        });
 
         LoadNextComponentInQueue();
     }
@@ -96,6 +97,34 @@ public class BattleChatView: BaseChatView, IPlayerBattleInput
             new TextReplacement("mana", participant.Mana.ToString()),
             new TextReplacement("max_mana", stats.Mana.ToString())
         );
+    }
+
+    private void ShowItems(IBattleParticipant participant)
+    {
+        Clear(SelectionPhaseHeaderLength);
+
+        AddAction("battle.participant.list.back", () => { RenderRound(participant); });
+
+        var consumables = BattleManager.Registry.CollectConsumables();
+
+        if (consumables.Count == 0)
+        {
+            AddText("battle.participant.no_items");
+        }
+        
+        consumables.ForEach(consumable =>
+        {
+            AddAction("battle.participant.list.item", () =>
+            {
+                var ability = consumable.Ability;
+                ShowTargeting(ability.AllowLivingTargets, ability.AllowDeadTargets, IsGroupType(ability), ability.TargetType, () => ShowItems(participant),
+                    (targets) =>
+                    {
+                        Clear();
+                        participant.NextAction = consumable.ProduceAction(participant, targets);
+                    });
+            });
+        });
     }
 
     private void ShowAbilities(IBattleParticipant participant, string categoryId, List<IAbility> abilities)
