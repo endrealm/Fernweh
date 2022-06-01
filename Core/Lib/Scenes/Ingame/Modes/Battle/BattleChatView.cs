@@ -13,6 +13,7 @@ namespace Core.Scenes.Ingame.Modes.Battle;
 
 public class BattleChatView: BaseChatView, IPlayerBattleInput
 {
+    private List<IConsumable> _consumables;
     private const int SelectionPhaseHeaderLength = 1;
     public BattleChatView(ILocalizationManager localizationManager, IFontManager fontManager) : base(localizationManager, fontManager)
     {
@@ -21,10 +22,13 @@ public class BattleChatView: BaseChatView, IPlayerBattleInput
     public BattleManager BattleManager { get; set; }
     public async Task HandlePlayerInput(List<IBattleParticipant> battleParticipants)
     {
+        _consumables = BattleManager.Registry.CollectConsumables(BattleManager.Registry);
         foreach (var battleParticipant in battleParticipants)
         {
             await HandlePlayerInput(battleParticipant);
         }
+
+        _consumables = null; // Clear references
     }
 
     private async Task HandlePlayerInput(IBattleParticipant participant)
@@ -104,15 +108,13 @@ public class BattleChatView: BaseChatView, IPlayerBattleInput
         Clear(SelectionPhaseHeaderLength);
 
         AddAction("battle.participant.list.back", () => { RenderRound(participant); });
-
-        var consumables = BattleManager.Registry.CollectConsumables();
-
-        if (consumables.Count == 0)
+        
+        if (_consumables.Count == 0)
         {
             AddText("battle.participant.no_items");
         }
         
-        consumables.ForEach(consumable =>
+        _consumables.ForEach(consumable =>
         {
             AddAction("battle.participant.list.item", () =>
             {

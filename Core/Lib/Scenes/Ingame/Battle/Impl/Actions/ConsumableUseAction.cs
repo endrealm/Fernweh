@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using PipelineExtensionLibrary.Tokenizer.Chat;
 
@@ -10,12 +11,14 @@ public class ConsumableUseAction: IBattleAction
 
     private readonly IConsumable _consumable;
     private readonly List<IBattleParticipant> _targets;
+    private readonly Action _onUse;
 
-    public ConsumableUseAction(IBattleParticipant participant, IConsumable consumable, List<IBattleParticipant> targets)
+    public ConsumableUseAction(IBattleParticipant participant, IConsumable consumable, List<IBattleParticipant> targets, Action onUse)
     {
         Participant = participant;
         _consumable = consumable;
         _targets = targets;
+        _onUse = onUse;
     }
 
     public async Task DoAction(ActionContext context)
@@ -24,6 +27,7 @@ public class ConsumableUseAction: IBattleAction
             new TextReplacement("player", Participant.DisplayName),
             new WrapperReplacement("item", _consumable.Name)
         ));
+        _onUse.Invoke();
         var action = _consumable.Ability.ProduceAction(Participant, _targets);
         context.QueueAction(action); // TODO: add option to force reflect prevention
     }

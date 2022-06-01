@@ -44,12 +44,12 @@ public class BattleRegistry
         return _abilityFactories[id];
     }
 
-    public List<IConsumable> CollectConsumables()
+    public List<IConsumable> CollectConsumables(BattleRegistry battleRegistry)
     {
-        if (_consumableProviders.Count == 1) return _consumableProviders[0].Collect();
+        if (_consumableProviders.Count == 1) return _consumableProviders[0].Collect(battleRegistry);
         var results = new List<IConsumable>();
 
-        _consumableProviders.ForEach(provider => results.AddRange(provider.Collect()));
+        _consumableProviders.ForEach(provider => results.AddRange(provider.Collect(battleRegistry)));
 
         return results;
     }
