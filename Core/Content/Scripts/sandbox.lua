@@ -46,6 +46,7 @@ local BASE_ENV = {
     Global = Global,
     SetDefaultBackgroundColor = SetDefaultBackgroundColor,
     CreateStatusEffect = CreateStatusEffect,
+    CreateConsumableHandler = CreateConsumableHandler,
     CreateConstantAbility = CreateConstantAbility,
     CreateAbility = CreateAbility,
     CreateParticipant = CreateParticipant,

@@ -79,10 +79,10 @@ public class BattleChatView: BaseChatView, IPlayerBattleInput
             participant.NextAction = new DefendAction(participant);
         });
         foreach (var pair in dict)
-            AddAction("battle.participant.list.ability."+ pair.Key, () =>
-            {
-                ShowAbilities(participant, pair.Key, pair.Value);
-            });
+        {
+            AddAction("battle.participant.list.ability." + pair.Key,
+                () => { ShowAbilities(participant, pair.Key, pair.Value); });
+        }
         AddAction("battle.participant.list.items", () =>
         {
             ShowItems(participant);
@@ -113,7 +113,7 @@ public class BattleChatView: BaseChatView, IPlayerBattleInput
         {
             AddText("battle.participant.no_items");
         }
-        
+
         _consumables.ForEach(consumable =>
         {
             AddAction("battle.participant.list.item", () =>

@@ -86,6 +86,7 @@ public class ScriptLoader
         lua["GetTranslation"] = GetTranslation;
         lua["CreateStatusEffect"] = CreateEffectFactoryBuilder;
         lua["CreateAbility"] = CreateAbilityFactoryBuilder;
+        lua["CreateConsumableHandler"] = CreateConsumableHandler;
         lua["CreateConstantAbility"] = CreateConstantAbilityFactoryBuilder;
         lua["CreateParticipant"] = CreateParticipantFactoryBuilder;
         lua["StateBuilder"] = BuildState;
@@ -165,6 +166,10 @@ public class ScriptLoader
     {
         return new LuaAbilityBuilder(id, ability =>
             _battleRegistry.RegisterAbility(new ConstantLuaAbilityFactory(id, ability)));
+    }
+    private void CreateConsumableHandler(LuaFunction function)
+    {
+        _battleRegistry.RegisterConsumableProvider(new LuaConsumableProvider(function));
     }
 
     private LuaParticipantFactoryBuilder CreateParticipantFactoryBuilder(string id)
