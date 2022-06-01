@@ -32,10 +32,11 @@ public class LuaConsumableProvider: IConsumableProvider
             try
             {
                 var abilityId = (string) raw["ability"];
+                var data = raw["abilityData"];
                 list.Add(new LuaConsumable(
                     (int) raw["amount"],
                     ((WrappedTranslation) raw["name"]).Content,
-                    registry.GetAbilityFactory(abilityId).Produce(new AbilityConfig(abilityId)),
+                    registry.GetAbilityFactory(abilityId).Produce(new AbilityConfig(abilityId, data)),
                     (LuaFunction) raw["onUse"]
                 ));
             }
