@@ -127,6 +127,7 @@ public class BattleChatView: BaseChatView, IPlayerBattleInput
                     });
             });
         });
+        LoadNextComponentInQueue();
     }
 
     private void ShowAbilities(IBattleParticipant participant, string categoryId, List<IAbility> abilities)
