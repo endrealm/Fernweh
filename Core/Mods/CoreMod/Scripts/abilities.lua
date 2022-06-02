@@ -71,7 +71,23 @@ CreateAbility("ether")
                     :OnUse(
                     function(context)
                         context:QueueAction(BattleAction:HealMana({
-                            Health = 15
+                            Mana = 15
+                        }, context.Participant, context.Targets))
+                    end)
+                    :Build();
+        end)
+        :Build();
+
+CreateAbility("revive")
+        :Instantiate(
+        function(builder, config)
+            return builder
+                    :TargetType(0)
+                    :AllowDeadTargets(true)
+                    :OnUse(
+                    function(context)
+                        context:QueueAction(BattleAction:HealHealth({
+                            Health = 20
                         }, context.Participant, context.Targets))
                     end)
                     :Build();

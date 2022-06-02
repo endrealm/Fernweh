@@ -14,6 +14,11 @@
       "EN_US": "  -> Buy <color=\"Yellow\">accessories</color>"
     }
   },
+  "button.enter.shop": {
+    "translations": {
+      "EN_US": "  -> Buy <color=\"Green\">healing items</color>"
+    }
+  },
 
   "encounter": {
     "translations": {

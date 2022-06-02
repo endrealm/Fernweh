@@ -34,6 +34,16 @@
       "EN_US": "<color=\"Orange\">{name}</color> <color=\"Red\">died!</color>"
     }
   },
+  "battle.participant.no_items": {
+    "translations": {
+      "EN_US": "You aren't holding any items!"
+    }
+  },
+  "battle.use.item": {
+    "translations": {
+      "EN_US": "{player} uses {item}!"
+    }
+  },
   "ability.doNothing": {
     "translations": {
       "EN_US": "{name} does nothing!"

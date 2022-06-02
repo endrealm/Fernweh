@@ -53,10 +53,14 @@ AddToParty(Character:new({id = "Gardain", stats = {health=22, mana=10, strength=
 
 SetEntryState("start_state")
 
+BlackListState("start_state")
 StateBuilder("start_state")
     :Render(
             function(renderer, context)
                 renderer:AddText("dolrom.quest.intro")
+                AddItem("health_potion", 3)
+                AddItem("revive", 1)
+                AddItem("ether", 2)
                 renderer:AddAction(function() context:Exit() end, "button.accept")
             end
     )
@@ -121,6 +125,7 @@ StateBuilder("dolrom_quest1.1")
 StateBuilder("dolrom_quest1.2")
     :Render(
             function(renderer, context)
+                AddItem("health_potion", 1)
                 renderer:AddText("dolrom.quest.1.2")
                 renderer:AddAction(function() context:StartBattle({"large_rat", "large_rat"}, "dolrom_quest1.3") end, "button.battle")
             end
@@ -139,6 +144,7 @@ StateBuilder("dolrom_quest1.3")
 StateBuilder("dolrom_quest1.4")
     :Render(
             function(renderer, context)
+                AddItem("health_potion", 1)
                 renderer:AddText("dolrom.quest.1.4")
                 renderer:AddAction(function() context:StartBattle({"large_rat", "large_rat", "rat", "rat", "rat"}, "dolrom_quest1.5") end, "button.battle")
             end
@@ -462,6 +468,21 @@ StateBuilder("enter_castle")
                             }
                             }
                         }) end, "button.enter.jeweler")
+
+                        renderer:AddAction(function() OpenShop(context, {
+                        exitState="enter_castle",
+                        offer= {
+                            {
+                                itemId= "health_potion",
+                            },
+                            {
+                                itemId= "ether",
+                            },
+                            {
+                                itemId= "revive",
+                            }
+                            }
+                        }) end, "button.enter.shop")
 
                         renderer:AddAction(function() context:Exit() end, "button.leave")
                     end

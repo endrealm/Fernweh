@@ -20,7 +20,7 @@ public class DefendAction: IBattleAction
         context.QueueAction(new AwaitNextAction());
     }
 
-    public int Priority => 99999999; // Defends trigger at beginning
+    public int Priority => -1; // Defends trigger at beginning
     public bool AllowDeath { get; } = false;
     public bool CausesStateCheck { get; } = false;
 }

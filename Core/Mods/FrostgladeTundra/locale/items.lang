@@ -167,5 +167,20 @@
     "translations": {
       "EN_US": "Lethality Blade"
     }
+  },
+  "item.health_potion.name": {
+    "translations": {
+      "EN_US": "Health Potion"
+    }
+  },
+  "item.ether.name": {
+    "translations": {
+      "EN_US": "Ether"
+    }
+  },
+  "item.revive.name": {
+    "translations": {
+      "EN_US": "Revive"
+    }
   }
 }

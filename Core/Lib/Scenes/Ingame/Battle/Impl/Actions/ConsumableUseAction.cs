@@ -23,10 +23,10 @@ public class ConsumableUseAction: IBattleAction
 
     public async Task DoAction(ActionContext context)
     {
-        context.QueueAction(new LogTextAction("battle.use.item", 
-            new TextReplacement("player", Participant.DisplayName),
-            new WrapperReplacement("item", _consumable.Name)
-        ));
+        //context.QueueAction(new LogTextAction("battle.use.item", 
+        //    new TextReplacement("player", Participant.DisplayName),
+        //    new WrapperReplacement("item", _consumable.Name)
+        //));
         _onUse.Invoke();
         var action = _consumable.Ability.ProduceAction(Participant, _targets);
         context.QueueAction(action); // TODO: add option to force reflect prevention

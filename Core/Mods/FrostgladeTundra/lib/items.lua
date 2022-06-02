@@ -458,11 +458,11 @@ RegisterItem(EquipItem:new({
     },
 }))
 
---
+-- Consumables
 
 RegisterItem(Item:new({
     id = "health_potion",
-    price= 10,
+    price= 5,
     sellPrice= 5,
     consumableAbility = {
         health_potion = {},
@@ -471,10 +471,19 @@ RegisterItem(Item:new({
 
 RegisterItem(Item:new({
     id = "ether",
-    price= 10,
+    price= 5,
     sellPrice= 5,
     consumableAbility = {
         ether = {},
+    },
+}))
+
+RegisterItem(Item:new({
+    id = "revive",
+    price= 10,
+    sellPrice= 10,
+    consumableAbility = {
+        revive = {},
     },
 }))
 
