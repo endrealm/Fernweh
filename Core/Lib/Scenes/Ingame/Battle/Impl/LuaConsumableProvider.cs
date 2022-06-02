@@ -21,7 +21,7 @@ public class LuaConsumableProvider: IConsumableProvider
         var consumablesRaw = (LuaTable) _collectorFunction.Call().First();
         var list = new List<IConsumable>();
 
-        foreach (KeyValuePair<object, object> entry in consumablesRaw.Values)
+        foreach (KeyValuePair<object, object> entry in consumablesRaw)
         {
             if (entry.Value is not LuaTable raw)
             {
@@ -34,7 +34,7 @@ public class LuaConsumableProvider: IConsumableProvider
                 var abilityId = (string) raw["ability"];
                 var data = raw["abilityData"];
                 list.Add(new LuaConsumable(
-                    (int) raw["amount"],
+                    (int)(long)raw["amount"],
                     ((WrappedTranslation) raw["name"]).Content,
                     registry.GetAbilityFactory(abilityId).Produce(new AbilityConfig(abilityId, data)),
                     (LuaFunction) raw["onUse"]

@@ -6,6 +6,8 @@ local equip = Import("character_system", "lib/equip")
 local EquipItem = equip:Get("EquipItem")
 
 local inventory = Import("inventory", "api")
+local Item = inventory:Get("Item")
+
 local RegisterItem = inventory:GetFunc("RegisterItem")
 local AddItem = inventory:GetFunc("AddItem")
 

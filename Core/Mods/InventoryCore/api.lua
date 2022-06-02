@@ -231,19 +231,16 @@ CreateConsumableHandler(function()
     local consumables = {}
     
     for key, entry in ipairs(GetInventory()) do
-
         if(type(entry.item.consumableAbility) == "table") then
-            for ability, data in ipairs(entry.item.consumableAbility) do
+            for ability, data in pairs(entry.item.consumableAbility) do
 
-                if(type(entry.item.consumableAbility) == "table") then
-                    table.insert(consumables, {
-                        amount = entry.amount,
-                        name = entry.item:DisplayName(),
-                        ability = ability,
-                        abilityData = data,
-                        onUse = function() RemoveItem(entry.item) end,
-                    })
-                end
+                table.insert(consumables, {
+                    amount = entry.amount,
+                    name = entry.item:DisplayName(),
+                    ability = ability,
+                    abilityData = data,
+                    onUse = function() RemoveItem(entry.item) end,
+                })
 
             end
         end
