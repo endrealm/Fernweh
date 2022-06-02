@@ -71,10 +71,10 @@ public class MainMenuScene: Scene
         
         RenderText(spriteBatch, context, "Press any button to continue", 190, new Color(255, 255, 255) * (_alpha / 255f));
 
-        RenderText(spriteBatch, context, "Copyright 2022 EndRealm Network", 130, Color.White);
-        RenderText(spriteBatch, context, "Fernweh and its logo are", 140, Color.White);
-        RenderText(spriteBatch, context, "copyright owned by EndRealm", 150, Color.White);
-        RenderText(spriteBatch, context, "All rights reserved", 160, Color.White);
+        RenderText(spriteBatch, context, "Fernweh is in a very early state,", 130, Color.White);
+        RenderText(spriteBatch, context, "this demo showcases the minimal viable gameplay.", 140, Color.White);
+        RenderText(spriteBatch, context, "Any bugs, glitches, lack of functionality or", 150, Color.White);
+        RenderText(spriteBatch, context, "other problems won't reflect the end product.", 160, Color.White);
 
         spriteBatch.Draw(_splashLogo, new Rectangle(new Point(), new Point(398, 112)), Color.White);
 

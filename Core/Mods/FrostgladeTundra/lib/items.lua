@@ -455,3 +455,26 @@ RegisterItem(EquipItem:new({
         },
     },
 }))
+
+--
+
+RegisterItem(Item:new({
+    id = "health_potion",
+    price= 10,
+    sellPrice= 5,
+    consumableAbility = {
+        health_potion = {},
+    },
+}))
+
+RegisterItem(Item:new({
+    id = "ether",
+    price= 10,
+    sellPrice= 5,
+    consumableAbility = {
+        ether = {},
+    },
+}))
+
+--AddItem("health_potion", 3)
+--AddItem("ether", 3)

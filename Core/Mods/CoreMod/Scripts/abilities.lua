@@ -48,6 +48,36 @@ CreateAbility("heal")
         end)
         :Build();
 
+CreateAbility("health_potion")
+        :Instantiate(
+        function(builder, config)
+            return builder
+                    :TargetType(0)
+                    :OnUse(
+                    function(context)
+                        context:QueueAction(BattleAction:HealHealth({
+                            Health = 20
+                        }, context.Participant, context.Targets))
+                    end)
+                    :Build();
+        end)
+        :Build();
+
+CreateAbility("ether")
+        :Instantiate(
+        function(builder, config)
+            return builder
+                    :TargetType(0)
+                    :OnUse(
+                    function(context)
+                        context:QueueAction(BattleAction:HealMana({
+                            Health = 15
+                        }, context.Participant, context.Targets))
+                    end)
+                    :Build();
+        end)
+        :Build();
+
 CreateAbility("power_stab")
         :Instantiate(
         function(builder, config)
