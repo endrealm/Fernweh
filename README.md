@@ -28,6 +28,19 @@ But this demo is step one, gotta start some where.
 Thanks for playing,
 Devs
 
+# Set up dev environment
+
+Tested IDEs are:
+ - VS Code
+ - Visual Studio 2019 or later
+ - Jetbrains Rider
+
+Requirements:
+ - [dotnet SDK 3.1](https://dotnet.microsoft.com/en-us/download/dotnet/3.1)
+ - [dotnet SDK 6](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)
+
+Additional tools. For some content it is required to have the MGCB tool installed. See this [guide](https://docs.monogame.net/articles/getting_started/1_setting_up_your_development_environment_windows.html#install-mgcb-editor).
+
 # Running
 Before debugging the game, you need to manually build the sub-project: "PipelineExtension".
 
