@@ -48,14 +48,17 @@ public class WorldGameView: IGameView, IRenderer<IngameRenderContext>, IUpdate<I
 
                         spriteBatch.Draw(
                             sprite,
-                            new Rectangle(context.ChatWidth + (int)x * 32 - ((sprite.Width - 32) / 2), y * 32 - (sprite.Height - 32), sprite.Width, sprite.Height), // get world position to render at
+                            new Rectangle(context.ChatWidth + x * 32 - (int)Math.Round((float)(sprite.Width - 32) / 2), y * 32 - (sprite.Height - 32), sprite.Width, sprite.Height), // get world position to render at
                             context.WorldTint);
                     }
                 }
+
+                if (player.CurrentPos/32 == new Vector2(x, y)) // render player right after its current tile
+                    player.Render(spriteBatch, context);
             }
         }
-
-        player.Render(spriteBatch, context);
+        if (player.IsMoving())
+            player.Render(spriteBatch, context);
     }
 
     public void Load(ContentLoader content)

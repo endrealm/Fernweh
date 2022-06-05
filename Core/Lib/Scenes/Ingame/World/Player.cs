@@ -92,20 +92,6 @@ namespace Core.Scenes.Ingame.World
 
         public void Render(SpriteBatch spriteBatch, IngameRenderContext context)
         {
-            if (_firstFrame) // move camera straight to player on first frame
-            {
-                context.TopLevelContext.Camera.Position = new Vector2(_targetPos.X - 96, _targetPos.Y - 96);
-                _firstFrame = false;
-            }
-            // move camera to follow player
-            else if(CurrentPos == _targetPos)
-            {
-                var camTargetPos = new Vector2(_targetPos.X - 96, _targetPos.Y - 96); // center player
-                var smoothPos = Vector2.SmoothStep(context.TopLevelContext.Camera.Position, camTargetPos, _camMoveSpeed); // get smoothed position for animation
-                context.TopLevelContext.Camera.Position = new Vector2((int)Math.Ceiling(smoothPos.X), (int)Math.Ceiling(smoothPos.Y)); // convert to int so we dont ruin the pixel sizes
-            }
-
-            // draw player
             spriteBatch.Draw(
                 _sprite,
                 new Rectangle((int)Math.Round(CurrentPos.X) + context.ChatWidth, (int)CurrentPos.Y, 32, 32),
@@ -114,6 +100,19 @@ namespace Core.Scenes.Ingame.World
 
         public void Update(float deltaTime, IngameUpdateContext context)
         {
+            if (_firstFrame) // move camera straight to player on first frame
+            {
+                context.TopLevelUpdateContext.Camera.Position = new Vector2(_targetPos.X - 96, _targetPos.Y - 96);
+                _firstFrame = false;
+            }
+            // move camera to follow player
+            else if (CurrentPos == _targetPos)
+            {
+                var camTargetPos = new Vector2(_targetPos.X - 96, _targetPos.Y - 96); // center player
+                var smoothPos = Vector2.SmoothStep(context.TopLevelUpdateContext.Camera.Position, camTargetPos, _camMoveSpeed); // get smoothed position for animation
+                context.TopLevelUpdateContext.Camera.Position = new Vector2((int)Math.Ceiling(smoothPos.X), (int)Math.Ceiling(smoothPos.Y)); // convert to int so we dont ruin the pixel sizes
+            }
+
             if (CurrentPos == _targetPos) return;
 
             if (_moveTimer < _moveTime)
@@ -141,6 +140,11 @@ namespace Core.Scenes.Ingame.World
                         _gameManager.LoadState(_previousTileData.leaveState);
                 }
             }
+        }
+
+        public bool IsMoving()
+        {
+            return CurrentPos != _targetPos;
         }
 
         private void DiscoverTiles()
