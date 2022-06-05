@@ -32,7 +32,7 @@ function StartEncounter(renderer, context, translation, enemies, chance)
 	if(Random(100) <= chance)
     then
         renderer:AddText(translation)
-        renderer:AddAction(function() context:StartBattle(enemies) end, "button.battle")
+        renderer:AddAction(function() context:StartBattle(enemies, "forest") end, "button.battle")
         renderer:AddAction(function() context:Exit() end, "button.battle.run")
     else
         context:Exit()
@@ -72,11 +72,11 @@ StateBuilder("tharmus_training")
                 if(GetQuestProg() == "0")
                 then
                     renderer:AddText("tharmus.training.1") -- if first time 
-                    renderer:AddAction(function() context:StartBattle({"guard", "guard"}, "tharmus_training_2") end, "button.battle")
+                    renderer:AddAction(function() context:StartBattle({"guard", "guard"}, "forest", "tharmus_training_2") end, "button.battle")
                     renderer:AddAction(function() context:Exit() end, "button.decline")
                 else
                     renderer:AddText("tharmus.training.4") -- if returning after beating tharmus
-                    renderer:AddAction(function() context:StartBattle({"guard", "guard", "guard"}) end, "button.battle")
+                    renderer:AddAction(function() context:StartBattle({"guard", "guard", "guard"}, "forest") end, "button.battle")
                     renderer:AddAction(function() context:Exit() end, "button.decline")
                 end
             end
@@ -88,7 +88,7 @@ StateBuilder("tharmus_training_2")
             function(renderer, context)
                 renderer:AddText("tharmus.training.2")
                 AddToParty(Character:new({id = "Olma", stats = {health=23, mana=16, strength=15, intellect=9, dexterity=14, constitution=17, wisdom=11, charisma=12}, equip = {weapon="wooden_staff", body="clothes", feet="fur_boots"}}))
-                renderer:AddAction(function() context:StartBattle({"tharmus"}, "tharmus_training_finish") end, "button.battle")
+                renderer:AddAction(function() context:StartBattle({"tharmus"}, "forest", "tharmus_training_finish") end, "button.battle")
             end
     )
     :Build()
@@ -117,7 +117,7 @@ StateBuilder("dolrom_quest1.1")
     :Render(
             function(renderer, context)
                 renderer:AddText("dolrom.quest.1.1")
-                renderer:AddAction(function() context:StartBattle({"rat", "rat"}, "dolrom_quest1.2") end, "button.battle")
+                renderer:AddAction(function() context:StartBattle({"rat", "rat"}, "cave", "dolrom_quest1.2") end, "button.battle")
             end
     )
     :Build()
@@ -127,7 +127,7 @@ StateBuilder("dolrom_quest1.2")
             function(renderer, context)
                 AddItem("health_potion", 1)
                 renderer:AddText("dolrom.quest.1.2")
-                renderer:AddAction(function() context:StartBattle({"large_rat", "large_rat"}, "dolrom_quest1.3") end, "button.battle")
+                renderer:AddAction(function() context:StartBattle({"large_rat", "large_rat"}, "cave", "dolrom_quest1.3") end, "button.battle")
             end
     )
     :Build()
@@ -136,7 +136,7 @@ StateBuilder("dolrom_quest1.3")
     :Render(
             function(renderer, context)
                 renderer:AddText("dolrom.quest.1.3")
-                renderer:AddAction(function() context:StartBattle({"rat", "rat", "rat", "rat"}, "dolrom_quest1.4") end, "button.battle")
+                renderer:AddAction(function() context:StartBattle({"rat", "rat", "rat", "rat"}, "cave", "dolrom_quest1.4") end, "button.battle")
             end
     )
     :Build()
@@ -146,7 +146,7 @@ StateBuilder("dolrom_quest1.4")
             function(renderer, context)
                 AddItem("health_potion", 1)
                 renderer:AddText("dolrom.quest.1.4")
-                renderer:AddAction(function() context:StartBattle({"large_rat", "large_rat", "rat", "rat", "rat"}, "dolrom_quest1.5") end, "button.battle")
+                renderer:AddAction(function() context:StartBattle({"large_rat", "large_rat", "rat", "rat", "rat"}, "cave", "dolrom_quest1.5") end, "button.battle")
             end
     )
     :Build()
@@ -177,7 +177,7 @@ StateBuilder("kobold_camp1")
                 if(GetQuestProg() == "2")
                 then
                     renderer:AddText("koboldcamp.quest.1")
-                    renderer:AddAction(function() context:StartBattle({"gaint_weasel", "gaint_weasel"}, "kobold_camp1.1") end, "button.battle")
+                    renderer:AddAction(function() context:StartBattle({"gaint_weasel", "gaint_weasel"}, "forest", "kobold_camp1.1") end, "button.battle")
                 elseif(GetQuestProg() == "0" or GetQuestProg() == "1")
                 then
                     context:Exit()
@@ -202,7 +202,7 @@ StateBuilder("kobold_camp1.1")
     :Render(
             function(renderer, context)
                 renderer:AddText("koboldcamp.quest.1.1")
-                renderer:AddAction(function() context:StartBattle({"kobold_melee", "kobold_melee"}, "kobold_camp1.2") end, "button.battle")
+                renderer:AddAction(function() context:StartBattle({"kobold_melee", "kobold_melee"}, "cave", "kobold_camp1.2") end, "button.battle")
             end
     )
     :Build()
@@ -211,7 +211,7 @@ StateBuilder("kobold_camp1.2")
     :Render(
             function(renderer, context)
                 renderer:AddText("koboldcamp.quest.1.2")
-                renderer:AddAction(function() context:StartBattle({"kobold_melee", "kobold_ranged", "kobold_ranged"}, "kobold_camp1.3") end, "button.battle")
+                renderer:AddAction(function() context:StartBattle({"kobold_melee", "kobold_ranged", "kobold_ranged"}, "cave", "kobold_camp1.3") end, "button.battle")
             end
     )
     :Build()
@@ -220,7 +220,7 @@ StateBuilder("kobold_camp1.3")
     :Render(
             function(renderer, context)
                 renderer:AddText("koboldcamp.quest.1.3")
-                renderer:AddAction(function() context:StartBattle({"wolf", "wolf"}, "kobold_camp1.4") end, "button.battle")
+                renderer:AddAction(function() context:StartBattle({"wolf", "wolf"}, "forest", "kobold_camp1.4") end, "button.battle")
             end
     )
     :Build()
@@ -229,7 +229,7 @@ StateBuilder("kobold_camp1.4")
     :Render(
             function(renderer, context)
                 renderer:AddText("koboldcamp.quest.1.4")
-                renderer:AddAction(function() context:StartBattle({"kobold_ranged", "kobold_melee", "kobold_ranged", "gaint_weasel", "gaint_weasel", "wolf"}, "kobold_camp1.5") end, "button.battle")
+                renderer:AddAction(function() context:StartBattle({"kobold_ranged", "kobold_melee", "kobold_ranged", "gaint_weasel", "gaint_weasel", "wolf"}, "cave", "kobold_camp1.5") end, "button.battle")
             end
     )
     :Build()

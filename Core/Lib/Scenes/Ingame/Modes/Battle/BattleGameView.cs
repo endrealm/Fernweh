@@ -21,6 +21,9 @@ public class BattleGameView: IGameView
     private IFontManager _fontManager;
     private readonly ILocalizationManager _localizationManager;
 
+    private Texture2D _background;
+    private Texture2D _foreground;
+
     public BattleGameView(IBattleSpriteManager battleSpriteManager, IFontManager fontManager,
         ILocalizationManager localizationManager)
     {
@@ -29,12 +32,15 @@ public class BattleGameView: IGameView
         _localizationManager = localizationManager;
     }
 
-    public void LoadBattle(BattleManager manager)
+    public void LoadBattle(BattleManager manager, string background)
     {
         _manager = manager;
         _statsRows = manager.Friendlies.Select(participant => new PlayerStatsRow(participant, _fontManager, _localizationManager)).ToList();
         _friendlyAvatars = manager.Friendlies.Select(participant => new BattleAvatar(_battleSpriteManager, participant)).ToList();
         _enemyAvatars = manager.Enemies.Select(participant => new BattleAvatar(_battleSpriteManager, participant)).ToList();
+
+        _background = _battleSpriteManager.GetTexture(background + "_back");
+        _foreground = _battleSpriteManager.GetTexture(background + "_fore");
     }
     
     public void Render(SpriteBatch spriteBatch, IngameRenderContext context)
@@ -50,6 +56,9 @@ public class BattleGameView: IGameView
                 (int)(context.BaseScreenSize.X-context.ChatWidth)
             ));
         }
+
+        // draw background banner
+        spriteBatch.Draw(_background, new Rectangle(context.ChatWidth,0, 224,32), context.WorldTint);
 
         // draw player participants 
         var halfPlayerAvatar = BattleAvatar.PlayerSize / 2;
@@ -74,6 +83,9 @@ public class BattleGameView: IGameView
                 false
             ));
         }
+
+        // draw foreground banner
+        spriteBatch.Draw(_foreground, new Rectangle(context.ChatWidth, 128, 224, 32), context.WorldTint);
     }
 
     public void Update(float deltaTime, IngameUpdateContext context)

@@ -37,7 +37,7 @@ public class RenderContext
         }
     }
 
-    public void StartBattle(LuaTable enemies, string victoryState = "null", string looseState = "null")
+    public void StartBattle(LuaTable enemies, string background, string victoryState = "null", string looseState = "null")
     {
         List<string> enemiesString = new();
         foreach (var item in enemies.Values)
@@ -47,7 +47,8 @@ public class RenderContext
         _gameManager.LoadMode("battle", new ModeParameters()
             .AppendData("victoryState", victoryState)
             .AppendData("looseState", looseState)
-            .AppendData("config", config));
+            .AppendData("config", config)
+            .AppendData("background", background));
     }
     public void Exit()
     {

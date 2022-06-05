@@ -48,12 +48,14 @@ public class BattleMode : IMode
         var config = parameters.GetValue<BattleConfig>("config");
         var victoryState = parameters.GetValue<string>("victoryState");
         var looseState = parameters.GetValue<string>("looseState");
+        var background = parameters.GetValue<string>("background");
 
         _snapshot = new Dictionary<string, object>
         {
             {"victoryState", victoryState},
             {"looseState", looseState},
             {"config", JsonConvert.SerializeObject(config)},
+            {"background", background},
         };
 
         var battleManager = new BattleManager(ChatView, _battleRegistry, config, _chatView, 
@@ -63,7 +65,7 @@ public class BattleMode : IMode
             _soundPlayer
         );
         _chatView.BattleManager = battleManager;
-        _gameView.LoadBattle(battleManager);
+        _gameView.LoadBattle(battleManager, background);
         Task.Run(battleManager.DoRound);
     }
 
@@ -73,6 +75,7 @@ public class BattleMode : IMode
             .AppendData("victoryState", data["victoryState"])
             .AppendData("looseState", data["looseState"])
             .AppendData("config", JsonConvert.DeserializeObject<BattleConfig>((string) data["config"]))
+            .AppendData("background", data["background"])
         );
     }
 
