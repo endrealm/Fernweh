@@ -43,10 +43,14 @@ public class WorldGameView: IGameView, IRenderer<IngameRenderContext>, IUpdate<I
                     var tileData = mapDataRegistry.GetLoadedMap().GetTile(new Vector2(x, y));
 
                     if (tileData != null) // dont render whats not there :P
+                    {
+                        Texture2D sprite = tileDataRegistry.GetTile(tileData.name).GetSprite(); // grab sprite
+
                         spriteBatch.Draw(
-                            tileDataRegistry.GetTile(tileData.name).GetSprite(), // grab sprite
-                            new Rectangle((int)x * 32 + context.ChatWidth, y * 32, 32, 32), // get world position to render at
+                            sprite,
+                            new Rectangle(context.ChatWidth + (int)x * 32 - ((sprite.Width - 32) / 2), y * 32 - (sprite.Height - 32), sprite.Width, sprite.Height), // get world position to render at
                             context.WorldTint);
+                    }
                 }
             }
         }
