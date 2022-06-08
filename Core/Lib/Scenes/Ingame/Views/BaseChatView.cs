@@ -125,9 +125,12 @@ public class BaseChatView : IChatView
     {
         var tempRunningComponents = new List<IChatComponent>(RunningComponents);
         var offsetY = 0f + -_scrollOffset;
+        var clicked = false; //TODO: connect to UI layer clicked before
         tempRunningComponents.ForEach(component =>
         {
-            component.Update(deltaTime, new ChatUpdateContext(context, new Vector2(XMargin, offsetY)));
+            var ctx = new ChatUpdateContext(context, new Vector2(XMargin, offsetY), clicked);
+            component.Update(deltaTime, ctx);
+            clicked = ctx.ClickHandled;
             offsetY += component.Dimensions.Y;
         });
 

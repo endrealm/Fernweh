@@ -35,11 +35,13 @@ public class ActionButtonComponent: CompoundTextComponent, IAction
     public override void Update(float deltaTime, ChatUpdateContext context)
     {
         base.Update(deltaTime, context);
+        if(context.ClickHandled) return;
         var input = context.IngameUpdateContext.TopLevelUpdateContext.ClickInput;
         if(!input.ClickedThisFrame) return;
         var camera = context.IngameUpdateContext.TopLevelUpdateContext.Camera;
         var pos = Vector2.Transform(input.ScreenSpacedCoordinates, Matrix.Invert(camera.GetViewMatrix(new Vector2())));
         if (!Shape.WithOffset(context.Position).IsInside(pos)) return;
+        context.ClickHandled = true;
         _onClick.Invoke();
     }
 }
