@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core.Content;
+using Core.Input;
 using Core.Scenes.Ingame.Chat;
 using Core.Scenes.Ingame.Localization;
 using JetBrains.Annotations;
@@ -125,7 +126,7 @@ public class BaseChatView : IChatView
     {
         var tempRunningComponents = new List<IChatComponent>(RunningComponents);
         var offsetY = 0f + -_scrollOffset;
-        var clicked = false; //TODO: connect to UI layer clicked before
+        var clicked = InteractionHelper.CursorHandled; //TODO: connect to UI layer clicked before
         tempRunningComponents.ForEach(component =>
         {
             var ctx = new ChatUpdateContext(context, new Vector2(XMargin, offsetY), clicked);
@@ -133,6 +134,8 @@ public class BaseChatView : IChatView
             clicked = ctx.ClickHandled;
             offsetY += component.Dimensions.Y;
         });
+
+        InteractionHelper.CursorHandled = clicked;
 
         _lastFrameHeight = offsetY + _scrollOffset;
         

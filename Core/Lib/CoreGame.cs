@@ -100,6 +100,7 @@ namespace Core
 
         protected override void Update(GameTime gameTime)
         {
+            InteractionHelper.CursorHandled = false;
             // Call UpdateSetup at the start.
             GuiHelper.UpdateSetup(gameTime);
             _ui.UpdateAll(gameTime);
