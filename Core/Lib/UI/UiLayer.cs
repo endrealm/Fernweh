@@ -27,7 +27,7 @@ public class UiLayer: IUpdate<TopLevelUpdateContext>, IRenderer<TopLevelRenderCo
             // rootLocalizationManager.GetData("some.other.example.key.here").Compile().Build(fontManager.GetChatFont()),
             // rootLocalizationManager.GetData("some.other.example.key.here").Compile().Build(fontManager.GetChatFont()),
             // rootLocalizationManager.GetData("some.other.example.key.here").Compile().Build(fontManager.GetChatFont()),
-        });
+        }, layout: CompoundLayoutRule.Center);
     }
 
     public void Update(float deltaTime, TopLevelUpdateContext context)
@@ -45,6 +45,7 @@ public class UiLayer: IUpdate<TopLevelUpdateContext>, IRenderer<TopLevelRenderCo
         if ((int) _root.MaxWidth != (int)context.BaseScreenSize.X)
         {
             _root.MaxWidth = context.BaseScreenSize.X;
+            _root.MaxContentWidth = context.BaseScreenSize.X/2;
         }
         if ((int) _root.MaxHeight != (int)context.BaseScreenSize.Y)
         {

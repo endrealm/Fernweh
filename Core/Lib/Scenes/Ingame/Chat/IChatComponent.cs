@@ -31,6 +31,7 @@ public interface IChatContainerComponent: IChatComponent
     /// Some containers might not use this!
     /// </summary>
     float MaxHeight { set; get; }
+    float MaxContentWidth { set; get; }
     public void AppendComponents(List<IChatInlineComponent> chatInlineComponents);
     public void AppendComponent(IChatInlineComponent chatInlineComponents);
 }

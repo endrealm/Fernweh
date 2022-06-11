@@ -7,10 +7,18 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Core.Scenes.Ingame.Chat;
 
+public enum CompoundLayoutRule
+{
+    TopLeft,
+    Center
+}
+
 public class CompoundTextComponent: BaseComponent, IChatInlineComponent, IChatContainerComponent
 {
+    protected readonly CompoundLayoutRule Layout;
     private List<IChatInlineComponent> _components;
     private float _maxWidth;
+    private float _maxContentWidth = -1;
     private float _maxHeight = -1;
     private float _calculatedWidth;
     private float _calculatedHeight;
@@ -21,17 +29,20 @@ public class CompoundTextComponent: BaseComponent, IChatInlineComponent, IChatCo
     public CompoundTextComponent(
         List<IChatInlineComponent> components,
         float width = -1,
-        float maxWidth = -1
-    ): this(component => components, width, maxWidth)
+        float maxWidth = -1,
+        CompoundLayoutRule layout = CompoundLayoutRule.TopLeft
+    ): this(component => components, width, maxWidth, layout)
     {
     }
     
     public CompoundTextComponent(
         Func<CompoundTextComponent, List<IChatInlineComponent>> construct,
         float width = -1,
-        float maxWidth = -1
+        float maxWidth = -1,
+        CompoundLayoutRule layout = CompoundLayoutRule.TopLeft
     )
     {
+        Layout = layout;
         _components = new List<IChatInlineComponent>();
         Width = width;
         MaxWidth = maxWidth;
@@ -52,14 +63,29 @@ public class CompoundTextComponent: BaseComponent, IChatInlineComponent, IChatCo
     public override void Render(SpriteBatch spriteBatch, ChatRenderContext context)
     {
         var yOffset = 0f;
+        var xOffset = 0f;
+
+        if (Layout == CompoundLayoutRule.Center)
+        {
+            if (MaxWidth > _calculatedWidth)
+            {
+                xOffset = (MaxWidth - _calculatedWidth) / 2f;
+            }
+
+            if (MaxHeight > _calculatedHeight)
+            {
+                yOffset = (MaxHeight - _calculatedHeight) / 2f;
+            }
+        }
+        
         foreach (var component in _components)
         {
-            component.Render(spriteBatch, new ChatRenderContext(context.Position + new Vector2(0, yOffset)));
+            component.Render(spriteBatch, new ChatRenderContext(context.Position + new Vector2(xOffset, yOffset)));
             yOffset += component.Dimensions.Y - component.LastLineHeight;
         }
         
         // Debug text shape
-        // Shape.WithOffset(context.Position).DebugDraw(spriteBatch, Color.Red);
+        // Shape.WithOffset(context.Position + new Vector2(xOffset, 0)).DebugDraw(spriteBatch, Color.Red);
     }
 
     public override float MaxWidth
@@ -73,23 +99,35 @@ public class CompoundTextComponent: BaseComponent, IChatInlineComponent, IChatCo
         }
     }
 
+    public float MaxContentWidth
+    {
+        get => _maxContentWidth;
+        set
+        {
+            _maxContentWidth = value;
+            Recalculate();
+            DirtyContent = true;
+        }
+    }
+
     public override IShape Shape => _shape;
 
     private void Recalculate()
     {
-        var xOffset = _firstLineOffset;
+        var lineOffset = _firstLineOffset;
         var newCalcWidth = 0f;
         var newCalcHeight = 0f;
+        var xOffset = 0f;
         var shapeList = new List<IShape>();
         for (var index = 0; index < _components.Count; index++)
         {
             var component = _components[index];
-            component.MaxWidth = MaxWidth;
-            component.FirstLineOffset = xOffset;
-            xOffset = component.LastLength;
+            component.MaxWidth = GetCorrectedContentWidth();
+            component.FirstLineOffset = lineOffset;
+            lineOffset = component.LastLength;
             component.DirtyContent = false;
             var (width, height) = component.Dimensions;
-            shapeList.Add(component.Shape.WithOffset(new Vector2(0, newCalcHeight)));
+            shapeList.Add(component.Shape.WithOffset(new Vector2(xOffset, newCalcHeight)));
             newCalcHeight += height;
             var isLastItem = index == (_components.Count - 1);
 
@@ -102,15 +140,20 @@ public class CompoundTextComponent: BaseComponent, IChatInlineComponent, IChatCo
                 newCalcHeight += component.LastLineHeight;
             }
 
-            if (component.Dimensions.X > newCalcWidth)
+            if (width + lineOffset > newCalcWidth)
             {
-                newCalcWidth = width;
+                newCalcWidth = width + lineOffset;
             }
         }
 
-        _calculatedWidth = newCalcWidth;
+        _calculatedWidth = MaxContentWidth > 0 ? Math.Min(newCalcWidth, MaxContentWidth) : newCalcWidth;
         _calculatedHeight = newCalcHeight;
         _shape = new CompoundShape(shapeList);
+    }
+
+    private float GetCorrectedContentWidth()
+    {
+        return MaxContentWidth > 0 ? Math.Min(MaxWidth, MaxContentWidth) : MaxWidth;
     }
 
     public override void SetOnDone(Action action)
