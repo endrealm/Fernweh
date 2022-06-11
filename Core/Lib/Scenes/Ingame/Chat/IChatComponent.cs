@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Core.Utils;
 using Core.Utils.Math;
 using Microsoft.Xna.Framework;
@@ -22,4 +23,10 @@ public interface IChatInlineComponent: IChatComponent
     float FirstLineOffset { set; }
     bool DirtyContent { get; set; }
     bool EmptyLineEnd { get; }
+}
+
+public interface IChatContainerComponent: IChatComponent
+{
+    public void AppendComponents(List<IChatInlineComponent> chatInlineComponents);
+    public void AppendComponent(IChatInlineComponent chatInlineComponents);
 }

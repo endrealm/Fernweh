@@ -12,6 +12,7 @@ using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
 using MonoGame.Extended.ViewportAdapters;
 using System.Collections.Generic;
+using Core.UI;
 
 namespace Core
 {
@@ -100,6 +101,7 @@ namespace Core
 
         protected override void Update(GameTime gameTime)
         {
+            var deltaTime = (float) gameTime.ElapsedGameTime.TotalSeconds;
             InteractionHelper.CursorHandled = false;
             // Call UpdateSetup at the start.
             GuiHelper.UpdateSetup(gameTime);
@@ -108,8 +110,9 @@ namespace Core
             base.Update(gameTime);
 
             _clickInput.Update(gameTime);
-            _activeScene.Update((float) gameTime.ElapsedGameTime.TotalSeconds, new TopLevelUpdateContext(_clickInput, _camera, _modLoader, _saveGameManager));
-            _controls.Update((float)gameTime.ElapsedGameTime.TotalSeconds, new TopLevelUpdateContext(_clickInput, _camera, _modLoader, _saveGameManager));
+            _activeScene.UiLayer.Update(deltaTime, new TopLevelUpdateContext(_clickInput, _camera, _modLoader, _saveGameManager));
+            _activeScene.Update(deltaTime, new TopLevelUpdateContext(_clickInput, _camera, _modLoader, _saveGameManager));
+            _controls.Update(deltaTime, new TopLevelUpdateContext(_clickInput, _camera, _modLoader, _saveGameManager));
             
             GuiHelper.UpdateCleanup();
         }
@@ -120,7 +123,7 @@ namespace Core
             
             // Main Rendering
             _activeScene.Render(_spriteBatch, _renderContext);
-            
+            _activeScene.UiLayer.Render(_spriteBatch, _renderContext);
             // Render FPS overlay
             var fps = $"FPS: {_frameCounter.AverageFramesPerSecond}";
             

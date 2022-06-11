@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Core.Scenes.Ingame.Chat;
 
-public class CompoundTextComponent: BaseComponent
+public class CompoundTextComponent: BaseComponent, IChatContainerComponent
 {
     private List<IChatInlineComponent> _components;
     private float _maxWidth;
