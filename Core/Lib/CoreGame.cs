@@ -12,6 +12,7 @@ using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
 using MonoGame.Extended.ViewportAdapters;
 using System.Collections.Generic;
+using Core.Scenes.Ingame.Localization;
 using Core.UI;
 
 namespace Core
@@ -35,6 +36,7 @@ namespace Core
         private Scene _activeScene;
         private TopLevelRenderContext _renderContext;
         private IMGUI _ui;
+        private ILocalizationManager _localizationManager = new BasicLocalizationManager();
 
         public CoreGame(IUpdateableClickInput clickInput, ISaveGameManager saveGameManager, List<IArchiveLoader> mods)
         {
@@ -69,6 +71,9 @@ namespace Core
             // Init lua sandbox script
             LuaSandbox.Sandbox = Content.Load<string>("Scripts/sandbox");
 
+            // todo: load default UI locale here
+            // _localizationManager.Load(Content.Load<>(""));
+            
             // Init font manager
             _contentLoader.LoadFonts();
             
@@ -90,7 +95,7 @@ namespace Core
 
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            Scene menuScene = new MainMenuScene(_contentLoader.GetFontManager(), () => { Exit(); });
+            Scene menuScene = new MainMenuScene(_localizationManager, _contentLoader.GetFontManager(), () => { Exit(); });
 
             menuScene.Load(_contentLoader);
             LoadScene(menuScene);

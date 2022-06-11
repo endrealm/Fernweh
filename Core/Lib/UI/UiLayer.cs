@@ -2,6 +2,7 @@
 using Core.Input;
 using Core.Scenes.Ingame;
 using Core.Scenes.Ingame.Chat;
+using Core.Scenes.Ingame.Localization;
 using Core.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -13,9 +14,20 @@ public class UiLayer: IUpdate<TopLevelUpdateContext>, IRenderer<TopLevelRenderCo
     
     private readonly IChatContainerComponent _root;
 
-    public UiLayer()
+    public UiLayer(IFontManager fontManager, ILocalizationManager rootLocalizationManager)
     {
-        _root = new CompoundTextComponent(new List<IChatInlineComponent>());
+        _root = new CompoundTextComponent(new List<IChatInlineComponent>()
+        {
+            // rootLocalizationManager.GetData("some.example.key.here").Compile().Build(fontManager.GetChatFont()),
+            // rootLocalizationManager.GetData("some.other.example.key.here").Compile().Build(fontManager.GetChatFont()),
+            // rootLocalizationManager.GetData("some.other.example.key.here").Compile().Build(fontManager.GetChatFont()),
+            // rootLocalizationManager.GetData("some.other.example.key.here").Compile().Build(fontManager.GetChatFont()),
+            // rootLocalizationManager.GetData("some.other.example.key.here").Compile().Build(fontManager.GetChatFont()),
+            // rootLocalizationManager.GetData("some.other.example.key.here").Compile().Build(fontManager.GetChatFont()),
+            // rootLocalizationManager.GetData("some.other.example.key.here").Compile().Build(fontManager.GetChatFont()),
+            // rootLocalizationManager.GetData("some.other.example.key.here").Compile().Build(fontManager.GetChatFont()),
+            // rootLocalizationManager.GetData("some.other.example.key.here").Compile().Build(fontManager.GetChatFont()),
+        });
     }
 
     public void Update(float deltaTime, TopLevelUpdateContext context)
@@ -29,6 +41,20 @@ public class UiLayer: IUpdate<TopLevelUpdateContext>, IRenderer<TopLevelRenderCo
 
     public void Render(SpriteBatch spriteBatch, TopLevelRenderContext context)
     {
+
+        if ((int) _root.MaxWidth != (int)context.BaseScreenSize.X)
+        {
+            _root.MaxWidth = context.BaseScreenSize.X;
+        }
+        if ((int) _root.MaxHeight != (int)context.BaseScreenSize.Y)
+        {
+            _root.MaxHeight = context.BaseScreenSize.Y;
+        }
+        spriteBatch.Begin(
+            transformMatrix: context.Camera.GetViewMatrix(new Vector2()),
+            samplerState: SamplerState.PointClamp
+        );
         _root.Render(spriteBatch, new ChatRenderContext(new Vector2(0, 0)));
+        spriteBatch.End();
     }
 }

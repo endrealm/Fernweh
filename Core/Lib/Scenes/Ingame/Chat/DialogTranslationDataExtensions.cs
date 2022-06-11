@@ -12,7 +12,7 @@ namespace Core.Scenes.Ingame.Chat;
 
 public static class DialogTranslationDataExtensions
 {
-    public static IChatComponent Build(this IChatComponentData data, SpriteFont font)
+    public static IChatInlineComponent Build(this IChatComponentData data, SpriteFont font)
     {
         switch (data)
         {
@@ -38,15 +38,15 @@ public static class DialogTranslationDataExtensions
         return new ChatCompoundData(data);
     }
 
-    public static IChatComponent BuildAnimated(this IChatComponentData data, SpriteFont font, Action onFinish, bool animated = true)
+    public static IChatInlineComponent BuildAnimated(this IChatComponentData data, SpriteFont font, Action onFinish, bool animated = true)
     {
         return data.BuildAnimatedInternal(font, onFinish: onFinish, animated: animated);
     }
-    public static IChatComponent BuildAnimatedAction(this IChatComponentData data, SpriteFont font, Action onClick, bool animated = true)
+    public static IChatInlineComponent BuildAnimatedAction(this IChatComponentData data, SpriteFont font, Action onClick, bool animated = true)
     {
         return data.BuildAnimatedInternal(font,true, onClick, animated: animated);
     }
-    private static IChatComponent BuildAnimatedInternal(
+    private static IChatInlineComponent BuildAnimatedInternal(
         this IChatComponentData data,
         SpriteFont font,
         bool clickable = false,

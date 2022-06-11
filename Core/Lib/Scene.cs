@@ -1,5 +1,6 @@
 ﻿
 using Core.Content;
+using Core.Scenes.Ingame.Localization;
 using Core.UI;
 using Core.Utils;
 using Microsoft.Xna.Framework.Content;
@@ -9,8 +10,17 @@ namespace Core;
 
 public abstract class Scene: IRenderer<TopLevelRenderContext>, IUpdate<TopLevelUpdateContext>, ILoadable
 {
+    public IFontManager FontManager { get; }
+    public ILocalizationManager RootLocalizationManager { get; }
     public ISceneManager SceneManager { get; protected set; }
-    protected UiLayer _uiLayer = new UiLayer();
+    protected UiLayer _uiLayer;
+
+    public Scene(IFontManager fontManager, ILocalizationManager rootLocalizationManager)
+    {
+        FontManager = fontManager;
+        RootLocalizationManager = rootLocalizationManager;
+        _uiLayer = new UiLayer(fontManager, rootLocalizationManager);
+    }
     public virtual void InjectSceneManager(ISceneManager sceneManager)
     {
         SceneManager = sceneManager;

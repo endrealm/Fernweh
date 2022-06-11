@@ -22,18 +22,16 @@ public class IngameScene: Scene, ISaveSystem
     private ModLoader _modLoader;
     private readonly string _currentModId;
     private readonly IGameSave _gameSave;
-    private readonly IFontManager _fontManager;
     private bool _allowSave = false;
     
     private ILocalizationManager _localizationManager;
 
 
-    public IngameScene(IFontManager fontManager, ModLoader modLoader, string currentModId, IGameSave gameSave)
+    public IngameScene(ILocalizationManager rootLocalizationManager, IFontManager fontManager, ModLoader modLoader, string currentModId, IGameSave gameSave) : base(fontManager, rootLocalizationManager)
     {
         _modLoader = modLoader;
         _currentModId = currentModId;
         _gameSave = gameSave;
-        _fontManager = fontManager;
         _localizationManager = new BasicLocalizationManager();
         _scriptLoader = new(_stateRegistry, _battleRegistry, gameSave, _localizationManager);
     }
@@ -41,7 +39,7 @@ public class IngameScene: Scene, ISaveSystem
     public override void Load(ContentLoader content)
     {
         _modLoader.UnloadAllMods();
-        _gameManager = new GameManager(_battleRegistry, _stateRegistry, _fontManager, _localizationManager, _gameSave, this);
+        _gameManager = new GameManager(_battleRegistry, _stateRegistry, FontManager, _localizationManager, _gameSave, this);
         
         // Loads all mods
         _modLoader.Load(_currentModId);

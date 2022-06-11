@@ -7,14 +7,16 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Core.Scenes.Ingame.Chat;
 
-public class CompoundTextComponent: BaseComponent, IChatContainerComponent
+public class CompoundTextComponent: BaseComponent, IChatInlineComponent, IChatContainerComponent
 {
     private List<IChatInlineComponent> _components;
     private float _maxWidth;
+    private float _maxHeight = -1;
     private float _calculatedWidth;
     private float _calculatedHeight;
     private List<Action> _onDone = new List<Action>();
     private IShape _shape = new CompoundShape(new List<IShape>());
+    private float _firstLineOffset;
 
     public CompoundTextComponent(
         List<IChatInlineComponent> components,
@@ -67,6 +69,7 @@ public class CompoundTextComponent: BaseComponent, IChatContainerComponent
         {
             _maxWidth = value;
             Recalculate();
+            DirtyContent = true;
         }
     }
 
@@ -74,7 +77,7 @@ public class CompoundTextComponent: BaseComponent, IChatContainerComponent
 
     private void Recalculate()
     {
-        var xOffset = 0f;
+        var xOffset = _firstLineOffset;
         var newCalcWidth = 0f;
         var newCalcHeight = 0f;
         var shapeList = new List<IShape>();
@@ -124,13 +127,28 @@ public class CompoundTextComponent: BaseComponent, IChatContainerComponent
             component.Update(deltaTime, context);
         }
 
-        if(_components.Any(component => component.DirtyContent)) Recalculate();
+        if(_components.Any(component => component.DirtyContent))
+        {
+            Recalculate();
+            DirtyContent = true;
+        }
     }
 
+    public float MaxHeight
+    {
+        get => _maxHeight;
+        set
+        {
+            _maxHeight = value;
+            Recalculate();
+            DirtyContent = true;
+        }
+    }
     public void AppendComponents(List<IChatInlineComponent> chatInlineComponents)
     {
         _components.AddRange(chatInlineComponents);
         Recalculate();
+        DirtyContent = true;
     }
     
     public void AppendComponent(IChatInlineComponent chatInlineComponents)
@@ -141,5 +159,38 @@ public class CompoundTextComponent: BaseComponent, IChatContainerComponent
     public void Done()
     {
         _onDone.ForEach(action => action.Invoke());
+    }
+
+
+    public float LastLineRemainingSpace
+    {
+        get => _components.LastOrDefault()?.LastLineRemainingSpace ?? Width;
+    }
+
+    public float LastLength
+    {
+        get => _components.LastOrDefault()?.LastLength ?? 0;
+    }
+    public float LastLineHeight
+    {
+        get => _components.LastOrDefault()?.LastLineHeight ?? 0;
+    }
+
+    public float FirstLineOffset
+    {
+        get => _firstLineOffset;
+        set
+        {
+            _firstLineOffset = value;
+            Recalculate();
+            DirtyContent = true;
+        }
+    }
+
+    public bool DirtyContent { get; set; }
+
+    public bool EmptyLineEnd
+    {
+        get => _components.LastOrDefault()?.EmptyLineEnd ?? true;
     }
 }

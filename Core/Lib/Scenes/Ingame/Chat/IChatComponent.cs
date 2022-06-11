@@ -10,7 +10,7 @@ namespace Core.Scenes.Ingame.Chat;
 public interface IChatComponent: IRenderer<ChatRenderContext>, IUpdate<ChatUpdateContext>
 {
     Vector2 Dimensions { get; }
-    float MaxWidth { set; }
+    float MaxWidth { set; get; }
     IShape Shape { get; }
     void SetOnDone(Action action);
 }
@@ -27,6 +27,10 @@ public interface IChatInlineComponent: IChatComponent
 
 public interface IChatContainerComponent: IChatComponent
 {
+    /// <summary>
+    /// Some containers might not use this!
+    /// </summary>
+    float MaxHeight { set; get; }
     public void AppendComponents(List<IChatInlineComponent> chatInlineComponents);
     public void AppendComponent(IChatInlineComponent chatInlineComponents);
 }

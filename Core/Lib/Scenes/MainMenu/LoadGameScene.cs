@@ -4,6 +4,7 @@ using Core.Gui;
 using Core.Input;
 using Core.Saving;
 using Core.Scenes.Ingame;
+using Core.Scenes.Ingame.Localization;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -11,13 +12,11 @@ namespace Core.Scenes.MainMenu;
 
 public class LoadGameScene: Scene
 {
-    private IFontManager _fontManager;
     private Action _quit;
 
     private List<IGameSave> _gameSaves;
-    public LoadGameScene(IFontManager fontManager, Action quit)
+    public LoadGameScene(ILocalizationManager rootLocalizationManager, IFontManager fontManager, Action quit): base(fontManager, rootLocalizationManager)
     {
-        _fontManager = fontManager;
         _quit = quit;
     }
 
@@ -25,7 +24,7 @@ public class LoadGameScene: Scene
     {
         _gameSaves ??= context.SaveGameManager.ListAll();
         if (Button.Put("Back").Clicked) {
-            SceneManager.LoadScene(new CreateOrLoadScene(_fontManager, _quit));
+            SceneManager.LoadScene(new CreateOrLoadScene(RootLocalizationManager, FontManager, _quit));
         }
         MenuPanel.Push();
         
@@ -33,7 +32,7 @@ public class LoadGameScene: Scene
         {
             if (Button.Put(gameSave.Name).Clicked) {
                 gameSave.Load();
-                SceneManager.LoadScene(new IngameScene(_fontManager, context.ModLoader, (string) gameSave.Data["Mod"], gameSave));
+                SceneManager.LoadScene(new IngameScene(RootLocalizationManager, FontManager, context.ModLoader, (string) gameSave.Data["Mod"], gameSave));
             }
         }
         MenuPanel.Pop();

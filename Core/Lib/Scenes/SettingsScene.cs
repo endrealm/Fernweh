@@ -4,18 +4,17 @@ using Core.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using Core.Scenes.Ingame.Localization;
 
 namespace Core.Scenes;
 
 public class SettingsScene: Scene
 {
     
-    private IFontManager _fontManager;
     private readonly Scene _previousScene;
 
-    public SettingsScene(IFontManager fontManager, Scene previousScene)
+    public SettingsScene(ILocalizationManager rootLocalizationManager, IFontManager fontManager, Scene previousScene): base(fontManager, rootLocalizationManager)
     {
-        _fontManager = fontManager;
         _previousScene = previousScene;
     }
 

@@ -4,33 +4,32 @@ using Core.Scenes.Ingame;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using Core.Scenes.Ingame.Localization;
 
 namespace Core.Scenes.MainMenu;
 
 public class CreateOrLoadScene: Scene
 {
     
-    private IFontManager _fontManager;
     private Action _quit;
 
 
-    public CreateOrLoadScene(IFontManager fontManager, Action quit)
+    public CreateOrLoadScene(ILocalizationManager rootLocalizationManager, IFontManager fontManager, Action quit): base(fontManager, rootLocalizationManager)
     {
-        _fontManager = fontManager;
         _quit = quit;
     }
 
     public override void Update(float deltaTime, TopLevelUpdateContext context)
     {
         if (Button.Put("Settings").Clicked) {
-            SceneManager.LoadScene(new SettingsScene(_fontManager, this));
+            SceneManager.LoadScene(new SettingsScene(RootLocalizationManager, FontManager, this));
         }
         MenuPanel.Push();
         if (Button.Put("New Game").Clicked) {
-            SceneManager.LoadScene(new CreateGameScene(_fontManager, _quit));
+            SceneManager.LoadScene(new CreateGameScene(RootLocalizationManager, FontManager, _quit));
         }
         if (Button.Put("Load Game").Clicked) {
-            SceneManager.LoadScene(new LoadGameScene(_fontManager, _quit));
+            SceneManager.LoadScene(new LoadGameScene(RootLocalizationManager, FontManager, _quit));
         }
         if (Button.Put("Quit").Clicked)
         {

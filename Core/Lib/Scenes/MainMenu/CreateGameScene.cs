@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 using Core.Gui;
 using Core.Saving;
 using Core.Scenes.Ingame;
+using Core.Scenes.Ingame.Localization;
 using Core.Scenes.Modding;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -13,23 +14,21 @@ namespace Core.Scenes.MainMenu;
 public class CreateGameScene: Scene
 {
     
-    private IFontManager _fontManager;
     private Action _quit;
 
     private string _gameName = "";
     private int _currentModIndex = 0;
     private bool _nameUsed = false;
     
-    public CreateGameScene(IFontManager fontManager, Action quit)
+    public CreateGameScene(ILocalizationManager rootLocalizationManager, IFontManager fontManager, Action quit): base(fontManager, rootLocalizationManager)
     {
-        _fontManager = fontManager;
         _quit = quit;
     }
 
     public override void Update(float deltaTime, TopLevelUpdateContext context)
     {
         if (Button.Put("Back").Clicked) {
-            SceneManager.LoadScene(new CreateOrLoadScene(_fontManager, _quit));
+            SceneManager.LoadScene(new CreateOrLoadScene(RootLocalizationManager, FontManager, _quit));
         }
         MenuPanel.Push();
         Label.Put("Create new game?");
@@ -77,7 +76,7 @@ public class CreateGameScene: Scene
         {
             var gameSave = context.SaveGameManager.CreateNew(BuildProdName());
             gameSave.Data.Add("Mod", currentMod.Id);
-            SceneManager.LoadScene(new IngameScene(_fontManager, context.ModLoader, currentMod.Id, gameSave));
+            SceneManager.LoadScene(new IngameScene(RootLocalizationManager, FontManager, context.ModLoader, currentMod.Id, gameSave));
         }
         MenuPanel.Pop();
     }

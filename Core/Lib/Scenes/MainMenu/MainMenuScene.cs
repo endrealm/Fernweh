@@ -6,13 +6,13 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using Core.Scenes.Ingame.Localization;
 
 namespace Core.Scenes.MainMenu;
 
 public class MainMenuScene: Scene
 {
     
-    private IFontManager _fontManager;
     private Action _quit;
 
     private float _alpha = 255;
@@ -20,9 +20,8 @@ public class MainMenuScene: Scene
 
     private Texture2D _splashLogo;
 
-    public MainMenuScene(IFontManager fontManager, Action quit)
+    public MainMenuScene(ILocalizationManager rootLocalizationManager, IFontManager fontManager, Action quit) : base(fontManager, rootLocalizationManager)
     {
-        _fontManager = fontManager;
         _quit = quit;
     }
 
@@ -32,7 +31,7 @@ public class MainMenuScene: Scene
         if (Controls.AnyInput())
         {
             // SceneManager.LoadScene(new IngameScene(_fontManager));
-            SceneManager.LoadScene(new CreateOrLoadScene(_fontManager, _quit));
+            SceneManager.LoadScene(new CreateOrLoadScene(RootLocalizationManager, FontManager, _quit));
         }
     }
 
@@ -83,7 +82,7 @@ public class MainMenuScene: Scene
 
     private void RenderText(SpriteBatch spriteBatch, TopLevelRenderContext context, string text, float y, Color color)
     {
-        var measurement = _fontManager.GetChatFont().MeasureString(text);
-        spriteBatch.DrawString(_fontManager.GetChatFont(), text, new Vector2(context.BaseScreenSize.X / 2 - measurement.X / 2, y), color);
+        var measurement = FontManager.GetChatFont().MeasureString(text);
+        spriteBatch.DrawString(FontManager.GetChatFont(), text, new Vector2(context.BaseScreenSize.X / 2 - measurement.X / 2, y), color);
     }
 }
