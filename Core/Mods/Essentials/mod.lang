@@ -16,7 +16,7 @@
   },
   "battle.action.healMana": {
     "translations": {
-      "EN_US": "{name} restores <color=\"LightBlue\">{amount} mana</color> for <color=\"Orange\">{target}</color>"
+      "EN_US": "{name} restores <color=\"Blue\">{amount} mana</color> for <color=\"Orange\">{target}</color>"
     }
   },
   "battle.select.target": {
@@ -37,6 +37,11 @@
   "battle.participant.no_items": {
     "translations": {
       "EN_US": "You aren't holding any items!"
+    }
+  },
+  "battle.participant.list.item": {
+    "translations": {
+      "EN_US": "<color=\"Yellow\">{item}</color> X{amount}"
     }
   },
   "battle.use.item": {

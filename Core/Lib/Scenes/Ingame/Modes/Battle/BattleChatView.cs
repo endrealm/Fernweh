@@ -125,7 +125,7 @@ public class BattleChatView: BaseChatView, IPlayerBattleInput
                         Clear();
                         participant.NextAction = consumable.ProduceAction(participant, targets);
                     });
-            });
+            }, new WrapperReplacement("item", consumable.Name), new TextReplacement("amount", consumable.Amount.ToString()));
         });
         LoadNextComponentInQueue();
     }
