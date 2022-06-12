@@ -53,12 +53,11 @@ public class WorldGameView: IGameView, IRenderer<IngameRenderContext>, IUpdate<I
                     }
                 }
 
-                if (player.CurrentPos/32 == new Vector2(x, y)) // render player right after its current tile
+                var roundedPos = new Vector2((float)Math.Round(player.CurrentPos.X / 32), (float)Math.Round(player.CurrentPos.Y / 32));
+                if (roundedPos == new Vector2(x, y)) // render player right after its current tile
                     player.Render(spriteBatch, context);
             }
         }
-        if (player.IsMoving())
-            player.Render(spriteBatch, context);
     }
 
     public void Load(ContentLoader content)

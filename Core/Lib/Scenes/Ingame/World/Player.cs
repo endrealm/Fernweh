@@ -94,7 +94,9 @@ namespace Core.Scenes.Ingame.World
         {
             spriteBatch.Draw(
                 _sprite,
-                new Rectangle((int)Math.Round(CurrentPos.X) + context.ChatWidth, (int)CurrentPos.Y, 32, 32),
+                new Rectangle(context.ChatWidth + (int)CurrentPos.X - (int)Math.Round((float)(_sprite.Width - 32) / 2), 
+                    (int)CurrentPos.Y - (int)Math.Round((float)(_sprite.Height - 32) / 2), 
+                    _sprite.Width, _sprite.Height),
                 context.WorldTint);
         }
 
@@ -140,11 +142,6 @@ namespace Core.Scenes.Ingame.World
                         _gameManager.LoadState(_previousTileData.leaveState);
                 }
             }
-        }
-
-        public bool IsMoving()
-        {
-            return CurrentPos != _targetPos;
         }
 
         private void DiscoverTiles()
