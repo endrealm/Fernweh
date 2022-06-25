@@ -151,7 +151,16 @@ function Item:new(o)
 end
 
 function Item:ShowOptions(renderer, context)
-    renderer:AddText("inventory.item.noActions")
+    --if no consumable ability, dont show actions
+    if (self.consumableAbility == nil) then
+        renderer:AddText("inventory.item.noActions")
+
+    elseif (self.consumableType == "party") then
+        renderer:AddAction(function()
+            --SetHeldItem(self)
+            --context:ChangeState("ui_use_item")
+        end, "inventory.item.use")
+    end
 end
 
 function Item:DisplayName()

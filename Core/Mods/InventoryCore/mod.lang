@@ -14,6 +14,11 @@
       "EN_US": "<- Back"
     }
   },
+  "inventory.item.use": {
+    "translations": {
+      "EN_US": "<- Use"
+    }
+  },
   "inventory.item": {
     "translations": {
       "EN_US": "-> {amount}x {item}"

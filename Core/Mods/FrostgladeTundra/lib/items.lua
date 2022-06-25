@@ -464,6 +464,7 @@ RegisterItem(Item:new({
     id = "health_potion",
     price= 5,
     sellPrice= 5,
+    consumableType = "party",
     consumableAbility = {
         health_potion = {},
     },
@@ -473,6 +474,7 @@ RegisterItem(Item:new({
     id = "ether",
     price= 5,
     sellPrice= 5,
+    consumableType = "party",
     consumableAbility = {
         ether = {},
     },
@@ -482,9 +484,16 @@ RegisterItem(Item:new({
     id = "revive",
     price= 10,
     sellPrice= 10,
+    consumableType = "party",
     consumableAbility = {
         revive = {},
     },
+}))
+
+RegisterItem(Item:new({
+    id = "key",
+    price= 10,
+    sellPrice= 10,
 }))
 
 --AddItem("health_potion", 3)

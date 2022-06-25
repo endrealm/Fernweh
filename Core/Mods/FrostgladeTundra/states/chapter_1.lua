@@ -61,6 +61,7 @@ StateBuilder("start_state")
                 AddItem("health_potion", 3)
                 AddItem("revive", 1)
                 AddItem("ether", 2)
+                AddItem("key", 1)
                 renderer:AddAction(function() context:Exit() end, "button.accept")
             end
     )
