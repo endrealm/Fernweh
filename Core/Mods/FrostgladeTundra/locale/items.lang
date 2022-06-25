@@ -182,5 +182,10 @@
     "translations": {
       "EN_US": "Revive"
     }
+  },
+  "item.key.name": {
+    "translations": {
+      "EN_US": "Rusty Key"
+    }
   }
 }

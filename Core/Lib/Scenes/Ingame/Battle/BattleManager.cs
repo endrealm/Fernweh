@@ -77,6 +77,8 @@ public class BattleManager
 
     public async void DoRound()
     {
+        await Task.Delay(30); // prevents bug where numerous battles in a row crash the game
+
         if (CheckForEndCondition()) return;
 
         // Assigns actions to all player controlled units
