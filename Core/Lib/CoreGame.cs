@@ -124,17 +124,20 @@ namespace Core
 
         protected override void Draw(GameTime gameTime)
         {
-            _frameCounter.Update((float) gameTime.ElapsedGameTime.TotalSeconds);
-            
             // Main Rendering
             _activeScene.Render(_spriteBatch, _renderContext);
             _activeScene.UiLayer.Render(_spriteBatch, _renderContext);
-            // Render FPS overlay
-            var fps = $"FPS: {_frameCounter.AverageFramesPerSecond}";
-            
-            _spriteBatch.Begin();
-            _spriteBatch.DrawString(_contentLoader.GetFontManager().GetChatFont(), fps, Vector2.Zero, Color.Gold);
-            _spriteBatch.End();
+
+            if(GameSettings.Instance.showFPS)
+            {
+                // Render FPS overlay
+                _frameCounter.Update((float)gameTime.ElapsedGameTime.TotalSeconds);
+                var fps = $"FPS: {_frameCounter.AverageFramesPerSecond}";
+
+                _spriteBatch.Begin();
+                _spriteBatch.DrawString(_contentLoader.GetFontManager().GetChatFont(), fps, new Vector2(3, -3), Color.Lime);
+                _spriteBatch.End();
+            }
             
             _ui.Draw(gameTime);
 

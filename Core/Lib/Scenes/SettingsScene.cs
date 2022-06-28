@@ -33,6 +33,8 @@ public class SettingsScene: Scene
         Checkbox.Put(ref GameSettings.Instance.Fullscreen);
         Label.Put("Typing Speed: " + GameSettings.Instance.TypingSpeed).PrefWidth = context.Camera.BoundingRectangle.Width / 2;
         Slider.Put(ref GameSettings.Instance.TypingSpeed, 0, 0.02f);
+        Label.Put("Show FPS").PrefWidth = context.Camera.BoundingRectangle.Width / 2;
+        Checkbox.Put(ref GameSettings.Instance.showFPS);
         Horizontal.Pop();
         MenuPanel.Pop();
 

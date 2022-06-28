@@ -14,6 +14,8 @@ public class GameSettings
 
     public float TypingSpeed = 0.01f;
 
+    public bool showFPS = true;
+
     public GameSettings()
     {
         Instance = this;
