@@ -94,6 +94,7 @@ public class BasicParticipant : IBattleParticipant
     public string GroupId { get; }
     public string DisplayName => ParticipantId;
 
+    public int Experience { get; private set; }
     public int Health { get; private set; }
     public ParticipantState State { get; private set; } = ParticipantState.Alive;
 
@@ -156,6 +157,12 @@ public class BasicParticipant : IBattleParticipant
         Mana = Math.Max(0, Mana - mana);
     }
 
+    public void GainExperience(int amount)
+    {
+        Experience = _config.Stats.Experience + amount;
+        Console.WriteLine(Experience);
+    }
+
     public ParticipantSnapshot CreateSnapshot()
     {
         return new ParticipantSnapshot()
@@ -163,6 +170,7 @@ public class BasicParticipant : IBattleParticipant
             Config = _config,
             Health = Health,
             Mana = Mana,
+            Experience = Experience,
         };
     }
 }

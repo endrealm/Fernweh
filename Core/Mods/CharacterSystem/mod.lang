@@ -84,6 +84,11 @@
       "EN_US": "<color=\"Orange\">Armor:</color> {value} <color=\"Pink\">+{bonus}</color>"
     }
   },
+  "party.detail.stat.experience": {
+    "translations": {
+      "EN_US": "<color=\"Orange\">Experience:</color> {value}"
+    }
+  },
   "party.detail.stat.charisma": {
     "translations": {
       "EN_US": "<color=\"Orange\">Charisma:</color> {value} <color=\"Pink\">+{bonus}</color>"

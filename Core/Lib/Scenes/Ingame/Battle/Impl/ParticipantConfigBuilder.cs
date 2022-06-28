@@ -26,6 +26,11 @@ public class ParticipantConfigBuilder
         _mana = value;
         return this;
     }
+    public ParticipantConfigBuilder Experience(int value)
+    {
+        _stats.Experience = value;
+        return this;
+    }
     public ParticipantConfigBuilder Health(int value)
     {
         _stats.Health = value;

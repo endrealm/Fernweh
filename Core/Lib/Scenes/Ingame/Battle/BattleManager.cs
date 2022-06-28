@@ -152,6 +152,11 @@ public class BattleManager
 
         if (_enemies.All(participant => participant.State != ParticipantState.Alive))
         {
+            foreach (var friendly in _friendlies)
+            {
+                friendly.GainExperience(25);
+            }
+
             PlayerWon();
             return true;
         }
@@ -167,6 +172,7 @@ public class BattleManager
     
     private void PlayerWon()
     {
+        
         _globalEventManager.EmitPostBattle(true, CreateSnapshot());
         _onWin.Invoke();
     }

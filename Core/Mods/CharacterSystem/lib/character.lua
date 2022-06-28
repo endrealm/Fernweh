@@ -29,6 +29,7 @@ function Character:new(o)
     o.stats.health = o.stats.health or 10
     o.stats.mana = o.stats.mana or 1
     o.stats.armor = o.stats.armor or 0
+    o.stats.experience = o.stats.experience or 0
     o.stats.dexterity = o.stats.dexterity or 1
     o.stats.strength = o.stats.strength or 1
     o.stats.constitution = o.stats.constitution or 1
@@ -160,6 +161,7 @@ function Character:GenerateParticipant(createBuilder, abilityBuilder)
             :Health(self.stats.health)
             :Mana(self.stats.mana)
             :Armor(self.stats.armor)
+            :Experience(self.stats.experience)
             :Dexterity(self.stats.dexterity)
             :Strength(self.stats.strength)
             :Constitution(self.stats.constitution)

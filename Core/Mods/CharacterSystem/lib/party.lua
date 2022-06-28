@@ -96,6 +96,7 @@ Global:AddOnPostBattle(function(victory, snapshot)
         if(char ~= nil) then
             char:SetCurrentHealth(candidate.Health)
             char:SetCurrentMana(candidate.Mana)
+            char.stats.experience = candidate.Experience
         end
     end
 end)

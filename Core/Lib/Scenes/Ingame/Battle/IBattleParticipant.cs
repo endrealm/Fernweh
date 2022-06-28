@@ -17,6 +17,7 @@ public interface IBattleParticipant : IBattleEventReceiver
     /// The name displayed in the UI
     /// </summary>
     public string DisplayName { get; }
+    public int Experience { get; }
     public int Health { get; }
     public ParticipantState State { get; }
     public int Mana { get; }
@@ -36,5 +37,6 @@ public interface IBattleParticipant : IBattleEventReceiver
     int HealHealth(int health);
     int HealMana(int mana);
     void DeductMana(int mana);
+    void GainExperience(int amount);
     ParticipantSnapshot CreateSnapshot();
 }
