@@ -1,4 +1,15 @@
 ﻿{
+  "quest.test.name": {
+    "translations": {
+      "EN_US": "Test Quest"
+    }
+  },
+  "quest.test.description": {
+    "translations": {
+      "EN_US": "This is my test quest, good look trying to complete it. And even if you do, who knows if my code will properly complete it, or just crash the game."
+    }
+  },
+  
   "button.checkquest.dolrom": {
     "translations": {
       "EN_US": "  -> You check the House of Mercenaries office to see if Dolrom has any work for you."
@@ -6,7 +17,7 @@
   },
   "dolrom.quest.intro": {
     "translations": {
-      "EN_US": "Dolrom nods and thinks for a second, \"Sure, i think we have some work for you. Farcross always needs soldiers. But I need to make sure your battle ready first, follow the path north to meet Tharmus at the House of Mercenaries training camp.\" "
+      "EN_US": "Dolrom nods and thinks for a second, \"Sure, i think we have some work for you. Farcross always needs soldiers. But I need to make sure your battle ready first, follow the path <color=\"Orange\">north-east</color> to meet Tharmus at the House of Mercenaries training camp.\" "
     }
   },
   "dolrom.quest.intro.direct": {

@@ -1,0 +1,42 @@
+﻿{
+  "quest_book.header.inProgress": {
+    "translations": {
+      "EN_US": "<color=\"Orange\">Quests in Progress:</color>"
+    }
+  },
+  "quest_book.header.completed": {
+    "translations": {
+      "EN_US": "<color=\"Orange\">Completed Quests:</color>"
+    }
+  },
+  "quest_book.close": {
+    "translations": {
+      "EN_US": "<- Close"
+    }
+  },
+  "quest_book.quest.close": {
+    "translations": {
+      "EN_US": "<- Back"
+    }
+  },
+  "quest_book.quest.remove": {
+    "translations": {
+      "EN_US": "-> <color=\"Red\">Remove Quest</color>"
+    }
+  },
+  "quest_book.open": {
+    "translations": {
+      "EN_US": "<color=\"Orange\">Open Quest Book</color>"
+    }
+  },
+  "quest_book.quest.header": {
+    "translations": {
+      "EN_US": "<color=\"Orange\">{quest}</color>"
+    }
+  },
+  "quest_book.quest": {
+    "translations": {
+      "EN_US": "-> {quest}"
+    }
+  }
+}

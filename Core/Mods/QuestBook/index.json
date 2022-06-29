@@ -1,0 +1,8 @@
+﻿{
+  "id": "quest_book",
+  "type": "library",
+  "dependencies": [ "ui_compat" ],
+  "scripts": [
+    "api.lua"
+  ]
+}
