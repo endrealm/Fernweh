@@ -122,7 +122,7 @@ end
 
 function Quest:ShowOptions(renderer, context, completed)
     renderer:AddText("quest."..self.id..".description")
-    if (completed == false) then
+    if (completed == false and self.main == false) then
         renderer:AddAction(function()
             RemoveQuest(self)
             context:ChangeState("ui_quest_book")

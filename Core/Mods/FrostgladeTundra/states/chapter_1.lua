@@ -14,6 +14,10 @@ local AddToParty = party:GetFunc("AddToParty")
 local inventory = Import("inventory", "api")
 local AddItem = inventory:GetFunc("AddItem")
 
+local quest_book = Import("quest_book", "api")
+local AddQuest = quest_book:GetFunc("AddQuest")
+local CloseQuest = quest_book:GetFunc("CloseQuest")
+
 local shop = Import("shops", "api")
 local moneyHook = Import("shops", "money_hook")
 AddMoney = moneyHook:GetFunc("AddMoney")
@@ -58,6 +62,7 @@ StateBuilder("start_state")
     :Render(
             function(renderer, context)
                 renderer:AddText("dolrom.quest.intro")
+                AddQuest("tharmus_training")
                 AddItem("health_potion", 3)
                 AddItem("revive", 1)
                 AddItem("ether", 2)
@@ -98,6 +103,7 @@ StateBuilder("tharmus_training_finish")
     :Render(
             function(renderer, context)
                 questProg:Set("1")
+                CloseQuest("tharmus_training")
                 renderer:AddText("tharmus.training.3", { { "reward", AddMoney(35) } })
                 renderer:AddAction(function() context:Exit() end, "button.accept")
             end

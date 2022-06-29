@@ -13,7 +13,6 @@ local AddQuest = quest_book:GetFunc("AddQuest")
 -- ============================
 
 RegisterQuest(Quest:new({
-    id = "test",
+    id = "tharmus_training",
+    main = true,
 }))
-
-AddQuest("test")
