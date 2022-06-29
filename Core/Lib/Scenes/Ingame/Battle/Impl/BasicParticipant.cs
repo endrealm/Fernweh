@@ -121,6 +121,16 @@ public class BasicParticipant : IBattleParticipant
         return baseStats;
     }
 
+    public int GetAverageStats()
+    {
+        return _config.Stats.Strength +
+            _config.Stats.Constitution +
+            _config.Stats.Dexterity +
+            _config.Stats.Intellect +
+            _config.Stats.Wisdom +
+            _config.Stats.Charisma / 6;
+    }
+
     public void UpdateParticipantState(ActionContext updateContext)
     {
         if (Health > 0)

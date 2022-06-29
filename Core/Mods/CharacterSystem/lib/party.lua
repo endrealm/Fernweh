@@ -101,6 +101,18 @@ Global:AddOnPostBattle(function(victory, snapshot)
             do
                 char.stats.level = char.stats.level + 1
                 char.stats.experience = char.stats.experience - char:GetExperienceForLevelUp()
+
+                -- stat upgrades
+                char.stats.health = char.stats.health + 3
+                char.stats.mana = char.stats.mana + 2
+                char.current.health = char.current.health + 3
+                char.current.mana = char.current.mana + 2
+                char.stats.strength = char.stats.strength + 1
+                char.stats.constitution = char.stats.constitution + 1
+                char.stats.dexterity = char.stats.dexterity + 1
+                char.stats.intellect = char.stats.intellect + 1
+                char.stats.wisdom = char.stats.wisdom + 1
+                char.stats.charisma = char.stats.charisma + 1
             end
         end
     end

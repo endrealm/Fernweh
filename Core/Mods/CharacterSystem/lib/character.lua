@@ -54,7 +54,7 @@ function Character:SetCurrentMana(mana)
 end
 
 function Character:GetExperienceForLevelUp()
-    return math.floor(0.0895 * (self.stats.level + 5)^2 + 12.8)
+    return math.floor(0.04 * (self.stats.level + 5)^2 + 20)
 end
 
 function Character:GetItemStats()
