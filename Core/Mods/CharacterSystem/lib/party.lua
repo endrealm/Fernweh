@@ -96,7 +96,15 @@ Global:AddOnPostBattle(function(victory, snapshot)
         if(char ~= nil) then
             char:SetCurrentHealth(candidate.Health)
             char:SetCurrentMana(candidate.Mana)
-            char.stats.experience = candidate.Experience
+
+            -- calc gained xp
+            local xp = 0
+            for i=0,snapshot.Enemies.Count - 1 do
+	            xp = xp + snapshot.Enemies[i].Config.Stats.Health
+            end
+
+            -- add xp, then level up if needed
+            char.stats.experience = char.stats.experience + xp
             while(char.stats.experience >= char:GetExperienceForLevelUp() and char.stats.level < 100)
             do
                 char.stats.level = char.stats.level + 1

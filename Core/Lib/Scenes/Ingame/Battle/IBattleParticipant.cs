@@ -17,7 +17,6 @@ public interface IBattleParticipant : IBattleEventReceiver
     /// The name displayed in the UI
     /// </summary>
     public string DisplayName { get; }
-    public int Experience { get; }
     public int Health { get; }
     public ParticipantState State { get; }
     public int Mana { get; }
@@ -27,7 +26,6 @@ public interface IBattleParticipant : IBattleEventReceiver
     public List<IStatusEffect> GetActiveEffects();
     IBattleAction NextAction { get; set; }
     Stats GetStats();
-    int GetAverageStats();
     /// <summary>
     /// Checks for state updates on the participant. Supplied context should
     /// and will only be used to log state changes.
@@ -38,6 +36,5 @@ public interface IBattleParticipant : IBattleEventReceiver
     int HealHealth(int health);
     int HealMana(int mana);
     void DeductMana(int mana);
-    void GainExperience(int amount);
     ParticipantSnapshot CreateSnapshot();
 }

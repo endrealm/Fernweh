@@ -152,12 +152,6 @@ public class BattleManager
 
         if (_enemies.All(participant => participant.State != ParticipantState.Alive))
         {
-            int xp = 0;
-            foreach (var enemy in _enemies)
-                xp += (int)Math.Floor(0.3f * enemy.GetAverageStats());
-            foreach (var friendly in _friendlies)
-                friendly.GainExperience(xp);
-
             PlayerWon();
             return true;
         }

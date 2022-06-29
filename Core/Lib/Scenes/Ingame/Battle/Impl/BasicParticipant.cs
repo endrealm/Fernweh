@@ -94,7 +94,6 @@ public class BasicParticipant : IBattleParticipant
     public string GroupId { get; }
     public string DisplayName => ParticipantId;
 
-    public int Experience { get; private set; }
     public int Health { get; private set; }
     public ParticipantState State { get; private set; } = ParticipantState.Alive;
 
@@ -119,16 +118,6 @@ public class BasicParticipant : IBattleParticipant
         var baseStats = _config.Stats.Clone();
         OnCalculateStats(baseStats);
         return baseStats;
-    }
-
-    public int GetAverageStats()
-    {
-        return _config.Stats.Strength +
-            _config.Stats.Constitution +
-            _config.Stats.Dexterity +
-            _config.Stats.Intellect +
-            _config.Stats.Wisdom +
-            _config.Stats.Charisma / 6;
     }
 
     public void UpdateParticipantState(ActionContext updateContext)
@@ -167,11 +156,6 @@ public class BasicParticipant : IBattleParticipant
         Mana = Math.Max(0, Mana - mana);
     }
 
-    public void GainExperience(int amount)
-    {
-        Experience = _config.Stats.Experience + amount;
-    }
-
     public ParticipantSnapshot CreateSnapshot()
     {
         return new ParticipantSnapshot()
@@ -179,7 +163,6 @@ public class BasicParticipant : IBattleParticipant
             Config = _config,
             Health = Health,
             Mana = Mana,
-            Experience = Experience,
         };
     }
 }
