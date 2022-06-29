@@ -48,10 +48,23 @@ StateBuilder("ui_party_member_details")
                 renderer:AddAction(function() context:ChangeState("ui_party") end, "party.back")
                 renderer:AddText("party.detail.header", { { "name", activeDetailMember.id } })
                 local bonusStats = activeDetailMember:GetItemStats()
-                for key, value in pairs(activeDetailMember.stats) do
-                    renderer:AddText("party.detail.stat."..key, { { "value", value }, { "bonus", bonusStats[key] or 0 } })
-                end
-                renderer:AddText("party.detail.items")
+                --for key, value in pairs(activeDetailMember.stats) do -- replaced this because this shows random order
+                --    renderer:AddText("party.detail.stat."..key, { { "value", value }, { "bonus", bonusStats[key] or 0 } })
+                --end
+
+                renderer:AddText("party.detail.stat.experience", {{ "exp", activeDetailMember.stats.experience }, { "levelExp", activeDetailMember:GetExperienceForLevelUp() }, { "level", activeDetailMember.stats.level } })
+
+                renderer:AddText("party.detail.stat.health_mana", { { "currentHP", activeDetailMember.current.health }, { "HP", activeDetailMember.stats.health }, { "bonusHP", bonusStats["health"] or 0 },
+                { "currentMP", activeDetailMember.current.mana }, { "MP", activeDetailMember.stats.mana }, { "bonusMP", bonusStats["mana"] or 0 }})
+
+                renderer:AddText("party.detail.stat.armor", {{ "value", activeDetailMember.stats.armor }, { "bonus", bonusStats["armor"] or 0 } })
+                renderer:AddText("party.detail.stat.strength", {{ "value", activeDetailMember.stats.strength }, { "bonus", bonusStats["strength"] or 0 } })
+                renderer:AddText("party.detail.stat.constitution", {{ "value", activeDetailMember.stats.constitution }, { "bonus", bonusStats["constitution"] or 0 } })
+                renderer:AddText("party.detail.stat.dexterity", {{ "value", activeDetailMember.stats.dexterity }, { "bonus", bonusStats["dexterity"] or 0 } })
+                renderer:AddText("party.detail.stat.intellect", {{ "value", activeDetailMember.stats.intellect }, { "bonus", bonusStats["intellect"] or 0 } })
+                renderer:AddText("party.detail.stat.wisdom", {{ "value", activeDetailMember.stats.wisdom }, { "bonus", bonusStats["wisdom"] or 0 } })
+                renderer:AddText("party.detail.stat.charisma", {{ "value", activeDetailMember.stats.charisma }, { "bonus", bonusStats["charisma"] or 0 } })
+
                 for _, value in pairs(GetSlots()) do
                     local item = activeDetailMember:GetEquippedItem(value)
                     if(item == nil) then

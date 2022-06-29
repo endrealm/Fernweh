@@ -160,7 +160,6 @@ public class BasicParticipant : IBattleParticipant
     public void GainExperience(int amount)
     {
         Experience = _config.Stats.Experience + amount;
-        Console.WriteLine(Experience);
     }
 
     public ParticipantSnapshot CreateSnapshot()

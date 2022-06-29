@@ -12,6 +12,7 @@ public class Stats
     public int Mana { get; set; }
     public int Armor { get; set; }
     public int Experience { get; set; }
+    public int Level { get; set; }
 
     public Stats Clone()
     {
@@ -27,6 +28,7 @@ public class Stats
             Mana = Mana,
             Armor = Armor,
             Experience = Experience,
+            Level = Level,
         };
     }
 }

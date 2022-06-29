@@ -69,14 +69,9 @@
       "EN_US": "<color=\"Orange\">View Party</color>"
     }
   },
-  "party.detail.stat.health": {
+  "party.detail.stat.health_mana": {
     "translations": {
-      "EN_US": "<color=\"Orange\">Health:</color> {value} <color=\"Pink\">+{bonus}</color>"
-    }
-  },
-  "party.detail.stat.mana": {
-    "translations": {
-      "EN_US": "<color=\"Orange\">Mana:</color> {value} <color=\"Pink\">+{bonus}</color>"
+      "EN_US": "<color=\"Green\">HP:</color> {currentHP}/{HP}<color=\"Pink\">+{bonusHP}</color> <color=\"Blue\">MP:</color> {currentMP}/{MP}<color=\"Pink\">+{bonusMP}</color>"
     }
   },
   "party.detail.stat.armor": {
@@ -86,7 +81,7 @@
   },
   "party.detail.stat.experience": {
     "translations": {
-      "EN_US": "<color=\"Orange\">Experience:</color> {value}"
+      "EN_US": "<color=\"Orange\">Lvl:</color> {level} <color=\"Orange\">Exp:</color> {exp}/{levelExp}"
     }
   },
   "party.detail.stat.charisma": {
@@ -117,11 +112,6 @@
   "party.detail.stat.wisdom": {
     "translations": {
       "EN_US": "<color=\"Orange\">Wisdom:</color> {value} <color=\"Pink\">+{bonus}</color>"
-    }
-  },
-  "party.detail.items": {
-    "translations": {
-      "EN_US": "Item Slots:"
     }
   },
   "slot.weapon.name": {

@@ -97,6 +97,11 @@ Global:AddOnPostBattle(function(victory, snapshot)
             char:SetCurrentHealth(candidate.Health)
             char:SetCurrentMana(candidate.Mana)
             char.stats.experience = candidate.Experience
+            while(char.stats.experience >= char:GetExperienceForLevelUp() and char.stats.level < 100)
+            do
+                char.stats.level = char.stats.level + 1
+                char.stats.experience = char.stats.experience - char:GetExperienceForLevelUp()
+            end
         end
     end
 end)

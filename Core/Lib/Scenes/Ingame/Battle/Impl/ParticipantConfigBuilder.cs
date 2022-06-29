@@ -26,6 +26,11 @@ public class ParticipantConfigBuilder
         _mana = value;
         return this;
     }
+    public ParticipantConfigBuilder Level(int value)
+    {
+        _stats.Level = value;
+        return this;
+    }
     public ParticipantConfigBuilder Experience(int value)
     {
         _stats.Experience = value;

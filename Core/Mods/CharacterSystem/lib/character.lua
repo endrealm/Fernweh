@@ -26,6 +26,7 @@ function Character:new(o)
     o.current = o.current or {}
     
     -- Init base stats
+    o.stats.level = o.stats.level or 1
     o.stats.health = o.stats.health or 10
     o.stats.mana = o.stats.mana or 1
     o.stats.armor = o.stats.armor or 0
@@ -36,6 +37,9 @@ function Character:new(o)
     o.stats.intellect = o.stats.intellect or 1
     o.stats.wisdom = o.stats.wisdom or 1
     o.stats.charisma = o.stats.charisma or 1
+
+    o.current.health = o.stats.health
+    o.current.mana = o.stats.mana
     
     setmetatable(o, self)
     self.__index = self
@@ -47,6 +51,10 @@ function Character:SetCurrentHealth(health)
 end
 function Character:SetCurrentMana(mana)
     self.current.mana = mana;
+end
+
+function Character:GetExperienceForLevelUp()
+    return math.floor(0.0895 * (self.stats.level + 5)^2 + 12.8)
 end
 
 function Character:GetItemStats()
@@ -161,6 +169,7 @@ function Character:GenerateParticipant(createBuilder, abilityBuilder)
             :Health(self.stats.health)
             :Mana(self.stats.mana)
             :Armor(self.stats.armor)
+            :Level(self.stats.level)
             :Experience(self.stats.experience)
             :Dexterity(self.stats.dexterity)
             :Strength(self.stats.strength)
