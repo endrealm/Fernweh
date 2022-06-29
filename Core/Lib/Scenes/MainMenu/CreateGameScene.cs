@@ -33,7 +33,7 @@ public class CreateGameScene: Scene
         MenuPanel.Push();
         Label.Put("Create new game?");
         var old = _gameName;
-        var box = Textbox.Put(ref _gameName, "New Game");
+        var box = Textbox.Put(ref _gameName, "game_name");
 
         if (_gameName.Length > 16 || ContainsInvalidCharacters(_gameName))
         {
@@ -44,13 +44,9 @@ public class CreateGameScene: Scene
         // see if we need to check if file is valid
         if (_gameName != old)
         {
+            box.Text = BuildProdName();
             CheckForNameUsage(context.SaveGameManager);
         }
-        
-        Horizontal.Push();
-        Label.Put("Save Name:");
-        Label.Put(BuildProdName(), color: Color.Wheat);
-        Horizontal.Pop();
         
         Horizontal.Push();
         if (Button.Put("<").Clicked)
@@ -102,16 +98,16 @@ public class CreateGameScene: Scene
 
     private bool IsValidName()
     {
-        return BuildProdName().Length > 0 && !_nameUsed;
+        return _gameName.Length > 0 && !_nameUsed;
     }
 
     private string BuildProdName()
     {
-        return _gameName.Trim().ToLower().Replace((char)32, '_');
+        return _gameName.ToLower().Replace((char)32, '_');
     }
     private void CheckForNameUsage(ISaveGameManager saveGameManager)
     {
-        _nameUsed = saveGameManager.Exists(BuildProdName());
+        _nameUsed = saveGameManager.Exists(_gameName);
     }
 
 

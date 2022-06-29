@@ -88,7 +88,7 @@ RegisterFriendlyParticipantsProvider(function(builder, abilityBuilder)
 end)
 
 Global:AddOnPostBattle(function(victory, snapshot)
-    print("Starting party post battle save")
+    --print("Starting party post battle save")
     for candidateCount = 0, snapshot.Friendlies.Count - 1 do
         local candidate = snapshot.Friendlies[candidateCount]
         local id = candidate.Config.Id

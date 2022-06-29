@@ -34,9 +34,9 @@ public class WorldGameView: IGameView, IRenderer<IngameRenderContext>, IUpdate<I
         // get corner of camera screen, we'll render from there on so we dont have to do any loop containing all world tiles
         _cameraCulling = new Vector2((int)Math.Round(context.TopLevelContext.Camera.Position.X / 32) - 1, (int)Math.Round(context.TopLevelContext.Camera.Position.Y / 32) - 1);
 
-        for (int x = (int)_cameraCulling.X; x < (int)_cameraCulling.X + 9; x++)
+        for (int y = (int)_cameraCulling.Y; y < (int)_cameraCulling.Y + 9; y++)
         {
-            for (int y = (int)_cameraCulling.Y; y < (int)_cameraCulling.Y + 9; y++)
+            for (int x = (int)_cameraCulling.X; x < (int)_cameraCulling.X + 9; x++)
             {
                 if (DiscoveredTiles[mapDataRegistry.GetLoadedMap().name].Contains(new Vector2(x, y)) || !mapDataRegistry.GetLoadedMap().explorable) // only render tiles explored, unless the map isnt set to be explorable
                 {
@@ -52,11 +52,11 @@ public class WorldGameView: IGameView, IRenderer<IngameRenderContext>, IUpdate<I
                             context.WorldTint);
                     }
                 }
-
-                var roundedPos = new Vector2((float)Math.Round(player.CurrentPos.X / 32), (float)Math.Round(player.CurrentPos.Y / 32));
-                if (roundedPos == new Vector2(x, y)) // render player right after its current tile
-                    player.Render(spriteBatch, context);
             }
+
+            var roundedPos = (float)Math.Ceiling(player.CurrentPos.Y / 32);
+            if (roundedPos == y) // render player right after its current tile
+                player.Render(spriteBatch, context);
         }
     }
 
