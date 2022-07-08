@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using Core.Content;
+using Core.Scenes.Modding;
 using Core.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -17,13 +18,13 @@ namespace Core.Scenes.Ingame.World
 
         public void Load(ContentLoader content) // load all the tiles right now and load their sprites
         {
-            List<IArchiveLoader> mods = content.GetMods();
-            foreach (IArchiveLoader mod in mods)
+            List<Mod> mods = content.ModLoader.ActiveModOrder;
+            foreach (Mod mod in mods)
             {
-                string[] files = mod.LoadAllFiles("*.tile");
+                string[] files = mod.Archive.LoadAllFiles("*.tile");
                 foreach (var file in files)
                 {
-                    TileData data = JsonConvert.DeserializeObject<TileData>(mod.LoadFile(file));
+                    TileData data = JsonConvert.DeserializeObject<TileData>(mod.Archive.LoadFile(file));
                     data.LoadSprites(content);
                     _tileList.Add(data.name, data);
                 }

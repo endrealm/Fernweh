@@ -40,7 +40,7 @@ public class ContentLoader
     private readonly IFontManager _fontManager;
 
     private readonly Dictionary<Type, ILoader> _loaders = new();
-    public ModLoader ModLoader { set; private get; }
+    public ModLoader ModLoader { set; get; }
 
     public ContentLoader(GraphicsDeviceManager deviceManager, ContentManager contentManager, IFontManager fontManager, List<IArchiveLoader> mods)
     {
@@ -81,10 +81,5 @@ public class ContentLoader
     public void RegisterLoader<TResource>(ILoader<TResource> loader)
     {
         _loaders[typeof(TResource)] = loader;
-    }
-
-    public List<IArchiveLoader> GetMods()
-    {
-        return _mods;
     }
 }

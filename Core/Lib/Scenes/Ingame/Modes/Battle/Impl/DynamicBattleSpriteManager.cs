@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Core.Content;
+using Core.Scenes.Modding;
 using Core.Scripting;
 using Core.States;
 using Core.Utils;
@@ -16,10 +17,10 @@ public class DynamicBattleSpriteManager: IBattleSpriteManager
         if(content == null) return;
         _content = content;
 
-        List<IArchiveLoader> mods = content.GetMods();
-        foreach (IArchiveLoader mod in mods)
+        List<Mod> mods = content.ModLoader.ActiveModOrder;
+        foreach (Mod mod in mods)
         {
-            string[] files = mod.LoadAllFiles("*.png");
+            string[] files = mod.Archive.LoadAllFiles("*.png");
             foreach (var file in files)
             {
                 if (file.ToLower().Contains("battle"))

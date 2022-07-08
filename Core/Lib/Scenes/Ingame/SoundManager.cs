@@ -1,4 +1,5 @@
 ﻿using Core.Content;
+using Core.Scenes.Modding;
 using Core.Utils;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Media;
@@ -16,14 +17,14 @@ namespace Core.Scenes.Ingame
         public void ScanForAudio(ContentLoader content)
         {
             // load each sound file and sort from sfx to songs
-            List<IArchiveLoader> mods = content.GetMods();
-            foreach (IArchiveLoader mod in mods)
+            List<Mod> mods = content.ModLoader.ActiveModOrder;
+            foreach (Mod mod in mods)
             {
-                string[] soundFiles = mod.LoadAllFiles("*.wav");
+                string[] soundFiles = mod.Archive.LoadAllFiles("*.wav");
                 foreach (var file in soundFiles)
                 {
                     var name = System.IO.Path.GetFileName(file).Replace(".wav", "");
-                    var sound = SoundEffect.FromStream(mod.LoadFileAsStream(file));
+                    var sound = SoundEffect.FromStream(mod.Archive.LoadFileAsStream(file));
 
                     if (file.Contains("sfx"))
                         _sounds.Add(name, sound);

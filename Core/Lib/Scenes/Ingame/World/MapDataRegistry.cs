@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Core.Content;
 using Newtonsoft.Json;
 using Microsoft.Xna.Framework;
+using Core.Scenes.Modding;
 
 namespace Core.Scenes.Ingame.World
 {
@@ -13,13 +14,13 @@ namespace Core.Scenes.Ingame.World
 
         public void Load(ContentLoader content, Dictionary<string, List<Vector2>> discoveredTiles) // load all maps here and load the first one
         {
-            List<IArchiveLoader> mods = content.GetMods();
-            foreach (IArchiveLoader mod in mods)
+            List<Mod> mods = content.ModLoader.ActiveModOrder;
+            foreach (Mod mod in mods)
             {
-                string[] files = mod.LoadAllFiles("*.map");
+                string[] files = mod.Archive.LoadAllFiles("*.map");
                 for (int i = 0; i < files.Length; i++)
                 {
-                    MapData data = JsonConvert.DeserializeObject<MapData>(mod.LoadFile(files[i]));
+                    MapData data = JsonConvert.DeserializeObject<MapData>(mod.Archive.LoadFile(files[i]));
                     _mapList.Add(data.name, data);
                     discoveredTiles.Add(data.name, new List<Vector2>());
                 }
