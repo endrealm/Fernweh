@@ -61,6 +61,8 @@ BlackListState("start_state")
 StateBuilder("start_state")
     :Render(
             function(renderer, context)
+                context:LoadMap("testMap")
+                context:TeleportPlayer(7, 10)
                 renderer:AddText("dolrom.quest.intro")
                 AddQuest("tharmus_training")
                 AddItem("health_potion", 3)

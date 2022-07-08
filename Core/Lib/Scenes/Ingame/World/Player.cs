@@ -57,6 +57,7 @@ namespace Core.Scenes.Ingame.World
 
         public void TeleportPlayer(Vector2 mapPos) // can be used to move to spawn
         {
+            if (_worldRenderer.mapDataRegistry.GetLoadedMap() == null) return; // cant move if no map loaded
             if (CurrentPos != _targetPos) return; // cant move if currently moving
             if (_worldRenderer.mapDataRegistry.GetLoadedMap().GetTile(CurrentPos / 32) == null ||
                 _worldRenderer.tileDataRegistry.GetTile(_worldRenderer.mapDataRegistry.GetLoadedMap().GetTile(CurrentPos / 32).name) == null) return; // cant move to what doesnt exist
@@ -69,7 +70,8 @@ namespace Core.Scenes.Ingame.World
 
         public void MovePlayer(Vector2 direction)
         {
-            if(!_gameManager.ActiveState.AllowMove) return;
+            if(!_gameManager.ActiveState.AllowMove) return; // cant move if... cant move
+            if (_worldRenderer.mapDataRegistry.GetLoadedMap() == null) return; // cant move if no map loaded
             if (CurrentPos != _targetPos) return; // cant move if currently moving
 
             _previousTileData = _worldRenderer.mapDataRegistry.GetLoadedMap().GetTile(CurrentPos / 32);

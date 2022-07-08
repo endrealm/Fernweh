@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using Core.Scenes.Ingame;
 using Core.Scenes.Ingame.Battle;
 using Core.Scenes.Ingame.Battle.Impl;
+using Core.Scenes.Ingame.Views;
 using NLua;
+using Microsoft.Xna.Framework;
 
 namespace Core.States;
 
@@ -11,6 +13,7 @@ public class RenderContext
 {
     private readonly IStateManager _stateManager;
     private readonly GameManager _gameManager;
+    private WorldGameView _worldGameView;
     public string PreviousStateId { get; }
     public string ActiveStateId { get; }
     public bool IsRunning { get; set; } = true;
@@ -22,6 +25,7 @@ public class RenderContext
         _gameManager = gameManager;
         ActiveStateId = activeStateId;
         PreviousStateId = previousStateId;
+        _worldGameView = _gameManager.GetOverworldMode().worldGameView;
     }
 
     public void ChangeState(string stateId)
@@ -50,6 +54,7 @@ public class RenderContext
             .AppendData("config", config)
             .AppendData("background", background));
     }
+
     public void Exit()
     {
         if (IsRunning)
@@ -58,5 +63,25 @@ public class RenderContext
             return;
         }
         _stateManager.LoadState("null");
+    }
+
+    public void MovePlayer(int x, int y)
+    {
+        _worldGameView.player.MovePlayer(new Vector2(x, y));
+    }
+
+    public void TeleportPlayer(int x, int y)
+    {
+        _worldGameView.player.TeleportPlayer(new Vector2(x,y));
+    }
+
+    public void LoadMap(string name)
+    {
+        _worldGameView.mapDataRegistry.LoadMap(name);
+    }
+
+    public string GetLoadedMap()
+    {
+        return _worldGameView.mapDataRegistry.GetLoadedMapName();
     }
 }

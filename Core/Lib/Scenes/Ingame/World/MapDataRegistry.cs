@@ -22,7 +22,6 @@ namespace Core.Scenes.Ingame.World
                     MapData data = JsonConvert.DeserializeObject<MapData>(mod.LoadFile(files[i]));
                     _mapList.Add(data.name, data);
                     discoveredTiles.Add(data.name, new List<Vector2>());
-                    if (i == 0) _loadedMap = data.name;
                 }
             }
         }
@@ -37,12 +36,23 @@ namespace Core.Scenes.Ingame.World
 
         public MapData GetLoadedMap()
         {
-            return _mapList[_loadedMap];
+            if (_loadedMap == null)
+                return null;
+            else
+                return _mapList[_loadedMap];
+        }
+
+        public string GetLoadedMapName()
+        {
+            return _loadedMap;
         }
 
         public MapData LoadMap(string name)
         {
-            return _mapList[_loadedMap = name];
+            if (name == null || !_mapList.ContainsKey(name))
+                return null;
+            else
+                return _mapList[_loadedMap = name];
         }
 
         private MapData CreateMapData(ContentLoader content, string path)

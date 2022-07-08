@@ -69,6 +69,8 @@ public class OverworldMode: IMode, IStateManager
     {
         weakNextID = (string) data["WeakState"];
         Load(new ModeParameters().AppendData("state", (string) data["State"] ?? "null"));
+        if(data.ContainsKey("LoadedMap"))
+            worldGameView.mapDataRegistry.LoadMap((string)data["LoadedMap"]);
         if(data.ContainsKey("PlayerPosX") && data.ContainsKey("PlayerPosY"))
             worldGameView.player.TeleportPlayer(new Vector2(Int32.Parse((string)data["PlayerPosX"]), Int32.Parse((string)data["PlayerPosY"])));
         if (data.ContainsKey("DiscoveredTiles"))
@@ -79,6 +81,7 @@ public class OverworldMode: IMode, IStateManager
     {
         data.Add("State", LastSaveState);
         data.Add("WeakState", LastSaveStateWeak);
+        data.Add("LoadedMap", worldGameView.mapDataRegistry.GetLoadedMapName());
         data.Add("PlayerPosX", (worldGameView.player.CurrentPos.X / 32).ToString());
         data.Add("PlayerPosY", (worldGameView.player.CurrentPos.Y / 32).ToString());
         data.Add("DiscoveredTiles", JsonConvert.SerializeObject(worldGameView.DiscoveredTiles));

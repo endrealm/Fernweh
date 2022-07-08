@@ -92,6 +92,11 @@ public class GameManager: ILoadable
         Mode.Load((Dictionary<string, object>) data["Data"]);
     }
 
+    public OverworldMode GetOverworldMode()
+    {
+        return _modes["overworld"] as OverworldMode;
+    }
+
     private string ActiveModeKey()
     {
         foreach (var keyValuePair in _modes)

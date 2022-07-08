@@ -31,6 +31,9 @@ public class WorldGameView: IGameView, IRenderer<IngameRenderContext>, IUpdate<I
 
     public void Render(SpriteBatch spriteBatch, IngameRenderContext context)
     {
+        // if theres no map loaded, dont render anything
+        if (mapDataRegistry.GetLoadedMap() == null) return;
+
         // get corner of camera screen, we'll render from there on so we dont have to do any loop containing all world tiles
         _cameraCulling = new Vector2((int)Math.Round(context.TopLevelContext.Camera.Position.X / 32) - 1, (int)Math.Round(context.TopLevelContext.Camera.Position.Y / 32) - 1);
 
@@ -66,7 +69,6 @@ public class WorldGameView: IGameView, IRenderer<IngameRenderContext>, IUpdate<I
         mapDataRegistry.Load(content, DiscoveredTiles);
 
         player.Load(content);
-        player.TeleportPlayer(new Vector2(7, 10));
     }
 
     public void Update(float deltaTime, IngameUpdateContext context)
