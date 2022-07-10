@@ -141,10 +141,9 @@
         "name": "mountain"
       },
       "15": {
-        "name": "snow",
-        "firstEnterState": "first_enter_snow",
-        "enterState": "enter_snow",
-        "lastLeaveState": "last_leave_snow"
+        "name": "mine",
+        "firstEnterState": "enter_mine",
+        "lastLeaveState": "leave_mine"
       },
       "16": {
         "name": "forest",
@@ -177,10 +176,9 @@
         "lastLeaveState": "last_leave_mountain"
       },
       "2": {
-        "name": "snow",
-        "firstEnterState": "first_enter_snow",
-        "enterState": "enter_snow",
-        "lastLeaveState": "last_leave_snow"
+        "name": "mine",
+        "firstEnterState": "enter_mine",
+        "lastLeaveState": "leave_mine"
       },
       "3": {
         "name": "path",
@@ -1234,10 +1232,9 @@
         "lastLeaveState": "last_leave_mountain"
       },
       "3": {
-        "name": "snow",
-        "firstEnterState": "first_enter_snow",
-        "enterState": "enter_snow",
-        "lastLeaveState": "last_leave_snow"
+        "name": "mine",
+        "firstEnterState": "enter_mine",
+        "lastLeaveState": "leave_mine"
       },
       "4": {
         "name": "mountain",
@@ -1268,10 +1265,9 @@
         "lastLeaveState": "last_leave_mountain"
       },
       "9": {
-        "name": "snow",
-        "firstEnterState": "first_enter_snow",
-        "enterState": "enter_snow",
-        "lastLeaveState": "last_leave_snow"
+        "name": "mine",
+        "firstEnterState": "enter_mine",
+        "lastLeaveState": "leave_mine"
       },
       "10": {
         "name": "mountain",

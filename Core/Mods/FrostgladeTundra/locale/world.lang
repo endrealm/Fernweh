@@ -61,6 +61,11 @@
       "EN_US": "In the center of Farcross, theres a market. Besides the wall you can see Dolrom's House of Mercenaries office."
     }
   },
+  "enter.mine": {
+    "translations": {
+      "EN_US": "You come across a mine, you peek inside but its too dark to see anything."
+    }
+  },
 
   "leave.snow": {
     "translations": {

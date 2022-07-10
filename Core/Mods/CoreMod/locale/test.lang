@@ -24,9 +24,9 @@
       "EN_US": "  -> You decide it's best to <color=\"Red\">go</color>"
     }
   },
-  "button.enter.shop": {
+  "button.enter": {
     "translations": {
-      "EN_US": "  -> You look at the shops <color=\"Brown\">wares</color>"
+      "EN_US": "  -> You follow the entrance and <color=\"Green\">go inside</color>"
     }
   }
 }

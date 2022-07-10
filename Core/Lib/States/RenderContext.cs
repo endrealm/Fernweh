@@ -75,9 +75,10 @@ public class RenderContext
         _worldGameView.player.TeleportPlayer(new Vector2(x,y));
     }
 
-    public void LoadMap(string name)
+    public void LoadMap(string name, int x, int y)
     {
         _worldGameView.mapDataRegistry.LoadMap(name);
+        _worldGameView.player.TeleportPlayer(new Vector2(x, y));
     }
 
     public string GetLoadedMap()

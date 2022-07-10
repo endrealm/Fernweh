@@ -58,8 +58,7 @@ BlackListState("start_state")
 StateBuilder("start_state")
     :Render(
             function(renderer, context)
-                context:LoadMap("testMap")
-                context:TeleportPlayer(7, 10)
+                context:LoadMap("testMap", 7, 10)
                 renderer:AddText("dolrom.quest.intro")
                 AddQuest("tharmus_training")
                 AddItem("health_potion", 3)
@@ -196,15 +195,6 @@ StateBuilder("kobold_camp1")
     )
     :Build()
 
-StateBuilder("game_conclusion")
-    :Render(
-            function(renderer, context)
-                renderer:AddText("game.conclusion")
-                renderer:AddAction(function() context:Exit() end, "button.accept")
-            end
-    )
-    :Build()
-
 StateBuilder("kobold_camp1.1")
     :Render(
             function(renderer, context)
@@ -336,6 +326,15 @@ StateBuilder("first_enter_ice")
                 function(renderer, context)
                     renderer:AddText("enter.ice")
                     StartEncounter(renderer, context, "encounter.wolf", {"wolf", "wolf"}, 30)
+                end
+        )
+        :Build()
+
+StateBuilder("enter_mine")
+        :Render(
+                function(renderer, context)
+                    renderer:AddText("enter.mine")
+                    renderer:AddAction(function() context:LoadMap("mineTest", 0, 2) context:Exit() end, "button.enter")
                 end
         )
         :Build()
@@ -548,6 +547,16 @@ StateBuilder("leave_castle")
         :Render(
                 function(renderer, context)
                     renderer:AddText("leave.castle", function() context:Exit() end)
+                end
+        )
+        :Build()
+
+BlackListState("leave_mine")
+StateBuilder("leave_mine")
+        :ClearScreenPost(false)
+        :Render(
+                function(renderer, context)
+                    renderer:AddText("leave.mine", function() context:Exit() end)
                 end
         )
         :Build()

@@ -59,8 +59,8 @@ namespace Core.Scenes.Ingame.World
         {
             if (_worldRenderer.mapDataRegistry.GetLoadedMap() == null) return; // cant move if no map loaded
             if (CurrentPos != _targetPos) return; // cant move if currently moving
-            if (_worldRenderer.mapDataRegistry.GetLoadedMap().GetTile(CurrentPos / 32) == null ||
-                _worldRenderer.tileDataRegistry.GetTile(_worldRenderer.mapDataRegistry.GetLoadedMap().GetTile(CurrentPos / 32).name) == null) return; // cant move to what doesnt exist
+            //if (_worldRenderer.mapDataRegistry.GetLoadedMap().GetTile(CurrentPos / 32) == null ||
+            //    _worldRenderer.tileDataRegistry.GetTile(_worldRenderer.mapDataRegistry.GetLoadedMap().GetTile(CurrentPos / 32).name) == null) return; // cant move to what doesnt exist
 
             CurrentPos = mapPos * 32;
             _targetPos = CurrentPos;

@@ -1,0 +1,23 @@
+﻿{
+  "name": "mineTest",
+  "explorable": false,
+  "tilePositions": {
+    "0": {
+      "0": {
+        "name": "mountain"
+      },
+      "1": {
+        "name": "path",
+        "firstEnterState": "first_enter_path",
+        "enterState": "enter_path",
+        "lastLeaveState": "last_leave_path"
+      },
+      "2": {
+        "name": "path",
+        "firstEnterState": "first_enter_path",
+        "enterState": "enter_path",
+        "lastLeaveState": "last_leave_path"
+      },
+    }
+  }
+}
