@@ -17,16 +17,13 @@ local AddItem = inventory:GetFunc("AddItem")
 local quest_book = Import("quest_book", "api")
 local AddQuest = quest_book:GetFunc("AddQuest")
 local CloseQuest = quest_book:GetFunc("CloseQuest")
+local IsQuestCompleted = quest_book:GetFunc("IsQuestCompleted")
+local HasJustCompletedQuest = quest_book:GetFunc("HasJustCompletedQuest")
 
 local shop = Import("shops", "api")
 local moneyHook = Import("shops", "money_hook")
 AddMoney = moneyHook:GetFunc("AddMoney")
 OpenShop = shop:GetFunc("OpenShop")
-
-local questProg = Context:CreateStoredVar("questProg", "0")
-function GetQuestProg()
-    return questProg:Get();
-end
 
 function Random(amount)
     return math.random(1, amount);
@@ -77,7 +74,7 @@ StateBuilder("start_state")
 StateBuilder("tharmus_training")
     :Render(
             function(renderer, context)
-                if(GetQuestProg() == "0")
+                if(IsQuestCompleted("tharmus_training") == false)
                 then
                     renderer:AddText("tharmus.training.1") -- if first time 
                     renderer:AddAction(function() context:StartBattle({"guard", "guard"}, "forest", "tharmus_training_2") end, "button.battle")
@@ -104,9 +101,8 @@ StateBuilder("tharmus_training_2")
 StateBuilder("tharmus_training_finish")
     :Render(
             function(renderer, context)
-                questProg:Set("1")
                 CloseQuest("tharmus_training")
-                renderer:AddText("tharmus.training.3", { { "reward", AddMoney(35) } })
+                renderer:AddText("tharmus.training.3", { { "reward", AddMoney(50) } })
                 renderer:AddAction(function() context:Exit() end, "button.accept")
             end
     )
@@ -125,6 +121,7 @@ StateBuilder("dolrom_quest1")
 StateBuilder("dolrom_quest1.1")
     :Render(
             function(renderer, context)
+                AddQuest("rat_cellar")
                 renderer:AddText("dolrom.quest.1.1")
                 renderer:AddAction(function() context:StartBattle({"rat", "rat"}, "cave", "dolrom_quest1.2") end, "button.battle")
             end
@@ -163,8 +160,8 @@ StateBuilder("dolrom_quest1.4")
 StateBuilder("dolrom_quest1.5")
     :Render(
             function(renderer, context)
-                questProg:Set("2")
-                renderer:AddText("dolrom.quest.1.5", { { "reward", AddMoney(55) } })
+                CloseQuest("rat_cellar")
+                renderer:AddText("dolrom.quest.1.5", { { "reward", AddMoney(75) } })
                 renderer:AddAction(function() context:ChangeState("enter_castle") end, "button.leave")
             end
     )
@@ -174,6 +171,7 @@ StateBuilder("dolrom_quest2")
     :Render(
             function(renderer, context)
                 renderer:AddText("dolrom.quest.2")
+                AddQuest("kobold_camp")
                 AddToParty(Character:new({id = "Luneiros", stats = {health=20, mana=12, strength=8, intellect=10, dexterity=17, constitution=14, wisdom=10, charisma=12}, equip = {weapon="halberd", body="leather_armor", feet="fur_boots"}}))
                 renderer:AddAction(function() context:Exit() end, "button.accept")
             end
@@ -183,16 +181,16 @@ StateBuilder("dolrom_quest2")
 StateBuilder("kobold_camp1")
     :Render(
             function(renderer, context)
-                if(GetQuestProg() == "2")
+                if(HasJustCompletedQuest("rat_cellar"))
                 then
                     renderer:AddText("koboldcamp.quest.1")
                     renderer:AddAction(function() context:StartBattle({"gaint_weasel", "gaint_weasel"}, "forest", "kobold_camp1.1") end, "button.battle")
-                elseif(GetQuestProg() == "0" or GetQuestProg() == "1")
+                elseif(IsQuestCompleted("kobold_camp"))
                 then
-                    context:Exit()
-                else
                     renderer:AddText("koboldcamp.quest.1.6")
                     renderer:AddAction(function() context:Exit() end, "button.leave")
+                else
+                    context:Exit()
                 end
             end
     )
@@ -246,9 +244,9 @@ StateBuilder("kobold_camp1.4")
 StateBuilder("kobold_camp1.5")
     :Render(
             function(renderer, context)
-                questProg:Set("3")
                 AddItem("halberd", 1)
-                renderer:AddText("koboldcamp.quest.1.5", { { "reward", AddMoney(50) } })
+                CloseQuest("kobold_camp")
+                renderer:AddText("koboldcamp.quest.1.5", { { "reward", AddMoney(100) } })
                 renderer:AddAction(function() context:Exit() end, "button.leave")
             end
     )
@@ -345,7 +343,7 @@ StateBuilder("first_enter_ice")
 StateBuilder("enter_castle")
         :Render(
                 function(renderer, context)
-                    if(GetQuestProg() == "0")
+                    if(IsQuestCompleted("tharmus_training") == false)
                     then
                         renderer:AddText("dolrom.quest.intro.direct")
                         renderer:AddAction(function() context:Exit() end, "button.leave")
@@ -353,10 +351,10 @@ StateBuilder("enter_castle")
 
                         renderer:AddText("enter.castle")
                     
-                        if(GetQuestProg() == "1")
+                        if(HasJustCompletedQuest("tharmus_training") == true)
                         then
                             renderer:AddAction(function() context:ChangeState("dolrom_quest1") end, "button.checkquest.dolrom")
-                        elseif(GetQuestProg() == "2")
+                        elseif(HasJustCompletedQuest("rat_cellar"))
                         then
                             renderer:AddAction(function() context:ChangeState("dolrom_quest2") end, "button.checkquest.dolrom")
                         end

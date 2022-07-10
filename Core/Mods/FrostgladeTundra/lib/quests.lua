@@ -15,4 +15,16 @@ local AddQuest = quest_book:GetFunc("AddQuest")
 RegisterQuest(Quest:new({
     id = "tharmus_training",
     main = true,
+    nextQuest = "rat_cellar",
+}))
+
+RegisterQuest(Quest:new({
+    id = "rat_cellar",
+    main = true,
+    nextQuest = "kobold_camp",
+}))
+
+RegisterQuest(Quest:new({
+    id = "kobold_camp",
+    main = true,
 }))

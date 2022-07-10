@@ -47,6 +47,20 @@ function RemoveQuest(quest)
     quest_book[id] = nil;
 end
 
+function IsQuestCompleted(id)
+    return quest_book[id]
+end
+
+function HasJustCompletedQuest(id)
+    if(quest_book[id] == true) 
+    then
+        if(questRegistry[id].nextQuest == nil or quest_book[questRegistry[id].nextQuest] == nil or quest_book[questRegistry[id].nextQuest] == false) then
+            return true
+        end
+    end
+    return false
+end
+
 function GetQuestBook()
     local quests = {}
 
@@ -200,6 +214,8 @@ Global:AddOnPostStateRender(
 Context:CreateFunc("AddQuest", AddQuest)
 Context:CreateFunc("CloseQuest", CloseQuest)
 Context:CreateFunc("RemoveQuest", RemoveQuest)
+Context:CreateFunc("IsQuestCompleted", IsQuestCompleted)
+Context:CreateFunc("HasJustCompletedQuest", HasJustCompletedQuest)
 Context:CreateFunc("GetQuestBook", GetQuestBook)
 Context:CreateFunc("RegisterQuest", RegisterQuest)
 Context:CreateFunc("GetQuest", GetQuest)

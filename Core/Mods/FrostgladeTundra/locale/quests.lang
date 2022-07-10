@@ -6,10 +6,30 @@
   },
   "quest.tharmus_training.description": {
     "translations": {
-      "EN_US": "Meet Tharmus in his camp. You can get there by following the path north-east. Once you've trained, come back and talk to me"
+      "EN_US": "Meet Tharmus in his camp. You can get there by following the path north-east. Once you've trained, come back and talk to me."
     }
   },
-  
+  "quest.rat_cellar.name": {
+    "translations": {
+      "EN_US": "Clear Rat Cellar (story)"
+    }
+  },
+  "quest.rat_cellar.description": {
+    "translations": {
+      "EN_US": "Go through villagers basement in Farcross and clear all the rats."
+    }
+  },
+  "quest.kobold_camp.name": {
+    "translations": {
+      "EN_US": "Defeat Kobold Camp (story)"
+    }
+  },
+  "quest.kobold_camp.description": {
+    "translations": {
+      "EN_US": "Find the Kobold camp on the path north-west, and defeat all the targets."
+    }
+  },
+
   "button.checkquest.dolrom": {
     "translations": {
       "EN_US": "  -> You check the House of Mercenaries office to see if Dolrom has any work for you."
@@ -77,7 +97,7 @@
   },
   "dolrom.quest.2": {
     "translations": {
-      "EN_US": "Dolrom is pleased that you were able to handle their first job. Dolrom instructs you to raid a kobold camp with a ranger Luneiros located at the shore of lake 4 tiles north-west form Farcross"
+      "EN_US": "Dolrom is pleased that you were able to handle their first job. Dolrom instructs you to raid a kobold camp with a ranger Luneiros located at the shore of a lake by the path <color=\"Orange\">north-west</color> form Farcross"
     }
   },
   "koboldcamp.quest.1": {
@@ -113,21 +133,6 @@
   "koboldcamp.quest.1.6": {
     "translations": {
       "EN_US": "Theres a camp here, it was once lively, but completely dead now. You did the right thing."
-    }
-  },
-  "game.conclusion": {
-    "translations": {
-      "EN_US": "This is the end of the Ferweh Frostglade Tundra demo (for now)!
-This was meant to share the idea of the game, and give an idea of what the finished product might look like.
-
-Whats yet to come? First we're gonna finish Frostglade Tundra, and make it a full campaign hopefully giving it the magic I initially envisioned.
-After that we'll create more modding tools (more lua support + libraries, online docs, and a map editor), which we (and you!) can use to afterwards create more campaigns, as Frostglade Tundra is only the start of Fernweh!
-
-Thanks for playtesting this, any feedback is most appreciated :)
-
-Cheers,
-Devs
-"
     }
   }
 }

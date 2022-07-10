@@ -102,6 +102,7 @@ Global:AddOnPostBattle(function(victory, snapshot)
             for i=0,snapshot.Enemies.Count - 1 do
 	            xp = xp + snapshot.Enemies[i].Config.Stats.Health
             end
+            xp = xp / 2
 
             -- add xp, then level up if needed
             char.stats.experience = char.stats.experience + xp
