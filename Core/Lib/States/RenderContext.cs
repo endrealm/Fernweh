@@ -84,4 +84,14 @@ public class RenderContext
     {
         return _worldGameView.mapDataRegistry.GetLoadedMapName();
     }
+
+    public void PlaySFX(string name)
+    {
+        _gameManager.SoundPlayer.PlaySFX(name);
+    }
+
+    public void PlaySong(string name)
+    {
+        _gameManager.SoundPlayer.PlaySong(name);
+    }
 }
