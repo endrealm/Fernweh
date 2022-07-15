@@ -89,6 +89,7 @@ public class BattleMode : IMode
 
     private void LoadOverwoldState(string state)
     {
-        _gameManager.LoadMode("overworld", new ModeParameters().AppendData("state", state));
+        _gameManager.StateManager.weakNextID = state;
+        _gameManager.LoadMode("overworld", new ModeParameters().AppendData("state", "post_battle_overview"));
     }
 }

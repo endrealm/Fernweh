@@ -184,6 +184,11 @@
       "EN_US": "{name} lvl. {level}"
     }
   },
+  "battle.details.player.levelup": {
+    "translations": {
+      "EN_US": "{name} lvl. {old_level} > {level}"
+    }
+  },
   "battle.details.player.experience": {
     "translations": {
       "EN_US": "{current} / {max} exp"

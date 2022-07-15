@@ -4,7 +4,7 @@
             return builder
                     :Health(15)
                     :Mana(5)
-                    :Strength(10)
+                    :Strength(9)
                     :Constitution(15)
                     :Dexterity(16)
                     --:AddAbility(abilityBuilder("test_ability"):Build())
@@ -19,7 +19,7 @@ CreateParticipant("bandit")
             return builder
                     :Health(15)
                     :Mana(5)
-                    :Strength(9)
+                    :Strength(7)
                     :Constitution(13)
                     :Dexterity(16)
                     :Build();

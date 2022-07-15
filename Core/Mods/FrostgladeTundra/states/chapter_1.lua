@@ -10,7 +10,7 @@ local party = Import("character_system", "lib/party")
 
 local Character = character:Get("Character")
 local AddToParty = party:GetFunc("AddToParty")
-local StartBattle = party:GetFunc("StartBattle")
+local SetPostBattleInfo = party:GetFunc("SetPostBattleInfo")
 
 local inventory = Import("inventory", "api")
 local AddItem = inventory:GetFunc("AddItem")
@@ -34,7 +34,10 @@ function StartEncounter(renderer, context, translation, enemies, chance)
 	if(Random(100) <= chance)
     then
         renderer:AddText(translation)
-        renderer:AddAction(function() StartBattle(context, enemies, "forest", "null", 100, {"mushroom"}) end, "button.battle")
+        renderer:AddAction(function() 
+            SetPostBattleInfo(100, {"mushroom"})
+            context:StartBattle(enemies, "forest") 
+        end, "button.battle")
         renderer:AddAction(function() context:Exit() end, "button.battle.run")
     else
         context:Exit()

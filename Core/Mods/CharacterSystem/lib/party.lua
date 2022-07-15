@@ -83,16 +83,17 @@ end
 -- Battle
 -- ============================
 
-local finishState
 local moneyReward
 local lootReward
+local partySnapshot = {}
 local xpGained = 0
 
-function StartBattle(context, enemies, setting, state, money, loot) -- will show exp gain, leveling, and any other info after battle
-    finishState = state
+function SetPostBattleInfo(money, loot) -- will show exp gain, leveling, and any other info after battle
     moneyReward = money
     lootReward = loot
-    context:StartBattle(enemies, setting, "post_battle_overview")
+    for i, character in ipairs(GetMembers()) do
+        partySnapshot[i] = character.stats.level
+    end
 end
 
 BlackListState("post_battle_overview")
@@ -115,11 +116,21 @@ StateBuilder("post_battle_overview")
                 renderer:AddText("")
 
                 for i, character in ipairs(GetMembers()) do
-                    renderer:AddText("battle.details.player.level", { { "name", character.id }, { "level", character.stats.level } })
+                -- if character and old character have the same level
+                    if(partySnapshot == nil or character.stats.level == partySnapshot[i]) then
+                        renderer:AddText("battle.details.player.level", { { "name", character.id }, { "level", character.stats.level } })
+                    else
+                        renderer:AddText("battle.details.player.levelup", { { "name", character.id }, { "level", character.stats.level }, { "old_level", partySnapshot[i] } })
+                    end
                     renderer:AddText("battle.details.player.experience", { { "current", character.stats.experience }, { "max", character:GetExperienceForLevelUp() } })
                 end
 
-                renderer:AddAction(function() context:ChangeState(finishState) end, "button.continue")
+                renderer:AddAction(function()
+                    moneyReward = nil
+                    lootReward = nil
+                    partySnapshot = nil
+                    context:ChangeState(finishState) 
+                end, "button.continue")
             end
     )
     :Build()
@@ -210,4 +221,4 @@ Context:CreateFunc("AddToParty", AddToParty)
 Context:CreateFunc("GetMembers", GetMembers)
 Context:CreateFunc("IsInParty", IsInParty)
 Context:CreateFunc("RemoveFromParty", RemoveFromParty)
-Context:CreateFunc("StartBattle", StartBattle)
+Context:CreateFunc("SetPostBattleInfo", SetPostBattleInfo)
