@@ -5,6 +5,9 @@
 local registry = Import("lib/registry")
 local LoadCharacterType = registry:GetFunc("LoadCharacterType")
 
+local uiCompat = Import("ui_compat", "api")
+BlackListState = uiCompat:GetFunc("BlackListState")
+
 -- ============================
 -- Data
 -- ============================
@@ -77,6 +80,51 @@ function GetMemberById(id)
 end
 
 -- ============================
+-- Battle
+-- ============================
+
+local finishState
+local moneyReward
+local lootReward
+local xpGained = 0
+
+function StartBattle(context, enemies, setting, state, money, loot) -- will show exp gain, leveling, and any other info after battle
+    finishState = state
+    moneyReward = money
+    lootReward = loot
+    context:StartBattle(enemies, setting, "post_battle_overview")
+end
+
+BlackListState("post_battle_overview")
+StateBuilder("post_battle_overview")
+    :Render(
+            function(renderer, context)
+                renderer:AddText("battle.win")
+                renderer:AddText("")
+
+                renderer:AddText("battle.details.exp", { { "reward", xpGained } })
+                if(moneyReward ~= nil) then
+                    renderer:AddText("battle.details.gold", { { "reward", moneyReward } })
+                end
+                if(lootReward ~= nil) then
+                    renderer:AddText("battle.details.loot")
+                    for _, l in ipairs(lootReward) do
+	                    renderer:AddText("battle.details.loot.item", { { "reward", l } })
+                    end
+                end
+                renderer:AddText("")
+
+                for i, character in ipairs(GetMembers()) do
+                    renderer:AddText("battle.details.player.level", { { "name", character.id }, { "level", character.stats.level } })
+                    renderer:AddText("battle.details.player.experience", { { "current", character.stats.experience }, { "max", character:GetExperienceForLevelUp() } })
+                end
+
+                renderer:AddAction(function() context:ChangeState(finishState) end, "button.continue")
+            end
+    )
+    :Build()
+
+-- ============================
 -- Events
 -- ============================
 RegisterFriendlyParticipantsProvider(function(builder, abilityBuilder)
@@ -88,24 +136,24 @@ RegisterFriendlyParticipantsProvider(function(builder, abilityBuilder)
 end)
 
 Global:AddOnPostBattle(function(victory, snapshot)
+    -- calc gained xp
+    for i=0,snapshot.Enemies.Count - 1 do
+        xpGained = xpGained + snapshot.Enemies[i].Config.Stats.Health
+    end
+    xpGained = xpGained / 2
+
     --print("Starting party post battle save")
     for candidateCount = 0, snapshot.Friendlies.Count - 1 do
         local candidate = snapshot.Friendlies[candidateCount]
         local id = candidate.Config.Id
         local char = GetMemberById(id)
+
         if(char ~= nil) then
             char:SetCurrentHealth(candidate.Health)
             char:SetCurrentMana(candidate.Mana)
 
-            -- calc gained xp
-            local xp = 0
-            for i=0,snapshot.Enemies.Count - 1 do
-	            xp = xp + snapshot.Enemies[i].Config.Stats.Health
-            end
-            xp = xp / 2
-
             -- add xp, then level up if needed
-            char.stats.experience = char.stats.experience + xp
+            char.stats.experience = char.stats.experience + xpGained
             while(char.stats.experience >= char:GetExperienceForLevelUp() and char.stats.level < 100)
             do
                 char.stats.level = char.stats.level + 1
@@ -162,3 +210,4 @@ Context:CreateFunc("AddToParty", AddToParty)
 Context:CreateFunc("GetMembers", GetMembers)
 Context:CreateFunc("IsInParty", IsInParty)
 Context:CreateFunc("RemoveFromParty", RemoveFromParty)
+Context:CreateFunc("StartBattle", StartBattle)

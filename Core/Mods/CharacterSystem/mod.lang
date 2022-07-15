@@ -158,5 +158,45 @@
     "translations": {
       "EN_US": "-> Unequip Item"
     }
+  },
+  "battle.details.exp": {
+    "translations": {
+      "EN_US": "Exp:  {reward}"
+    }
+  },
+  "battle.details.gold": {
+    "translations": {
+      "EN_US": "Gold: {reward}"
+    }
+  },
+  "battle.details.loot": {
+    "translations": {
+      "EN_US": "Loot:"
+    }
+  },
+  "battle.details.loot.item": {
+    "translations": {
+      "EN_US": "- {reward}"
+    }
+  },
+  "battle.details.player.level": {
+    "translations": {
+      "EN_US": "{name} lvl. {level}"
+    }
+  },
+  "battle.details.player.experience": {
+    "translations": {
+      "EN_US": "{current} / {max} exp"
+    }
+  },
+  "battle.win": {
+    "translations": {
+      "EN_US": "You bask in glory, and evaluate your gains!"
+    }
+  },
+  "battle.lose": {
+    "translations": {
+      "EN_US": "Laying on the ground weak, you realize this is your last battle..."
+    }
   }
 }

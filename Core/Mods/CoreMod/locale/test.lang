@@ -28,5 +28,10 @@
     "translations": {
       "EN_US": "  -> You follow the entrance and <color=\"Green\">go inside</color>"
     }
+  },
+  "button.continue": {
+    "translations": {
+      "EN_US": "  -> You <color=\"Red\">continue</color> your journey"
+    }
   }
 }
