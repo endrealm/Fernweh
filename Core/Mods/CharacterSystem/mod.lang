@@ -71,7 +71,7 @@
   },
   "party.detail.stat.health_mana": {
     "translations": {
-      "EN_US": "<color=\"Green\">HP:</color> {currentHP}/{HP}<color=\"Pink\">+{bonusHP}</color> <color=\"Blue\">MP:</color> {currentMP}/{MP}<color=\"Pink\">+{bonusMP}</color>"
+      "EN_US": "<color=\"Green\">HP:</color> {currentHP}/{HP}<color=\"Pink\">+{bonusHP}</color> <color=\"LightBlue\">MP:</color> {currentMP}/{MP}<color=\"Pink\">+{bonusMP}</color>"
     }
   },
   "party.detail.stat.armor": {
@@ -161,17 +161,17 @@
   },
   "battle.details.exp": {
     "translations": {
-      "EN_US": "Exp:  {reward}"
+      "EN_US": "<color=\"LightBlue\">Exp:</color>  {reward}"
     }
   },
   "battle.details.gold": {
     "translations": {
-      "EN_US": "Gold: {reward}"
+      "EN_US": "<color=\"Yellow\">Gold:</color> {reward}"
     }
   },
   "battle.details.loot": {
     "translations": {
-      "EN_US": "Loot:"
+      "EN_US": "<color=\"Orange\">Loot:</color>"
     }
   },
   "battle.details.loot.item": {
@@ -181,12 +181,12 @@
   },
   "battle.details.player.level": {
     "translations": {
-      "EN_US": "{name} lvl. {level}"
+      "EN_US": "<color=\"Orange\">{name}</color> lvl. <color=\"LightGreen\">{level}</color>"
     }
   },
   "battle.details.player.levelup": {
     "translations": {
-      "EN_US": "{name} lvl. {old_level} > {level}"
+      "EN_US": "<color=\"Orange\">{name}</color> lvl. {old_level} > <color=\"LightGreen\">{level}</color>"
     }
   },
   "battle.details.player.experience": {

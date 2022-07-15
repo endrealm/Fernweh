@@ -31,7 +31,7 @@
   },
   "button.continue": {
     "translations": {
-      "EN_US": "  -> You <color=\"Red\">continue</color> your journey"
+      "EN_US": "  -> You <color=\"Green\">continue</color> your journey"
     }
   }
 }
