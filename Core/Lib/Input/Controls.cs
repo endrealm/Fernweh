@@ -11,11 +11,13 @@ namespace Core.Input
     {
         private static KeyboardSnapshot _keyboardSnapshot = new KeyboardSnapshot();
         private static GamePadSnapshot _gamePadSnapshot = new GamePadSnapshot();
+        private static MouseSnapshot _mouseSnapshot = new MouseSnapshot();
 
         public void Update(float deltaTime, TopLevelUpdateContext context)
         {
             _keyboardSnapshot.Update(deltaTime, context);
             _gamePadSnapshot.Update(deltaTime, context);
+            _mouseSnapshot.Update(deltaTime, context);
         }
 
         public static bool AnyInput()
@@ -28,25 +30,29 @@ namespace Core.Input
         public static bool MoveUp()
         {
             return _keyboardSnapshot.HasBeenPressed(new Keys[] { Keys.W, Keys.Up })
-                || _gamePadSnapshot.HasBeenPressed(new Buttons[] { Buttons.DPadUp, Buttons.LeftThumbstickUp });
+                || _gamePadSnapshot.HasBeenPressed(new Buttons[] { Buttons.DPadUp, Buttons.LeftThumbstickUp })
+                || _mouseSnapshot.MouseUpInDirection(MouseSnapshot.Directions.Up);
         }
 
         public static bool MoveDown()
         {
             return _keyboardSnapshot.HasBeenPressed(new Keys[] { Keys.S, Keys.Down })
-                || _gamePadSnapshot.HasBeenPressed(new Buttons[] { Buttons.DPadDown, Buttons.LeftThumbstickDown });
+                || _gamePadSnapshot.HasBeenPressed(new Buttons[] { Buttons.DPadDown, Buttons.LeftThumbstickDown })
+                || _mouseSnapshot.MouseUpInDirection(MouseSnapshot.Directions.Down);
         }
 
         public static bool MoveLeft()
         {
             return _keyboardSnapshot.HasBeenPressed(new Keys[] { Keys.A, Keys.Left })
-                || _gamePadSnapshot.HasBeenPressed(new Buttons[] { Buttons.DPadLeft, Buttons.LeftThumbstickLeft });
+                || _gamePadSnapshot.HasBeenPressed(new Buttons[] { Buttons.DPadLeft, Buttons.LeftThumbstickLeft })
+                || _mouseSnapshot.MouseUpInDirection(MouseSnapshot.Directions.Left);
         }
 
         public static bool MoveRight()
         {
             return _keyboardSnapshot.HasBeenPressed(new Keys[] { Keys.D, Keys.Right })
-                || _gamePadSnapshot.HasBeenPressed(new Buttons[] { Buttons.DPadRight, Buttons.LeftThumbstickRight });
+                || _gamePadSnapshot.HasBeenPressed(new Buttons[] { Buttons.DPadRight, Buttons.LeftThumbstickRight })
+                || _mouseSnapshot.MouseUpInDirection(MouseSnapshot.Directions.Right);
         }
     }
 }
