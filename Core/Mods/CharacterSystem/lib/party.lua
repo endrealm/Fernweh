@@ -85,21 +85,23 @@ end
 
 local moneyReward
 local lootReward
-local partySnapshot = {}
+local partySnapshot
 local xpGained = 0
 
 function SetPostBattleInfo(money, loot) -- will show exp gain, leveling, and any other info after battle
     moneyReward = money
     lootReward = loot
-    for i, character in ipairs(GetMembers()) do
-        partySnapshot[i] = character.stats.level
-    end
 end
 
 BlackListState("post_battle_overview")
 StateBuilder("post_battle_overview")
     :Render(
             function(renderer, context)
+                if(xpGained == 0 or partySnapshot == nil) then -- exit state if no info (usually if you load a game into this state)
+                    renderer:AddText("")
+                    context:Exit()
+                end
+
                 renderer:AddText("battle.win")
                 renderer:AddText("")
 
@@ -128,8 +130,8 @@ StateBuilder("post_battle_overview")
                 renderer:AddAction(function()
                     moneyReward = nil
                     lootReward = nil
-                    partySnapshot = nil
-                    context:ChangeState(finishState) 
+                    partySnapshot = {}
+                    context:Exit() 
                 end, "button.continue")
             end
     )
@@ -147,6 +149,12 @@ RegisterFriendlyParticipantsProvider(function(builder, abilityBuilder)
 end)
 
 Global:AddOnPostBattle(function(victory, snapshot)
+    -- save previous player levels
+    partySnapshot = {}
+    for i, character in ipairs(GetMembers()) do
+        partySnapshot[i] = character.stats.level
+    end
+
     -- calc gained xp
     for i=0,snapshot.Enemies.Count - 1 do
         xpGained = xpGained + snapshot.Enemies[i].Config.Stats.Health
