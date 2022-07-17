@@ -23,20 +23,20 @@ namespace Core.Scenes.Ingame.World
         }
 
         public string name;
-        [JsonIgnore]
-        public Texture2D[] frames;
+        //[JsonIgnore]
+        //public Texture2D[] frames;
         public string[] framePaths;
         public int framesPerSecond = 1;
 
         //public float EncounterChance; // range 0f - 1f
         public OpenDirection openDirections;
 
-        public void LoadSprites(ContentLoader content)
-        {
-            frames = new Texture2D[framePaths.Length];
-            for (int i = 0; i < framePaths.Length; i++)
-                frames[i] = content.Load<Texture2D>(framePaths[i]);
-        }
+        //public void LoadSprites(ContentRegistry contentRegistry)
+        //{
+        //    frames = new Texture2D[framePaths.Length];
+        //    for (int i = 0; i < framePaths.Length; i++)
+        //        frames[i] = contentRegistry.pngs[framePaths[i]];
+        //}
 
         public TileData(string name, string[] frames, OpenDirection openDirections = OpenDirection.Up | OpenDirection.Down | OpenDirection.Left | OpenDirection.Right)
         { 
@@ -45,9 +45,9 @@ namespace Core.Scenes.Ingame.World
             this.openDirections = openDirections;
         }
 
-        public Texture2D GetSprite()
+        public Texture2D GetSprite(ContentRegistry contentRegistry)
         {
-            return frames[0]; // return first frame for now, im not sure how ill implement anims. yet. but itll probably be calculated in here based from some tile parameter
+            return contentRegistry.pngs[framePaths[0]]; // return first frame for now, im not sure how ill implement anims yet. but itll probably be calculated in here based from some time parameter
         }
 
         public bool AllowsDirection(Vector2 direction)

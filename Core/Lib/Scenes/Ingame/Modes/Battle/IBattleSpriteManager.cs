@@ -2,7 +2,7 @@
 
 namespace Core.Scenes.Ingame.Modes.Battle;
 
-public interface IBattleSpriteManager
+public interface ISpriteManager
 {
     public Texture2D GetTexture(string key);
 }

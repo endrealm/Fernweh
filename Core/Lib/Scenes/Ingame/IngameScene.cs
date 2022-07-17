@@ -39,29 +39,38 @@ public class IngameScene: Scene, ISaveSystem
     public override void Load(ContentLoader content)
     {
         _modLoader.UnloadAllMods();
-        _gameManager = new GameManager(_battleRegistry, _stateRegistry, FontManager, _localizationManager, _gameSave, this);
         
         // Loads all mods
         _modLoader.Load(_currentModId);
         
         _localizationManager.LoadLangs(_modLoader.ActiveModOrder, content);
-        
+
+        // load all assets, along with game manager
+        ContentRegistry reg = new ContentRegistry();
+        reg.LoadAllContent(content);
+
+        _gameManager = new GameManager(reg, _battleRegistry, _stateRegistry, FontManager, _localizationManager, _gameSave, this);
+
         // Loads scripts of all mods
+        _gameManager.Load(content);
         _modLoader.RunActiveModScripts(_scriptLoader);
         _scriptLoader.Load();
-        _gameManager.Load(content);
         _allowSave = true;
         _gameManager.LoadGameState();
+
     }
 
     public override void Update(float deltaTime, TopLevelUpdateContext context)
     {
+        if (_gameManager == null) return; //dont update if gamemanager hasnt loaded yet
         _gameManager.Mode.GameView.Update(deltaTime, new IngameUpdateContext(context));
         _gameManager.Mode.ChatView.Update(deltaTime, new IngameUpdateContext(context));
     }
 
     public override void Render(SpriteBatch spriteBatch, TopLevelRenderContext context)
     {
+        if (_gameManager == null) return; //dont render if gamemanager hasnt loaded yet
+
         context.GraphicsDevice.Clear(_gameManager.Mode.Background);
         var backgroundColor = _gameManager.Mode.Background;
 

@@ -1,6 +1,6 @@
 ﻿{
 	"name":"castle",
-	"framePaths": [ "sprites/castle.png" ],
+	"framePaths": [ "castle" ],
 	"framesPerSecond":2,
 	"openDirections":15
 }

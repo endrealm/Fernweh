@@ -10,11 +10,11 @@ public class BattleAvatar: IRenderer<BattleAvatarRenderContext>
 {
     public static readonly Vector2 DefaultSize = new(40,40);
     public static readonly Vector2 PlayerSize = new(19,29);
-    private readonly IBattleSpriteManager _spriteManager;
+    private readonly ISpriteManager _spriteManager;
     private readonly IBattleParticipant _participant;
     private Texture2D _sprite;
 
-    public BattleAvatar(IBattleSpriteManager spriteManager, IBattleParticipant participant)
+    public BattleAvatar(ISpriteManager spriteManager, IBattleParticipant participant)
     {
         _spriteManager = spriteManager;
         _participant = participant;
