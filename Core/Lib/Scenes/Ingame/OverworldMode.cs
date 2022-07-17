@@ -6,6 +6,7 @@ using Core.States;
 using Microsoft.Xna.Framework;
 using PipelineExtensionLibrary;
 using Newtonsoft.Json;
+using Core.Content;
 
 namespace Core.Scenes.Ingame;
 
@@ -34,7 +35,7 @@ public class OverworldMode: IMode, IStateManager
     private string LastSaveStateWeak { get;  set; }
     private string LastSaveState { get;  set; }
 
-    public OverworldMode(GameManager gameManager, IGlobalEventHandler eventHandler, StateRegistry stateRegistry,
+    public OverworldMode(GameManager gameManager, IGlobalEventHandler eventHandler, ContentRegistry content, StateRegistry stateRegistry,
         IFontManager fontManager, ILocalizationManager localizationManager, ISaveSystem saveSystem, ISoundPlayer soundPlayer)
     {
         _gameManager = gameManager;
@@ -44,7 +45,7 @@ public class OverworldMode: IMode, IStateManager
         _saveSystem = saveSystem;
         _soundPlayer = soundPlayer;
         _chatView = new StateChatView(localizationManager, fontManager);
-        worldGameView = new WorldGameView(eventHandler, this, soundPlayer);
+        worldGameView = new WorldGameView(eventHandler, this, soundPlayer, content);
         GameView = worldGameView;
         ActiveState = _stateRegistry.ReadState("null"); // Start with "null" state.
         StateChangedEvent += OnStateChanged;
@@ -74,7 +75,7 @@ public class OverworldMode: IMode, IStateManager
         if(data.ContainsKey("PlayerPosX") && data.ContainsKey("PlayerPosY"))
             worldGameView.player.TeleportPlayer(new Vector2(Int32.Parse((string)data["PlayerPosX"]), Int32.Parse((string)data["PlayerPosY"])));
         if (data.ContainsKey("DiscoveredTiles"))
-            worldGameView.DiscoveredTiles = JsonConvert.DeserializeObject<Dictionary<string, List<Vector2>>>((string)data["DiscoveredTiles"]);
+            worldGameView.discoveredTiles = JsonConvert.DeserializeObject<Dictionary<string, List<Vector2>>>((string)data["DiscoveredTiles"]);
     }
 
     public void Save(Dictionary<string, object> data)
@@ -84,7 +85,7 @@ public class OverworldMode: IMode, IStateManager
         data.Add("LoadedMap", worldGameView.mapDataRegistry.GetLoadedMapName());
         data.Add("PlayerPosX", (worldGameView.player.CurrentPos.X / 32).ToString());
         data.Add("PlayerPosY", (worldGameView.player.CurrentPos.Y / 32).ToString());
-        data.Add("DiscoveredTiles", JsonConvert.SerializeObject(worldGameView.DiscoveredTiles));
+        data.Add("DiscoveredTiles", JsonConvert.SerializeObject(worldGameView.discoveredTiles));
     }
 
     public event StateChangedEventHandler StateChangedEvent;

@@ -17,14 +17,14 @@ public class BattleGameView: IGameView
     private List<PlayerStatsRow> _statsRows = new();
     private List<BattleAvatar> _friendlyAvatars = new();
     private List<BattleAvatar> _enemyAvatars = new();
-    private readonly IBattleSpriteManager _battleSpriteManager;
+    private readonly ISpriteManager _battleSpriteManager;
     private IFontManager _fontManager;
     private readonly ILocalizationManager _localizationManager;
 
     private Texture2D _background;
     private Texture2D _foreground;
 
-    public BattleGameView(IBattleSpriteManager battleSpriteManager, IFontManager fontManager,
+    public BattleGameView(ISpriteManager battleSpriteManager, IFontManager fontManager,
         ILocalizationManager localizationManager)
     {
         _battleSpriteManager = battleSpriteManager;

@@ -16,17 +16,20 @@ namespace Core.Scenes.Ingame.Views;
 
 public class WorldGameView: IGameView, IRenderer<IngameRenderContext>, IUpdate<IngameUpdateContext>, ILoadable
 {
-    public Dictionary<string, List<Vector2>> DiscoveredTiles = new();
+    public Dictionary<string, List<Vector2>> discoveredTiles = new();
 
-    public MapDataRegistry mapDataRegistry = new MapDataRegistry();
-    public TileDataRegistry tileDataRegistry = new TileDataRegistry();
+    public MapDataRegistry mapDataRegistry;
+    public TileDataRegistry tileDataRegistry;
     public Player player;
 
     private Vector2 _cameraCulling;
 
-    public WorldGameView(IGlobalEventHandler eventHandler, IStateManager gameManager, ISoundPlayer soundPlayer)
+    private ContentRegistry _contentRegistry;
+
+    public WorldGameView(IGlobalEventHandler eventHandler, IStateManager gameManager, ISoundPlayer soundPlayer, ContentRegistry content)
     {
-        player = new Player(eventHandler, gameManager, this, soundPlayer);
+        _contentRegistry = content;
+        player = new Player(eventHandler, gameManager, this, soundPlayer, content);
     }
 
     public void Render(SpriteBatch spriteBatch, IngameRenderContext context)
@@ -41,14 +44,17 @@ public class WorldGameView: IGameView, IRenderer<IngameRenderContext>, IUpdate<I
         {
             for (int x = (int)_cameraCulling.X; x < (int)_cameraCulling.X + 9; x++)
             {
-                if (DiscoveredTiles[mapDataRegistry.GetLoadedMap().name].Contains(new Vector2(x, y)) || !mapDataRegistry.GetLoadedMap().explorable) // only render tiles explored, unless the map isnt set to be explorable
+                // make sure we have discovered tiles 
+                if (!discoveredTiles.ContainsKey(mapDataRegistry.GetLoadedMap().name)) discoveredTiles.Add(mapDataRegistry.GetLoadedMap().name, new List<Vector2>());
+
+                if (discoveredTiles[mapDataRegistry.GetLoadedMap().name].Contains(new Vector2(x, y)) || !mapDataRegistry.GetLoadedMap().explorable) // only render tiles explored, unless the map isnt set to be explorable
                 {
                     var tileData = mapDataRegistry.GetLoadedMap().GetTile(new Vector2(x, y));
 
                     if (tileData != null) // dont render whats not there :P
                     {
-                        Texture2D sprite = tileDataRegistry.GetTile(tileData.name).GetSprite(); // grab sprite
-
+                        Texture2D sprite = tileDataRegistry.GetTile(tileData.name).GetSprite(_contentRegistry); // grab sprite
+                        
                         spriteBatch.Draw(
                             sprite,
                             new Rectangle(context.ChatWidth + x * 32 - (int)Math.Round((float)(sprite.Width - 32) / 2), y * 32 - (sprite.Height - 32), sprite.Width, sprite.Height), // get world position to render at
@@ -65,10 +71,8 @@ public class WorldGameView: IGameView, IRenderer<IngameRenderContext>, IUpdate<I
 
     public void Load(ContentLoader content)
     {
-        tileDataRegistry.Load(content);
-        mapDataRegistry.Load(content, DiscoveredTiles);
-
-        player.Load(content);
+        tileDataRegistry = _contentRegistry.tileDataRegistry;
+        mapDataRegistry = _contentRegistry.mapDataRegistry.SetupDiscovery(discoveredTiles);
     }
 
     public void Update(float deltaTime, IngameUpdateContext context)

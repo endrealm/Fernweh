@@ -27,7 +27,7 @@ public class BattleMode : IMode
 
     public BattleMode(
         GameManager gameManager,
-        IBattleSpriteManager spriteManager, 
+        ISpriteManager spriteManager, 
         BattleRegistry battleRegistry, 
         ILocalizationManager localizationManager, 
         IFontManager fontManager,

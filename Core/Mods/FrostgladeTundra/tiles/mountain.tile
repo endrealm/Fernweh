@@ -1,6 +1,6 @@
 ﻿{
 	"name":"mountain",
-	"framePaths": [ "sprites/mountain.png" ],
+	"framePaths": [ "mountain" ],
 	"framesPerSecond":2,
 	"openDirections":0
 }

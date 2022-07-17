@@ -22,22 +22,24 @@ public class GameManager: ILoadable
     public ISoundPlayer SoundPlayer { get; private set; }
     
     private Dictionary<string, IMode> _modes = new();
-    private DynamicBattleSpriteManager _spriteManager = new ();
+    //private DynamicBattleSpriteManager _spriteManager = new ();
     public IGlobalEventHandler EventHandler { get; }
     private const string SaveKey = "_internal:Mode";
 
+    private ContentRegistry _contentRegistry;
 
-    public GameManager(BattleRegistry registry, StateRegistry stateRegistry, IFontManager fontManager, ILocalizationManager localizationManager, IGameSave gameSave, ISaveSystem saveSystem)
+    public GameManager(ContentRegistry content, BattleRegistry registry, StateRegistry stateRegistry, IFontManager fontManager, ILocalizationManager localizationManager, IGameSave gameSave, ISaveSystem saveSystem)
     {
+        _contentRegistry = content;
         _stateRegistry = stateRegistry;
         _gameSave = gameSave;
         _saveSystem = saveSystem;
         EventHandler = stateRegistry.GlobalEventHandler;
-        SoundPlayer = new SoundManager();
-        var overworld = new OverworldMode(this, stateRegistry.GlobalEventHandler, stateRegistry, fontManager, localizationManager, saveSystem, SoundPlayer);
+        SoundPlayer = content.soundRegistry;
+        var overworld = new OverworldMode(this, stateRegistry.GlobalEventHandler, _contentRegistry, stateRegistry, fontManager, localizationManager, saveSystem, SoundPlayer);
         StateManager = overworld;
         _modes.Add("overworld", overworld);
-        _modes.Add("battle", new BattleMode(this, _spriteManager, registry, localizationManager, fontManager, SoundPlayer));
+        _modes.Add("battle", new BattleMode(this, content.dynamicBattleSpriteManager, registry, localizationManager, fontManager, SoundPlayer));
         LoadMode("overworld", new ModeParameters());
     }
 
@@ -55,8 +57,7 @@ public class GameManager: ILoadable
 
     public void Load(ContentLoader content)
     {
-        SoundPlayer.ScanForAudio(content);
-        _spriteManager.Load(content, EventHandler);
+        //_spriteManager.Load(_contentRegistry, EventHandler);
         foreach (var mode in _modes.Values)
         {
             mode.ChatView.Load(content);

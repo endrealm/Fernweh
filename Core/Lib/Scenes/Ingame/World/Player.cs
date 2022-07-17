@@ -13,7 +13,7 @@ using System.IO;
 
 namespace Core.Scenes.Ingame.World
 {
-    public class Player: IRenderer<IngameRenderContext>, IUpdate<IngameUpdateContext>, ILoadable
+    public class Player: IRenderer<IngameRenderContext>, IUpdate<IngameUpdateContext>
     {
         private readonly IGlobalEventHandler _globalEventHandler;
         private readonly IStateManager _gameManager;
@@ -42,17 +42,13 @@ namespace Core.Scenes.Ingame.World
 
         private ISoundPlayer _soundPlayer;
 
-        public Player(IGlobalEventHandler globalEventHandler, IStateManager gameManager, WorldGameView worldRenderer, ISoundPlayer soundPlayer)
+        public Player(IGlobalEventHandler globalEventHandler, IStateManager gameManager, WorldGameView worldRenderer, ISoundPlayer soundPlayer, ContentRegistry content)
         {
             _globalEventHandler = globalEventHandler;
             _gameManager = gameManager;
             _worldRenderer = worldRenderer;
             _soundPlayer = soundPlayer;
-        }
-
-        public void Load(ContentLoader content)
-        {
-            _sprite = content.Load<Texture2D>("Sprites/player.png");
+            _sprite = content.pngs["player"];
         }
 
         public void TeleportPlayer(Vector2 mapPos) // can be used to move to spawn
@@ -152,8 +148,8 @@ namespace Core.Scenes.Ingame.World
 
             foreach (Vector2 offset in _discoverTileRadius)
             {
-                if (!_worldRenderer.DiscoveredTiles[_worldRenderer.mapDataRegistry.GetLoadedMap().name].Contains(offset + CurrentPos / 32))
-                    _worldRenderer.DiscoveredTiles[_worldRenderer.mapDataRegistry.GetLoadedMap().name].Add(offset + CurrentPos / 32);
+                if (!_worldRenderer.discoveredTiles[_worldRenderer.mapDataRegistry.GetLoadedMap().name].Contains(offset + CurrentPos / 32))
+                    _worldRenderer.discoveredTiles[_worldRenderer.mapDataRegistry.GetLoadedMap().name].Add(offset + CurrentPos / 32);
             }
         }
     }
