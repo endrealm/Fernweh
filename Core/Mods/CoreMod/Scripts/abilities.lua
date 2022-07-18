@@ -7,7 +7,7 @@
                     :OnUse(
                     function(context)
                         context:QueueAction(BattleAction:CreateDamage({
-                            Damage = 25,
+                            Damage = context.Participant:GetStats().Intellect + 5,
                             Element = 1
                         }, context.Participant, context.Targets))
                     end)
@@ -20,11 +20,11 @@ CreateAbility("blizzard")
         function(builder, config)
             return builder
                     :TargetType(4)
-                    :ManaCost(5)
+                    :ManaCost(4)
                     :OnUse(
                     function(context)
                         context:QueueAction(BattleAction:CreateDamage({
-                            Damage = 20,
+                            Damage = context.Participant:GetStats().Intellect,
                             Element = 1
                         }, context.Participant, context.Targets))
                     end)
@@ -37,11 +37,11 @@ CreateAbility("heal")
         function(builder, config)
             return builder
                     :TargetType(0)
-                    :ManaCost(4)
+                    :ManaCost(3)
                     :OnUse(
                     function(context)
                         context:QueueAction(BattleAction:HealHealth({
-                            Health = 20
+                            Health = context.Participant:GetStats().Intellect
                         }, context.Participant, context.Targets))
                     end)
                     :Build();
@@ -87,7 +87,7 @@ CreateAbility("revive")
                     :OnUse(
                     function(context)
                         context:QueueAction(BattleAction:HealHealth({
-                            Health = 20
+                            Health = 15
                         }, context.Participant, context.Targets))
                     end)
                     :Build();
@@ -103,7 +103,7 @@ CreateAbility("power_stab")
                     :OnUse(
                     function(context)
                         context:QueueAction(BattleAction:CreateDamage({
-                            Damage = 25,
+                            Damage = context.Participant:GetStats().Intellect + 5,
                             Element = 0
                         }, context.Participant, context.Targets))
                     end)
@@ -120,7 +120,7 @@ CreateAbility("spinning_slash")
                     :OnUse(
                     function(context)
                         context:QueueAction(BattleAction:CreateDamage({
-                            Damage = 20,
+                            Damage = context.Participant:GetStats().Intellect,
                             Element = 0
                         }, context.Participant, context.Targets))
                     end)

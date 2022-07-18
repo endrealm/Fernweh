@@ -23,7 +23,7 @@ public class BattleAvatar: IRenderer<BattleAvatarRenderContext>
 
     private void AssignTexture()
     {
-        _sprite = _spriteManager.GetTexture(_participant.GroupId);
+        _sprite = _spriteManager.GetTexture(_participant.GroupId.ToLower());
     }
 
     public void Render(SpriteBatch spriteBatch, BattleAvatarRenderContext context)

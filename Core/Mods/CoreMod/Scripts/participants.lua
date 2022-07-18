@@ -30,9 +30,9 @@ CreateParticipant("tharmus")
         :Instantiate(function(builder, abilityBuilder)
     
             return builder
-                    :Health(75)
+                    :Health(50)
                     :Mana(10)
-                    :Strength(13)
+                    :Strength(11)
                     :Constitution(20)
                     :Dexterity(14)
                     :Build();
