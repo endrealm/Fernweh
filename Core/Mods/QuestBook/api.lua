@@ -51,6 +51,10 @@ function IsQuestCompleted(id)
     return quest_book[id]
 end
 
+function IsQuestDiscovered(id)
+    return quest_book[id] ~= nil
+end
+
 function HasJustCompletedQuest(id)
     if(quest_book[id] == true) 
     then
@@ -215,6 +219,7 @@ Context:CreateFunc("AddQuest", AddQuest)
 Context:CreateFunc("CloseQuest", CloseQuest)
 Context:CreateFunc("RemoveQuest", RemoveQuest)
 Context:CreateFunc("IsQuestCompleted", IsQuestCompleted)
+Context:CreateFunc("IsQuestDiscovered", IsQuestDiscovered)
 Context:CreateFunc("HasJustCompletedQuest", HasJustCompletedQuest)
 Context:CreateFunc("GetQuestBook", GetQuestBook)
 Context:CreateFunc("RegisterQuest", RegisterQuest)

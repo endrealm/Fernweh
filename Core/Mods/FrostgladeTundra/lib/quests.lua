@@ -28,3 +28,18 @@ RegisterQuest(Quest:new({
     id = "kobold_camp",
     main = true,
 }))
+
+RegisterQuest(Quest:new({
+    id = "forge_quest",
+    main = false,
+}))
+
+RegisterQuest(Quest:new({
+    id = "jewelery_quest",
+    main = false,
+}))
+
+RegisterQuest(Quest:new({
+    id = "mugging_quest",
+    main = false,
+}))

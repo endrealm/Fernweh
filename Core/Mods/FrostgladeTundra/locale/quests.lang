@@ -1,4 +1,34 @@
 ﻿{
+  "quest.forge_quest.name": {
+    "translations": {
+      "EN_US": "Rufir's Mythril Shortage"
+    }
+  },
+  "quest.forge_quest.description": {
+    "translations": {
+      "EN_US": "Rufir the blacksmith from Farcross has a shortage of mythril. He made a deal with you where he'll give you a mythril sword if you can get him mythril ore."
+    }
+  },
+  "quest.jewelery_quest.name": {
+    "translations": {
+      "EN_US": "Crera's Prized Diamonds"
+    }
+  },
+  "quest.jewelery_quest.description": {
+    "translations": {
+      "EN_US": "Crera from the market has lost his diamonds when traveling near a goblin camp. He offered a generous gold reward for if you returned them to him."
+    }
+  },
+  "quest.mugging_quest.name": {
+    "translations": {
+      "EN_US": "Finding Justice"
+    }
+  },
+  "quest.mugging_quest.description": {
+    "translations": {
+      "EN_US": "You found a Farcross citizen recovering from being mugged by a bandit. The victim would be pleased knowing you found him and gave revenge."
+    }
+  },
   "quest.tharmus_training.name": {
     "translations": {
       "EN_US": "Training (story)"

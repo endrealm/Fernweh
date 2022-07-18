@@ -19,6 +19,7 @@ local quest_book = Import("quest_book", "api")
 local AddQuest = quest_book:GetFunc("AddQuest")
 local CloseQuest = quest_book:GetFunc("CloseQuest")
 local IsQuestCompleted = quest_book:GetFunc("IsQuestCompleted")
+local IsQuestDiscovered = quest_book:GetFunc("IsQuestDiscovered")
 local HasJustCompletedQuest = quest_book:GetFunc("HasJustCompletedQuest")
 
 local shop = Import("shops", "api")
@@ -34,6 +35,11 @@ BlackListState("enter_market")
 StateBuilder("enter_market")
         :Render(
                 function(renderer, context)
+                    local exit = "enter_market"
+                    if(IsQuestDiscovered("jewelery_quest") == false) then
+                        exit = "jewelery_quest"
+                    end
+
                     renderer:AddText("enter.market")
                     renderer:AddAction(function() OpenShop(context, {
                         exitState="enter_market",
@@ -50,7 +56,7 @@ StateBuilder("enter_market")
                             }
                         }) end, "button.market.food")
                     renderer:AddAction(function() OpenShop(context, {
-                        exitState="enter_market",
+                        exitState=exit,
                         offer= {
                             {
                                 itemId= "ruby_ring",
@@ -72,8 +78,38 @@ StateBuilder("enter_market")
                             }
                             }
                         }) end, "button.market.jewelery")
-                    renderer:AddAction(function() context:Exit() end, "button.market.crowd")
+                    if(IsQuestDiscovered("mugging_quest") == false) then
+                        renderer:AddAction(function() context:ChangeState("mugging_quest") end, "button.market.crowd")
+                    end
                     renderer:AddAction(function() context:Exit() end, "button.leave")
+                end
+        )
+        :Build()
+
+BlackListState("jewelery_quest")
+StateBuilder("jewelery_quest")
+        :Render(
+                function(renderer, context)
+                    renderer:AddText("jewelery.quest")
+                    renderer:AddAction(function() 
+                        AddQuest("jewelery_quest")
+                        context:ChangeState("enter_market") 
+                    end, "button.accept")
+                    renderer:AddAction(function() context:ChangeState("enter_market") end, "button.decline")
+                end
+        )
+        :Build()
+
+BlackListState("mugging_quest")
+StateBuilder("mugging_quest")
+        :Render(
+                function(renderer, context)
+                    renderer:AddText("mugging.quest")
+                    renderer:AddAction(function() 
+                        AddQuest("mugging_quest")
+                        context:ChangeState("enter_market") 
+                    end, "button.accept")
+                    renderer:AddAction(function() context:ChangeState("enter_market") end, "button.decline")
                 end
         )
         :Build()
@@ -95,7 +131,22 @@ StateBuilder("enter_tavern")
         :Render(
                 function(renderer, context)
                     renderer:AddText("enter.tavern")
+                    if(IsQuestCompleted("mugging_quest") == false) then
+                        renderer:AddText("mugging.quest.battle")
+                        renderer:AddAction(function() context:StartBattle({"bandit"}, "cave", "beat_mugger") end, "button.battle")
+                    end
                     renderer:AddAction(function() context:ChangeState("enter_inn") end, "button.leave")
+                end
+        )
+        :Build()
+
+BlackListState("beat_mugger")
+StateBuilder("beat_mugger")
+        :Render(
+                function(renderer, context)
+                    renderer:AddText("mugging.quest.complete")
+                    CloseQuest("mugging_quest")
+                    renderer:AddAction(function() context:ChangeState("enter_tavern") end, "button.leave")
                 end
         )
         :Build()
@@ -104,9 +155,14 @@ BlackListState("enter_forge")
 StateBuilder("enter_forge")
         :Render(
                 function(renderer, context)
+                    local exit = "enter_forge"
+                    if(IsQuestDiscovered("forge_quest") == false) then
+                        exit = "forge_quest"
+                    end
+
                     renderer:AddText("enter.forge")
                     renderer:AddAction(function() OpenShop(context, {
-                        exitState="enter_castle",
+                        exitState=exit,
                         offer= {
                             {
                                 itemId= "knife",
@@ -144,7 +200,7 @@ StateBuilder("enter_forge")
                             }
                         }) end, "button.forge.weapons")
                     renderer:AddAction(function() OpenShop(context, {
-                        exitState="enter_castle",
+                        exitState="enter_forge",
                         offer= {
                             {
                                 itemId= "toque",
@@ -201,6 +257,20 @@ StateBuilder("enter_forge")
         )
         :Build()
 
+BlackListState("forge_quest")
+StateBuilder("forge_quest")
+        :Render(
+                function(renderer, context)
+                    renderer:AddText("forge.quest")
+                    renderer:AddAction(function() 
+                        AddQuest("forge_quest")
+                        context:ChangeState("enter_forge") 
+                    end, "button.accept")
+                    renderer:AddAction(function() context:ChangeState("enter_forge") end, "button.decline")
+                end
+        )
+        :Build()
+
 BlackListState("enter_hall")
 StateBuilder("enter_hall")
         :Render(
@@ -229,7 +299,8 @@ StateBuilder("leave_market")
 :ClearScreenPost(false)
         :Render(
                 function(renderer, context)
-                    renderer:AddText("leave.market", function() context:Exit() end)
+                    renderer:AddText("leave.market")
+                    renderer:AddText("", function() context:Exit() end)
                 end
         )
         :Build()
@@ -239,7 +310,8 @@ StateBuilder("leave_inn")
 :ClearScreenPost(false)
         :Render(
                 function(renderer, context)
-                    renderer:AddText("leave.inn", function() context:Exit() end)
+                    renderer:AddText("leave.inn")
+                    renderer:AddText("", function() context:Exit() end)
                 end
         )
         :Build()
@@ -249,7 +321,8 @@ StateBuilder("leave_forge")
 :ClearScreenPost(false)
         :Render(
                 function(renderer, context)
-                    renderer:AddText("leave.forge", function() context:Exit() end)
+                    renderer:AddText("leave.forge")
+                    renderer:AddText("", function() context:Exit() end)
                 end
         )
         :Build()
@@ -259,7 +332,8 @@ StateBuilder("leave_hall")
 :ClearScreenPost(false)
         :Render(
                 function(renderer, context)
-                    renderer:AddText("leave.hall", function() context:Exit() end)
+                    renderer:AddText("leave.hall")
+                    renderer:AddText("", function() context:Exit() end)
                 end
         )
         :Build()

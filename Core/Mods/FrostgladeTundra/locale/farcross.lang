@@ -43,6 +43,26 @@
       "EN_US": "You walk up to a market. Theres lots of people going between stands, as well some making conversation."
     }
   },
+  "jewelery.quest": {
+    "translations": {
+      "EN_US": "Crera the jeweler notices you browsing, \"You know, I used to carry diamond rings, however I lost my diamonds when travelling near a goblin camp. If you returned them to me I'd give a generous gold reward...\"."
+    }
+  },
+  "mugging.quest": {
+    "translations": {
+      "EN_US": "Reaching the middle of the crowd, you see a man on the floor trying to recover. The man notices you look like a mercenary, \"Sir, if you could get revenge on that bastard who mugged me, I'd be at peace!\"."
+    }
+  },
+  "mugging.quest.battle": {
+    "translations": {
+      "EN_US": "You notice a man matching the description of the bandit who mugged that inncocent man from the market. You plan an attack."
+    }
+  },
+  "mugging.quest.complete": {
+    "translations": {
+      "EN_US": "You feel satisfied with your revenge. Everyone in the tavern already seems to have forgotten the action, and have continued their chatting."
+    }
+  },
   "leave.market": {
     "translations": {
       "EN_US": "The markets sound of people chattering fades into the distance."
@@ -53,9 +73,14 @@
       "EN_US": "You walk up to Hammer & Sickle. You hear clanking and air blasting from outside the forgers hut."
     }
   },
+  "forge.quest": {
+    "translations": {
+      "EN_US": "Rufir the blacksmith walks up to you and grunts, \"Hmph, I have a shortage of mythril ore right now, but if you can get me some I think I could forge a new sword for you. What do you say?\"."
+    }
+  },
   "leave.forge": {
     "translations": {
-      "EN_US": "Rufir doesn't seem to notice you leave."
+      "EN_US": "Rufir the blacksmith doesn't seem to notice you leave."
     }
   },
   "enter.inn": {
@@ -85,8 +110,8 @@
   },
   "leave.farcross": {
     "translations": {
-      "EN_US": "You reach the entrance to Farcross. The door guard questions you, \"Will you be leaving now?\".f
+      "EN_US": "You reach the entrance to Farcross. The door guard questions you, \"Will you be leaving now?\".f,,,,,,,
       "
     }
-  },
+  }
 }
