@@ -19,12 +19,16 @@ maxPartySize = 4
 -- ============================
 
 function IsInParty(character)
-    if(character.id == nil) then
-        return false, "invalid_character"
+    local name
+
+    if(type(character) == "string") then
+        name = character
+    else
+        name = character.id
     end
     
     for _, value in ipairs(currentParty) do
-        if(value.id == character.id) then
+        if(value.id == name) then
             return true
         end
     end

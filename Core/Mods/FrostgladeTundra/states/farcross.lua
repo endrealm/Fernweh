@@ -10,6 +10,7 @@ local party = Import("character_system", "lib/party")
 
 local Character = character:Get("Character")
 local AddToParty = party:GetFunc("AddToParty")
+local IsInParty = party:GetFunc("IsInParty")
 local SetPostBattleInfo = party:GetFunc("SetPostBattleInfo")
 
 local inventory = Import("inventory", "api")
@@ -131,11 +132,34 @@ StateBuilder("enter_tavern")
         :Render(
                 function(renderer, context)
                     renderer:AddText("enter.tavern")
+
+                    if(IsInParty("Borof") == false) then
+                        renderer:AddText("tavern.borof")
+                    end
+
                     if(IsQuestCompleted("mugging_quest") == false) then
                         renderer:AddText("mugging.quest.battle")
                         renderer:AddAction(function() context:StartBattle({"bandit"}, "cave", "beat_mugger") end, "button.battle")
                     end
+
+                    if(IsInParty("Borof") == false) then
+                        renderer:AddAction(function() context:ChangeState("recruit_borok") end, "button.tavern.borof")
+                    end
                     renderer:AddAction(function() context:ChangeState("enter_inn") end, "button.leave")
+                end
+        )
+        :Build()
+
+BlackListState("recruit_borok")
+StateBuilder("recruit_borok")
+        :Render(
+                function(renderer, context)
+                    renderer:AddText("tavern.borof.recruit")
+                    renderer:AddAction(function()
+                        AddToParty(Character:new({id = "Borof", stats = {health=23, mana=10, strength=17, intellect=12, dexterity=11, constitution=16, wisdom=12, charisma=8}, equip = {weapon="dagger", body="clothes", feet="shoes"}})) 
+                        context:ChangeState("enter_tavern") 
+                    end, "button.accept")
+                    renderer:AddAction(function() context:ChangeState("enter_tavern") end, "button.decline")
                 end
         )
         :Build()

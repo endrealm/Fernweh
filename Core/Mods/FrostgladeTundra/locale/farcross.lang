@@ -25,6 +25,11 @@
       "EN_US": "-> Enter tavern looking for recruits"
     }
   },
+  "button.tavern.borof": {
+    "translations": {
+      "EN_US": "-> Attempt recruiting the mercenary"
+    }
+  },
 
   "button.forge.weapons": {
     "translations": {
@@ -93,6 +98,16 @@
       "EN_US": "The tavern is full of a range of people, all yelling about god knows what. You look around for potential recruits..."
     }
   },
+  "tavern.borof": {
+    "translations": {
+      "EN_US": "You see a man in the corner of the tavern carrying a sword. You consider asking for his help."
+    }
+  },
+  "tavern.borof.recruit": {
+    "translations": {
+      "EN_US": "Walking up to the man, he doesnt seem to notice you right away. In fact, he seems half-asleep. \"You want me to join your party eh? Ahh I've had everyone ask me that, I used to be known for my swordsmanship. Not so much anymore... Not since the inci- Ah fine ill spare you the details. You want me or not?\"."
+    }
+  },
   "leave.inn": {
     "translations": {
       "EN_US": "The receptionist gives you a friendly wave as you leave, \"I hope you enjoyed your stay!\"."
@@ -110,8 +125,7 @@
   },
   "leave.farcross": {
     "translations": {
-      "EN_US": "You reach the entrance to Farcross. The door guard questions you, \"Will you be leaving now?\".f,,,,,,,
-      "
+      "EN_US": "You reach the entrance to Farcross. The door guard questions you, \"Will you be leaving now?\"."
     }
   }
 }
