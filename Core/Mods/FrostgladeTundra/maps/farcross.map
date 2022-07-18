@@ -1,0 +1,79 @@
+﻿{
+  "name": "farcross",
+  "explorable": false,
+  "tilePositions": {
+    "0": {
+      "1": {
+        "name": "tower"
+      },
+      "2": {
+        "name": "tower"
+      },
+      "3": {
+        "name": "tower"
+      }
+    },
+    "1": {
+      "0": {
+        "name": "tower"
+      },
+      "1": {
+        "name": "tower"
+      },
+      "2": {
+        "name": "shop",
+        "firstEnterState": "enter_forge",
+        "lastLeaveState": "leave_forge"
+      },
+      "3": {
+        "name": "tower"
+      }
+    },
+    "2": {
+      "0": {
+        "name": "tower"
+      },
+      "1": {
+        "name": "shop",
+        "firstEnterState": "enter_hall",
+        "lastLeaveState": "leave_hall"
+      },
+      "2": {
+        "name": "shop",
+        "firstEnterState": "enter_market",
+        "lastLeaveState": "leave_market"
+      },
+      "3": {
+        "name": "path",
+        "firstEnterState": "leave_farcross"
+      }
+    },
+    "3": {
+      "0": {
+        "name": "tower"
+      },
+      "1": {
+        "name": "tower"
+      },
+      "2": {
+        "name": "shop",
+        "firstEnterState": "enter_inn",
+        "lastLeaveState": "leave_inn"
+      },
+      "3": {
+        "name": "tower"
+      }
+    },
+    "4": {
+      "1": {
+        "name": "tower"
+      },
+      "2": {
+        "name": "tower"
+      },
+      "3": {
+        "name": "tower"
+      }
+    }
+  }
+}

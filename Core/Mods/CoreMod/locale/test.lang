@@ -33,5 +33,10 @@
     "translations": {
       "EN_US": "  -> You <color=\"Green\">continue</color> your journey"
     }
+  },
+  "button.reconsider": {
+    "translations": {
+      "EN_US": "  -> You change your mind"
+    }
   }
 }

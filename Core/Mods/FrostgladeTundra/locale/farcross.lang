@@ -1,0 +1,92 @@
+﻿{
+  "button.market.food": {
+    "translations": {
+      "EN_US": "-> Browse the food stand"
+    }
+  },
+  "button.market.jewelery": {
+    "translations": {
+      "EN_US": "-> Browse the jewelery stand"
+    }
+  },
+  "button.market.crowd": {
+    "translations": {
+      "EN_US": "-> Examine the crowd in the center"
+    }
+  },
+
+  "button.inn.sleep": {
+    "translations": {
+      "EN_US": "-> Ask for a room"
+    }
+  },
+  "button.inn.enter_tavern": {
+    "translations": {
+      "EN_US": "-> Enter tavern looking for recruits"
+    }
+  },
+
+  "button.forge.weapons": {
+    "translations": {
+      "EN_US": "-> Look at the weapons displayed at the huts entrance"
+    }
+  },
+  "button.forge.armor": {
+    "translations": {
+      "EN_US": "-> Ask about the armor selection"
+    }
+  },
+
+
+  "enter.market": {
+    "translations": {
+      "EN_US": "You walk up to a market. Theres lots of people going between stands, as well some making conversation."
+    }
+  },
+  "leave.market": {
+    "translations": {
+      "EN_US": "The markets sound of people chattering fades into the distance."
+    }
+  },
+  "enter.forge": {
+    "translations": {
+      "EN_US": "You walk up to Hammer & Sickle. You hear clanking and air blasting from outside the forgers hut."
+    }
+  },
+  "leave.forge": {
+    "translations": {
+      "EN_US": "Rufir doesn't seem to notice you leave."
+    }
+  },
+  "enter.inn": {
+    "translations": {
+      "EN_US": "Pulling the door open of the Friendly Fox inn, you see a check-in desk, as well a hallway to the tavern."
+    }
+  },
+  "enter.tavern": {
+    "translations": {
+      "EN_US": "The tavern is full of a range of people, all yelling about god knows what. You look around for potential recruits..."
+    }
+  },
+  "leave.inn": {
+    "translations": {
+      "EN_US": "The receptionist gives you a friendly wave as you leave, \"I hope you enjoyed your stay!\"."
+    }
+  },
+  "enter.hall": {
+    "translations": {
+      "EN_US": "You walk into the Town Hall. The receptionist directs you to Dolrom's office."
+    }
+  },
+  "leave.hall": {
+    "translations": {
+      "EN_US": "You thank the receptionist before you leave."
+    }
+  },
+  "leave.farcross": {
+    "translations": {
+      "EN_US": "You reach the entrance to Farcross. The door guard questions you, \"Will you be leaving now?\".f
+      "
+    }
+  },
+}

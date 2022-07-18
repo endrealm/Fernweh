@@ -5,6 +5,7 @@
   "scripts": [
     "lib/items.lua",
     "lib/quests.lua",
-    "states/chapter_1.lua"
+    "states/chapter_1.lua",
+    "states/farcross.lua"
   ]
 }
