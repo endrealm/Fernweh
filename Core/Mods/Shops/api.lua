@@ -174,7 +174,7 @@ StateBuilder("shop_shop_sell_amount")
                         renderer:AddAction(function()
                             -- purchase item
                             Purchase(-multiPrice)
-                            RemoveItemFromInventory(ItemToBuy:Get().itemId, amount)
+                            RemoveItemFromInventory(item.id, amount)
                             context:ChangeState("ui_shop_sell")
                         end, "shop.sell.amount", {
                             {"amount", amount},
