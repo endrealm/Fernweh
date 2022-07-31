@@ -7,7 +7,7 @@
                     :OnUse(
                     function(context)
                         context:QueueAction(BattleAction:CreateDamage({
-                            Damage = context.Participant:GetStats().Intellect + 5,
+                            Damage = 25, --context.Participant:GetStats().Intellect + 5,
                             Element = 1
                         }, context.Participant, context.Targets))
                     end)
@@ -24,7 +24,7 @@ CreateAbility("blizzard")
                     :OnUse(
                     function(context)
                         context:QueueAction(BattleAction:CreateDamage({
-                            Damage = context.Participant:GetStats().Intellect,
+                            Damage = 20, --context.Participant:GetStats().Intellect,
                             Element = 1
                         }, context.Participant, context.Targets))
                     end)
@@ -41,7 +41,7 @@ CreateAbility("heal")
                     :OnUse(
                     function(context)
                         context:QueueAction(BattleAction:HealHealth({
-                            Health = context.Participant:GetStats().Intellect
+                            Damage = 20, --context.Participant:GetStats().Intellect,
                         }, context.Participant, context.Targets))
                     end)
                     :Build();
@@ -103,7 +103,7 @@ CreateAbility("power_stab")
                     :OnUse(
                     function(context)
                         context:QueueAction(BattleAction:CreateDamage({
-                            Damage = context.Participant:GetStats().Intellect + 5,
+                            Damage = 25, --context.Participant:GetStats().Strength,
                             Element = 0
                         }, context.Participant, context.Targets))
                     end)
@@ -120,7 +120,7 @@ CreateAbility("spinning_slash")
                     :OnUse(
                     function(context)
                         context:QueueAction(BattleAction:CreateDamage({
-                            Damage = context.Participant:GetStats().Intellect,
+                           Damage = 20, --context.Participant:GetStats().Strength,
                             Element = 0
                         }, context.Participant, context.Targets))
                     end)
