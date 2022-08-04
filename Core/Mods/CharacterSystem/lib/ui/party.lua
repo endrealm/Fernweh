@@ -12,6 +12,8 @@ GetSlots = equip:GetFunc("GetSlots")
 
 local inventory = Import("inventory", "api")
 AddItemToInventory = inventory:GetFunc("AddItem")
+RemoveItemFromInventory = inventory:GetFunc("RemoveItem")
+GetHeldItem = inventory:GetFunc("GetHeldItem")
 
 -- ============================
 -- UI States
@@ -20,7 +22,7 @@ AddItemToInventory = inventory:GetFunc("AddItem")
 BlackListState("ui_party")
 BlackListState("ui_party_member_details")
 BlackListState("ui_party_member_details_slot")
-
+BlackListState("select_party_member")
 
 StateBuilder("ui_party")
         :Sticky(false)
@@ -104,6 +106,26 @@ StateBuilder("ui_party_member_details_slot")
                         context:ChangeState("ui_party_member_details")
                     end, "party.details.unequip")
                 end 
+            end
+        )
+        :Build()
+
+item = nil
+StateBuilder("select_party_member")
+        :AllowSave(false)
+        :Sticky(false)
+        :Render(
+            function(renderer, context)
+                item = GetHeldItem()
+                renderer:AddAction(function() context:ChangeState("ui_item_details") end, "party.close")
+                renderer:AddText("inventory.item.choose_target")
+                for key, character in ipairs(GetMembers()) do
+                    renderer:AddAction(function()
+                        item.consumableWorldAbility(character)
+                        context:ChangeState("ui_item_details")
+                        RemoveItemFromInventory(item)
+                    end, "party.list.member", { { "name", character.id } } )
+                end
             end
         )
         :Build()

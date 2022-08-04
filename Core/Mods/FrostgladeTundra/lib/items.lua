@@ -464,7 +464,10 @@ RegisterItem(Item:new({
     id = "health_potion",
     price= 5,
     sellPrice= 5,
-    consumableType = "party",
+    canTargetPartyMember = true,
+    consumableWorldAbility = function(target) 
+        target.current.health = target.current.health + 20
+    end,
     consumableAbility = {
         health_potion = {},
     },
@@ -474,7 +477,10 @@ RegisterItem(Item:new({
     id = "ether",
     price= 5,
     sellPrice= 5,
-    consumableType = "party",
+    canTargetPartyMember = true,
+    consumableWorldAbility = function(target) 
+        target.current.mana = target.current.mana + 20
+    end,
     consumableAbility = {
         ether = {},
     },
@@ -484,10 +490,28 @@ RegisterItem(Item:new({
     id = "revive",
     price= 10,
     sellPrice= 10,
-    consumableType = "party",
+    canTargetPartyMember = true,
+    consumableWorldAbility = function(target) 
+        target.current.health = 15
+    end,
     consumableAbility = {
         revive = {},
     },
+}))
+
+RegisterItem(Item:new({
+    id = "bomb",
+    price= 10,
+    sellPrice= 10,
+    consumableAbility = {
+        fire = {},
+    },
+}))
+
+RegisterItem(Item:new({
+    id = "orlos_horn",
+    price= 10,
+    sellPrice= 10,
 }))
 
 RegisterItem(Item:new({

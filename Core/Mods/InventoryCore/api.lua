@@ -150,17 +150,28 @@ function Item:new(o)
     return o
 end
 
+heldItem = nil
 function Item:ShowOptions(renderer, context)
     --if no consumable ability, dont show actions
-    if (self.consumableAbility == nil) then
+    if (self.consumableWorldAbility == nil) then
         renderer:AddText("inventory.item.noActions")
 
-    elseif (self.consumableType == "party") then
+    elseif (self.canTargetPartyMember == true) then
         renderer:AddAction(function()
-            --SetHeldItem(self)
-            --context:ChangeState("ui_use_item")
+            heldItem = self
+            context:ChangeState("select_party_member")
+        end, "inventory.item.use")
+
+    else
+        renderer:AddAction(function()
+            self.consumableWorldAbility(nil)
+            RemoveItem(self)
         end, "inventory.item.use")
     end
+end
+
+function GetHeldItem()
+    return heldItem
 end
 
 function Item:DisplayName()
@@ -270,4 +281,5 @@ Context:CreateFunc("RemoveItem", RemoveItem)
 Context:CreateFunc("GetInventory", GetInventory)
 Context:CreateFunc("RegisterItem", RegisterItem)
 Context:CreateFunc("GetItem", GetItem)
+Context:CreateFunc("GetHeldItem", GetHeldItem)
 Context:CreateVar("Item", Item)
