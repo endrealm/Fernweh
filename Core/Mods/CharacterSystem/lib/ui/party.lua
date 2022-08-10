@@ -122,7 +122,7 @@ StateBuilder("select_party_member")
                 for key, character in ipairs(GetMembers()) do
                     renderer:AddAction(function()
                         item.consumableWorldAbility(character)
-                        context:ChangeState("ui_item_details")
+                        context:ChangeState("ui_inventory")
                         RemoveItemFromInventory(item)
                     end, "party.list.member", { { "name", character.id } } )
                 end

@@ -39,6 +39,11 @@
       "EN_US": " -> Equip to Party"
     }
   },
+  "inventory.item.choose_target": {
+    "translations": {
+      "EN_US": "Select Party Member:"
+    }
+  },
   "party.close": {
     "translations": {
       "EN_US": "<- Close"

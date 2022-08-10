@@ -166,6 +166,7 @@ function Item:ShowOptions(renderer, context)
         renderer:AddAction(function()
             self.consumableWorldAbility(nil)
             RemoveItem(self)
+            context:ChangeState("ui_inventory")
         end, "inventory.item.use")
     end
 end

@@ -467,6 +467,7 @@ RegisterItem(Item:new({
     canTargetPartyMember = true,
     consumableWorldAbility = function(target) 
         target.current.health = target.current.health + 20
+        if(target.current.health > target.stats.health) then target.current.health = target.stats.health end
     end,
     consumableAbility = {
         health_potion = {},
@@ -480,6 +481,7 @@ RegisterItem(Item:new({
     canTargetPartyMember = true,
     consumableWorldAbility = function(target) 
         target.current.mana = target.current.mana + 20
+        if(target.current.mana > target.stats.mana) then target.current.mana = target.stats.mana end
     end,
     consumableAbility = {
         ether = {},
