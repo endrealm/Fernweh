@@ -36,6 +36,8 @@ StateBuilder("ui_party")
                         activeDetailMember=character
                         context:ChangeState("ui_party_member_details")
                     end, "party.list.member", { { "name", character.id } } )
+                    renderer:AddText("party.detail.stat.health_mana.basic", { { "currentHP", character.current.health }, { "HP", character.stats.health },
+                    { "currentMP", character.current.mana }, { "MP", character.stats.mana }})
                 end
             end
         )

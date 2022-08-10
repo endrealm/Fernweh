@@ -79,6 +79,11 @@
       "EN_US": "<color=\"Green\">HP:</color> {currentHP}/{HP}<color=\"Pink\">+{bonusHP}</color> <color=\"LightBlue\">MP:</color> {currentMP}/{MP}<color=\"Pink\">+{bonusMP}</color>"
     }
   },
+  "party.detail.stat.health_mana.basic": {
+    "translations": {
+      "EN_US": "<color=\"Green\">HP:</color> {currentHP}/{HP} <color=\"LightBlue\">MP:</color> {currentMP}/{MP}"
+    }
+  },
   "party.detail.stat.armor": {
     "translations": {
       "EN_US": "<color=\"Orange\">Armor:</color> {value} <color=\"Pink\">+{bonus}</color>"
