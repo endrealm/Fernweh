@@ -17,7 +17,7 @@
 
   "button.inn.sleep": {
     "translations": {
-      "EN_US": "-> Ask for a room"
+      "EN_US": "-> Ask for a room <color=\"Yellow\">({cost}g)</color>"
     }
   },
   "button.inn.enter_tavern": {

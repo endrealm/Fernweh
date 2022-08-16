@@ -7,8 +7,12 @@ BlackListState = compat:GetFunc("BlackListState")
 
 local character = Import("character_system", "lib/character")
 local party = Import("character_system", "lib/party")
+local money_hook = Import("shops", "money_hook")
+
+local Purchase = money_hook:GetFunc("Purchase")
 
 local Character = character:Get("Character")
+local GetMembers = party:GetFunc("GetMembers")
 local AddToParty = party:GetFunc("AddToParty")
 local IsInParty = party:GetFunc("IsInParty")
 local SetPostBattleInfo = party:GetFunc("SetPostBattleInfo")
@@ -120,7 +124,14 @@ StateBuilder("enter_inn")
         :Render(
                 function(renderer, context)
                     renderer:AddText("enter.inn")
-                    renderer:AddAction(function() context:Exit() end, "button.inn.sleep")
+                    renderer:AddAction(function()
+                        Purchase(10)
+                        for key, character in ipairs(GetMembers()) do
+                            character.current.health = character.stats.health
+                            character.current.mana = character.stats.mana
+                        end
+                        context:Exit() 
+                    end, "button.inn.sleep", { { "cost", 10 } } )
                     renderer:AddAction(function() context:ChangeState("enter_tavern") end, "button.inn.enter_tavern")
                     renderer:AddAction(function() context:Exit() end, "button.leave")
                 end
