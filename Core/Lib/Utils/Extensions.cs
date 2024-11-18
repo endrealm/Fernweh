@@ -14,6 +14,7 @@ public static class Extensions
 
         return queue;
     }
+
     public static ISet<T> ToSet<T>(this IEnumerable<T> list)
     {
         var queue = new HashSet<T>();
@@ -26,7 +27,8 @@ public static class Extensions
     public static void AddRange<T>(this Stack<T> queue, IEnumerable<T> range)
     {
         foreach (var x1 in range.Reverse()) queue.Push(x1);
-    }  
+    }
+
     public static V GetOrCreate<K, V>(this Dictionary<K, V> dictionary, K key, Func<V> create)
     {
         if (dictionary.TryGetValue(key, out var data)) return data;
@@ -34,7 +36,7 @@ public static class Extensions
         dictionary.Add(key, value);
         return value;
     }
-    
+
     public static T MaxValue<T>(this IEnumerable<T> list, Converter<T, int> transformer)
     {
         var maxValue = int.MinValue;
@@ -46,8 +48,10 @@ public static class Extensions
             maxValue = value;
             maxItem = item;
         }
+
         return maxItem;
     }
+
     public static (T maxItem, int maxValue) MaxValuePair<T>(this IEnumerable<T> list, Converter<T, int> transformer)
     {
         var maxValue = int.MinValue;
@@ -59,8 +63,10 @@ public static class Extensions
             maxValue = value;
             maxItem = item;
         }
+
         return (maxItem, maxValue);
     }
+
     public static List<T> MaxValues<T>(this IEnumerable<T> list, Converter<T, int> transformer)
     {
         var maxValue = int.MinValue;
@@ -69,15 +75,14 @@ public static class Extensions
         {
             var value = transformer(item);
             if (value < maxValue) continue;
-            if (value > maxValue)
-            {
-                maxItem.Clear();
-            }
+            if (value > maxValue) maxItem.Clear();
             maxValue = value;
             maxItem.Add(item);
         }
+
         return maxItem;
     }
+
     public static T Random<T>(this List<T> list, Random random)
     {
         return list[random.Next(list.Count)];

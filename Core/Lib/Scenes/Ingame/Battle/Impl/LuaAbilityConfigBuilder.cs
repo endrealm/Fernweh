@@ -4,7 +4,7 @@ namespace Core.Scenes.Ingame.Battle.Impl;
 
 public class LuaAbilityConfigBuilder
 {
-    private string _id;
+    private readonly string _id;
     private LuaTable _data;
 
     public LuaAbilityConfigBuilder(string id)

@@ -2,10 +2,11 @@
 
 namespace Core.States;
 
-public class NullState: IState
+public class NullState : IState
 {
     private Color _defaultBackgroundColor;
     public string Id => "null";
+
     public void Render(StateRenderer renderer, RenderContext context)
     {
         // Do nothing

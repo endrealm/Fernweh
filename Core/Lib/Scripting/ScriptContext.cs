@@ -2,9 +2,9 @@
 
 public class ScriptContext
 {
+    private readonly string _modId;
 
     private readonly NamespacedKey _name;
-    private readonly string _modId;
 
     public ScriptContext(NamespacedKey name, string modId)
     {
@@ -21,7 +21,6 @@ public class ScriptContext
     {
         return _modId;
     }
-    
 }
 
 public struct NamespacedKey
@@ -39,6 +38,4 @@ public struct NamespacedKey
     {
         return Key + "/" + Value;
     }
-    
-    
 }

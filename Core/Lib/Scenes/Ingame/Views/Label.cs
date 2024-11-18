@@ -6,11 +6,11 @@ using PipelineExtensionLibrary.Tokenizer.Chat;
 
 namespace Core.Scenes.Ingame.Views;
 
-public interface ILabel: IRenderer<LabelRenderContext>
+public interface ILabel : IRenderer<LabelRenderContext>
 {
 }
 
-public struct LabelRenderContext: IRenderContext
+public struct LabelRenderContext : IRenderContext
 {
     public LabelRenderContext(Vector2 baseScreenSize, int chatWidth)
     {
@@ -22,10 +22,10 @@ public struct LabelRenderContext: IRenderContext
     public int ChatWidth { get; }
 }
 
-public class BasicLabel: ILabel
+public class BasicLabel : ILabel
 {
-    private readonly LabelSettings _labelSettings;
     private readonly IChatComponent _component;
+    private readonly LabelSettings _labelSettings;
 
     public BasicLabel(LabelSettings labelSettings, SpriteFont font)
     {
@@ -35,7 +35,8 @@ public class BasicLabel: ILabel
 
     public void Render(SpriteBatch spriteBatch, LabelRenderContext context)
     {
-        _component.Render(spriteBatch, new ChatRenderContext(new Vector2(context.ChatWidth+ _labelSettings.X, _labelSettings.Y)));
+        _component.Render(spriteBatch,
+            new ChatRenderContext(new Vector2(context.ChatWidth + _labelSettings.X, _labelSettings.Y)));
     }
 }
 

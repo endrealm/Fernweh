@@ -120,7 +120,7 @@ CreateAbility("spinning_slash")
                     :OnUse(
                     function(context)
                         context:QueueAction(BattleAction:CreateDamage({
-                           Damage = 20, --context.Participant:GetStats().Strength,
+                            Damage = 20, --context.Participant:GetStats().Strength,
                             Element = 0
                         }, context.Participant, context.Targets))
                     end)

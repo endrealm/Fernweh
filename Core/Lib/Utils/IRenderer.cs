@@ -2,7 +2,7 @@
 
 namespace Core.Utils;
 
-public interface IRenderer<T> where T: IRenderContext
+public interface IRenderer<T> where T : IRenderContext
 {
     void Render(SpriteBatch spriteBatch, T context);
 }

@@ -1,157 +1,157 @@
 ﻿{
-  "battle.action.attack": {
-    "translations": {
-      "EN_US": "{name} attacks {target} with their equipped item!"
+    "battle.action.attack": {
+        "translations": {
+            "EN_US": "{name} attacks {target} with their equipped item!"
+        }
+    },
+    "battle.action.defend": {
+        "translations": {
+            "EN_US": "{name} takes a <color=\"LightBlue\">defensive</color> stance!"
+        }
+    },
+    "battle.action.healHealth": {
+        "translations": {
+            "EN_US": "{name} restores <color=\"Green\">{amount} health</color> for <color=\"Orange\">{target}</color>"
+        }
+    },
+    "battle.action.healMana": {
+        "translations": {
+            "EN_US": "{name} restores <color=\"Blue\">{amount} mana</color> for <color=\"Orange\">{target}</color>"
+        }
+    },
+    "battle.select.target": {
+        "translations": {
+            "EN_US": "Select a target:"
+        }
+    },
+    "ability.used": {
+        "translations": {
+            "EN_US": "{caster} used {ability}"
+        }
+    },
+    "battle.participant.death": {
+        "translations": {
+            "EN_US": "<color=\"Orange\">{name}</color> <color=\"Red\">died!</color>"
+        }
+    },
+    "battle.participant.no_items": {
+        "translations": {
+            "EN_US": "You aren't holding any items!"
+        }
+    },
+    "battle.participant.list.item": {
+        "translations": {
+            "EN_US": "<color=\"Yellow\">{item}</color> X{amount}"
+        }
+    },
+    "battle.use.item": {
+        "translations": {
+            "EN_US": "{player} uses {item}!"
+        }
+    },
+    "ability.doNothing": {
+        "translations": {
+            "EN_US": "{name} does nothing!"
+        }
+    },
+    "ability.noTargets": {
+        "translations": {
+            "EN_US": "<color=\"Orange\">No valid target</color> remaining"
+        }
+    },
+    "ability.noMana": {
+        "translations": {
+            "EN_US": "{name} attempts at attacking but falls to their knees as they realize they <color=\"Orange\">don't have enough mana...</color>"
+        }
+    },
+    "battle.dealDamage": {
+        "translations": {
+            "EN_US": "<color=\"Orange\">{target}</color> received <color=\"Red\">{damage} damage!</color>"
+        }
+    },
+    "battle.continue": {
+        "translations": {
+            "EN_US": "  -> Continue"
+        }
+    },
+    "inventory.item.noActions": {
+        "translations": {
+            "EN_US": "No actions available"
+        }
+    },
+    "battle.participant.list.name": {
+        "translations": {
+            "EN_US": "<color=\"Orange\">{name}</color> decides what to do..."
+        }
+    },
+    "battle.participant.list.ability.ability": {
+        "translations": {
+            "EN_US": "-> Abilities"
+        }
+    },
+    "battle.ability.category.ability": {
+        "translations": {
+            "EN_US": "Abilities:"
+        }
+    },
+    "battle.ability": {
+        "translations": {
+            "EN_US": "-> {ability}"
+        }
+    },
+    "battle.participant.list.attack": {
+        "translations": {
+            "EN_US": "-> Attack"
+        }
+    },
+    "battle.participant.list.defend": {
+        "translations": {
+            "EN_US": "-> Defend"
+        }
+    },
+    "battle.participant.list.items": {
+        "translations": {
+            "EN_US": "-> Items"
+        }
+    },
+    "battle.participant.list.skills": {
+        "translations": {
+            "EN_US": "-> Skills"
+        }
+    },
+    "battle.statsRow.name": {
+        "translations": {
+            "EN_US": "{name}"
+        }
+    },
+    "battle.statsRow.health": {
+        "translations": {
+            "EN_US": "{current} / {max} HP"
+        }
+    },
+    "battle.statsRow.mana": {
+        "translations": {
+            "EN_US": "{current} / {max} MP"
+        }
+    },
+    "battle.participant.select.single": {
+        "translations": {
+            "EN_US": "-> {name}"
+        }
+    },
+    "battle.participant.select.multiple": {
+        "translations": {
+            "EN_US": "-> {amount}x {name}"
+        }
+    },
+    "battle.participant.select.mixed": {
+        "translations": {
+            "EN_US": "-> {name}"
+        }
+    },
+    "battle.participant.list.back": {
+        "translations": {
+            "EN_US": "<- Back"
+        }
     }
-  },
-  "battle.action.defend": {
-    "translations": {
-      "EN_US": "{name} takes a <color=\"LightBlue\">defensive</color> stance!"
-    }
-  },
-  "battle.action.healHealth": {
-    "translations": {
-      "EN_US": "{name} restores <color=\"Green\">{amount} health</color> for <color=\"Orange\">{target}</color>"
-    }
-  },
-  "battle.action.healMana": {
-    "translations": {
-      "EN_US": "{name} restores <color=\"Blue\">{amount} mana</color> for <color=\"Orange\">{target}</color>"
-    }
-  },
-  "battle.select.target": {
-    "translations": {
-      "EN_US": "Select a target:"
-    }
-  },
-  "ability.used": {
-    "translations": {
-      "EN_US": "{caster} used {ability}"
-    }
-  },
-  "battle.participant.death": {
-    "translations": {
-      "EN_US": "<color=\"Orange\">{name}</color> <color=\"Red\">died!</color>"
-    }
-  },
-  "battle.participant.no_items": {
-    "translations": {
-      "EN_US": "You aren't holding any items!"
-    }
-  },
-  "battle.participant.list.item": {
-    "translations": {
-      "EN_US": "<color=\"Yellow\">{item}</color> X{amount}"
-    }
-  },
-  "battle.use.item": {
-    "translations": {
-      "EN_US": "{player} uses {item}!"
-    }
-  },
-  "ability.doNothing": {
-    "translations": {
-      "EN_US": "{name} does nothing!"
-    }
-  },
-  "ability.noTargets": {
-    "translations": {
-      "EN_US": "<color=\"Orange\">No valid target</color> remaining"
-    }
-  },
-  "ability.noMana": {
-    "translations": {
-      "EN_US": "{name} attempts at attacking but falls to their knees as they realize they <color=\"Orange\">don't have enough mana...</color>"
-    }
-  },
-  "battle.dealDamage": {
-    "translations": {
-      "EN_US": "<color=\"Orange\">{target}</color> received <color=\"Red\">{damage} damage!</color>"
-    }
-  },
-  "battle.continue": {
-    "translations": {
-      "EN_US": "  -> Continue"
-    }
-  },
-  "inventory.item.noActions": {
-    "translations": {
-      "EN_US": "No actions available"
-    }
-  },
-  "battle.participant.list.name": {
-    "translations": {
-      "EN_US": "<color=\"Orange\">{name}</color> decides what to do..."
-    }
-  },
-  "battle.participant.list.ability.ability": {
-    "translations": {
-      "EN_US": "-> Abilities"
-    }
-  },
-  "battle.ability.category.ability": {
-    "translations": {
-      "EN_US": "Abilities:"
-    }
-  },
-  "battle.ability": {
-    "translations": {
-      "EN_US": "-> {ability}"
-    }
-  },
-  "battle.participant.list.attack": {
-    "translations": {
-      "EN_US": "-> Attack"
-    }
-  },
-  "battle.participant.list.defend": {
-    "translations": {
-      "EN_US": "-> Defend"
-    }
-  },
-  "battle.participant.list.items": {
-    "translations": {
-      "EN_US": "-> Items"
-    }
-  },
-  "battle.participant.list.skills": {
-    "translations": {
-      "EN_US": "-> Skills"
-    }
-  },
-  "battle.statsRow.name": {
-    "translations": {
-      "EN_US": "{name}"
-    }
-  },
-  "battle.statsRow.health": {
-    "translations": {
-      "EN_US": "{current} / {max} HP"
-    }
-  },
-  "battle.statsRow.mana": {
-    "translations": {
-      "EN_US": "{current} / {max} MP"
-    }
-  },
-  "battle.participant.select.single": {
-    "translations": {
-      "EN_US": "-> {name}"
-    }
-  },
-  "battle.participant.select.multiple": {
-    "translations": {
-      "EN_US": "-> {amount}x {name}"
-    }
-  },
-  "battle.participant.select.mixed": {
-    "translations": {
-      "EN_US": "-> {name}"
-    }
-  },
-  "battle.participant.list.back": {
-    "translations": {
-      "EN_US": "<- Back"
-    }
-  }
 }

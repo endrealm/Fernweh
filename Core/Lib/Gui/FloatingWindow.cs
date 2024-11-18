@@ -3,92 +3,111 @@ using Apos.Input;
 using Microsoft.Xna.Framework;
 using MonoGame.Extended;
 
-namespace Core.Gui {
-    public class FloatingWindow : Vertical {
-        public FloatingWindow(int id) : base(id) { }
+namespace Core.Gui;
 
-        public override bool IsFocusable { get; set; } = true;
-        public override bool IsFloatable { get; set; } = true;
+public class FloatingWindow : Vertical
+{
+    protected Vector2 _dragDelta = Vector2.Zero;
 
-        public override void UpdatePrefSize(GameTime gameTime) {
-            base.UpdatePrefSize(gameTime);
+    protected bool _mousePressed;
+    protected bool _moveNext;
+    public Vector2 _nextXY = Vector2.Zero;
 
-            PrefHeight += 20;
+    public FloatingWindow(int id) : base(id)
+    {
+    }
+
+    public override bool IsFocusable { get; set; } = true;
+    public override bool IsFloatable { get; set; } = true;
+
+    public override void UpdatePrefSize(GameTime gameTime)
+    {
+        base.UpdatePrefSize(gameTime);
+
+        PrefHeight += 20;
+    }
+
+    public override void UpdateSetup(GameTime gameTime)
+    {
+        if (_moveNext)
+        {
+            XY = _nextXY;
+            _moveNext = false;
         }
-        public override void UpdateSetup(GameTime gameTime) {
-            if (_moveNext) {
-                XY = _nextXY;
-                _moveNext = false;
-            }
 
-            base.UpdateSetup(gameTime);
+        base.UpdateSetup(gameTime);
+    }
+
+    public override void UpdateInput(GameTime gameTime)
+    {
+        base.UpdateInput(gameTime);
+
+        if (Clip.Contains(GuiHelper.Mouse) && Default.MouseInteraction.Pressed())
+        {
+            _mousePressed = true;
+            _dragDelta = XY - GuiHelper.Mouse;
+            GrabFocus(this);
         }
-        public override void UpdateInput(GameTime gameTime) {
-            base.UpdateInput(gameTime);
 
-            if (Clip.Contains(GuiHelper.Mouse) && Default.MouseInteraction.Pressed()) {
-                _mousePressed = true;
-                _dragDelta = XY - GuiHelper.Mouse;
-                GrabFocus(this);
-            }
-
-            if (IsFocused) {
-                if (_mousePressed) {
-                    if (Default.MouseInteraction.Released()) {
-                        _mousePressed = false;
-                    } else {
-                        Default.MouseInteraction.Consume();
-                        _moveNext = true;
-                        _nextXY = GuiHelper.Mouse + _dragDelta;
-                    }
+        if (IsFocused)
+            if (_mousePressed)
+            {
+                if (Default.MouseInteraction.Released())
+                {
+                    _mousePressed = false;
+                }
+                else
+                {
+                    Default.MouseInteraction.Consume();
+                    _moveNext = true;
+                    _nextXY = GuiHelper.Mouse + _dragDelta;
                 }
             }
-        }
-        public override void Draw(GameTime gameTime) {
-            GuiHelper.PushScissor(Clip);
-            GuiHelper.SpriteBatch.FillRectangle(Bounds, Color.Black);
-            GuiHelper.SpriteBatch.FillRectangle(new RectangleF(Left, Bottom - 20, Width, 20), Color.White * 0.5f);
-            GuiHelper.PopScissor();
+    }
 
-            base.Draw(gameTime);
-        }
+    public override void Draw(GameTime gameTime)
+    {
+        GuiHelper.PushScissor(Clip);
+        GuiHelper.SpriteBatch.FillRectangle(Bounds, Color.Black);
+        GuiHelper.SpriteBatch.FillRectangle(new RectangleF(Left, Bottom - 20, Width, 20), Color.White * 0.5f);
+        GuiHelper.PopScissor();
 
-        public static new FloatingWindow Push([CallerLineNumber] int id = 0, bool isAbsoluteId = false) {
-            // 1. Check if window with id already exists.
-            //      a. If already exists. Get it.
-            //      b  If not, create it.
-            // 2. Parent it.
-            // 3. Push it on the stack.
-            // 4. Ping it.
-            id = GuiHelper.CurrentIMGUI.CreateId(id, isAbsoluteId);
-            GuiHelper.CurrentIMGUI.TryGetValue(id, out IComponent c);
+        base.Draw(gameTime);
+    }
 
-            FloatingWindow a;
-            if (c is FloatingWindow) {
-                a = (FloatingWindow)c;
-            } else {
-                a = new FloatingWindow(id);
-            }
+    public new static FloatingWindow Push([CallerLineNumber] int id = 0, bool isAbsoluteId = false)
+    {
+        // 1. Check if window with id already exists.
+        //      a. If already exists. Get it.
+        //      b  If not, create it.
+        // 2. Parent it.
+        // 3. Push it on the stack.
+        // 4. Ping it.
+        id = GuiHelper.CurrentIMGUI.CreateId(id, isAbsoluteId);
+        GuiHelper.CurrentIMGUI.TryGetValue(id, out var c);
 
-            IParent parent = GuiHelper.CurrentIMGUI.GrabParent(a);
+        FloatingWindow a;
+        if (c is FloatingWindow)
+            a = (FloatingWindow) c;
+        else
+            a = new FloatingWindow(id);
 
-            if (a.LastPing != InputHelper.CurrentFrame) {
-                a.Reset();
-                a.LastPing = InputHelper.CurrentFrame;
-                a.Index = parent.NextIndex();
-            }
+        var parent = GuiHelper.CurrentIMGUI.GrabParent(a);
 
-            GuiHelper.CurrentIMGUI.Push(a);
-
-            return a;
-        }
-        public static new void Pop() {
-            GuiHelper.CurrentIMGUI.Pop();
+        if (a.LastPing != InputHelper.CurrentFrame)
+        {
+            a.Reset();
+            a.LastPing = InputHelper.CurrentFrame;
+            a.Index = parent.NextIndex();
         }
 
-        protected bool _mousePressed = false;
-        protected Vector2 _dragDelta = Vector2.Zero;
-        protected bool _moveNext = false;
-        public Vector2 _nextXY = Vector2.Zero;
+        GuiHelper.CurrentIMGUI.Push(a);
+
+        return a;
+    }
+
+    public new static void Pop()
+    {
+        GuiHelper.CurrentIMGUI.Pop();
     }
 }

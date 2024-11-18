@@ -2,5 +2,5 @@
 
 public class LuaSandbox
 {
-  public static string Sandbox; // Loaded from main
+    public static string Sandbox; // Loaded from main
 }

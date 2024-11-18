@@ -5,9 +5,9 @@ namespace Core.Scenes.Ingame.Battle.Impl;
 
 public class LuaEffectFactoryBuilder
 {
-    private LuaFunction _instantiateEffect;
     private readonly string _id;
     private readonly Action<IEffectFactory> _onBuild;
+    private LuaFunction _instantiateEffect;
 
     public LuaEffectFactoryBuilder(string id, Action<IEffectFactory> onBuild)
     {
@@ -20,11 +20,10 @@ public class LuaEffectFactoryBuilder
         _instantiateEffect = function;
         return this;
     }
-    
+
     public IEffectFactory Build()
     {
-        
-        var fact =  new LuaEffectFactory(_id, _instantiateEffect);
+        var fact = new LuaEffectFactory(_id, _instantiateEffect);
         _onBuild.Invoke(fact);
         return fact;
     }

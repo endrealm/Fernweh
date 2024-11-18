@@ -5,5 +5,5 @@ public enum TokenType
     ColorStart,
     ColorEnd,
     Text,
-    Invalid,
+    Invalid
 }

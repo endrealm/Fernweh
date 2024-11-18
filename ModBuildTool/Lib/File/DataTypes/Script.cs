@@ -1,8 +1,8 @@
 ﻿namespace ModBuildTool.Lib.File.DataTypes;
 
-public class Script: SimpleFileData
+public class Script : SimpleFileData
 {
-    
-    public Script(string rawData) : base(rawData) { }
-    
+    public Script(string rawData) : base(rawData)
+    {
+    }
 }

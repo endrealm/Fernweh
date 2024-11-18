@@ -3,96 +3,113 @@ using Apos.Input;
 using Apos.Tweens;
 using Microsoft.Xna.Framework;
 
-namespace Core.Gui {
-    public class MenuPanel : Vertical {
-        public MenuPanel(int id) : base(id) { }
+namespace Core.Gui;
 
-        public override void UpdatePrefSize(GameTime gameTime) {
-            base.UpdatePrefSize(gameTime);
+public class MenuPanel : Vertical
+{
+    protected bool _snap;
 
-            FullWidth = PrefWidth;
-            FullHeight = PrefHeight;
+    public MenuPanel(int id) : base(id)
+    {
+    }
 
-            if (PrefWidth != GuiHelper.WindowWidth) {
-                PrefWidth = GuiHelper.WindowWidth;
-                _snap = true;
-            }
-            if (PrefHeight != GuiHelper.WindowHeight) {
-                PrefHeight = GuiHelper.WindowHeight;
-                _snap = true;
-            }
+    public override void UpdatePrefSize(GameTime gameTime)
+    {
+        base.UpdatePrefSize(gameTime);
+
+        FullWidth = PrefWidth;
+        FullHeight = PrefHeight;
+
+        if (PrefWidth != GuiHelper.WindowWidth)
+        {
+            PrefWidth = GuiHelper.WindowWidth;
+            _snap = true;
         }
-        public override void UpdateSetup(GameTime gameTime) {
-            // MenuPanel is a root component so it can set it's own position.
-            X = 0f;
-            Y = 0f;
 
-            if (_offsetYTween.B != ClampOffsetY(_offsetYTween.B)) {
-                if (!_snap) {
-                    SetOffset(_offsetYTween, ClampOffsetY(_offsetYTween.B));
-                } else {
-                    _offsetYTween.A = ClampOffsetY(_offsetYTween.B);
-                    _offsetYTween.B = ClampOffsetY(_offsetYTween.B);
-                    _offsetYTween.StartTime = TweenHelper.TotalMS;
-                    _offsetYTween.Duration = 0;
-                    _snap = false;
-                }
+        if (PrefHeight != GuiHelper.WindowHeight)
+        {
+            PrefHeight = GuiHelper.WindowHeight;
+            _snap = true;
+        }
+    }
+
+    public override void UpdateSetup(GameTime gameTime)
+    {
+        // MenuPanel is a root component so it can set it's own position.
+        X = 0f;
+        Y = 0f;
+
+        if (_offsetYTween.B != ClampOffsetY(_offsetYTween.B))
+        {
+            if (!_snap)
+            {
+                SetOffset(_offsetYTween, ClampOffsetY(_offsetYTween.B));
             }
-
-            _offsetX = _offsetXTween.Value;
-            _offsetY = _offsetYTween.Value;
-
-            float halfWidth = Width / 2f;
-
-            float currentY = 0f;
-            foreach (var c in _children) {
-                c.Width = c.PrefWidth;
-                c.Height = c.PrefHeight;
-
-                c.X = X + OffsetX + halfWidth - c.Width / 2f;
-                c.Y = currentY + Y + OffsetY;
-
-                c.Clip = c.Bounds.Intersection(Clip);
-
-                c.UpdateSetup(gameTime);
-
-                currentY += c.Height;
+            else
+            {
+                _offsetYTween.A = ClampOffsetY(_offsetYTween.B);
+                _offsetYTween.B = ClampOffsetY(_offsetYTween.B);
+                _offsetYTween.StartTime = TweenHelper.TotalMS;
+                _offsetYTween.Duration = 0;
+                _snap = false;
             }
         }
 
-        protected override float ClampOffsetY(float y) {
-            return MathHelper.Min(MathHelper.Max(y, Height - FullHeight), FullHeight < Height ? Height / 2f - FullHeight / 2f : 0f);
+        _offsetX = _offsetXTween.Value;
+        _offsetY = _offsetYTween.Value;
+
+        var halfWidth = Width / 2f;
+
+        var currentY = 0f;
+        foreach (var c in _children)
+        {
+            c.Width = c.PrefWidth;
+            c.Height = c.PrefHeight;
+
+            c.X = X + OffsetX + halfWidth - c.Width / 2f;
+            c.Y = currentY + Y + OffsetY;
+
+            c.Clip = c.Bounds.Intersection(Clip);
+
+            c.UpdateSetup(gameTime);
+
+            currentY += c.Height;
+        }
+    }
+
+    protected override float ClampOffsetY(float y)
+    {
+        return MathHelper.Min(MathHelper.Max(y, Height - FullHeight),
+            FullHeight < Height ? Height / 2f - FullHeight / 2f : 0f);
+    }
+
+    public new static MenuPanel Push([CallerLineNumber] int id = 0, bool isAbsoluteId = false)
+    {
+        // 1. Check if MenuPanel with id already exists.
+        //      a. If already exists. Get it.
+        //      b  If not, create it.
+        // 3. Push it on the stack.
+        // 4. Ping it.
+        id = GuiHelper.CurrentIMGUI.CreateId(id, isAbsoluteId);
+        GuiHelper.CurrentIMGUI.TryGetValue(id, out var c);
+
+        MenuPanel a;
+        if (c is MenuPanel)
+            a = (MenuPanel) c;
+        else
+            a = new MenuPanel(id);
+
+        var parent = GuiHelper.CurrentIMGUI.GrabParent(a);
+
+        if (a.LastPing != InputHelper.CurrentFrame)
+        {
+            a.Reset();
+            a.LastPing = InputHelper.CurrentFrame;
+            a.Index = parent.NextIndex();
         }
 
-        public static new MenuPanel Push([CallerLineNumber] int id = 0, bool isAbsoluteId = false) {
-            // 1. Check if MenuPanel with id already exists.
-            //      a. If already exists. Get it.
-            //      b  If not, create it.
-            // 3. Push it on the stack.
-            // 4. Ping it.
-            id = GuiHelper.CurrentIMGUI.CreateId(id, isAbsoluteId);
-            GuiHelper.CurrentIMGUI.TryGetValue(id, out IComponent c);
+        GuiHelper.CurrentIMGUI.Push(a);
 
-            MenuPanel a;
-            if (c is MenuPanel) {
-                a = (MenuPanel)c;
-            } else {
-                a = new MenuPanel(id);
-            }
-
-            IParent parent = GuiHelper.CurrentIMGUI.GrabParent(a);
-
-            if (a.LastPing != InputHelper.CurrentFrame) {
-                a.Reset();
-                a.LastPing = InputHelper.CurrentFrame;
-                a.Index = parent.NextIndex();
-            }
-
-            GuiHelper.CurrentIMGUI.Push(a);
-
-            return a;
-        }
-
-        protected bool _snap = false;
+        return a;
     }
 }

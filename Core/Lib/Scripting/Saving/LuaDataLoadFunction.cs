@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using NLua;
+﻿using NLua;
 
 namespace Core.Scripting.Saving;
 
@@ -14,7 +13,7 @@ public class LuaDataLoadFunction : IDataLoadFunction
 
     public void Load(IDataEncoder dataEncoder, object data)
     {
-        if(_function == null) return;
+        if (_function == null) return;
         var encoded = dataEncoder.DecodeData(data);
         _function.Call(encoded);
     }

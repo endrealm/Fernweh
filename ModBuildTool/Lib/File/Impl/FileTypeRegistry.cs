@@ -2,9 +2,8 @@
 
 namespace ModBuildTool.Lib.File.Impl;
 
-public class FileTypeRegistry: IFileTypeRegistry
+public class FileTypeRegistry : IFileTypeRegistry
 {
-
     private readonly Dictionary<string, Type> _stringToType = new();
     private readonly Dictionary<Type, string> _typeToString = new();
 
@@ -21,7 +20,7 @@ public class FileTypeRegistry: IFileTypeRegistry
         var type = _stringToType[fileEnding];
         if (type == null) throw new Exception("Unknown file ending");
 
-        var obj = (IFileData?) Activator.CreateInstance(type, new object[] { rawData });
+        var obj = (IFileData?) Activator.CreateInstance(type, rawData);
 
         if (obj == null) throw new Exception("Object instance could not be created");
         return obj;
@@ -38,5 +37,4 @@ public class FileTypeRegistry: IFileTypeRegistry
         _stringToType[fileEnding] = typeof(TType);
         _typeToString[typeof(TType)] = fileEnding;
     }
-    
 }

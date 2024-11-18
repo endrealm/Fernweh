@@ -1,11 +1,13 @@
 {
-  "id": "frostglade_tundra",
-  "type": "game",
-  "dependencies": ["core"],
-  "scripts": [
-    "lib/items.lua",
-    "lib/quests.lua",
-    "states/chapter_1.lua",
-    "states/farcross.lua"
-  ]
+    "id": "frostglade_tundra",
+    "type": "game",
+    "dependencies": [
+        "core"
+    ],
+    "scripts": [
+        "lib/items.lua",
+        "lib/quests.lua",
+        "states/chapter_1.lua",
+        "states/farcross.lua"
+    ]
 }

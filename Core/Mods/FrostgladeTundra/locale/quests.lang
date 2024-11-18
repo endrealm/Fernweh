@@ -1,168 +1,167 @@
 ﻿{
-  "quest.forge_quest.name": {
-    "translations": {
-      "EN_US": "Rufir's Mythril Shortage"
+    "quest.forge_quest.name": {
+        "translations": {
+            "EN_US": "Rufir's Mythril Shortage"
+        }
+    },
+    "quest.forge_quest.description": {
+        "translations": {
+            "EN_US": "Rufir the blacksmith from Farcross has a shortage of mythril. He made a deal with you where he'll give you a mythril sword if you can get him mythril ore."
+        }
+    },
+    "quest.jewelery_quest.name": {
+        "translations": {
+            "EN_US": "Crera's Prized Diamonds"
+        }
+    },
+    "quest.jewelery_quest.description": {
+        "translations": {
+            "EN_US": "Crera from the market has lost his diamonds when traveling near a goblin camp. He offered a generous gold reward for if you returned them to him."
+        }
+    },
+    "quest.mugging_quest.name": {
+        "translations": {
+            "EN_US": "Finding Justice"
+        }
+    },
+    "quest.mugging_quest.description": {
+        "translations": {
+            "EN_US": "You found a Farcross citizen recovering from being mugged by a bandit. The victim would be pleased knowing you found him and gave revenge."
+        }
+    },
+    "quest.tharmus_training.name": {
+        "translations": {
+            "EN_US": "Training (story)"
+        }
+    },
+    "quest.tharmus_training.description": {
+        "translations": {
+            "EN_US": "Meet Tharmus in his camp. You can get there by following the path north-east. Once you've trained, come back and talk to me."
+        }
+    },
+    "quest.rat_cellar.name": {
+        "translations": {
+            "EN_US": "Clear Rat Cellar (story)"
+        }
+    },
+    "quest.rat_cellar.description": {
+        "translations": {
+            "EN_US": "Go through villagers basement in Farcross and clear all the rats."
+        }
+    },
+    "quest.kobold_camp.name": {
+        "translations": {
+            "EN_US": "Defeat Kobold Camp (story)"
+        }
+    },
+    "quest.kobold_camp.description": {
+        "translations": {
+            "EN_US": "Find the Kobold camp on the path north-west, and defeat all the targets."
+        }
+    },
+    "button.checkquest.dolrom": {
+        "translations": {
+            "EN_US": "  -> You check the House of Mercenaries office to see if Dolrom has any work for you."
+        }
+    },
+    "dolrom.quest.intro": {
+        "translations": {
+            "EN_US": "Dolrom nods and thinks for a second, \"Sure, i think we have some work for you. Farcross always needs soldiers. But I need to make sure your battle ready first, follow the path <color=\"Orange\">north-east</color> to meet Tharmus at the House of Mercenaries training camp.\" "
+        }
+    },
+    "dolrom.quest.intro.direct": {
+        "translations": {
+            "EN_US": "\"Come back once you've trained with Tharmus.\" "
+        }
+    },
+    "tharmus.training.1": {
+        "translations": {
+            "EN_US": "\"Hm, Dolrom sent a new recruit? Well lets get to it, you'll face some other recruits.\""
+        }
+    },
+    "tharmus.training.2": {
+        "translations": {
+            "EN_US": "\"Impressive. Now how about you and Olma take me on then?\""
+        }
+    },
+    "tharmus.training.3": {
+        "translations": {
+            "EN_US": "\"Alright i think you'll do about good as any other warrior from Farcross, how about you head down there to the House of Mercenaries office and see what mission Dolrom has for you. Take <color=\"Yellow\">{reward} gold</color> and buy yourself a weapon too!\" <color=\"Green\">Olma decides to join your party.</color>"
+        }
+    },
+    "tharmus.training.4": {
+        "translations": {
+            "EN_US": "\"You want to train some more? How about you face up against a few gaurds training today.\""
+        }
+    },
+    "dolrom.quest.1": {
+        "translations": {
+            "EN_US": "\"Your first job is to clear a potato cellar of a local vegetable vendor here in Farcross. Cellar is infested by rats. You will find some old potions from there and you are allowed take those.\""
+        }
+    },
+    "dolrom.quest.1.1": {
+        "translations": {
+            "EN_US": "\"Oh, thank goodness you've come to clear my cellar\", expresses the local vendor. He shows you downstairs where the rats are. On the last step, you almost step on a rat!"
+        }
+    },
+    "dolrom.quest.1.2": {
+        "translations": {
+            "EN_US": "You clear the first room, and wonder over to the next. The cellar is full of potatos. While inspecting a crate, you spot a <color=\"Yellow\">potion</color>... and a large rat!"
+        }
+    },
+    "dolrom.quest.1.3": {
+        "translations": {
+            "EN_US": "Before you get a chance to recover, another group of rats swarm you!"
+        }
+    },
+    "dolrom.quest.1.4": {
+        "translations": {
+            "EN_US": "With this room finally cleared of rats, you take a breather. You notice a <color=\"Yellow\">potion</color> laying in the corner of the room. The next room has a loud scratching sound, slowly peering around the corner you see a large rat!"
+        }
+    },
+    "dolrom.quest.1.5": {
+        "translations": {
+            "EN_US": "\"Oh thank you so much for the help!\", cries the vendor. He pays you <color=\"Yellow\">{reward} gold</color>, and leads you out."
+        }
+    },
+    "dolrom.quest.2": {
+        "translations": {
+            "EN_US": "Dolrom is pleased that you were able to handle their first job. Dolrom instructs you to raid a kobold camp with a ranger Luneiros located at the shore of a lake by the path <color=\"Orange\">north-west</color> form Farcross"
+        }
+    },
+    "koboldcamp.quest.1": {
+        "translations": {
+            "EN_US": "You spot the camp, apon finding a strategy of ambush... A Gaint Weasel jumps out at you!"
+        }
+    },
+    "koboldcamp.quest.1.1": {
+        "translations": {
+            "EN_US": "Losing your chance for stealth, you enter the camp charging a couple Kobolds."
+        }
+    },
+    "koboldcamp.quest.1.2": {
+        "translations": {
+            "EN_US": "You notice a 2 tents, you decide to attack the smallest first."
+        }
+    },
+    "koboldcamp.quest.1.3": {
+        "translations": {
+            "EN_US": "A Wolf ambushes you as you leave the tent!"
+        }
+    },
+    "koboldcamp.quest.1.4": {
+        "translations": {
+            "EN_US": "You enter the large tent now, it appears to hold the Kobold leader. You become surounded by enemies!"
+        }
+    },
+    "koboldcamp.quest.1.5": {
+        "translations": {
+            "EN_US": "Satisfied with the quite sounds of the once busy camp you search around for loot. You find a <color=\"Yellow\">halberd and {reward} gold</color>."
+        }
+    },
+    "koboldcamp.quest.1.6": {
+        "translations": {
+            "EN_US": "Theres a camp here, it was once lively, but completely dead now. You did the right thing."
+        }
     }
-  },
-  "quest.forge_quest.description": {
-    "translations": {
-      "EN_US": "Rufir the blacksmith from Farcross has a shortage of mythril. He made a deal with you where he'll give you a mythril sword if you can get him mythril ore."
-    }
-  },
-  "quest.jewelery_quest.name": {
-    "translations": {
-      "EN_US": "Crera's Prized Diamonds"
-    }
-  },
-  "quest.jewelery_quest.description": {
-    "translations": {
-      "EN_US": "Crera from the market has lost his diamonds when traveling near a goblin camp. He offered a generous gold reward for if you returned them to him."
-    }
-  },
-  "quest.mugging_quest.name": {
-    "translations": {
-      "EN_US": "Finding Justice"
-    }
-  },
-  "quest.mugging_quest.description": {
-    "translations": {
-      "EN_US": "You found a Farcross citizen recovering from being mugged by a bandit. The victim would be pleased knowing you found him and gave revenge."
-    }
-  },
-  "quest.tharmus_training.name": {
-    "translations": {
-      "EN_US": "Training (story)"
-    }
-  },
-  "quest.tharmus_training.description": {
-    "translations": {
-      "EN_US": "Meet Tharmus in his camp. You can get there by following the path north-east. Once you've trained, come back and talk to me."
-    }
-  },
-  "quest.rat_cellar.name": {
-    "translations": {
-      "EN_US": "Clear Rat Cellar (story)"
-    }
-  },
-  "quest.rat_cellar.description": {
-    "translations": {
-      "EN_US": "Go through villagers basement in Farcross and clear all the rats."
-    }
-  },
-  "quest.kobold_camp.name": {
-    "translations": {
-      "EN_US": "Defeat Kobold Camp (story)"
-    }
-  },
-  "quest.kobold_camp.description": {
-    "translations": {
-      "EN_US": "Find the Kobold camp on the path north-west, and defeat all the targets."
-    }
-  },
-
-  "button.checkquest.dolrom": {
-    "translations": {
-      "EN_US": "  -> You check the House of Mercenaries office to see if Dolrom has any work for you."
-    }
-  },
-  "dolrom.quest.intro": {
-    "translations": {
-      "EN_US": "Dolrom nods and thinks for a second, \"Sure, i think we have some work for you. Farcross always needs soldiers. But I need to make sure your battle ready first, follow the path <color=\"Orange\">north-east</color> to meet Tharmus at the House of Mercenaries training camp.\" "
-    }
-  },
-  "dolrom.quest.intro.direct": {
-    "translations": {
-      "EN_US": "\"Come back once you've trained with Tharmus.\" "
-    }
-  },
-  "tharmus.training.1": {
-    "translations": {
-      "EN_US": "\"Hm, Dolrom sent a new recruit? Well lets get to it, you'll face some other recruits.\""
-    }
-  },
-  "tharmus.training.2": {
-    "translations": {
-      "EN_US": "\"Impressive. Now how about you and Olma take me on then?\""
-    }
-  },
-  "tharmus.training.3": {
-    "translations": {
-      "EN_US": "\"Alright i think you'll do about good as any other warrior from Farcross, how about you head down there to the House of Mercenaries office and see what mission Dolrom has for you. Take <color=\"Yellow\">{reward} gold</color> and buy yourself a weapon too!\" <color=\"Green\">Olma decides to join your party.</color>"
-    }
-  },
-  "tharmus.training.4": {
-    "translations": {
-      "EN_US": "\"You want to train some more? How about you face up against a few gaurds training today.\""
-    }
-  },
-  "dolrom.quest.1": {
-    "translations": {
-      "EN_US": "\"Your first job is to clear a potato cellar of a local vegetable vendor here in Farcross. Cellar is infested by rats. You will find some old potions from there and you are allowed take those.\""
-    }
-  },
-  "dolrom.quest.1.1": {
-    "translations": {
-      "EN_US": "\"Oh, thank goodness you've come to clear my cellar\", expresses the local vendor. He shows you downstairs where the rats are. On the last step, you almost step on a rat!"
-    }
-  },
-  "dolrom.quest.1.2": {
-    "translations": {
-      "EN_US": "You clear the first room, and wonder over to the next. The cellar is full of potatos. While inspecting a crate, you spot a <color=\"Yellow\">potion</color>... and a large rat!"
-    }
-  },
-  "dolrom.quest.1.3": {
-    "translations": {
-      "EN_US": "Before you get a chance to recover, another group of rats swarm you!"
-    }
-  },
-  "dolrom.quest.1.4": {
-    "translations": {
-      "EN_US": "With this room finally cleared of rats, you take a breather. You notice a <color=\"Yellow\">potion</color> laying in the corner of the room. The next room has a loud scratching sound, slowly peering around the corner you see a large rat!"
-    }
-  },
-  "dolrom.quest.1.5": {
-    "translations": {
-      "EN_US": "\"Oh thank you so much for the help!\", cries the vendor. He pays you <color=\"Yellow\">{reward} gold</color>, and leads you out."
-    }
-  },
-  "dolrom.quest.2": {
-    "translations": {
-      "EN_US": "Dolrom is pleased that you were able to handle their first job. Dolrom instructs you to raid a kobold camp with a ranger Luneiros located at the shore of a lake by the path <color=\"Orange\">north-west</color> form Farcross"
-    }
-  },
-  "koboldcamp.quest.1": {
-    "translations": {
-      "EN_US": "You spot the camp, apon finding a strategy of ambush... A Gaint Weasel jumps out at you!"
-    }
-  },
-  "koboldcamp.quest.1.1": {
-    "translations": {
-      "EN_US": "Losing your chance for stealth, you enter the camp charging a couple Kobolds."
-    }
-  },
-  "koboldcamp.quest.1.2": {
-    "translations": {
-      "EN_US": "You notice a 2 tents, you decide to attack the smallest first."
-    }
-  },
-  "koboldcamp.quest.1.3": {
-    "translations": {
-      "EN_US": "A Wolf ambushes you as you leave the tent!"
-    }
-  },
-  "koboldcamp.quest.1.4": {
-    "translations": {
-      "EN_US": "You enter the large tent now, it appears to hold the Kobold leader. You become surounded by enemies!"
-    }
-  },
-  "koboldcamp.quest.1.5": {
-    "translations": {
-      "EN_US": "Satisfied with the quite sounds of the once busy camp you search around for loot. You find a <color=\"Yellow\">halberd and {reward} gold</color>."
-    }
-  },
-  "koboldcamp.quest.1.6": {
-    "translations": {
-      "EN_US": "Theres a camp here, it was once lively, but completely dead now. You did the right thing."
-    }
-  }
 }

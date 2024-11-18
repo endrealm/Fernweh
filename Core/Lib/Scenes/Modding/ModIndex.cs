@@ -6,14 +6,13 @@ namespace Core.Scenes.Modding;
 
 public class ModIndex
 {
+    public string[] Dependencies = Array.Empty<string>();
 
     public string Id;
-    
-    [JsonConverter(typeof(StringEnumConverter))]
-    public ModType type;
-    public string[] Dependencies = Array.Empty<string>();
     public string[] Scripts = Array.Empty<string>();
 
+    [JsonConverter(typeof(StringEnumConverter))]
+    public ModType type;
 }
 
 public enum ModType

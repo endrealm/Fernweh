@@ -1,7 +1,10 @@
 ﻿{
     "id": "shops",
     "type": "library",
-    "dependencies": ["inventory", "ui_compat"],
+    "dependencies": [
+        "inventory",
+        "ui_compat"
+    ],
     "scripts": [
         "money_hook.lua",
         "api.lua"

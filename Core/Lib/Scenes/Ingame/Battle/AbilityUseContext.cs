@@ -5,15 +5,17 @@ namespace Core.Scenes.Ingame.Battle;
 public class AbilityUseContext
 {
     private readonly ActionContext _actionContext;
-    public IBattleParticipant Participant { get; }
-    public List<IBattleParticipant> Targets { get; }
 
-    public AbilityUseContext(ActionContext actionContext, IBattleParticipant participant, List<IBattleParticipant> targets)
+    public AbilityUseContext(ActionContext actionContext, IBattleParticipant participant,
+        List<IBattleParticipant> targets)
     {
         _actionContext = actionContext;
         Participant = participant;
         Targets = targets;
     }
+
+    public IBattleParticipant Participant { get; }
+    public List<IBattleParticipant> Targets { get; }
 
     public void QueueAction(IBattleAction battleAction)
     {
@@ -30,6 +32,7 @@ public class AbilityUseCheckContext
 
     public IBattleParticipant Participant { get; }
 }
+
 public class AbilityWeightContext
 {
     public AbilityWeightContext(IBattleParticipant participant)

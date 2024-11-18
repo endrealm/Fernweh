@@ -24,42 +24,42 @@ inventory = {}
 function AddItem(item, add)
     local id;
 
-    if(add == nil) then
+    if (add == nil) then
         add = 1
     end
 
-    if(type(item) == "string") then
+    if (type(item) == "string") then
         id = item
     else
         id = item.id
     end
-    
+
     local amount = inventory[id]
-    if(amount == nil) then
+    if (amount == nil) then
         amount = 0;
     end
-    inventory[id] = amount +add;
+    inventory[id] = amount + add;
 end
 
 function RemoveItem(item, sub)
     local id;
-    if(sub == nil) then
+    if (sub == nil) then
         sub = 1
     end
 
-    if(type(item) == "string") then
+    if (type(item) == "string") then
         id = item
     else
         id = item.id
     end
 
     local amount = inventory[id]
-    if(amount == nil) then
+    if (amount == nil) then
         return
     end
     inventory[id] = amount - sub;
-    
-    if(inventory[id] <= 0) then
+
+    if (inventory[id] <= 0) then
         inventory[id] = nil;
     end
 end
@@ -73,18 +73,18 @@ function GetInventory()
             amount = value,
         })
     end
-    
+
     return items
 end
 function GetInventoryStack(item)
     local id;
 
-    if(type(item) == "string") then
+    if (type(item) == "string") then
         id = item
     else
         id = item.id
     end
-    
+
     return inventory[id] or 0
 end
 
@@ -94,7 +94,7 @@ end
 
 
 SetDataLoader(function(data)
-    if(data == nil) then
+    if (data == nil) then
         return
     end
     inventory = data;
@@ -116,15 +116,15 @@ function RegisterItem(item)
 end
 
 function GetItem(item)
-    
-    if(item == nil) then
+
+    if (item == nil) then
         return nil;
     end
 
-    if(type(item) == "string") then
+    if (type(item) == "string") then
         return itemRegistry[item];
     end
-    
+
     return itemRegistry[item.id];
 end
 
@@ -134,18 +134,18 @@ end
 Item = {}
 ---@param o {id: string}
 function Item:new(o)
-    if(o == nil) then
+    if (o == nil) then
         error("nil properties passed to item constructor")
     end
 
-    if(o.id == nil) then
+    if (o.id == nil) then
         error("Property id not set")
     end
     self.__index = self
 
     o.data = o.data or {}
     o.tags = o.tags or {}
-    
+
     setmetatable(o, self)
     return o
 end
@@ -176,9 +176,8 @@ function GetHeldItem()
 end
 
 function Item:DisplayName()
-    return GetTranslation("item."..self.id..".name")
+    return GetTranslation("item." .. self.id .. ".name")
 end
-
 
 function Item:GetApproximateStats()
     local stats = {}
@@ -188,9 +187,8 @@ function Item:GetApproximateStats()
     return stats
 end
 
-
 function Item:ParseAbility(abilityBuilder)
-    if(self.abilities == nil) then
+    if (self.abilities == nil) then
         return nil
     end
     local abilities = {}
@@ -198,7 +196,7 @@ function Item:ParseAbility(abilityBuilder)
     for key, value in pairs(self.abilities) do
         table.insert(abilities, abilityBuilder(key):Data(value):Build())
     end
-    
+
     return abilities
 end
 
@@ -212,47 +210,53 @@ BlackListState("ui_item_details")
 StateBuilder("ui_inventory")
         :Sticky(false)
         :Render(
-            function(renderer, context)
-                renderer:SetBackgroundColor("Brown")
-                renderer:AddAction(function() context:ChangeState(OldState:Get()) end, "inventory.close")
-                renderer:AddText("inventory.header")
-                for key, entry in ipairs(GetInventory()) do
-                    renderer:AddAction(function()
-                        activeDetailItem=entry
-                        context:ChangeState("ui_item_details")
-                    end, "inventory.item", { { "item", entry.item:DisplayName() }, { "amount", tostring(entry.amount) } } )
-                end
+        function(renderer, context)
+            renderer:SetBackgroundColor("Brown")
+            renderer:AddAction(function()
+                context:ChangeState(OldState:Get())
+            end, "inventory.close")
+            renderer:AddText("inventory.header")
+            for key, entry in ipairs(GetInventory()) do
+                renderer:AddAction(function()
+                    activeDetailItem = entry
+                    context:ChangeState("ui_item_details")
+                end, "inventory.item", { { "item", entry.item:DisplayName() }, { "amount", tostring(entry.amount) } })
             end
-        )
+        end
+)
         :Build()
 
 StateBuilder("ui_item_details")
         :Sticky(false)
         :AllowSave(false)
         :Render(
-            function(renderer, context)
-                renderer:SetBackgroundColor("Brown")
-                renderer:AddAction(function() context:ChangeState("ui_inventory") end, "inventory.item.close")
-                renderer:AddText("inventory.item.header", { { "item", activeDetailItem.item:DisplayName()}, { "amount", tostring(activeDetailItem.amount) } })
-                activeDetailItem.item:ShowOptions(renderer, context)
-            end
-        )
+        function(renderer, context)
+            renderer:SetBackgroundColor("Brown")
+            renderer:AddAction(function()
+                context:ChangeState("ui_inventory")
+            end, "inventory.item.close")
+            renderer:AddText("inventory.item.header", { { "item", activeDetailItem.item:DisplayName() }, { "amount", tostring(activeDetailItem.amount) } })
+            activeDetailItem.item:ShowOptions(renderer, context)
+        end
+)
         :Build()
 
 Global:AddOnPostStateRender(
         function(renderer, context)
-            if(IsUI(context.ActiveStateId)) then
+            if (IsUI(context.ActiveStateId)) then
                 return
             end
-            renderer:AddAction(function() context:ChangeState("ui_inventory") end, "inventory.open")
+            renderer:AddAction(function()
+                context:ChangeState("ui_inventory")
+            end, "inventory.open")
         end
 )
 
 CreateConsumableHandler(function()
     local consumables = {}
-    
+
     for key, entry in ipairs(GetInventory()) do
-        if(type(entry.item.consumableAbility) == "table") then
+        if (type(entry.item.consumableAbility) == "table") then
             for ability, data in pairs(entry.item.consumableAbility) do
 
                 table.insert(consumables, {
@@ -260,14 +264,16 @@ CreateConsumableHandler(function()
                     name = entry.item:DisplayName(),
                     ability = ability,
                     abilityData = data,
-                    onUse = function() RemoveItem(entry.item) end,
+                    onUse = function()
+                        RemoveItem(entry.item)
+                    end,
                 })
 
             end
         end
-            
+
     end
-    
+
     return consumables
 end)
 

@@ -2,7 +2,6 @@
 
 public static class StreamUtil
 {
-
     public static Stream FromString(string s)
     {
         var stream = new MemoryStream();
@@ -12,5 +11,4 @@ public static class StreamUtil
         stream.Position = 0;
         return stream;
     }
-    
 }

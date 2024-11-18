@@ -3,10 +3,10 @@ using NLua;
 
 namespace Core.States;
 
-public class LuaState: IState
+public class LuaState : IState
 {
-    private readonly LuaFunction _renderFunc;
     private readonly Color _backgroundColor;
+    private readonly LuaFunction _renderFunc;
 
     public LuaState(string id, LuaFunction renderFunc, bool showExit, bool allowMove, Color backgroundColor,
         bool allowSave, bool sticky, bool clearScreenPost)

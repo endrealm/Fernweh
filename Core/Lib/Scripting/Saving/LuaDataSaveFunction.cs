@@ -14,7 +14,7 @@ public class LuaDataSaveFunction : IDataSaveFunction
 
     public object Save(IDataEncoder dataEncoder)
     {
-        if(_function == null) return null;
+        if (_function == null) return null;
         var data = _function.Call().First();
         var encoded = dataEncoder.EncodeData(data);
         return encoded;

@@ -2,7 +2,7 @@
 
 namespace PipelineExtensionLibrary.Chat;
 
-public class ChatCompoundData: IChatComponentData
+public class ChatCompoundData : IChatComponentData
 {
     public ChatCompoundData(List<IChatComponentData> components)
     {

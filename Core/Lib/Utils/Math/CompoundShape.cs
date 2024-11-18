@@ -5,14 +5,14 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Core.Utils.Math;
 
-public class CompoundShape: IShape
+public class CompoundShape : IShape
 {
-    public List<IShape> SubShapes { get; }
-
     public CompoundShape(List<IShape> subShapes)
     {
         SubShapes = subShapes;
     }
+
+    public List<IShape> SubShapes { get; }
 
     public bool IsInside(Vector2 point)
     {

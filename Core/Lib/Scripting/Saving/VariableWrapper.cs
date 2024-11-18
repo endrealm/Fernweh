@@ -1,24 +1,22 @@
 ﻿namespace Core.Scripting.Saving;
 
-
-public class VariableWrapper: IDataType
+public class VariableWrapper : IDataType
 {
-    private readonly string _key;
     private object _data;
 
     public VariableWrapper(string key, object data)
     {
-        _key = key;
+        Key = key;
         _data = data;
     }
 
-    public string Key => _key;
+    public string Key { get; }
 
     public void Set(object data)
     {
         _data = data;
     }
-    
+
     public object Get()
     {
         return _data;

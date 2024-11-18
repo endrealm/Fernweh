@@ -8,48 +8,57 @@ using Core.States;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
-using PipelineExtensionLibrary;
 
 namespace Core.Scenes.Ingame;
 
-public class IngameScene: Scene, ISaveSystem
+public class IngameScene : Scene, ISaveSystem
 {
- 
-    private readonly ScriptLoader _scriptLoader;
-    private readonly StateRegistry _stateRegistry = new();
     private readonly BattleRegistry _battleRegistry = new();
-    private GameManager _gameManager;
-    private ModLoader _modLoader;
     private readonly string _currentModId;
     private readonly IGameSave _gameSave;
-    private bool _allowSave = false;
-    
-    private ILocalizationManager _localizationManager;
+
+    private readonly ILocalizationManager _localizationManager;
+    private readonly ModLoader _modLoader;
+
+    private readonly ScriptLoader _scriptLoader;
+    private readonly StateRegistry _stateRegistry = new();
+    private bool _allowSave;
+    private GameManager _gameManager;
 
 
-    public IngameScene(ILocalizationManager rootLocalizationManager, IFontManager fontManager, ModLoader modLoader, string currentModId, IGameSave gameSave) : base(fontManager, rootLocalizationManager)
+    public IngameScene(ILocalizationManager rootLocalizationManager, IFontManager fontManager, ModLoader modLoader,
+        string currentModId, IGameSave gameSave) : base(fontManager, rootLocalizationManager)
     {
         _modLoader = modLoader;
         _currentModId = currentModId;
         _gameSave = gameSave;
         _localizationManager = new BasicLocalizationManager();
-        _scriptLoader = new(_stateRegistry, _battleRegistry, gameSave, _localizationManager);
+        _scriptLoader = new ScriptLoader(_stateRegistry, _battleRegistry, gameSave, _localizationManager);
+    }
+
+    public void SaveAll()
+    {
+        if (!_allowSave) return;
+        _gameManager?.Save();
+        _scriptLoader?.Save();
+        _gameSave.Save();
     }
 
     public override void Load(ContentLoader content)
     {
         _modLoader.UnloadAllMods();
-        
+
         // Loads all mods
         _modLoader.Load(_currentModId);
-        
+
         _localizationManager.LoadLangs(_modLoader.ActiveModOrder, content);
 
         // load all assets, along with game manager
-        ContentRegistry reg = new ContentRegistry();
+        var reg = new ContentRegistry();
         reg.LoadAllContent(content);
 
-        _gameManager = new GameManager(reg, _battleRegistry, _stateRegistry, FontManager, _localizationManager, _gameSave, this);
+        _gameManager = new GameManager(reg, _battleRegistry, _stateRegistry, FontManager, _localizationManager,
+            _gameSave, this);
 
         // Loads scripts of all mods
         _gameManager.Load(content);
@@ -57,7 +66,6 @@ public class IngameScene: Scene, ISaveSystem
         _scriptLoader.Load();
         _allowSave = true;
         _gameManager.LoadGameState();
-
     }
 
     public override void Update(float deltaTime, TopLevelUpdateContext context)
@@ -75,20 +83,21 @@ public class IngameScene: Scene, ISaveSystem
         var backgroundColor = _gameManager.Mode.Background;
 
         // width of text area
-        int chatWidth = (int)context.BaseScreenSize.X -  (int)context.BaseScreenSize.Y;
+        var chatWidth = (int) context.BaseScreenSize.X - (int) context.BaseScreenSize.Y;
 
         // rectangle culling mask in world space
         var worldCulling = new RectangleF(
-            context.Camera.ScreenToWorld(new Vector2()) + new Vector2(chatWidth, 0), 
+            context.Camera.ScreenToWorld(new Vector2()) + new Vector2(chatWidth, 0),
             new Size2(context.BaseScreenSize.X - chatWidth, context.BaseScreenSize.Y)
         );
 
-        var subContext = new IngameRenderContext(context.BaseScreenSize, chatWidth, backgroundColor, worldCulling, context);
-            
-        var transformMatrix = _gameManager.Mode.GameView.WorldSpacedCoordinates 
-            ? context.Camera.GetViewMatrix() 
+        var subContext =
+            new IngameRenderContext(context.BaseScreenSize, chatWidth, backgroundColor, worldCulling, context);
+
+        var transformMatrix = _gameManager.Mode.GameView.WorldSpacedCoordinates
+            ? context.Camera.GetViewMatrix()
             : context.Camera.GetViewMatrix(new Vector2());
-        
+
         // Draw game world
         spriteBatch.Begin(
             transformMatrix: transformMatrix,
@@ -104,13 +113,5 @@ public class IngameScene: Scene, ISaveSystem
         );
         _gameManager.Mode.ChatView.Render(spriteBatch, subContext);
         spriteBatch.End();
-    }
-
-    public void SaveAll()
-    {
-        if(!_allowSave) return;
-        _gameManager?.Save();
-        _scriptLoader?.Save();
-        _gameSave.Save();
     }
 }

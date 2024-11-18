@@ -1,42 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
+using Core.Content;
 using Core.Scenes.Ingame.Localization;
 using Core.Scenes.Ingame.Views;
 using Core.States;
 using Microsoft.Xna.Framework;
-using PipelineExtensionLibrary;
 using Newtonsoft.Json;
-using Core.Content;
 
 namespace Core.Scenes.Ingame;
 
-public class OverworldMode: IMode, IStateManager
+public class OverworldMode : IMode, IStateManager
 {
-    private readonly GameManager _gameManager;
-    private readonly StateRegistry _stateRegistry;
+    private readonly StateChatView _chatView;
     private readonly IFontManager _fontManager;
+    private readonly GameManager _gameManager;
     private readonly ILocalizationManager _localizationManager;
     private readonly ISaveSystem _saveSystem;
     private readonly ISoundPlayer _soundPlayer;
-    private readonly StateChatView _chatView;
-    public WorldGameView worldGameView;
+    private readonly StateRegistry _stateRegistry;
     private string _weakNextId;
+    public WorldGameView worldGameView;
 
-    public string weakNextID
-    {
-        get => _weakNextId;
-        set
-        {
-            if (ActiveState.AllowSave) LastSaveStateWeak = value;
-            _weakNextId = value;
-        }
-    }
-
-    private string LastSaveStateWeak { get;  set; }
-    private string LastSaveState { get;  set; }
-
-    public OverworldMode(GameManager gameManager, IGlobalEventHandler eventHandler, ContentRegistry content, StateRegistry stateRegistry,
-        IFontManager fontManager, ILocalizationManager localizationManager, ISaveSystem saveSystem, ISoundPlayer soundPlayer)
+    public OverworldMode(GameManager gameManager, IGlobalEventHandler eventHandler, ContentRegistry content,
+        StateRegistry stateRegistry,
+        IFontManager fontManager, ILocalizationManager localizationManager, ISaveSystem saveSystem,
+        ISoundPlayer soundPlayer)
     {
         _gameManager = gameManager;
         _stateRegistry = stateRegistry;
@@ -51,31 +39,34 @@ public class OverworldMode: IMode, IStateManager
         StateChangedEvent += OnStateChanged;
     }
 
+    private string LastSaveStateWeak { get; set; }
+    private string LastSaveState { get; set; }
+
     public Color Background { get; private set; }
 
     public IChatView ChatView => _chatView;
 
     public IGameView GameView { get; }
+
     public void Load(ModeParameters parameters)
     {
         _soundPlayer.PlaySong("overworld");
 
-        if (parameters.HasKey("state"))
-        {
-            LoadState(parameters.GetValue<string>("state"));
-        }
+        if (parameters.HasKey("state")) LoadState(parameters.GetValue<string>("state"));
     }
 
     public void Load(Dictionary<string, object> data)
     {
         weakNextID = (string) data["WeakState"];
         Load(new ModeParameters().AppendData("state", (string) data["State"] ?? "null"));
-        if(data.ContainsKey("LoadedMap"))
-            worldGameView.mapDataRegistry.LoadMap((string)data["LoadedMap"]);
-        if(data.ContainsKey("PlayerPosX") && data.ContainsKey("PlayerPosY"))
-            worldGameView.player.TeleportPlayer(new Vector2(Int32.Parse((string)data["PlayerPosX"]), Int32.Parse((string)data["PlayerPosY"])));
+        if (data.ContainsKey("LoadedMap"))
+            worldGameView.mapDataRegistry.LoadMap((string) data["LoadedMap"]);
+        if (data.ContainsKey("PlayerPosX") && data.ContainsKey("PlayerPosY"))
+            worldGameView.player.TeleportPlayer(new Vector2(int.Parse((string) data["PlayerPosX"]),
+                int.Parse((string) data["PlayerPosY"])));
         if (data.ContainsKey("DiscoveredTiles"))
-            worldGameView.discoveredTiles = JsonConvert.DeserializeObject<Dictionary<string, List<Vector2>>>((string)data["DiscoveredTiles"]);
+            worldGameView.discoveredTiles =
+                JsonConvert.DeserializeObject<Dictionary<string, List<Vector2>>>((string) data["DiscoveredTiles"]);
     }
 
     public void Save(Dictionary<string, object> data)
@@ -88,9 +79,18 @@ public class OverworldMode: IMode, IStateManager
         data.Add("DiscoveredTiles", JsonConvert.SerializeObject(worldGameView.discoveredTiles));
     }
 
-    public event StateChangedEventHandler StateChangedEvent;
+    public string weakNextID
+    {
+        get => _weakNextId;
+        set
+        {
+            if (ActiveState.AllowSave) LastSaveStateWeak = value;
+            _weakNextId = value;
+        }
+    }
+
     public IState ActiveState { get; private set; }
-    
+
     public void LoadState(string stateId)
     {
         var oldState = ActiveState;
@@ -102,6 +102,7 @@ public class OverworldMode: IMode, IStateManager
             LoadState(weak);
             return;
         }
+
         ActiveState = _stateRegistry.ReadState(stateId);
 
         if (ActiveState.AllowSave)
@@ -109,29 +110,29 @@ public class OverworldMode: IMode, IStateManager
             LastSaveState = ActiveState.Id;
             _saveSystem.SaveAll();
         }
+
         _stateRegistry.GlobalEventHandler.EmitPreStateChangeEvent();
-        StateChangedEvent?.Invoke(new StateChangedEventArgs()
+        StateChangedEvent?.Invoke(new StateChangedEventArgs
         {
             OldState = oldState,
             NewState = ActiveState
         });
     }
-    
+
+    public event StateChangedEventHandler StateChangedEvent;
+
     private void OnStateChanged(StateChangedEventArgs args)
     {
-        var renderer = new StateRenderer(_localizationManager, _fontManager, (color) => Background = color, args.OldState.ClearScreenPost);
+        var renderer = new StateRenderer(_localizationManager, _fontManager, color => Background = color,
+            args.OldState.ClearScreenPost);
         var context = new RenderContext(this, _gameManager, args.OldState.Id, args.NewState.Id);
         _stateRegistry.GlobalEventHandler.EmitPreStateRenderEvent(renderer, context);
         args.NewState.Render(renderer, context);
         _stateRegistry.GlobalEventHandler.EmitPostStateRenderEvent(renderer, context);
         context.IsRunning = false;
         _chatView.RenderResults(renderer, args.NewState.Sticky);
-        if (context.ExitEarly)
-        {
-            _gameManager.StateManager.LoadState("null");
-        }
+        if (context.ExitEarly) _gameManager.StateManager.LoadState("null");
     }
-
 }
 
 public delegate void StateChangedEventHandler(StateChangedEventArgs args);

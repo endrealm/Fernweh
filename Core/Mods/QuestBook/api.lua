@@ -14,19 +14,19 @@ quest_book = {}
 function AddQuest(quest)
     local id;
 
-    if(type(quest) == "string") then
+    if (type(quest) == "string") then
         id = quest
     else
         id = quest.id
     end
-    
+
     quest_book[id] = false;
 end
 
 function CloseQuest(quest)
     local id;
 
-    if(type(quest) == "string") then
+    if (type(quest) == "string") then
         id = quest
     else
         id = quest.id
@@ -38,7 +38,7 @@ end
 function RemoveQuest(quest)
     local id;
 
-    if(type(quest) == "string") then
+    if (type(quest) == "string") then
         id = quest
     else
         id = quest.id
@@ -56,9 +56,9 @@ function IsQuestDiscovered(id)
 end
 
 function HasJustCompletedQuest(id)
-    if(quest_book[id] == true) 
+    if (quest_book[id] == true)
     then
-        if(questRegistry[id].nextQuest == nil or quest_book[questRegistry[id].nextQuest] == nil or quest_book[questRegistry[id].nextQuest] == false) then
+        if (questRegistry[id].nextQuest == nil or quest_book[questRegistry[id].nextQuest] == nil or quest_book[questRegistry[id].nextQuest] == false) then
             return true
         end
     end
@@ -74,7 +74,7 @@ function GetQuestBook()
             completed = value,
         })
     end
-    
+
     return quests
 end
 
@@ -88,15 +88,15 @@ function RegisterQuest(quest)
 end
 
 function GetQuest(quest)
-    
-    if(quest == nil) then
+
+    if (quest == nil) then
         return nil;
     end
 
-    if(type(quest) == "string") then
+    if (type(quest) == "string") then
         return questRegistry[quest];
     end
-    
+
     return questRegistry[quest.id];
 end
 
@@ -106,7 +106,7 @@ end
 
 
 SetDataLoader(function(data)
-    if(data == nil) then
+    if (data == nil) then
         return
     end
     quest_book = data;
@@ -122,24 +122,24 @@ end)
 Quest = {}
 ---@param o {id: string}
 function Quest:new(o)
-    if(o == nil) then
+    if (o == nil) then
         error("nil properties passed to quest constructor")
     end
 
-    if(o.id == nil) then
+    if (o.id == nil) then
         error("Property id not set")
     end
     self.__index = self
 
     o.data = o.data or {}
     o.tags = o.tags or {}
-    
+
     setmetatable(o, self)
     return o
 end
 
 function Quest:ShowOptions(renderer, context, completed)
-    renderer:AddText("quest."..self.id..".description")
+    renderer:AddText("quest." .. self.id .. ".description")
     if (completed == false and self.main == false) then
         renderer:AddAction(function()
             RemoveQuest(self)
@@ -149,7 +149,7 @@ function Quest:ShowOptions(renderer, context, completed)
 end
 
 function Quest:DisplayName()
-    return GetTranslation("quest."..self.id..".name")
+    return GetTranslation("quest." .. self.id .. ".name")
 end
 
 -- ============================
@@ -161,54 +161,60 @@ BlackListState("ui_quest_details")
 StateBuilder("ui_quest_book")
         :Sticky(false)
         :Render(
-            function(renderer, context)
-                renderer:SetBackgroundColor("DarkSlateGray")
-                renderer:AddAction(function() context:ChangeState(OldState:Get()) end, "quest_book.close")
-                -- show quests in progress
-                renderer:AddText("quest_book.header.inProgress")
-                for key, entry in ipairs(GetQuestBook()) do
-                    if(entry.completed == false) 
-                    then
-                        renderer:AddAction(function()
-                            activeDetailItem=entry
-                            context:ChangeState("ui_quest_details")
-                            end, "quest_book.quest", { { "quest", entry.quest:DisplayName() } } )
-                    end
-                end
-                --show completed quests
-                renderer:AddText("quest_book.header.completed")
-                for key, entry in ipairs(GetQuestBook()) do
-                    if(entry.completed == true) 
-                    then
-                        renderer:AddAction(function()
-                            activeDetailItem=entry
-                            context:ChangeState("ui_quest_details")
-                            end, "quest_book.quest", { { "quest", entry.quest:DisplayName() } } )
-                    end
+        function(renderer, context)
+            renderer:SetBackgroundColor("DarkSlateGray")
+            renderer:AddAction(function()
+                context:ChangeState(OldState:Get())
+            end, "quest_book.close")
+            -- show quests in progress
+            renderer:AddText("quest_book.header.inProgress")
+            for key, entry in ipairs(GetQuestBook()) do
+                if (entry.completed == false)
+                then
+                    renderer:AddAction(function()
+                        activeDetailItem = entry
+                        context:ChangeState("ui_quest_details")
+                    end, "quest_book.quest", { { "quest", entry.quest:DisplayName() } })
                 end
             end
-        )
+            --show completed quests
+            renderer:AddText("quest_book.header.completed")
+            for key, entry in ipairs(GetQuestBook()) do
+                if (entry.completed == true)
+                then
+                    renderer:AddAction(function()
+                        activeDetailItem = entry
+                        context:ChangeState("ui_quest_details")
+                    end, "quest_book.quest", { { "quest", entry.quest:DisplayName() } })
+                end
+            end
+        end
+)
         :Build()
 
 StateBuilder("ui_quest_details")
         :Sticky(false)
         :AllowSave(false)
         :Render(
-            function(renderer, context)
-                renderer:SetBackgroundColor("DarkSlateGray")
-                renderer:AddAction(function() context:ChangeState("ui_quest_book") end, "quest_book.quest.close")
-                renderer:AddText("quest_book.quest.header", { { "quest", activeDetailItem.quest:DisplayName()} })
-                activeDetailItem.quest:ShowOptions(renderer, context, activeDetailItem.completed)
-            end
-        )
+        function(renderer, context)
+            renderer:SetBackgroundColor("DarkSlateGray")
+            renderer:AddAction(function()
+                context:ChangeState("ui_quest_book")
+            end, "quest_book.quest.close")
+            renderer:AddText("quest_book.quest.header", { { "quest", activeDetailItem.quest:DisplayName() } })
+            activeDetailItem.quest:ShowOptions(renderer, context, activeDetailItem.completed)
+        end
+)
         :Build()
 
 Global:AddOnPostStateRender(
         function(renderer, context)
-            if(IsUI(context.ActiveStateId)) then
+            if (IsUI(context.ActiveStateId)) then
                 return
             end
-            renderer:AddAction(function() context:ChangeState("ui_quest_book") end, "quest_book.open")
+            renderer:AddAction(function()
+                context:ChangeState("ui_quest_book")
+            end, "quest_book.open")
         end
 )
 

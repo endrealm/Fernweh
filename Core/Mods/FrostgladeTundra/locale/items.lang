@@ -1,191 +1,187 @@
 ﻿{
-  "item.toque.name": {
-    "translations": {
-      "EN_US": "Toque"
+    "item.toque.name": {
+        "translations": {
+            "EN_US": "Toque"
+        }
+    },
+    "item.fur_hood.name": {
+        "translations": {
+            "EN_US": "Fur Hood"
+        }
+    },
+    "item.wizards_hat.name": {
+        "translations": {
+            "EN_US": "Wizards Hat"
+        }
+    },
+    "item.leather_cap.name": {
+        "translations": {
+            "EN_US": "Leather Cap"
+        }
+    },
+    "item.iron_helm.name": {
+        "translations": {
+            "EN_US": "Iron Helm"
+        }
+    },
+    "item.clothes.name": {
+        "translations": {
+            "EN_US": "Clothes"
+        }
+    },
+    "item.wizards_robe.name": {
+        "translations": {
+            "EN_US": "Wizard's Robe'"
+        }
+    },
+    "item.sages_robe.name": {
+        "translations": {
+            "EN_US": "Sage's Hat"
+        }
+    },
+    "item.leather_armor.name": {
+        "translations": {
+            "EN_US": "Leather Armor"
+        }
+    },
+    "item.scaled_armor.name": {
+        "translations": {
+            "EN_US": "Scaled Armor"
+        }
+    },
+    "item.iron_armor.name": {
+        "translations": {
+            "EN_US": "Iron Armor"
+        }
+    },
+    "item.shoes.name": {
+        "translations": {
+            "EN_US": "Shoes"
+        }
+    },
+    "item.fur_boots.name": {
+        "translations": {
+            "EN_US": "Fur Boots"
+        }
+    },
+    "item.leather_boots.name": {
+        "translations": {
+            "EN_US": "Leather Boots"
+        }
+    },
+    "item.plated_boots.name": {
+        "translations": {
+            "EN_US": "Plated Boots"
+        }
+    },
+    "item.iron_boots.name": {
+        "translations": {
+            "EN_US": "Iron Boots"
+        }
+    },
+    "item.ruby_ring.name": {
+        "translations": {
+            "EN_US": "Ruby Ring"
+        }
+    },
+    "item.silver_armlet.name": {
+        "translations": {
+            "EN_US": "Silver Armlet"
+        }
+    },
+    "item.gold_necklace.name": {
+        "translations": {
+            "EN_US": "Gold Necklace"
+        }
+    },
+    "item.pearl_earrings.name": {
+        "translations": {
+            "EN_US": "Pearl Earrings"
+        }
+    },
+    "item.book_charm.name": {
+        "translations": {
+            "EN_US": "Book Charm"
+        }
+    },
+    "item.holy_talisman.name": {
+        "translations": {
+            "EN_US": "Holy Talisman"
+        }
+    },
+    "item.spear.name": {
+        "translations": {
+            "EN_US": "Spear"
+        }
+    },
+    "item.halberd.name": {
+        "translations": {
+            "EN_US": "Halberd"
+        }
+    },
+    "item.shortsword.name": {
+        "translations": {
+            "EN_US": "Shortsword"
+        }
+    },
+    "item.longsword.name": {
+        "translations": {
+            "EN_US": "Longsword"
+        }
+    },
+    "item.knife.name": {
+        "translations": {
+            "EN_US": "Knife"
+        }
+    },
+    "item.dagger.name": {
+        "translations": {
+            "EN_US": "Dagger"
+        }
+    },
+    "item.wand.name": {
+        "translations": {
+            "EN_US": "Wand"
+        }
+    },
+    "item.wooden_staff.name": {
+        "translations": {
+            "EN_US": "Wooden Staff"
+        }
+    },
+    "item.sages_staff.name": {
+        "translations": {
+            "EN_US": "Sage's Staff"
+        }
+    },
+    "item.infinity_blade.name": {
+        "translations": {
+            "EN_US": "Infinity Blade"
+        }
+    },
+    "item.lethality_blade.name": {
+        "translations": {
+            "EN_US": "Lethality Blade"
+        }
+    },
+    "item.health_potion.name": {
+        "translations": {
+            "EN_US": "Health Potion"
+        }
+    },
+    "item.ether.name": {
+        "translations": {
+            "EN_US": "Ether"
+        }
+    },
+    "item.revive.name": {
+        "translations": {
+            "EN_US": "Revive"
+        }
+    },
+    "item.key.name": {
+        "translations": {
+            "EN_US": "Rusty Key"
+        }
     }
-  },
-  "item.fur_hood.name": {
-    "translations": {
-      "EN_US": "Fur Hood"
-    }
-  },
-  "item.wizards_hat.name": {
-    "translations": {
-      "EN_US": "Wizards Hat"
-    }
-  },
-  "item.leather_cap.name": {
-    "translations": {
-      "EN_US": "Leather Cap"
-    }
-  },
-  "item.iron_helm.name": {
-    "translations": {
-      "EN_US": "Iron Helm"
-    }
-  },
-
-  "item.clothes.name": {
-    "translations": {
-      "EN_US": "Clothes"
-    }
-  },
-  "item.wizards_robe.name": {
-    "translations": {
-      "EN_US": "Wizard's Robe'"
-    }
-  },
-  "item.sages_robe.name": {
-    "translations": {
-      "EN_US": "Sage's Hat"
-    }
-  },
-  "item.leather_armor.name": {
-    "translations": {
-      "EN_US": "Leather Armor"
-    }
-  },
-  "item.scaled_armor.name": {
-    "translations": {
-      "EN_US": "Scaled Armor"
-    }
-  },
-  "item.iron_armor.name": {
-    "translations": {
-      "EN_US": "Iron Armor"
-    }
-  },
-
-  "item.shoes.name": {
-    "translations": {
-      "EN_US": "Shoes"
-    }
-  },
-  "item.fur_boots.name": {
-    "translations": {
-      "EN_US": "Fur Boots"
-    }
-  },
-  "item.leather_boots.name": {
-    "translations": {
-      "EN_US": "Leather Boots"
-    }
-  },
-  "item.plated_boots.name": {
-    "translations": {
-      "EN_US": "Plated Boots"
-    }
-  },
-  "item.iron_boots.name": {
-    "translations": {
-      "EN_US": "Iron Boots"
-    }
-  },
-
-  "item.ruby_ring.name": {
-    "translations": {
-      "EN_US": "Ruby Ring"
-    }
-  },
-  "item.silver_armlet.name": {
-    "translations": {
-      "EN_US": "Silver Armlet"
-    }
-  },
-  "item.gold_necklace.name": {
-    "translations": {
-      "EN_US": "Gold Necklace"
-    }
-  },
-  "item.pearl_earrings.name": {
-    "translations": {
-      "EN_US": "Pearl Earrings"
-    }
-  },
-  "item.book_charm.name": {
-    "translations": {
-      "EN_US": "Book Charm"
-    }
-  },
-  "item.holy_talisman.name": {
-    "translations": {
-      "EN_US": "Holy Talisman"
-    }
-  },
-
-  "item.spear.name": {
-    "translations": {
-      "EN_US": "Spear"
-    }
-  },
-  "item.halberd.name": {
-    "translations": {
-      "EN_US": "Halberd"
-    }
-  },
-  "item.shortsword.name": {
-    "translations": {
-      "EN_US": "Shortsword"
-    }
-  },
-  "item.longsword.name": {
-    "translations": {
-      "EN_US": "Longsword"
-    }
-  },
-  "item.knife.name": {
-    "translations": {
-      "EN_US": "Knife"
-    }
-  },
-  "item.dagger.name": {
-    "translations": {
-      "EN_US": "Dagger"
-    }
-  },
-  "item.wand.name": {
-    "translations": {
-      "EN_US": "Wand"
-    }
-  },
-  "item.wooden_staff.name": {
-    "translations": {
-      "EN_US": "Wooden Staff"
-    }
-  },
-  "item.sages_staff.name": {
-    "translations": {
-      "EN_US": "Sage's Staff"
-    }
-  },
-  "item.infinity_blade.name": {
-    "translations": {
-      "EN_US": "Infinity Blade"
-    }
-  },
-  "item.lethality_blade.name": {
-    "translations": {
-      "EN_US": "Lethality Blade"
-    }
-  },
-  "item.health_potion.name": {
-    "translations": {
-      "EN_US": "Health Potion"
-    }
-  },
-  "item.ether.name": {
-    "translations": {
-      "EN_US": "Ether"
-    }
-  },
-  "item.revive.name": {
-    "translations": {
-      "EN_US": "Revive"
-    }
-  },
-  "item.key.name": {
-    "translations": {
-      "EN_US": "Rusty Key"
-    }
-  }
 }

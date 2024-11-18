@@ -2,9 +2,8 @@
 
 namespace Core.Scenes.Ingame.Battle.Impl.Actions;
 
-public class AwaitNextAction: IBattleAction
+public class AwaitNextAction : IBattleAction
 {
-
     public IBattleParticipant Participant { get; }
 
     public async Task DoAction(ActionContext context)
@@ -18,5 +17,4 @@ public class AwaitNextAction: IBattleAction
     public int Priority => -1;
     public bool AllowDeath { get; } = true;
     public bool CausesStateCheck { get; } = true;
-
 }

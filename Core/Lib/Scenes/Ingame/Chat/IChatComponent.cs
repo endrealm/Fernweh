@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using Core.Utils;
 using Core.Utils.Math;
 using Microsoft.Xna.Framework;
-using MonoGame.Extended;
 
 namespace Core.Scenes.Ingame.Chat;
 
-public interface IChatComponent: IRenderer<ChatRenderContext>, IUpdate<ChatUpdateContext>
+public interface IChatComponent : IRenderer<ChatRenderContext>, IUpdate<ChatUpdateContext>
 {
     Vector2 Dimensions { get; }
     float MaxWidth { set; get; }
@@ -15,7 +14,7 @@ public interface IChatComponent: IRenderer<ChatRenderContext>, IUpdate<ChatUpdat
     void SetOnDone(Action action);
 }
 
-public interface IChatInlineComponent: IChatComponent
+public interface IChatInlineComponent : IChatComponent
 {
     float LastLineRemainingSpace { get; }
     float LastLength { get; }
@@ -25,12 +24,13 @@ public interface IChatInlineComponent: IChatComponent
     bool EmptyLineEnd { get; }
 }
 
-public interface IChatContainerComponent: IChatComponent
+public interface IChatContainerComponent : IChatComponent
 {
     /// <summary>
-    /// Some containers might not use this!
+    ///     Some containers might not use this!
     /// </summary>
     float MaxHeight { set; get; }
+
     float MaxContentWidth { set; get; }
     public void AppendComponents(List<IChatInlineComponent> chatInlineComponents);
     public void AppendComponent(IChatInlineComponent chatInlineComponents);

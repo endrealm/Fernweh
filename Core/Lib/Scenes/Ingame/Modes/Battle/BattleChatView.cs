@@ -11,22 +11,22 @@ using PipelineExtensionLibrary.Tokenizer.Chat;
 
 namespace Core.Scenes.Ingame.Modes.Battle;
 
-public class BattleChatView: BaseChatView, IPlayerBattleInput
+public class BattleChatView : BaseChatView, IPlayerBattleInput
 {
-    private List<IConsumable> _consumables;
     private const int SelectionPhaseHeaderLength = 1;
-    public BattleChatView(ILocalizationManager localizationManager, IFontManager fontManager) : base(localizationManager, fontManager)
+    private List<IConsumable> _consumables;
+
+    public BattleChatView(ILocalizationManager localizationManager, IFontManager fontManager) : base(
+        localizationManager, fontManager)
     {
     }
 
     public BattleManager BattleManager { get; set; }
+
     public async Task HandlePlayerInput(List<IBattleParticipant> battleParticipants)
     {
         _consumables = BattleManager.Registry.CollectConsumables(BattleManager.Registry);
-        foreach (var battleParticipant in battleParticipants)
-        {
-            await HandlePlayerInput(battleParticipant);
-        }
+        foreach (var battleParticipant in battleParticipants) await HandlePlayerInput(battleParticipant);
 
         _consumables = null; // Clear references
     }
@@ -37,10 +37,7 @@ public class BattleChatView: BaseChatView, IPlayerBattleInput
         Clear();
         RenderRound(participant);
 
-        while (participant.NextAction == null)
-        {
-            await Task.Delay(50);
-        }
+        while (participant.NextAction == null) await Task.Delay(50);
     }
 
     private void RenderRound(IBattleParticipant participant)
@@ -55,19 +52,20 @@ public class BattleChatView: BaseChatView, IPlayerBattleInput
         var dict = new Dictionary<string, List<IAbility>>();
         participant.GetAbilities().ForEach(ability =>
         {
-            if(ability.Hidden) return;
+            if (ability.Hidden) return;
             if (dict.ContainsKey(ability.CategoryId))
             {
                 dict[ability.CategoryId].Add(ability);
                 return;
             }
-            dict.Add(ability.CategoryId, new List<IAbility> { ability });
+
+            dict.Add(ability.CategoryId, new List<IAbility> {ability});
         });
 
         AddAction("battle.participant.list.attack", () =>
         {
             ShowTargeting(true, false, false, AbilityTargetType.EnemySingle, () => RenderRound(participant),
-                (targets) =>
+                targets =>
                 {
                     Clear();
                     participant.NextAction = new AttackAction(participant, targets.First());
@@ -79,14 +77,9 @@ public class BattleChatView: BaseChatView, IPlayerBattleInput
             participant.NextAction = new DefendAction(participant);
         });
         foreach (var pair in dict)
-        {
             AddAction("battle.participant.list.ability." + pair.Key,
                 () => { ShowAbilities(participant, pair.Key, pair.Value); });
-        }
-        AddAction("battle.participant.list.items", () =>
-        {
-            ShowItems(participant);
-        });
+        AddAction("battle.participant.list.items", () => { ShowItems(participant); });
 
         LoadNextComponentInQueue();
     }
@@ -94,7 +87,7 @@ public class BattleChatView: BaseChatView, IPlayerBattleInput
     private void PrintSelectionHeader(IBattleParticipant participant)
     {
         var stats = participant.GetStats();
-        AddText($"battle.participant.list.name", 
+        AddText("battle.participant.list.name",
             new TextReplacement("name", participant.DisplayName),
             new TextReplacement("health", participant.Health.ToString()),
             new TextReplacement("max_health", stats.Health.ToString()),
@@ -108,24 +101,23 @@ public class BattleChatView: BaseChatView, IPlayerBattleInput
         Clear(SelectionPhaseHeaderLength);
 
         AddAction("battle.participant.list.back", () => { RenderRound(participant); });
-        
-        if (_consumables.Count == 0)
-        {
-            AddText("battle.participant.no_items");
-        }
+
+        if (_consumables.Count == 0) AddText("battle.participant.no_items");
 
         _consumables.ForEach(consumable =>
         {
             AddAction("battle.participant.list.item", () =>
-            {
-                var ability = consumable.Ability;
-                ShowTargeting(ability.AllowLivingTargets, ability.AllowDeadTargets, IsGroupType(ability), ability.TargetType, () => ShowItems(participant),
-                    (targets) =>
-                    {
-                        Clear();
-                        participant.NextAction = consumable.ProduceAction(participant, targets);
-                    });
-            }, new WrapperReplacement("item", consumable.Name), new TextReplacement("amount", consumable.Amount.ToString()));
+                {
+                    var ability = consumable.Ability;
+                    ShowTargeting(ability.AllowLivingTargets, ability.AllowDeadTargets, IsGroupType(ability),
+                        ability.TargetType, () => ShowItems(participant),
+                        targets =>
+                        {
+                            Clear();
+                            participant.NextAction = consumable.ProduceAction(participant, targets);
+                        });
+                }, new WrapperReplacement("item", consumable.Name),
+                new TextReplacement("amount", consumable.Amount.ToString()));
         });
         LoadNextComponentInQueue();
     }
@@ -133,29 +125,27 @@ public class BattleChatView: BaseChatView, IPlayerBattleInput
     private void ShowAbilities(IBattleParticipant participant, string categoryId, List<IAbility> abilities)
     {
         Clear(SelectionPhaseHeaderLength);
-        
-        AddAction("battle.participant.list.back", () =>
-        {
-            RenderRound(participant);
-        });
+
+        AddAction("battle.participant.list.back", () => { RenderRound(participant); });
 
         AddText("battle.ability.category." + categoryId);
 
         abilities.ForEach(ability =>
         {
-            if(ability.Hidden) return;
-            
+            if (ability.Hidden) return;
+
             if (!ability.CanUse(new AbilityUseCheckContext(participant)))
             {
-                if(ability.HideBlocked) return;
+                if (ability.HideBlocked) return;
                 AddText("battle.ability." + ability.Id + ".blocked");
                 return;
             }
 
             AddAction("battle.ability", () =>
             {
-                ShowTargeting(ability.AllowLivingTargets, ability.AllowDeadTargets, IsGroupType(ability), ability.TargetType, () => ShowAbilities(participant, categoryId, abilities),
-                    (targets) =>
+                ShowTargeting(ability.AllowLivingTargets, ability.AllowDeadTargets, IsGroupType(ability),
+                    ability.TargetType, () => ShowAbilities(participant, categoryId, abilities),
+                    targets =>
                     {
                         Clear();
                         participant.NextAction = ability.ProduceAction(participant, targets);
@@ -164,37 +154,32 @@ public class BattleChatView: BaseChatView, IPlayerBattleInput
         });
         LoadNextComponentInQueue();
     }
-    private void ShowTargeting(bool allowLivingTargets, bool allowDeadTargets, bool showGroup, AbilityTargetType targetType, Action onBack, Action<List<IBattleParticipant>> onSelect)
+
+    private void ShowTargeting(bool allowLivingTargets, bool allowDeadTargets, bool showGroup,
+        AbilityTargetType targetType, Action onBack, Action<List<IBattleParticipant>> onSelect)
     {
         Clear(SelectionPhaseHeaderLength);
-        
+
         AddAction("battle.participant.list.back", onBack.Invoke);
 
         AddText("battle.select.target");
         GetTargetsByType(targetType).ForEach(targets =>
         {
             // Filter for dead targets if the spell does not allow this
-            if (!allowDeadTargets)
-            {
-                targets.RemoveAll(target => target.State == ParticipantState.Dead);
-            }
+            if (!allowDeadTargets) targets.RemoveAll(target => target.State == ParticipantState.Dead);
             // Filter for living if only dead are allowed
-            if (!allowLivingTargets)
-            {
-                targets.RemoveAll(target => target.State == ParticipantState.Alive);
-            }
-            
+            if (!allowLivingTargets) targets.RemoveAll(target => target.State == ParticipantState.Alive);
+
             // skip now empty target groupings
-            if(targets.Count == 0) return;
-            
+            if (targets.Count == 0) return;
+
             var types = targets.Select(target => showGroup ? target.GroupId : target.DisplayName).ToSet();
-            var countMode = (targets.Count > 1 ? "multiple" : "single");
+            var countMode = targets.Count > 1 ? "multiple" : "single";
             if (types.Count > 1) countMode = "mixed";
-            
-            AddAction("battle.participant.select." + countMode, () =>
-            {
-                onSelect.Invoke(targets);
-            }, new TextReplacement("amount", targets.Count.ToString()), new TextReplacement("name", string.Join(", ", types)));
+
+            AddAction("battle.participant.select." + countMode, () => { onSelect.Invoke(targets); },
+                new TextReplacement("amount", targets.Count.ToString()),
+                new TextReplacement("name", string.Join(", ", types)));
         });
         LoadNextComponentInQueue();
     }

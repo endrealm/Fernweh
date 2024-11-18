@@ -1,8 +1,10 @@
 {
-  "id": "inventory",
-  "type": "library",
-  "dependencies": ["ui_compat"],
-  "scripts": [
-    "api.lua"
-  ]
+    "id": "inventory",
+    "type": "library",
+    "dependencies": [
+        "ui_compat"
+    ],
+    "scripts": [
+        "api.lua"
+    ]
 }

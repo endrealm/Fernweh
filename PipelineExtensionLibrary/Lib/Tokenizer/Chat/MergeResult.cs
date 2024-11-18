@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
 
 namespace PipelineExtensionLibrary.Tokenizer.Chat;
 
@@ -13,7 +12,7 @@ public class MergeResult
         return new MergeResult
         {
             Text = Text,
-            Color = Color,
+            Color = Color
         };
     }
 }

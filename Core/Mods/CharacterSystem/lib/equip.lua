@@ -12,13 +12,13 @@ Slots = {}
 
 function EquipItem:new(o)
     self.__index = self
-    setmetatable(self, {__index = Item})
+    setmetatable(self, { __index = Item })
     local obj = Item:new(o)
     setmetatable(obj, self)
 
     -- custom init code here
     o.slot = o.slot or "head"
-    
+
     return obj
 end
 
@@ -30,7 +30,7 @@ function EquipItem:ShowOptions(renderer, context)
 end
 
 function RegisterSlot(slot)
-    if(type(slot) ~= "string") then
+    if (type(slot) ~= "string") then
         error("Slot must be a string value")
     end
     table.insert(Slots, slot)

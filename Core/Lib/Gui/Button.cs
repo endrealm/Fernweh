@@ -3,186 +3,220 @@ using Apos.Input;
 using Microsoft.Xna.Framework;
 using MonoGame.Extended;
 
-namespace Core.Gui {
-    public class Button : Component, IParent {
-        public Button(int id) : base(id) { }
+namespace Core.Gui;
 
-        public bool Clicked { get; set; } = false;
-        public IComponent? Child { get; set; }
-        public override bool IsFocusable { get; set; } = true;
-        public override bool IsFocused {
-            get => base.IsFocused;
-            set {
-                base.IsFocused = value;
-                if (!value) {
-                    _mousePressed = false;
-                    _hovered = false;
-                    _buttonPressed = false;
-                }
-            }
-        }
+public class Button : Component, IParent
+{
+    protected bool _buttonPressed;
+    protected bool _hovered;
 
-        public override void UpdatePrefSize(GameTime gameTime) {
-            if (Child != null) {
-                Child.UpdatePrefSize(gameTime);
+    protected bool _mousePressed;
 
-                PrefWidth = Child.PrefWidth;
-                PrefHeight = Child.PrefHeight;
-            }
-        }
-        public override void UpdateSetup(GameTime gameTime) {
-            if (Clicked) {
-                Clicked = false;
-            }
+    public Button(int id) : base(id)
+    {
+    }
 
-            if (Child != null) {
-                Child.X = X;
-                Child.Y = Y;
-                Child.Width = Width;
-                Child.Height = Height;
-                Child.Clip = Child.Bounds.Intersection(Clip);
+    public bool Clicked { get; set; }
+    public IComponent? Child { get; set; }
 
-                Child.UpdateSetup(gameTime);
-            }
-        }
-        public override void UpdateInput(GameTime gameTime) {
-            if (Clip.Contains(GuiHelper.Mouse) && Default.MouseInteraction.Pressed()) {
-                _mousePressed = true;
-                GrabFocus(this);
-            }
+    public bool ShowBorder { get; set; }
+    public override bool IsFocusable { get; set; } = true;
 
-            if (IsFocused) {
-                if (_mousePressed) {
-                    if (Default.MouseInteraction.Released()) {
-                        if (Clip.Contains(GuiHelper.Mouse))
-                            Clicked = true;
-                        _mousePressed = false;
-                    } else {
-                        Default.MouseInteraction.Consume();
-                        _hovered = Clip.Contains(GuiHelper.Mouse);
-                    }
-                }
-
-                if (Default.ButtonInteraction.Pressed()) {
-                    _buttonPressed = true;
-                } else if (_buttonPressed) {
-                    if (Default.ButtonInteraction.Released()) {
-                        Clicked = true;
-                        _buttonPressed = false;
-                    } else {
-                        Default.ButtonInteraction.Consume();
-                    }
-                }
-            }
-
-            if (Child != null) {
-                Child.UpdateInput(gameTime);
-            }
-        }
-        public override void Update(GameTime gameTime) {
-            if (Child != null) {
-                Child.Update(gameTime);
-            }
-        }
-
-        public override void Draw(GameTime gameTime) {
-            GuiHelper.PushScissor(Clip);
-
-            if (Clicked) {
-                GuiHelper.SpriteBatch.FillRectangle(Bounds, Color.White * 0.5f);
-            } else if (_mousePressed && _hovered || _buttonPressed) {
-                GuiHelper.SpriteBatch.FillRectangle(Bounds, Color.White * 0.2f);
-            } else if (_mousePressed) {
-                GuiHelper.SpriteBatch.FillRectangle(Bounds, Color.White * 0.15f);
-            }
-            
-            if(ShowBorder)
+    public override bool IsFocused
+    {
+        get => base.IsFocused;
+        set
+        {
+            base.IsFocused = value;
+            if (!value)
             {
-                if (IsFocused)
+                _mousePressed = false;
+                _hovered = false;
+                _buttonPressed = false;
+            }
+        }
+    }
+
+    public override void UpdatePrefSize(GameTime gameTime)
+    {
+        if (Child != null)
+        {
+            Child.UpdatePrefSize(gameTime);
+
+            PrefWidth = Child.PrefWidth;
+            PrefHeight = Child.PrefHeight;
+        }
+    }
+
+    public override void UpdateSetup(GameTime gameTime)
+    {
+        if (Clicked) Clicked = false;
+
+        if (Child != null)
+        {
+            Child.X = X;
+            Child.Y = Y;
+            Child.Width = Width;
+            Child.Height = Height;
+            Child.Clip = Child.Bounds.Intersection(Clip);
+
+            Child.UpdateSetup(gameTime);
+        }
+    }
+
+    public override void UpdateInput(GameTime gameTime)
+    {
+        if (Clip.Contains(GuiHelper.Mouse) && Default.MouseInteraction.Pressed())
+        {
+            _mousePressed = true;
+            GrabFocus(this);
+        }
+
+        if (IsFocused)
+        {
+            if (_mousePressed)
+            {
+                if (Default.MouseInteraction.Released())
                 {
-                    GuiHelper.SpriteBatch.DrawRectangle(Bounds, Color.White, 2f);
+                    if (Clip.Contains(GuiHelper.Mouse))
+                        Clicked = true;
+                    _mousePressed = false;
                 }
                 else
                 {
-                    GuiHelper.SpriteBatch.DrawRectangle(Bounds, new Color(76, 76, 76), 2f);
+                    Default.MouseInteraction.Consume();
+                    _hovered = Clip.Contains(GuiHelper.Mouse);
                 }
             }
 
-            if (Child != null) {
-                Child.Draw(gameTime);
+            if (Default.ButtonInteraction.Pressed())
+            {
+                _buttonPressed = true;
             }
-
-            GuiHelper.PopScissor();
-        }
-
-        public void Add(IComponent c) {
-            if (c != Child) {
-                if (Child != null) {
-                    Child.Parent = null;
+            else if (_buttonPressed)
+            {
+                if (Default.ButtonInteraction.Released())
+                {
+                    Clicked = true;
+                    _buttonPressed = false;
                 }
-                Child = c;
-                Child.Parent = this;
+                else
+                {
+                    Default.ButtonInteraction.Consume();
+                }
             }
         }
-        public void Remove(IComponent c) {
-            if (Child == c) {
-                Child.Parent = null;
-                Child = null;
-            }
-        }
-        public void Reset() { }
-        public int NextIndex() => 0;
 
-        public virtual IComponent GetPrev(IComponent c) {
-            return this;
-        }
-        public virtual IComponent GetNext(IComponent c) {
-            return Parent?.GetNext(this) ?? this;
-        }
+        if (Child != null) Child.UpdateInput(gameTime);
+    }
 
-        public virtual void SendToTop(IComponent c) {
-            Parent?.SendToTop(this);
-        }
+    public override void Update(GameTime gameTime)
+    {
+        if (Child != null) Child.Update(gameTime);
+    }
 
-        public static Button Put(string text, int fontSize = 30, Color? color = null, [CallerLineNumber] int id = 0, bool isAbsoluteId = false) {
-            Button b = Put(id, isAbsoluteId);
-            Label.Put(text, fontSize: fontSize, color: color, id: id, isAbsoluteId: isAbsoluteId);
+    public override void Draw(GameTime gameTime)
+    {
+        GuiHelper.PushScissor(Clip);
 
-            return b;
-        }
-        public static Button Put([CallerLineNumber] int id = 0, bool isAbsoluteId = false) {
-            // 1. Check if button with id already exists.
-            //      a. If already exists. Get it.
-            //      b  If not, create it.
-            // 4. Ping it.
-            id = GuiHelper.CurrentIMGUI.CreateId(id, isAbsoluteId);
-            GuiHelper.CurrentIMGUI.TryGetValue(id, out IComponent c);
+        if (Clicked)
+            GuiHelper.SpriteBatch.FillRectangle(Bounds, Color.White * 0.5f);
+        else if ((_mousePressed && _hovered) || _buttonPressed)
+            GuiHelper.SpriteBatch.FillRectangle(Bounds, Color.White * 0.2f);
+        else if (_mousePressed) GuiHelper.SpriteBatch.FillRectangle(Bounds, Color.White * 0.15f);
 
-            Button a;
-            if (c is Button) {
-                a = (Button)c;
-            } else {
-                a = new Button(id);
-            }
-
-            a.ShowBorder = GuiHelper.ShowBorder;
-
-            IParent parent = GuiHelper.CurrentIMGUI.GrabParent(a);
-
-            if (a.LastPing != InputHelper.CurrentFrame) {
-                a.LastPing = InputHelper.CurrentFrame;
-                a.Index = parent.NextIndex();
-            }
-
-            GuiHelper.CurrentIMGUI.Push(a, 1);
-
-            return a;
+        if (ShowBorder)
+        {
+            if (IsFocused)
+                GuiHelper.SpriteBatch.DrawRectangle(Bounds, Color.White, 2f);
+            else
+                GuiHelper.SpriteBatch.DrawRectangle(Bounds, new Color(76, 76, 76), 2f);
         }
 
-        public bool ShowBorder { get; set; }
+        if (Child != null) Child.Draw(gameTime);
 
-        protected bool _mousePressed = false;
-        protected bool _buttonPressed = false;
-        protected bool _hovered = false;
+        GuiHelper.PopScissor();
+    }
+
+    public void Add(IComponent c)
+    {
+        if (c != Child)
+        {
+            if (Child != null) Child.Parent = null;
+            Child = c;
+            Child.Parent = this;
+        }
+    }
+
+    public void Remove(IComponent c)
+    {
+        if (Child == c)
+        {
+            Child.Parent = null;
+            Child = null;
+        }
+    }
+
+    public void Reset()
+    {
+    }
+
+    public int NextIndex()
+    {
+        return 0;
+    }
+
+    public virtual IComponent GetPrev(IComponent c)
+    {
+        return this;
+    }
+
+    public virtual IComponent GetNext(IComponent c)
+    {
+        return Parent?.GetNext(this) ?? this;
+    }
+
+    public virtual void SendToTop(IComponent c)
+    {
+        Parent?.SendToTop(this);
+    }
+
+    public static Button Put(string text, int fontSize = 30, Color? color = null, [CallerLineNumber] int id = 0,
+        bool isAbsoluteId = false)
+    {
+        var b = Put(id, isAbsoluteId);
+        Label.Put(text, fontSize, color, id, isAbsoluteId);
+
+        return b;
+    }
+
+    public static Button Put([CallerLineNumber] int id = 0, bool isAbsoluteId = false)
+    {
+        // 1. Check if button with id already exists.
+        //      a. If already exists. Get it.
+        //      b  If not, create it.
+        // 4. Ping it.
+        id = GuiHelper.CurrentIMGUI.CreateId(id, isAbsoluteId);
+        GuiHelper.CurrentIMGUI.TryGetValue(id, out var c);
+
+        Button a;
+        if (c is Button)
+            a = (Button) c;
+        else
+            a = new Button(id);
+
+        a.ShowBorder = GuiHelper.ShowBorder;
+
+        var parent = GuiHelper.CurrentIMGUI.GrabParent(a);
+
+        if (a.LastPing != InputHelper.CurrentFrame)
+        {
+            a.LastPing = InputHelper.CurrentFrame;
+            a.Index = parent.NextIndex();
+        }
+
+        GuiHelper.CurrentIMGUI.Push(a, 1);
+
+        return a;
     }
 }

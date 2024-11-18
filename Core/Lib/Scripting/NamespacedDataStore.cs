@@ -5,15 +5,16 @@ namespace Core.Scripting;
 
 public abstract class NamespacedDataStore
 {
-    public NamespacedKey Key { get; }
-    private Dictionary<string, IDataType> _data = new();
-    protected IDataSaveFunction _saveFunction;
+    private readonly Dictionary<string, IDataType> _data = new();
     protected IDataLoadFunction _loadFunction;
+    protected IDataSaveFunction _saveFunction;
 
     public NamespacedDataStore(NamespacedKey key)
     {
         Key = key;
     }
+
+    public NamespacedKey Key { get; }
 
     public VariableWrapper CreateVar(string key, object defaultValue = null)
     {
@@ -24,7 +25,7 @@ public abstract class NamespacedDataStore
     }
 
     public abstract VariableWrapper CreateStoredVar(string key, object defaultValue = null);
-    
+
     public IDataType GetData(string key)
     {
         return _data.TryGetValue(key, out var value) ? value : null;
@@ -42,10 +43,8 @@ public abstract class NamespacedDataStore
     {
         _loadFunction = loadFunction;
     }
-
 }
 
 public interface IDataType
 {
-    
 }

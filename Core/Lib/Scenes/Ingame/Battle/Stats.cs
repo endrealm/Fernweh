@@ -16,7 +16,7 @@ public class Stats
 
     public Stats Clone()
     {
-        return new Stats()
+        return new Stats
         {
             Strength = Strength,
             Intellect = Intellect,
@@ -28,7 +28,7 @@ public class Stats
             Mana = Mana,
             Armor = Armor,
             Experience = Experience,
-            Level = Level,
+            Level = Level
         };
     }
 }

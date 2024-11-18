@@ -1,8 +1,8 @@
 ﻿namespace ModBuildTool.Lib.File.DataTypes;
 
-public class Json: SimpleFileData
+public class Json : SimpleFileData
 {
-    
-    public Json(string rawData) : base(rawData) { }
-    
+    public Json(string rawData) : base(rawData)
+    {
+    }
 }

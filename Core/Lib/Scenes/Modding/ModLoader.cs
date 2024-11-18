@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Core.Content;
 using Core.Scripting;
-using Core.States;
 using Newtonsoft.Json;
 
 namespace Core.Scenes.Modding;
@@ -11,17 +9,13 @@ namespace Core.Scenes.Modding;
 public class ModLoader
 {
     private readonly Dictionary<string, Mod> _mods = new();
-    private List<Mod> _activeModOrder = new();
 
     public ModLoader(List<IArchiveLoader> mods)
     {
-        foreach (var ns in mods.Select(LoadMod))
-        {
-            _mods.Add(ns.Id, ns);
-        }
+        foreach (var ns in mods.Select(LoadMod)) _mods.Add(ns.Id, ns);
     }
 
-    public List<Mod> ActiveModOrder => _activeModOrder;
+    public List<Mod> ActiveModOrder { get; private set; } = new();
 
     private Mod LoadMod(IArchiveLoader loader)
     {
@@ -31,19 +25,13 @@ public class ModLoader
 
     public void Load(string gameMod)
     {
-        _activeModOrder = BuildOrder(gameMod);
-        foreach (var mod in _activeModOrder)
-        {
-            mod.Load();
-        }
+        ActiveModOrder = BuildOrder(gameMod);
+        foreach (var mod in ActiveModOrder) mod.Load();
     }
 
     public void RunActiveModScripts(ScriptLoader scriptLoader)
     {
-        foreach (var mod in _activeModOrder)
-        {
-            mod.Apply(scriptLoader);
-        }
+        foreach (var mod in ActiveModOrder) mod.Apply(scriptLoader);
     }
 
     private List<Mod> BuildOrder(string gameMod)
@@ -54,10 +42,7 @@ public class ModLoader
         foreach (var mod in mods)
         {
             var node = graph.GetOrAdd(mod.Id);
-            foreach (var modDependency in mod.Dependencies)
-            {
-                node.AddDependency(modDependency);
-            }
+            foreach (var modDependency in mod.Dependencies) node.AddDependency(modDependency);
         }
 
         var modNode = graph.Get(gameMod);
@@ -72,10 +57,7 @@ public class ModLoader
 
     public void UnloadAllMods()
     {
-        foreach (var mod in _mods.Values)
-        {
-            mod.Unload();
-        }
+        foreach (var mod in _mods.Values) mod.Unload();
     }
 
     public IEnumerable<Mod> GetGameMods()

@@ -1,11 +1,8 @@
-﻿using Core.Content;
+﻿namespace Core.Scenes.Ingame;
 
-namespace Core.Scenes.Ingame
+public interface ISoundPlayer
 {
-    public interface ISoundPlayer
-    {
-        //void ScanForAudio(ContentRegistry content);
-        void PlaySFX(string name, float pitch = 0);
-        void PlaySong(string name);
-    }
+    //void ScanForAudio(ContentRegistry content);
+    void PlaySFX(string name, float pitch = 0);
+    void PlaySong(string name);
 }

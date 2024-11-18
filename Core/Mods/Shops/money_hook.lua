@@ -1,24 +1,23 @@
 ﻿Balance = Context:CreateStoredVar("Balance", 0)
 
 Provider = Context:CreateVar("BalanceProvider", {
-    GetMoney=function(self)
+    GetMoney = function(self)
         return Balance:Get()
     end,
-    SetMoney=function(self, newBal)
+    SetMoney = function(self, newBal)
         Balance:Set(newBal)
     end
 })
 
-
-function GetMoney() 
+function GetMoney()
     return Provider:Get():GetMoney()
 end
 
-function SetMoney(balance) 
+function SetMoney(balance)
     return Provider:Get():SetMoney(balance)
 end
 
-function HasMoney(balance) 
+function HasMoney(balance)
     return GetMoney() >= balance
 end
 

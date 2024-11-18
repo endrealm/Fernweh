@@ -1,6 +1,4 @@
-﻿using System.IO.Compression;
-using ModBuildTool.Lib;
-using ModBuildTool.Lib.File;
+﻿using ModBuildTool.Lib;
 
 var directory = args.Length >= 1 ? args[0] : ".\\";
 

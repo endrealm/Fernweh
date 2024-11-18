@@ -1,7 +1,5 @@
-﻿namespace PipelineExtensionLibrary.Chat
+﻿namespace PipelineExtensionLibrary.Chat;
+
+public interface IChatComponentData
 {
-    public interface IChatComponentData
-    {
-        
-    }
 }

@@ -1,64 +1,57 @@
-﻿using Core.Utils;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Core.Content;
-using Newtonsoft.Json;
 using Microsoft.Xna.Framework;
-using Core.Scenes.Modding;
-using System;
+using Newtonsoft.Json;
 
-namespace Core.Scenes.Ingame.World
+namespace Core.Scenes.Ingame.World;
+
+public class MapDataRegistry
 {
-    public class MapDataRegistry
+    //private Dictionary<string, MapData> _mapList = new();
+    private readonly ContentRegistry _contentRegistry;
+    private string _loadedMap;
+
+    public MapDataRegistry(ContentRegistry content) // load all maps here and load the first one
     {
-        //private Dictionary<string, MapData> _mapList = new();
-        private ContentRegistry _contentRegistry;
-        private string _loadedMap;
+        _contentRegistry = content;
+    }
 
-        public MapDataRegistry(ContentRegistry content) // load all maps here and load the first one
-        {
-            _contentRegistry = content;
-        }
+    public MapDataRegistry SetupDiscovery(Dictionary<string, List<Vector2>> discoveredTiles)
+    {
+        foreach (var item in _contentRegistry.maps)
+            discoveredTiles.Add(item.Key, new List<Vector2>());
 
-        public MapDataRegistry SetupDiscovery(Dictionary<string, List<Vector2>> discoveredTiles)
-        {
-            foreach (var item in _contentRegistry.maps)
-                discoveredTiles.Add(item.Key, new List<Vector2>());
+        return this;
+    }
 
-            return this;
-        }
+    public MapData GetMap(string name)
+    {
+        if (name == null || !_contentRegistry.maps.ContainsKey(name))
+            return null;
+        return _contentRegistry.maps[name];
+    }
 
-        public MapData GetMap(string name)
-        {
-            if (name == null || !_contentRegistry.maps.ContainsKey(name))
-                return null;
-            else
-                return _contentRegistry.maps[name];
-        }
+    public MapData GetLoadedMap()
+    {
+        if (_loadedMap == null)
+            return null;
+        return _contentRegistry.maps[_loadedMap];
+    }
 
-        public MapData GetLoadedMap()
-        {
-            if (_loadedMap == null)
-                return null;
-            else
-                return _contentRegistry.maps[_loadedMap];
-        }
+    public string GetLoadedMapName()
+    {
+        return _loadedMap;
+    }
 
-        public string GetLoadedMapName()
-        {
-            return _loadedMap;
-        }
+    public MapData LoadMap(string name)
+    {
+        if (name == null || !_contentRegistry.maps.ContainsKey(name))
+            return null;
+        return _contentRegistry.maps[_loadedMap = name];
+    }
 
-        public MapData LoadMap(string name)
-        {
-            if (name == null || !_contentRegistry.maps.ContainsKey(name))
-                return null;
-            else
-                return _contentRegistry.maps[_loadedMap = name];
-        }
-
-        private MapData CreateMapData(ContentLoader content, string path)
-        {
-            return JsonConvert.DeserializeObject<MapData>(content.Load<string>(path));
-        }
+    private MapData CreateMapData(ContentLoader content, string path)
+    {
+        return JsonConvert.DeserializeObject<MapData>(content.Load<string>(path));
     }
 }

@@ -6,13 +6,13 @@ namespace PipelineExtensionLibrary.Tokenizer;
 
 public class TokenDefinition
 {
-    private Regex _regex;
-    private readonly TokenType _returnsToken;
     private readonly int _precedence;
+    private readonly Regex _regex;
+    private readonly TokenType _returnsToken;
 
     public TokenDefinition(TokenType returnsToken, [RegexPattern] string regexPattern, int precedence)
     {
-        _regex = new Regex(regexPattern, RegexOptions.IgnoreCase|RegexOptions.Compiled);
+        _regex = new Regex(regexPattern, RegexOptions.IgnoreCase | RegexOptions.Compiled);
         _returnsToken = returnsToken;
         _precedence = precedence;
     }
@@ -20,9 +20,8 @@ public class TokenDefinition
     public IEnumerable<TokenMatch> FindMatches(string inputString)
     {
         var matches = _regex.Matches(inputString);
-        for(int i=0; i<matches.Count; i++)
-        {
-            yield return new TokenMatch()
+        for (var i = 0; i < matches.Count; i++)
+            yield return new TokenMatch
             {
                 StartIndex = matches[i].Index,
                 EndIndex = matches[i].Index + matches[i].Length,
@@ -30,7 +29,6 @@ public class TokenDefinition
                 Value = matches[i].Value,
                 Precedence = _precedence
             };
-        }
     }
 }
 

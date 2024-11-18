@@ -17,45 +17,48 @@ public static class TargetTypeUtils
 {
     public static List<List<IBattleParticipant>> GetTargetsByType(
         List<IBattleParticipant> enemies,
-        List<IBattleParticipant> friendlies, 
-        List<IBattleParticipant> all, 
+        List<IBattleParticipant> friendlies,
+        List<IBattleParticipant> all,
         AbilityTargetType targetType
-    )    {
+    )
+    {
         switch (targetType)
         {
             case AbilityTargetType.FriendlySingle:
             {
                 var type = new List<List<IBattleParticipant>>();
-                friendlies.ForEach(participant => type.Add(new() {participant}));
+                friendlies.ForEach(participant => type.Add(new List<IBattleParticipant> {participant}));
                 return type;
             }
             case AbilityTargetType.EnemySingle:
             {
                 var type = new List<List<IBattleParticipant>>();
-                enemies.ForEach(participant => type.Add(new() {participant}));
+                enemies.ForEach(participant => type.Add(new List<IBattleParticipant> {participant}));
                 return type;
             }
             case AbilityTargetType.EnemyGroup:
             {
-
                 return enemies
                     .GroupBy(participant => participant.GroupId)
                     .Select(grouping => grouping.ToList())
                     .ToList();
             }
-            case AbilityTargetType.EnemyAll: return new()
-            {
-                enemies.ToList()
-            };
-            case AbilityTargetType.FriendlyGroup: return new() 
-            {
-                friendlies.ToList()
-            };
+            case AbilityTargetType.EnemyAll:
+                return new List<List<IBattleParticipant>>
+                {
+                    enemies.ToList()
+                };
+            case AbilityTargetType.FriendlyGroup:
+                return new List<List<IBattleParticipant>>
+                {
+                    friendlies.ToList()
+                };
             default:
-            case AbilityTargetType.All: return new()
-            {
-                all.ToList()
-            };
+            case AbilityTargetType.All:
+                return new List<List<IBattleParticipant>>
+                {
+                    all.ToList()
+                };
         }
     }
 }

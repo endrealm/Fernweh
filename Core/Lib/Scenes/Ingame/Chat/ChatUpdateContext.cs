@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 
 namespace Core.Scenes.Ingame.Chat;
 
-public class ChatUpdateContext: IUpdateContext
+public class ChatUpdateContext : IUpdateContext
 {
     public ChatUpdateContext(IngameUpdateContext ingameUpdateContext, Vector2 position, bool clickHandled)
     {

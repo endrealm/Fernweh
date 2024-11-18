@@ -1,15 +1,17 @@
 {
-  "id": "character_system",
-  "type": "library",
-  "dependencies": ["inventory"],
-  "scripts": [
-    "lib/abilities.lua",
-    "lib/character.lua",
-    "lib/registry.lua",
-    "lib/party.lua",
-    "lib/ui/equip.lua",
-    "lib/equip.lua",
-    "lib/ui/party.lua",
-    "api.lua"
-  ]
+    "id": "character_system",
+    "type": "library",
+    "dependencies": [
+        "inventory"
+    ],
+    "scripts": [
+        "lib/abilities.lua",
+        "lib/character.lua",
+        "lib/registry.lua",
+        "lib/party.lua",
+        "lib/ui/equip.lua",
+        "lib/equip.lua",
+        "lib/ui/party.lua",
+        "api.lua"
+    ]
 }

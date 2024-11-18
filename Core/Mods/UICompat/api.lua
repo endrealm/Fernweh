@@ -20,7 +20,7 @@ end
 -- ============================
 Global:AddOnPostStateRender(
         function(renderer, context)
-            if(has_value(uiStates, context.ActiveStateId)) then
+            if (has_value(uiStates, context.ActiveStateId)) then
                 return
             end
 
@@ -33,4 +33,6 @@ Global:AddOnPostStateRender(
 -- ============================
 
 Context:CreateFunc("BlackListState", BlackListState)
-Context:CreateFunc("IsUI", function (state) return has_value(uiStates, state) end)
+Context:CreateFunc("IsUI", function(state)
+    return has_value(uiStates, state)
+end)

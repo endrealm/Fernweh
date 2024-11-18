@@ -7,18 +7,16 @@ using Core.Utils;
 using Microsoft.Xna.Framework;
 using NLua;
 using PipelineExtensionLibrary;
-using PipelineExtensionLibrary.Tokenizer.Chat;
 
 namespace Core.States;
 
 public class StateRenderer
 {
-    private readonly ILocalizationManager _localizationManager;
-    private readonly IFontManager _font;
     private readonly Action<Color> _changeBackgroundColor;
-    private readonly bool _clearRender;
     private readonly Queue<IChatComponent> _components = new();
+    private readonly IFontManager _font;
     private readonly List<LabelSettings> _labelSettings = new();
+    private readonly ILocalizationManager _localizationManager;
     private RenderMode _renderMode = RenderMode.Typewriter;
 
     public StateRenderer(ILocalizationManager localizationManager, IFontManager font,
@@ -27,10 +25,10 @@ public class StateRenderer
         _localizationManager = localizationManager;
         _font = font;
         _changeBackgroundColor = changeBackgroundColor;
-        _clearRender = clearRender;
+        ClearRender = clearRender;
     }
 
-    public bool ClearRender => _clearRender;
+    public bool ClearRender { get; }
 
     public StateRenderer SetMode(string mode)
     {
@@ -45,14 +43,14 @@ public class StateRenderer
 
         _labelSettings.Add(new LabelSettings(x, y, text));
     }
-    
+
     public void AddText(string key, LuaFunction callback = null, LuaTable rawReplacements = null)
     {
         if (key.Length == 0) key = " ";
         var replacements = LuaUtils.ReadReplacements(rawReplacements);
         var text = _localizationManager.GetData(key, replacements)
             .Compile()
-            .BuildAnimated(_font.GetChatFont(), () => callback?.Call(), animated: _renderMode == RenderMode.Typewriter);
+            .BuildAnimated(_font.GetChatFont(), () => callback?.Call(), _renderMode == RenderMode.Typewriter);
 
         _components.Enqueue(text);
     }
@@ -63,7 +61,7 @@ public class StateRenderer
 
         var text = _localizationManager.GetData(key, replacements)
             .Compile()
-            .BuildAnimatedAction(_font.GetChatFont(), () => callback.Call(), animated: _renderMode == RenderMode.Typewriter);
+            .BuildAnimatedAction(_font.GetChatFont(), () => callback.Call(), _renderMode == RenderMode.Typewriter);
         _components.Enqueue(text);
     }
 
@@ -94,7 +92,7 @@ public class StateRenderer
             case "static": return RenderMode.Static;
             case "typewriter": return RenderMode.Typewriter;
         }
-        
+
         return RenderMode.Static;
     }
 }
@@ -102,5 +100,5 @@ public class StateRenderer
 public enum RenderMode
 {
     Static,
-    Typewriter,
+    Typewriter
 }

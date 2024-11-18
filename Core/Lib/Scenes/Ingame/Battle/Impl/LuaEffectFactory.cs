@@ -4,16 +4,17 @@ using NLua;
 
 namespace Core.Scenes.Ingame.Battle.Impl;
 
-public class LuaEffectFactory: IEffectFactory
+public class LuaEffectFactory : IEffectFactory
 {
     private readonly LuaFunction _effectCreateFunction;
-    public string EffectId { get; }
 
     public LuaEffectFactory(string effectId, LuaFunction effectCreateFunction)
     {
         _effectCreateFunction = effectCreateFunction;
         EffectId = effectId;
     }
+
+    public string EffectId { get; }
 
     public IStatusEffect Produce(IBattleParticipant target, PropsArray props)
     {

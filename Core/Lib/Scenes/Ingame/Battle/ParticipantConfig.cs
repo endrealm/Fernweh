@@ -2,7 +2,8 @@
 
 namespace Core.Scenes.Ingame.Battle;
 
-public readonly record struct ParticipantConfig(string Id,
+public readonly record struct ParticipantConfig(
+    string Id,
     Stats Stats,
     List<AbilityConfig> Abilities,
     int Health = -1,

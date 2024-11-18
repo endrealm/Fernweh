@@ -4,11 +4,11 @@ using NLua.Exceptions;
 
 namespace Core.Scenes.Modding;
 
-public class LuaModException: Exception
+public class LuaModException : Exception
 {
     private readonly ScriptContext _context;
-    private readonly int _line;
     private readonly LuaException _exception;
+    private readonly int _line;
 
     public LuaModException(ScriptContext context, int line, LuaException exception)
     {
@@ -19,6 +19,7 @@ public class LuaModException: Exception
 
     public override string Message => $"File {_context.GetName().Pretty()}.lua#{_line} -> " + _exception.Message;
     public override string StackTrace => _exception.StackTrace;
+
     public override Exception GetBaseException()
     {
         return _exception;

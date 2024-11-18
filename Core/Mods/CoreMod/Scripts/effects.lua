@@ -1,39 +1,39 @@
 ﻿CreateStatusEffect("test")
-    :Instantiate(
+        :Instantiate(
         function(effectBuilder, target, props)
-            
+
             --local scoped variable here
-            
+
             return effectBuilder
-                :OnReceiveDamage(
+                    :OnReceiveDamage(
                     function(event)
 
                     end
-                ):OnDealDamage(
+            )       :OnDealDamage(
                     function(event)
 
                     end
-                ):OnTargetWithSpell(
+            )       :OnTargetWithSpell(
                     function(event)
 
                     end
-                ):OnTargetedBySpell(
+            )       :OnTargetedBySpell(
                     function(event)
 
                     end
-                ):OnCalculateStats(
+            )       :OnCalculateStats(
                     function(stats)
-                        
+
                     end
-                ):OnNextTurn(
+            )       :OnNextTurn(
                     function()
                         return false;
                     end
-                ):OnTryCleanse(
+            )       :OnTryCleanse(
                     function()
                         return false;
                     end
-                )
+            )
         end
-    )
-    :Build();
+)
+        :Build();

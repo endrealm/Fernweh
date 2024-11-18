@@ -4,9 +4,8 @@ namespace Core.Saving;
 
 public interface IGameSave
 {
-    void Save();
-    void Load();
-    
     public Dictionary<string, object> Data { get; set; }
     string Name { get; }
+    void Save();
+    void Load();
 }

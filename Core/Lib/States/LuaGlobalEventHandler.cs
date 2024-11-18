@@ -5,46 +5,14 @@ using NLua;
 
 namespace Core.States;
 
-public class LuaGlobalEventHandler: IGlobalEventHandler
+public class LuaGlobalEventHandler : IGlobalEventHandler
 {
-    private readonly List<LuaFunction> _preStateChangeEventListeners = new();
-    private readonly List<LuaFunction> _preStateRenderEventListeners = new();
-    private readonly List<LuaFunction> _postStateRenderEventListeners = new();
-    private readonly List<LuaFunction> _prePlayerMoveEventListeners = new();
     private readonly List<LuaFunction> _battleSpriteLoadListeners = new();
     private readonly List<LuaFunction> _postBattleListeners = new();
-
-    public LuaGlobalEventHandler AddOnPrePlayerMove(LuaFunction listener)
-    {
-        _prePlayerMoveEventListeners.Add(listener);
-        return this;
-    }
-    public LuaGlobalEventHandler AddOnPreStateChange(LuaFunction listener)
-    {
-        _preStateChangeEventListeners.Add(listener);
-        return this;
-    }
-    
-    public LuaGlobalEventHandler AddOnPreStateRender(LuaFunction listener)
-    {
-        _preStateRenderEventListeners.Add(listener);
-        return this;
-    }
-    public LuaGlobalEventHandler AddOnPostStateRender(LuaFunction listener)
-    {
-        _postStateRenderEventListeners.Add(listener);
-        return this;
-    }
-    public LuaGlobalEventHandler AddOnBattleSpriteLoad(LuaFunction listener)
-    {
-        _battleSpriteLoadListeners.Add(listener);
-        return this;
-    }
-    public LuaGlobalEventHandler AddOnPostBattle(LuaFunction listener)
-    {
-        _postBattleListeners.Add(listener);
-        return this;
-    }
+    private readonly List<LuaFunction> _postStateRenderEventListeners = new();
+    private readonly List<LuaFunction> _prePlayerMoveEventListeners = new();
+    private readonly List<LuaFunction> _preStateChangeEventListeners = new();
+    private readonly List<LuaFunction> _preStateRenderEventListeners = new();
 
     public void EmitPreStateChangeEvent()
     {
@@ -74,5 +42,41 @@ public class LuaGlobalEventHandler: IGlobalEventHandler
     public void EmitPrePlayerMoveEvent()
     {
         _prePlayerMoveEventListeners.ForEach(fun => fun.Call());
+    }
+
+    public LuaGlobalEventHandler AddOnPrePlayerMove(LuaFunction listener)
+    {
+        _prePlayerMoveEventListeners.Add(listener);
+        return this;
+    }
+
+    public LuaGlobalEventHandler AddOnPreStateChange(LuaFunction listener)
+    {
+        _preStateChangeEventListeners.Add(listener);
+        return this;
+    }
+
+    public LuaGlobalEventHandler AddOnPreStateRender(LuaFunction listener)
+    {
+        _preStateRenderEventListeners.Add(listener);
+        return this;
+    }
+
+    public LuaGlobalEventHandler AddOnPostStateRender(LuaFunction listener)
+    {
+        _postStateRenderEventListeners.Add(listener);
+        return this;
+    }
+
+    public LuaGlobalEventHandler AddOnBattleSpriteLoad(LuaFunction listener)
+    {
+        _battleSpriteLoadListeners.Add(listener);
+        return this;
+    }
+
+    public LuaGlobalEventHandler AddOnPostBattle(LuaFunction listener)
+    {
+        _postBattleListeners.Add(listener);
+        return this;
     }
 }

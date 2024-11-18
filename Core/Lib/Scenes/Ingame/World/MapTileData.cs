@@ -1,12 +1,13 @@
-﻿namespace Core.Scenes.Ingame.World
+﻿using System;
+
+namespace Core.Scenes.Ingame.World;
+
+[Serializable]
+public class MapTileData
 {
-    [System.Serializable]
-    public class MapTileData
-    {
-        public string name;
-        public string firstEnterState;
-        public string enterState;
-        public string leaveState;
-        public string lastLeaveState;
-    }
+    public string enterState;
+    public string firstEnterState;
+    public string lastLeaveState;
+    public string leaveState;
+    public string name;
 }

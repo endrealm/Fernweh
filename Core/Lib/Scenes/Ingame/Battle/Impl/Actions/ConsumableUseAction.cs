@@ -1,25 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using PipelineExtensionLibrary.Tokenizer.Chat;
 
 namespace Core.Scenes.Ingame.Battle.Impl.Actions;
 
-public class ConsumableUseAction: IBattleAction
+public class ConsumableUseAction : IBattleAction
 {
-    public IBattleParticipant Participant { get; }
-
     private readonly IConsumable _consumable;
-    private readonly List<IBattleParticipant> _targets;
     private readonly Action _onUse;
+    private readonly List<IBattleParticipant> _targets;
 
-    public ConsumableUseAction(IBattleParticipant participant, IConsumable consumable, List<IBattleParticipant> targets, Action onUse)
+    public ConsumableUseAction(IBattleParticipant participant, IConsumable consumable, List<IBattleParticipant> targets,
+        Action onUse)
     {
         Participant = participant;
         _consumable = consumable;
         _targets = targets;
         _onUse = onUse;
     }
+
+    public IBattleParticipant Participant { get; }
 
     public async Task DoAction(ActionContext context)
     {

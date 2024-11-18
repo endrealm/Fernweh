@@ -2,13 +2,6 @@
 
 public class FileReader : IFileReader
 {
-    
-
-    public FileReader()
-    {
-       
-    }
-    
     public string ReadFile(string file)
     {
         return System.IO.File.ReadAllText(file);

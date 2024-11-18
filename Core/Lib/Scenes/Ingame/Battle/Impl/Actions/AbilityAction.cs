@@ -1,7 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Core.Scenes.Ingame.Chat;
 using PipelineExtensionLibrary.Tokenizer.Chat;
 
 namespace Core.Scenes.Ingame.Battle.Impl.Actions;
@@ -23,23 +21,18 @@ public class AbilityAction : IBattleAction
     public async Task DoAction(ActionContext context)
     {
         // Filter for dead targets if the spell does not allow this
-        if (!_ability.AllowDeadTargets)
-        {
-            _targets.RemoveAll(target => target.State == ParticipantState.Dead);
-        }
+        if (!_ability.AllowDeadTargets) _targets.RemoveAll(target => target.State == ParticipantState.Dead);
         // Filter for living if only dead are allowed
-        if (!_ability.AllowLivingTargets)
-        {
-            _targets.RemoveAll(target => target.State == ParticipantState.Alive);
-        }
+        if (!_ability.AllowLivingTargets) _targets.RemoveAll(target => target.State == ParticipantState.Alive);
 
         if (Participant.Mana < _ability.ManaCost)
         {
-            context.QueueAction(new LogTextAction("ability.noMana", new TextReplacement("name", Participant.DisplayName)));
+            context.QueueAction(new LogTextAction("ability.noMana",
+                new TextReplacement("name", Participant.DisplayName)));
             context.QueueAction(new AwaitNextAction());
             return;
         }
-        
+
         var spellEvent = new SpellTargetEvent(_targets, Participant, false, new SpellData(_ability.ManaCost));
         Participant.OnTargetWithSpell(spellEvent);
         _targets.ForEach(target => target.OnTargetedBySpell(spellEvent));
@@ -49,7 +42,7 @@ public class AbilityAction : IBattleAction
                 new TextReplacement("caster", Participant.DisplayName)
             )
         );
-        
+
         if (spellEvent.Targets.Count == 0)
         {
             context.QueueAction(new LogTextAction("ability.noTargets"));

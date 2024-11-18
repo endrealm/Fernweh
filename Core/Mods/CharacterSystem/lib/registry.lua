@@ -22,12 +22,12 @@ end
 -- Defaults
 -- ============================
 RegisterCharacterType("default", function(id, data)
-    local characterInstance = Character:new({id=id})
+    local characterInstance = Character:new({ id = id })
 
-    if(data ~= nil) then
+    if (data ~= nil) then
         characterInstance:Deserialize(data)
     end
-    
+
     return characterInstance
 end)
 -- ============================

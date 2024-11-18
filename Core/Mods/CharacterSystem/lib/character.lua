@@ -11,20 +11,20 @@ local GetItem = inventory:GetFunc("GetItem")
 Character = {}
 
 function Character:new(o)
-    if(o == nil) then
+    if (o == nil) then
         error("nil properties passed to item constructor")
     end
-    
-    if(o.id == nil) then
+
+    if (o.id == nil) then
         error("Property id not set")
     end
-    
+
     o.type = o.type or "default"
     o.items = o.items or {}
     o.equip = o.equip or {}
     o.stats = o.stats or {}
     o.current = o.current or {}
-    
+
     -- Init base stats
     o.stats.level = o.stats.level or 1
     o.stats.health = o.stats.health or 10
@@ -40,7 +40,7 @@ function Character:new(o)
 
     o.current.health = o.stats.health
     o.current.mana = o.stats.mana
-    
+
     setmetatable(o, self)
     self.__index = self
     return o
@@ -54,7 +54,7 @@ function Character:SetCurrentMana(mana)
 end
 
 function Character:GetExperienceForLevelUp()
-    return math.floor(0.04 * (self.stats.level + 5)^2 + 20)
+    return math.floor(0.04 * (self.stats.level + 5) ^ 2 + 20)
 end
 
 function Character:GetItemStats()
@@ -66,7 +66,7 @@ function Character:GetItemStats()
             stats[statKey] = (stats[statKey] or 0) + statValue;
         end
     end
-    
+
     return stats
 end
 
@@ -84,9 +84,8 @@ function Character:Serialize()
 end
 
 function Character:DisplayName()
-    return GetTranslation("character."..self.id..".name")
+    return GetTranslation("character." .. self.id .. ".name")
 end
-
 
 function Character:Deserialize(data)
     self.items = data.items;
@@ -102,7 +101,7 @@ end
 function Character:AddItem(item, amount)
     local id;
 
-    if(type(item) == "string") then
+    if (type(item) == "string") then
         id = item
     else
         id = item.id
@@ -130,7 +129,7 @@ end
 function Character:EquipItem(item, slot)
     local id;
 
-    if(type(item) == "string") then
+    if (type(item) == "string") then
         id = item
     else
         id = item.id
@@ -143,7 +142,7 @@ function Character:GetEquip()
     local items = {}
 
     for key, value in pairs(self.equip) do
-        if(value ~= nil) then
+        if (value ~= nil) then
             table.insert(items, GetItem(value))
         end
     end
@@ -179,34 +178,34 @@ function Character:GenerateParticipant(createBuilder, abilityBuilder)
             :Charisma(self.stats.charisma);
 
     -- Check if we have a different current health value
-    if(self.current.health ~= nil) then
+    if (self.current.health ~= nil) then
         builder:CurrentHealth(self.current.health)
     end
     -- Check if we have a different current mana value
-    if(self.current.mana ~= nil) then
+    if (self.current.mana ~= nil) then
         builder:CurrentMana(self.current.mana)
     end
 
     -- Load abilities from held items
     for _, value in ipairs(self:GetItems()) do
         local abilities = value.item:ParseAbility(abilityBuilder)
-        if(abilities ~= nil) then
+        if (abilities ~= nil) then
             for _, ability in ipairs(abilities) do
                 builder:AddAbility(ability)
             end
         end
     end
-    
+
     -- Load abilities from equipped items
     for _, value in ipairs(self:GetEquip()) do
         local abilities = value:ParseAbility(abilityBuilder)
-        if(abilities ~= nil) then
+        if (abilities ~= nil) then
             for _, ability in ipairs(abilities) do
                 builder:AddAbility(ability)
             end
         end
     end
-    
+
     return builder
             :Build();
 end

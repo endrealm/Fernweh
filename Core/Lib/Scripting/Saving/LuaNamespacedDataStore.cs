@@ -1,22 +1,85 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Saving;
 using NLua;
-using System.Linq;
 
 namespace Core.Scripting.Saving;
 
 public class LuaNamespacedDataStore : NamespacedDataStore, IDataEncoder
 {
-    private readonly Lua _lua;
     private readonly IGameSave _gameSave;
-    private List<VariableWrapper> _persistentVariables = new();
+    private readonly Lua _lua;
+    private readonly List<VariableWrapper> _persistentVariables = new();
 
-    public LuaNamespacedDataStore(NamespacedKey key, Lua lua, IGameSave gameSave): base(key)
+    public LuaNamespacedDataStore(NamespacedKey key, Lua lua, IGameSave gameSave) : base(key)
     {
         _lua = lua;
         _gameSave = gameSave;
+    }
+
+    public object DecodeData(object rawData)
+    {
+        if (rawData is List<object> list)
+        {
+            var listTable = ProduceEmptyTable();
+
+            for (var i = 0; i < list.Count; i++) listTable[i + 1] = DecodeData(list[i]);
+
+            return listTable;
+        }
+
+        if (rawData is not Dictionary<string, object> dict) return rawData;
+
+        var root = ProduceEmptyTable();
+
+        foreach (var keyValuePair in dict) root[keyValuePair.Key] = DecodeData(keyValuePair.Value);
+
+        return root;
+    }
+
+    public object EncodeData(object rawData)
+    {
+        if (rawData is LuaTable table)
+        {
+            var isArray = table.Keys.Count > 0;
+            foreach (var tableKey in table.Keys)
+                if (tableKey is not int && tableKey is not long &&
+                    !(tableKey as string ?? string.Empty).All(char.IsDigit))
+                    isArray = false;
+
+            if (isArray)
+            {
+                var list = new List<object>();
+                var lastIndex = 0l;
+                foreach (KeyValuePair<object, object> entry in table)
+                {
+                    var index = entry.Key is int or long
+                        ? (long) entry.Key
+                        : int.Parse(entry.Key as string ?? string.Empty);
+
+                    // Fill nulls when lua is missing spaces
+                    for (var i = lastIndex + 1; i < index; i++) list.Add(null);
+
+                    lastIndex = index;
+                    list.Add(EncodeData(entry.Value));
+                }
+
+                return list;
+            }
+
+            var dict = new Dictionary<string, object>();
+
+            foreach (KeyValuePair<object, object> entry in table)
+                dict.Add(entry.Key.ToString(), EncodeData(entry.Value));
+
+            return dict;
+        }
+
+        if (rawData == null || IsPrimitive(rawData.GetType())) return rawData;
+
+
+        throw new Exception("Unsupported data type " + rawData.GetType());
     }
 
     public override VariableWrapper CreateStoredVar(string key, object defaultValue = null)
@@ -34,7 +97,6 @@ public class LuaNamespacedDataStore : NamespacedDataStore, IDataEncoder
 
     public override void Save()
     {
-        
         // Save persistent variables
         _persistentVariables.ForEach(wrapper =>
         {
@@ -46,19 +108,22 @@ public class LuaNamespacedDataStore : NamespacedDataStore, IDataEncoder
                 _gameSave.Data[key] = data;
                 return;
             }
+
             _gameSave.Data.Add(key, data);
         });
-        
+
         // Save function data
-        if(_saveFunction != null) {
+        if (_saveFunction != null)
+        {
             var saveData = _saveFunction.Save(this);
-        
+
             var key = BuildKey("BASE", "FUNC");
             if (_gameSave.Data.ContainsKey(key))
             {
                 _gameSave.Data[key] = saveData;
                 return;
             }
+
             _gameSave.Data.Add(key, saveData);
         }
     }
@@ -77,92 +142,11 @@ public class LuaNamespacedDataStore : NamespacedDataStore, IDataEncoder
     private LuaTable ProduceEmptyTable()
     {
         _lua.NewTable("tmp");
-        return  _lua.GetTable("tmp");
-    }
-    
-    public object DecodeData(object rawData)
-    {
-        if (rawData is List<object> list)
-        {
-            var listTable = ProduceEmptyTable();
-
-            for (var i = 0; i < list.Count; i++)
-            {
-                listTable[i + 1] = DecodeData(list[i]);
-            }
-            
-            return listTable;
-        }
-        
-        if (rawData is not Dictionary<string, object> dict)
-        {
-            return rawData;
-        }
-
-        var root = ProduceEmptyTable();
-
-        foreach (var keyValuePair in dict)
-        {
-            root[keyValuePair.Key] = DecodeData(keyValuePair.Value);
-        }
-        
-        return root;
-    }
-    public object EncodeData(object rawData)
-    {
-        if (rawData is LuaTable table)
-        {
-            var isArray = table.Keys.Count > 0;
-            foreach (var tableKey in table.Keys)
-            {
-                if ((tableKey is not int &&  tableKey is not long) && !(tableKey as string ?? string.Empty).All(char.IsDigit))
-                {
-                    isArray = false;
-                }
-            }
-
-            if (isArray)
-            {
-                var list = new List<object>();
-                var lastIndex = 0l;
-                foreach (KeyValuePair<object, object> entry in table)
-                {
-                    var index = entry.Key is int or long ? (long) entry.Key : int.Parse(entry.Key as string ?? string.Empty);
-
-                    // Fill nulls when lua is missing spaces
-                    for (var i = lastIndex + 1; i < index; i++)
-                    {
-                        list.Add(null);
-                    }
-
-                    lastIndex = index;
-                    list.Add(EncodeData(entry.Value));
-                }
-
-                return list;
-            }
-
-            var dict = new Dictionary<string, object>();
-
-            foreach (KeyValuePair<object, object> entry in table)
-            {
-                dict.Add(entry.Key.ToString(), EncodeData(entry.Value));
-            }
-
-            return dict;
-        }
-
-        if (rawData == null || IsPrimitive(rawData.GetType()))
-        {
-            return rawData;
-        }
-
-
-        throw new Exception("Unsupported data type " + rawData.GetType());
+        return _lua.GetTable("tmp");
     }
 
     private static bool IsPrimitive(Type t)
     {
-        return t.IsPrimitive || t == typeof(Decimal) || t == typeof(String);
+        return t.IsPrimitive || t == typeof(decimal) || t == typeof(string);
     }
 }

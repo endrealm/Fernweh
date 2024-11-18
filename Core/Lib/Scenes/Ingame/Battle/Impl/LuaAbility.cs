@@ -7,25 +7,16 @@ namespace Core.Scenes.Ingame.Battle.Impl;
 
 public class LuaAbility : IAbility
 {
-    private readonly LuaFunction _onReceiveDamage;
-    private readonly LuaFunction _onDealDamage;
-    private readonly LuaFunction _onTargetWithSpell;
-    private readonly LuaFunction _onTargetedBySpell;
+    private readonly LuaFunction _canUse;
     private readonly LuaFunction _onCalculateStats;
     private readonly LuaFunction _onCalculateWeight;
+    private readonly LuaFunction _onDealDamage;
     private readonly LuaFunction _onNextTurn;
-    private readonly LuaFunction _onUse;
-    private readonly LuaFunction _canUse;
+    private readonly LuaFunction _onReceiveDamage;
+    private readonly LuaFunction _onTargetedBySpell;
+    private readonly LuaFunction _onTargetWithSpell;
     private readonly LuaFunction _onTurnEnd;
-
-    public string CategoryId { get; }
-    public AbilityTargetType TargetType { get; }
-    public string Id { get; }
-    public int ManaCost { get; }
-    public bool AllowDeadTargets { get; }
-    public bool AllowLivingTargets { get; }
-    public bool HideBlocked { get; }
-    public bool Hidden { get; }
+    private readonly LuaFunction _onUse;
 
     public LuaAbility(
         LuaFunction onReceiveDamage,
@@ -41,12 +32,13 @@ public class LuaAbility : IAbility
         string category,
         string id,
         int manaCost,
-        AbilityTargetType targetType, 
-        bool allowDeadTargets, 
+        AbilityTargetType targetType,
+        bool allowDeadTargets,
         bool allowLivingTargets,
         bool hideBlocked,
         bool hidden
-    ) {
+    )
+    {
         _onReceiveDamage = onReceiveDamage;
         _onDealDamage = onDealDamage;
         _onTargetWithSpell = onTargetWithSpell;
@@ -67,11 +59,20 @@ public class LuaAbility : IAbility
         Hidden = hidden;
     }
 
+    public string CategoryId { get; }
+    public AbilityTargetType TargetType { get; }
+    public string Id { get; }
+    public int ManaCost { get; }
+    public bool AllowDeadTargets { get; }
+    public bool AllowLivingTargets { get; }
+    public bool HideBlocked { get; }
+    public bool Hidden { get; }
+
     public void OnReceiveDamage(DamageReceiveEvent evt)
     {
         _onReceiveDamage?.Call(evt);
     }
-    
+
     public WeightConfig CalculateWeight(AbilityWeightContext context)
     {
         if (_onCalculateWeight == null) return new WeightConfig();
@@ -106,7 +107,7 @@ public class LuaAbility : IAbility
         if (_onNextTurn == null) return;
         var results = _onNextTurn.Call();
         if (results.Length == 0) return;
-        skip = (bool)results.First();
+        skip = (bool) results.First();
     }
 
     public void OnTurnEnd()
@@ -122,7 +123,7 @@ public class LuaAbility : IAbility
     public bool CanUse(AbilityUseCheckContext context)
     {
         var props = _canUse?.Call(context);
-        if (props is { Length: > 0 }) return (bool)props.First();
+        if (props is {Length: > 0}) return (bool) props.First();
 
         return true;
     }

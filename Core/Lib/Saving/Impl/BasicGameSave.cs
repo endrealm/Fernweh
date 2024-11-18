@@ -6,62 +6,47 @@ using Newtonsoft.Json.Linq;
 
 namespace Core.Saving.Impl;
 
-public class BasicGameSave: IGameSave
+public class BasicGameSave : IGameSave
 {
-    private readonly string _name;
     private readonly string _path;
-    private Dictionary<string, object> _data = new();
 
     public BasicGameSave(string name, string path)
     {
-        _name = name;
+        Name = name;
         _path = path;
     }
 
     public void Save()
     {
-        File.WriteAllText(_path, JsonConvert.SerializeObject(_data));
+        File.WriteAllText(_path, JsonConvert.SerializeObject(Data));
     }
 
     public void Load()
     {
         var data = File.ReadAllText(_path);
         var raw = JObject.Parse(data);
-        _data = new();
-        
-        foreach (var jToken in raw)
-        {
-            _data.Add(jToken.Key, ParseData(jToken.Value));
-        }
+        Data = new Dictionary<string, object>();
+
+        foreach (var jToken in raw) Data.Add(jToken.Key, ParseData(jToken.Value));
     }
+
+    public Dictionary<string, object> Data { get; set; } = new();
+
+    public string Name { get; }
 
     private object ParseData(JToken jToken)
     {
-        if (jToken is JArray array)
-        {
-            return array.Select(ParseData).ToList();
-        }
-        
+        if (jToken is JArray array) return array.Select(ParseData).ToList();
+
         if (jToken is JObject obj)
         {
             var fullObject = new Dictionary<string, object>();
-            
-            foreach (var token in obj)
-            {
-                fullObject.Add(token.Key, ParseData(token.Value));
-            }
-            
+
+            foreach (var token in obj) fullObject.Add(token.Key, ParseData(token.Value));
+
             return fullObject;
         }
 
         return ((JValue) jToken).Value;
     }
-
-    public Dictionary<string, object> Data
-    {
-        get => _data;
-        set => _data = value;
-    }
-
-    public string Name => _name;
 }

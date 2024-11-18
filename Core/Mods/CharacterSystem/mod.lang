@@ -1,217 +1,217 @@
 ﻿{
-  "equip.header": {
-    "translations": {
-      "EN_US": "Who would you like to equip the item to?"
+    "equip.header": {
+        "translations": {
+            "EN_US": "Who would you like to equip the item to?"
+        }
+    },
+    "equip.character": {
+        "translations": {
+            "EN_US": " -> {name} ({item})"
+        }
+    },
+    "equip.close": {
+        "translations": {
+            "EN_US": "<- Cancel"
+        }
+    },
+    "equip.replace.header.replace": {
+        "translations": {
+            "EN_US": "Replace {item}?"
+        }
+    },
+    "equip.replace.header.noReplace": {
+        "translations": {
+            "EN_US": "Equip item?"
+        }
+    },
+    "equip.replace.yes": {
+        "translations": {
+            "EN_US": " -> Yes"
+        }
+    },
+    "equip.replace.no": {
+        "translations": {
+            "EN_US": " -> No"
+        }
+    },
+    "inventory.item.equip": {
+        "translations": {
+            "EN_US": " -> Equip to Party"
+        }
+    },
+    "inventory.item.choose_target": {
+        "translations": {
+            "EN_US": "Select Party Member:"
+        }
+    },
+    "party.close": {
+        "translations": {
+            "EN_US": "<- Close"
+        }
+    },
+    "party.back": {
+        "translations": {
+            "EN_US": "<- Back"
+        }
+    },
+    "party.header": {
+        "translations": {
+            "EN_US": "Party Members:"
+        }
+    },
+    "party.list.member": {
+        "translations": {
+            "EN_US": "-> {name}"
+        }
+    },
+    "party.detail.header": {
+        "translations": {
+            "EN_US": "{name}'s Details:"
+        }
+    },
+    "party.open": {
+        "translations": {
+            "EN_US": "<color=\"Orange\">View Party</color>"
+        }
+    },
+    "party.detail.stat.health_mana": {
+        "translations": {
+            "EN_US": "<color=\"Green\">HP:</color> {currentHP}/{HP}<color=\"Pink\">+{bonusHP}</color> <color=\"LightBlue\">MP:</color> {currentMP}/{MP}<color=\"Pink\">+{bonusMP}</color>"
+        }
+    },
+    "party.detail.stat.health_mana.basic": {
+        "translations": {
+            "EN_US": "<color=\"Green\">HP:</color> {currentHP}/{HP} <color=\"LightBlue\">MP:</color> {currentMP}/{MP}"
+        }
+    },
+    "party.detail.stat.armor": {
+        "translations": {
+            "EN_US": "<color=\"Orange\">Armor:</color> {value} <color=\"Pink\">+{bonus}</color>"
+        }
+    },
+    "party.detail.stat.experience": {
+        "translations": {
+            "EN_US": "<color=\"Orange\">Lvl:</color> {level} <color=\"Orange\">Exp:</color> {exp}/{levelExp}"
+        }
+    },
+    "party.detail.stat.charisma": {
+        "translations": {
+            "EN_US": "<color=\"Orange\">Charisma:</color> {value} <color=\"Pink\">+{bonus}</color>"
+        }
+    },
+    "party.detail.stat.dexterity": {
+        "translations": {
+            "EN_US": "<color=\"Orange\">Dexterity:</color> {value} <color=\"Pink\">+{bonus}</color>"
+        }
+    },
+    "party.detail.stat.constitution": {
+        "translations": {
+            "EN_US": "<color=\"Orange\">Constitution:</color> {value} <color=\"Pink\">+{bonus}</color>"
+        }
+    },
+    "party.detail.stat.intellect": {
+        "translations": {
+            "EN_US": "<color=\"Orange\">Intellect:</color> {value} <color=\"Pink\">+{bonus}</color>"
+        }
+    },
+    "party.detail.stat.strength": {
+        "translations": {
+            "EN_US": "<color=\"Orange\">Strength:</color> {value} <color=\"Pink\">+{bonus}</color>"
+        }
+    },
+    "party.detail.stat.wisdom": {
+        "translations": {
+            "EN_US": "<color=\"Orange\">Wisdom:</color> {value} <color=\"Pink\">+{bonus}</color>"
+        }
+    },
+    "slot.weapon.name": {
+        "translations": {
+            "EN_US": "Weapon"
+        }
+    },
+    "slot.head.name": {
+        "translations": {
+            "EN_US": "Head"
+        }
+    },
+    "slot.body.name": {
+        "translations": {
+            "EN_US": "Body"
+        }
+    },
+    "slot.feet.name": {
+        "translations": {
+            "EN_US": "Feet"
+        }
+    },
+    "slot.accessory.name": {
+        "translations": {
+            "EN_US": "Accessory"
+        }
+    },
+    "party.detail.slot": {
+        "translations": {
+            "EN_US": "-> {slot} ({item})"
+        }
+    },
+    "party.detail.slot.header": {
+        "translations": {
+            "EN_US": "{slot} Slot:"
+        }
+    },
+    "party.detail.slot.current": {
+        "translations": {
+            "EN_US": "Currently: {item}"
+        }
+    },
+    "party.details.unequip": {
+        "translations": {
+            "EN_US": "-> Unequip Item"
+        }
+    },
+    "battle.details.exp": {
+        "translations": {
+            "EN_US": "<color=\"LightBlue\">Exp:</color>  {reward}"
+        }
+    },
+    "battle.details.gold": {
+        "translations": {
+            "EN_US": "<color=\"Yellow\">Gold:</color> {reward}"
+        }
+    },
+    "battle.details.loot": {
+        "translations": {
+            "EN_US": "<color=\"Orange\">Loot:</color>"
+        }
+    },
+    "battle.details.loot.item": {
+        "translations": {
+            "EN_US": "- {reward}"
+        }
+    },
+    "battle.details.player.level": {
+        "translations": {
+            "EN_US": "<color=\"Orange\">{name}</color> lvl. <color=\"LightGreen\">{level}</color>"
+        }
+    },
+    "battle.details.player.levelup": {
+        "translations": {
+            "EN_US": "<color=\"Orange\">{name}</color> lvl. {old_level} > <color=\"LightGreen\">{level}</color>"
+        }
+    },
+    "battle.details.player.experience": {
+        "translations": {
+            "EN_US": "{current} / {max} exp"
+        }
+    },
+    "battle.win": {
+        "translations": {
+            "EN_US": "You bask in glory, and evaluate your gains!"
+        }
+    },
+    "battle.lose": {
+        "translations": {
+            "EN_US": "Laying on the ground weak, you realize this is your last battle..."
+        }
     }
-  },
-  "equip.character": {
-    "translations": {
-      "EN_US": " -> {name} ({item})"
-    }
-  },
-  "equip.close": {
-    "translations": {
-      "EN_US": "<- Cancel"
-    }
-  },
-  "equip.replace.header.replace": {
-    "translations": {
-      "EN_US": "Replace {item}?"
-    }
-  },
-  "equip.replace.header.noReplace": {
-    "translations": {
-      "EN_US": "Equip item?"
-    }
-  },
-  "equip.replace.yes": {
-    "translations": {
-      "EN_US": " -> Yes"
-    }
-  },
-  "equip.replace.no": {
-    "translations": {
-      "EN_US": " -> No"
-    }
-  },
-  "inventory.item.equip": {
-    "translations": {
-      "EN_US": " -> Equip to Party"
-    }
-  },
-  "inventory.item.choose_target": {
-    "translations": {
-      "EN_US": "Select Party Member:"
-    }
-  },
-  "party.close": {
-    "translations": {
-      "EN_US": "<- Close"
-    }
-  },
-  "party.back": {
-    "translations": {
-      "EN_US": "<- Back"
-    }
-  },
-  "party.header": {
-    "translations": {
-      "EN_US": "Party Members:"
-    }
-  },
-  "party.list.member": {
-    "translations": {
-      "EN_US": "-> {name}"
-    }
-  },
-  "party.detail.header": {
-    "translations": {
-      "EN_US": "{name}'s Details:"
-    }
-  },
-  "party.open": {
-    "translations": {
-      "EN_US": "<color=\"Orange\">View Party</color>"
-    }
-  },
-  "party.detail.stat.health_mana": {
-    "translations": {
-      "EN_US": "<color=\"Green\">HP:</color> {currentHP}/{HP}<color=\"Pink\">+{bonusHP}</color> <color=\"LightBlue\">MP:</color> {currentMP}/{MP}<color=\"Pink\">+{bonusMP}</color>"
-    }
-  },
-  "party.detail.stat.health_mana.basic": {
-    "translations": {
-      "EN_US": "<color=\"Green\">HP:</color> {currentHP}/{HP} <color=\"LightBlue\">MP:</color> {currentMP}/{MP}"
-    }
-  },
-  "party.detail.stat.armor": {
-    "translations": {
-      "EN_US": "<color=\"Orange\">Armor:</color> {value} <color=\"Pink\">+{bonus}</color>"
-    }
-  },
-  "party.detail.stat.experience": {
-    "translations": {
-      "EN_US": "<color=\"Orange\">Lvl:</color> {level} <color=\"Orange\">Exp:</color> {exp}/{levelExp}"
-    }
-  },
-  "party.detail.stat.charisma": {
-    "translations": {
-      "EN_US": "<color=\"Orange\">Charisma:</color> {value} <color=\"Pink\">+{bonus}</color>"
-    }
-  },
-  "party.detail.stat.dexterity": {
-    "translations": {
-      "EN_US": "<color=\"Orange\">Dexterity:</color> {value} <color=\"Pink\">+{bonus}</color>"
-    }
-  },
-  "party.detail.stat.constitution": {
-    "translations": {
-      "EN_US": "<color=\"Orange\">Constitution:</color> {value} <color=\"Pink\">+{bonus}</color>"
-    }
-  },
-  "party.detail.stat.intellect": {
-    "translations": {
-      "EN_US": "<color=\"Orange\">Intellect:</color> {value} <color=\"Pink\">+{bonus}</color>"
-    }
-  },
-  "party.detail.stat.strength": {
-    "translations": {
-      "EN_US": "<color=\"Orange\">Strength:</color> {value} <color=\"Pink\">+{bonus}</color>"
-    }
-  },
-  "party.detail.stat.wisdom": {
-    "translations": {
-      "EN_US": "<color=\"Orange\">Wisdom:</color> {value} <color=\"Pink\">+{bonus}</color>"
-    }
-  },
-  "slot.weapon.name": {
-    "translations": {
-      "EN_US": "Weapon"
-    }
-  },
-  "slot.head.name": {
-    "translations": {
-      "EN_US": "Head"
-    }
-  },
-  "slot.body.name": {
-    "translations": {
-      "EN_US": "Body"
-    }
-  },
-  "slot.feet.name": {
-    "translations": {
-      "EN_US": "Feet"
-    }
-  },
-  "slot.accessory.name": {
-    "translations": {
-      "EN_US": "Accessory"
-    }
-  },
-  "party.detail.slot": {
-    "translations": {
-      "EN_US": "-> {slot} ({item})"
-    }
-  },
-  "party.detail.slot.header": {
-    "translations": {
-      "EN_US": "{slot} Slot:"
-    }
-  },
-  "party.detail.slot.current": {
-    "translations": {
-      "EN_US": "Currently: {item}"
-    }
-  },
-  "party.details.unequip": {
-    "translations": {
-      "EN_US": "-> Unequip Item"
-    }
-  },
-  "battle.details.exp": {
-    "translations": {
-      "EN_US": "<color=\"LightBlue\">Exp:</color>  {reward}"
-    }
-  },
-  "battle.details.gold": {
-    "translations": {
-      "EN_US": "<color=\"Yellow\">Gold:</color> {reward}"
-    }
-  },
-  "battle.details.loot": {
-    "translations": {
-      "EN_US": "<color=\"Orange\">Loot:</color>"
-    }
-  },
-  "battle.details.loot.item": {
-    "translations": {
-      "EN_US": "- {reward}"
-    }
-  },
-  "battle.details.player.level": {
-    "translations": {
-      "EN_US": "<color=\"Orange\">{name}</color> lvl. <color=\"LightGreen\">{level}</color>"
-    }
-  },
-  "battle.details.player.levelup": {
-    "translations": {
-      "EN_US": "<color=\"Orange\">{name}</color> lvl. {old_level} > <color=\"LightGreen\">{level}</color>"
-    }
-  },
-  "battle.details.player.experience": {
-    "translations": {
-      "EN_US": "{current} / {max} exp"
-    }
-  },
-  "battle.win": {
-    "translations": {
-      "EN_US": "You bask in glory, and evaluate your gains!"
-    }
-  },
-  "battle.lose": {
-    "translations": {
-      "EN_US": "Laying on the ground weak, you realize this is your last battle..."
-    }
-  }
 }

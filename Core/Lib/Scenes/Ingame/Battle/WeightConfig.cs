@@ -22,7 +22,7 @@ public struct WeightConfig
             Heal = (int) value["heal"],
             Revive = (int) value["revive"],
             Buff = (int) value["buff"],
-            Debuff = (int) value["debuff"],
+            Debuff = (int) value["debuff"]
         };
     }
 }

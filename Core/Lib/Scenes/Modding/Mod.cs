@@ -1,33 +1,33 @@
 ﻿using System.Collections.Generic;
 using Core.Content;
 using Core.Scripting;
-using Core.States;
 
 namespace Core.Scenes.Modding;
 
 public class Mod
 {
     private readonly ModIndex _index;
-    private readonly IArchiveLoader _loader;
     private Namespace _root;
     private List<ScriptResource> _scripts;
+
     public Mod(ModIndex index, IArchiveLoader loader)
     {
         _index = index;
-        _loader = loader;
+        Archive = loader;
     }
 
     public string Id => _index.Id;
     public bool IsLoaded => _root != null;
     public string[] Dependencies => _index.Dependencies;
-    public IArchiveLoader Archive => _loader;
+    public IArchiveLoader Archive { get; }
+
     public ModType Type => _index.type;
 
     public void Load()
     {
         _root = new Namespace(Id, null);
         _scripts = new List<ScriptResource>();
-        
+
         foreach (var path in _index.Scripts)
         {
             var current = _root;
@@ -35,9 +35,9 @@ public class Mod
 
             for (var i = 0; i < pieces.Length; i++)
             {
-                if (i == pieces.Length-1)
+                if (i == pieces.Length - 1)
                 {
-                    var script = new ScriptResource(current, path.Replace(".lua", ""), _loader);
+                    var script = new ScriptResource(current, path.Replace(".lua", ""), Archive);
                     current.AddResource(script);
                     _scripts.Add(script);
                     continue;
@@ -49,7 +49,7 @@ public class Mod
     }
 
     /// <summary>
-    /// Requires "Load" to be called first
+    ///     Requires "Load" to be called first
     /// </summary>
     /// <param name="scriptLoader"></param>
     public void Apply(ScriptLoader scriptLoader)

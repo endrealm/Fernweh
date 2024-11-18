@@ -1,23 +1,19 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 using System.Diagnostics;
-using Core.Scenes.Ingame.Battle;
-using Core.Scripting;
-using Core.States;
 using PipelineExtensionLibrary;
 
 var watch = new Stopwatch();
 var iterations = 1000;
 var parser = new TranslationTextParser();
 watch.Start();
-for (int i = 0; i < iterations; i++)
-{
-    parser.Parse("Some example <color=\"rgba(1,1,1,.4)\">text</color> here! <color=\"rgba(1,1,1,.4)\">text <color=\"rgba(1,1,1,.4)\">text</color> asd</color> asd <color=\"rgba(1,1,1,.4)\">text</color>");
-}
+for (var i = 0; i < iterations; i++)
+    parser.Parse(
+        "Some example <color=\"rgba(1,1,1,.4)\">text</color> here! <color=\"rgba(1,1,1,.4)\">text <color=\"rgba(1,1,1,.4)\">text</color> asd</color> asd <color=\"rgba(1,1,1,.4)\">text</color>");
 watch.Stop();
 
-Console.WriteLine("Took: " + (watch.ElapsedMilliseconds / 1000f));
-Console.WriteLine("Per: " + (watch.ElapsedMilliseconds / 1000f)/iterations);
+Console.WriteLine("Took: " + watch.ElapsedMilliseconds / 1000f);
+Console.WriteLine("Per: " + watch.ElapsedMilliseconds / 1000f / iterations);
 
 // var manager = new ScriptLoader(new StateRegistry(), new BattleRegistry());
 // 

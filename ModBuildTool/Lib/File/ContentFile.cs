@@ -1,13 +1,12 @@
 ﻿namespace ModBuildTool.Lib.File;
 
-
 public class ContentFile
 {
-    
-    private string _name;
-    private IFileData _data;
+    private readonly IFileData _data;
 
-    
+    private readonly string _name;
+
+
     public ContentFile(string name, IFileData data)
     {
         _name = name;
@@ -23,5 +22,4 @@ public class ContentFile
     {
         return _data;
     }
-
 }

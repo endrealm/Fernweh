@@ -2,7 +2,5 @@
 
 public interface IFileData
 {
-
-   string GetRaw();
-
+    string GetRaw();
 }

@@ -10,13 +10,12 @@ namespace ModBuildTool.Lib;
 
 public class BuildTool
 {
-
     private readonly string _directory;
-    
-    private readonly IFileReader _fileReader;
-    private readonly IFileTypeRegistry _typeRegistry;
 
-    private readonly List<ContentFile> _files = new List<ContentFile>();
+    private readonly IFileReader _fileReader;
+
+    private readonly List<ContentFile> _files = new();
+    private readonly IFileTypeRegistry _typeRegistry;
 
     public BuildTool(string directory)
     {
@@ -34,13 +33,13 @@ public class BuildTool
             try
             {
                 var instance = _typeRegistry.CreateInstanceByFileEnding(ending, _fileReader.ReadFile(filePath));
-                var file = new ContentFile( filePath.Remove(filePath.LastIndexOf('.')).Remove(0, _directory.Length), instance);
+                var file = new ContentFile(filePath.Remove(filePath.LastIndexOf('.')).Remove(0, _directory.Length),
+                    instance);
                 _files.Add(file);
             }
             catch
             {
                 Console.WriteLine("File " + filePath + " has unknown format");
-                continue;
             }
         }
     }
@@ -48,7 +47,6 @@ public class BuildTool
 
     public void Process()
     {
-        
     }
 
 
@@ -56,28 +54,25 @@ public class BuildTool
     {
         var disposables = new List<IDisposable>();
 
-        using (FileStream zipFile = System.IO.File.Open(_directory + "mod.fwm", FileMode.Create)) 
+        using (var zipFile = System.IO.File.Open(_directory + "mod.fwm", FileMode.Create))
         {
-            using (var archive = new Archive(new ArchiveEntrySettings())) 
+            using (var archive = new Archive(new ArchiveEntrySettings()))
             {
                 foreach (var contentFile in _files)
                 {
                     var source = StreamUtil.FromString(contentFile.GetFileData().GetRaw());
                     disposables.Add(source);
-                    
+
                     var fileEnding = _typeRegistry.GetFileEndingByType(contentFile.GetFileData().GetType());
                     Console.WriteLine(contentFile.GetName() + "." + fileEnding);
                     archive.CreateEntry(contentFile.GetName() + "." + fileEnding,
                         source);
                 }
-                
+
                 archive.Save(zipFile);
             }
         }
-        
-        foreach (var disposable in disposables)
-        {
-            disposable.Dispose();
-        }
+
+        foreach (var disposable in disposables) disposable.Dispose();
     }
 }

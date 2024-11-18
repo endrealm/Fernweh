@@ -2,24 +2,24 @@
 
 public class GameSettings
 {
-    public static GameSettings Instance { get; private set; }
-
     public delegate void SettingsChange();
-    public event SettingsChange OnVideoSettingsChanged;
+
+    public bool Fullscreen = false;
 
     public float Music = 0f;
     public float Sfx = 0f;
 
-    public bool Fullscreen = false;
+    public bool showFPS = true;
 
     public float TypingSpeed = 0.01f;
-
-    public bool showFPS = true;
 
     public GameSettings()
     {
         Instance = this;
     }
+
+    public static GameSettings Instance { get; private set; }
+    public event SettingsChange OnVideoSettingsChanged;
 
     public void UpdateVideoSettings()
     {

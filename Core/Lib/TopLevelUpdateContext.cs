@@ -6,9 +6,10 @@ using MonoGame.Extended;
 
 namespace Core;
 
-public class TopLevelUpdateContext: IUpdateContext
+public class TopLevelUpdateContext : IUpdateContext
 {
-    public TopLevelUpdateContext(IClickInput clickInput, OrthographicCamera camera, ModLoader modLoader, ISaveGameManager saveGameManager)
+    public TopLevelUpdateContext(IClickInput clickInput, OrthographicCamera camera, ModLoader modLoader,
+        ISaveGameManager saveGameManager)
     {
         ClickInput = clickInput;
         Camera = camera;

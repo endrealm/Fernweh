@@ -6,9 +6,8 @@ using NLua;
 
 namespace Core.Scenes.Ingame.Battle.Impl;
 
-public class LuaConsumableProvider: IConsumableProvider
+public class LuaConsumableProvider : IConsumableProvider
 {
-
     private readonly LuaFunction _collectorFunction;
 
     public LuaConsumableProvider(LuaFunction collectorFunction)
@@ -34,7 +33,7 @@ public class LuaConsumableProvider: IConsumableProvider
                 var abilityId = (string) raw["ability"];
                 var data = raw["abilityData"];
                 list.Add(new LuaConsumable(
-                    (int)(long)raw["amount"],
+                    (int) (long) raw["amount"],
                     ((WrappedTranslation) raw["name"]).Content,
                     registry.GetAbilityFactory(abilityId).Produce(new AbilityConfig(abilityId, data)),
                     (LuaFunction) raw["onUse"]
@@ -43,10 +42,9 @@ public class LuaConsumableProvider: IConsumableProvider
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                continue;
             }
         }
-        
+
         return list;
     }
 }

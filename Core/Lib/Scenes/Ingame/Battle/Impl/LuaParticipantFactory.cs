@@ -3,7 +3,7 @@ using NLua;
 
 namespace Core.Scenes.Ingame.Battle.Impl;
 
-public class LuaParticipantFactory: IParticipantFactory
+public class LuaParticipantFactory : IParticipantFactory
 {
     private readonly LuaFunction _producer;
 
@@ -14,6 +14,7 @@ public class LuaParticipantFactory: IParticipantFactory
     }
 
     public string Id { get; }
+
     public ParticipantConfig Produce()
     {
         return (ParticipantConfig) _producer.Call(new ParticipantConfigBuilder(Id), CreateAbilityConfigBuilder).First();

@@ -5,34 +5,30 @@ using Core.Scenes.Ingame.Localization;
 using Core.Scenes.Ingame.Views;
 using Microsoft.Xna.Framework;
 using Newtonsoft.Json;
-using PipelineExtensionLibrary;
 
 namespace Core.Scenes.Ingame.Modes.Battle;
 
 public class BattleMode : IMode
 {
+    private readonly BattleRegistry _battleRegistry;
 
     private readonly BattleChatView _chatView;
-    public Color Background { get; } = new(18, 14, 18);
-    public IChatView ChatView => _chatView;
-
-    public IGameView GameView => _gameView;
+    private readonly GameManager _gameManager;
+    private readonly BattleGameView _gameView;
 
     private readonly ISoundPlayer _soundPlayer;
-    private readonly GameManager _gameManager;
-    private readonly BattleRegistry _battleRegistry;
-    private readonly BattleGameView _gameView;
 
     private Dictionary<string, object> _snapshot = new();
 
     public BattleMode(
         GameManager gameManager,
-        ISpriteManager spriteManager, 
-        BattleRegistry battleRegistry, 
-        ILocalizationManager localizationManager, 
+        ISpriteManager spriteManager,
+        BattleRegistry battleRegistry,
+        ILocalizationManager localizationManager,
         IFontManager fontManager,
         ISoundPlayer soundPlayer
-    ) {
+    )
+    {
         _gameManager = gameManager;
         _battleRegistry = battleRegistry;
         _soundPlayer = soundPlayer;
@@ -40,6 +36,11 @@ public class BattleMode : IMode
         _chatView = new BattleChatView(localizationManager, fontManager);
         _gameView = new BattleGameView(spriteManager, fontManager, localizationManager);
     }
+
+    public Color Background { get; } = new(18, 14, 18);
+    public IChatView ChatView => _chatView;
+
+    public IGameView GameView => _gameView;
 
     public void Load(ModeParameters parameters)
     {
@@ -55,10 +56,10 @@ public class BattleMode : IMode
             {"victoryState", victoryState},
             {"looseState", looseState},
             {"config", JsonConvert.SerializeObject(config)},
-            {"background", background},
+            {"background", background}
         };
 
-        var battleManager = new BattleManager(ChatView, _battleRegistry, config, _chatView, 
+        var battleManager = new BattleManager(ChatView, _battleRegistry, config, _chatView,
             () => LoadOverwoldState(victoryState),
             () => LoadOverwoldState(looseState),
             _gameManager.EventHandler,
@@ -81,10 +82,7 @@ public class BattleMode : IMode
 
     public void Save(Dictionary<string, object> data)
     {
-        foreach (var pair in _snapshot)
-        {
-            data.Add(pair.Key, pair.Value);
-        }
+        foreach (var pair in _snapshot) data.Add(pair.Key, pair.Value);
     }
 
     private void LoadOverwoldState(string state)

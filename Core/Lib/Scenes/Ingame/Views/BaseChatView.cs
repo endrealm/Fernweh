@@ -15,15 +15,16 @@ namespace Core.Scenes.Ingame.Views;
 
 public class BaseChatView : IChatView
 {
-    protected Queue<IChatComponent> QueuedComponents = new();
-    protected readonly List<IChatComponent> RunningComponents = new();
-    protected readonly List<ILabel> Labels = new();
-    protected int Width;
-    private readonly ILocalizationManager _localizationManager;
+    private const int XMargin = 5;
     private readonly IFontManager _fontManager;
-    private float _lastFrameHeight = 0;
-    private float _scrollOffset = 0;
+    private readonly ILocalizationManager _localizationManager;
+    protected readonly List<ILabel> Labels = new();
+    protected readonly List<IChatComponent> RunningComponents = new();
+    private float _lastFrameHeight;
+    private float _scrollOffset;
     private bool _sticky = true;
+    protected Queue<IChatComponent> QueuedComponents = new();
+    protected int Width;
 
     public BaseChatView(ILocalizationManager localizationManager, IFontManager fontManager)
     {
@@ -31,24 +32,10 @@ public class BaseChatView : IChatView
         _fontManager = fontManager;
     }
 
-    private const int XMargin = 5;
-
     public void Load(ContentLoader content)
     {
     }
 
-    protected void Clear(int keepCount)
-    {
-        Labels.Clear();
-        QueuedComponents = new Queue<IChatComponent>();
-        var remaining = RunningComponents.Take(keepCount).ToList();
-        RunningComponents.Clear();
-        RunningComponents.AddRange(remaining);
-        Width = 0;
-        _scrollOffset = 0;
-        _sticky = true;
-    }
-    
     public void Clear()
     {
         Labels.Clear();
@@ -71,17 +58,6 @@ public class BaseChatView : IChatView
         return label;
     }
 
-    [CanBeNull]
-    protected IChatComponent LoadNextComponentInQueue()
-    {
-        if(QueuedComponents.Count == 0) return null;
-        var item = QueuedComponents.Dequeue();
-        RunningComponents.Add(item);
-        item.SetOnDone(() => LoadNextComponentInQueue());
-        item.MaxWidth = Width - XMargin * 2;
-        return item;
-    }
-
     public void Render(SpriteBatch spriteBatch, IngameRenderContext context)
     {
         var screenHeight = context.BaseScreenSize.Y;
@@ -89,37 +65,30 @@ public class BaseChatView : IChatView
         if (context.ChatWidth != Width)
         {
             Width = context.ChatWidth;
-            RunningComponents.ForEach(component =>
-            {
-                component.MaxWidth = Width - XMargin * 2;
-            });
+            RunningComponents.ForEach(component => { component.MaxWidth = Width - XMargin * 2; });
         }
 
-        if (_scrollOffset < 0)
-        {
-            _scrollOffset = 0;
-        }
+        if (_scrollOffset < 0) _scrollOffset = 0;
 
         // Reset offset if chat has become smaller
         if (_sticky || _scrollOffset + screenHeight > _lastFrameHeight)
         {
-            if (_scrollOffset != 0)
-            {
-                _sticky = true;
-            }
+            if (_scrollOffset != 0) _sticky = true;
             _scrollOffset = Math.Max(_lastFrameHeight - screenHeight, 0);
         }
-        
+
         // Draw UI here
-        spriteBatch.FillRectangle(new Vector2(), new Size2(context.ChatWidth, context.BaseScreenSize.Y), context.BackgroundColor);
+        spriteBatch.FillRectangle(new Vector2(), new Size2(context.ChatWidth, context.BaseScreenSize.Y),
+            context.BackgroundColor);
         var offsetY = 0f + -_scrollOffset;
         RunningComponents.ForEach(component =>
         {
             component.Render(spriteBatch, new ChatRenderContext(new Vector2(XMargin, offsetY)));
             offsetY += component.Dimensions.Y;
         });
-        
-        Labels.ForEach(label => label.Render(spriteBatch, new LabelRenderContext(context.BaseScreenSize, context.ChatWidth)));
+
+        Labels.ForEach(label =>
+            label.Render(spriteBatch, new LabelRenderContext(context.BaseScreenSize, context.ChatWidth)));
     }
 
     public void Update(float deltaTime, IngameUpdateContext context)
@@ -138,12 +107,12 @@ public class BaseChatView : IChatView
         InteractionHelper.CursorHandled = clicked;
 
         _lastFrameHeight = offsetY + _scrollOffset;
-        
+
         if (_sticky && context.TopLevelUpdateContext.ClickInput.ScrollWheelValue != 0) _sticky = false;
 
-        _scrollOffset += context.TopLevelUpdateContext.ClickInput.ScrollWheelValue*-.05f;
+        _scrollOffset += context.TopLevelUpdateContext.ClickInput.ScrollWheelValue * -.05f;
     }
-    
+
     public IChatComponent AddText(string key, Action callback = null, params IReplacement[] replacements)
     {
         var text = _localizationManager.GetData(key, replacements)
@@ -152,7 +121,7 @@ public class BaseChatView : IChatView
         QueuedComponents.Enqueue(text);
         return text;
     }
-    
+
     public IChatComponent AddText(string key, params IReplacement[] replacements)
     {
         return AddText(key, null, replacements);
@@ -160,11 +129,10 @@ public class BaseChatView : IChatView
 
     public IChatComponent AddAction(string key, Action callback, params IReplacement[] replacements)
     {
-        
         var text = _localizationManager.GetData(key, replacements)
             .Compile()
             .BuildAnimatedAction(_fontManager.GetChatFont(), callback);
-        
+
         QueuedComponents.Enqueue(text);
         return text;
     }
@@ -172,5 +140,28 @@ public class BaseChatView : IChatView
     public void ForceLoadNext()
     {
         LoadNextComponentInQueue();
+    }
+
+    protected void Clear(int keepCount)
+    {
+        Labels.Clear();
+        QueuedComponents = new Queue<IChatComponent>();
+        var remaining = RunningComponents.Take(keepCount).ToList();
+        RunningComponents.Clear();
+        RunningComponents.AddRange(remaining);
+        Width = 0;
+        _scrollOffset = 0;
+        _sticky = true;
+    }
+
+    [CanBeNull]
+    protected IChatComponent LoadNextComponentInQueue()
+    {
+        if (QueuedComponents.Count == 0) return null;
+        var item = QueuedComponents.Dequeue();
+        RunningComponents.Add(item);
+        item.SetOnDone(() => LoadNextComponentInQueue());
+        item.MaxWidth = Width - XMargin * 2;
+        return item;
     }
 }

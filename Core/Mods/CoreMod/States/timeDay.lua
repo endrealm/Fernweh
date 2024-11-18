@@ -3,13 +3,13 @@ hour = 0
 
 function cycleTime()
     hour = hour + 1;
-    if(hour >=24) then
+    if (hour >= 24) then
         hour = 0;
         day = day + 1;
     end
 end
 
-function getColorFromTime() 
+function getColorFromTime()
     -- proper code ofc
     return "rgba(12,112,12,0.5)"
 end
@@ -21,9 +21,9 @@ function updateDayTime(renderer)
 end
 
 StateBuilder("my_state")
-    :render(
+        :render(
         function(renderer, context)
-            
+
             -- Do normal render
             renderer:AddText("dialog.example")
             renderer:AddText("dialog.example")
@@ -31,8 +31,8 @@ StateBuilder("my_state")
                 context:ChangeState("other.state")
             end, "dialog.example.button")
         end
-    )
-    :Build()
+)
+        :Build()
 
 -- this is called before every state render
 Global.AddOnPreStateRender(function(renderer, context)

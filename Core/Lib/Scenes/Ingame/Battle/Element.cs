@@ -8,5 +8,5 @@ public enum Element
     Ground,
     Thunder,
     Water,
-    Fire,
+    Fire
 }

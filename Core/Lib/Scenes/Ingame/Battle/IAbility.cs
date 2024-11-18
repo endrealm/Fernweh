@@ -4,9 +4,6 @@ namespace Core.Scenes.Ingame.Battle;
 
 public interface IAbility : IBattleEventReceiver
 {
-    void Use(AbilityUseContext context);
-    bool CanUse(AbilityUseCheckContext context);
-    WeightConfig CalculateWeight(AbilityWeightContext context);
     string CategoryId { get; }
     AbilityTargetType TargetType { get; }
     string Id { get; }
@@ -15,5 +12,8 @@ public interface IAbility : IBattleEventReceiver
     bool AllowLivingTargets { get; }
     public bool HideBlocked { get; }
     public bool Hidden { get; }
+    void Use(AbilityUseContext context);
+    bool CanUse(AbilityUseCheckContext context);
+    WeightConfig CalculateWeight(AbilityWeightContext context);
     IBattleAction ProduceAction(IBattleParticipant participant, List<IBattleParticipant> targets);
 }

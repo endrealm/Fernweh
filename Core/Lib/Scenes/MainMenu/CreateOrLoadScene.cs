@@ -1,43 +1,34 @@
-﻿using Core.Gui;
-using Core.Input;
-using Core.Scenes.Ingame;
+﻿using System;
+using Core.Gui;
+using Core.Scenes.Ingame.Localization;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using Core.Scenes.Ingame.Localization;
 
 namespace Core.Scenes.MainMenu;
 
-public class CreateOrLoadScene: Scene
+public class CreateOrLoadScene : Scene
 {
-    
-    private Action _quit;
+    private readonly Action _quit;
 
 
-    public CreateOrLoadScene(ILocalizationManager rootLocalizationManager, IFontManager fontManager, Action quit): base(fontManager, rootLocalizationManager)
+    public CreateOrLoadScene(ILocalizationManager rootLocalizationManager, IFontManager fontManager, Action quit) :
+        base(fontManager, rootLocalizationManager)
     {
         _quit = quit;
     }
 
     public override void Update(float deltaTime, TopLevelUpdateContext context)
     {
-        if (Button.Put("Settings").Clicked) {
+        if (Button.Put("Settings").Clicked)
             SceneManager.LoadScene(new SettingsScene(RootLocalizationManager, FontManager, this));
-        }
         MenuPanel.Push();
-        if (Button.Put("New Game").Clicked) {
+        if (Button.Put("New Game").Clicked)
             SceneManager.LoadScene(new CreateGameScene(RootLocalizationManager, FontManager, _quit));
-        }
-        if (Button.Put("Load Game").Clicked) {
+        if (Button.Put("Load Game").Clicked)
             SceneManager.LoadScene(new LoadGameScene(RootLocalizationManager, FontManager, _quit));
-        }
-        if (Button.Put("Quit").Clicked)
-        {
-            _quit.Invoke();
-        }
+        if (Button.Put("Quit").Clicked) _quit.Invoke();
         MenuPanel.Pop();
     }
-
 
 
     public override void Render(SpriteBatch spriteBatch, TopLevelRenderContext context)

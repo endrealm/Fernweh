@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Core.Saving.Impl;
 
-public class BasicSaveGameManager: ISaveGameManager
+public class BasicSaveGameManager : ISaveGameManager
 {
     private readonly string _path;
 
@@ -13,7 +13,7 @@ public class BasicSaveGameManager: ISaveGameManager
         _path = path;
         Directory.CreateDirectory(_path);
     }
-    
+
     public bool Exists(string name)
     {
         return File.Exists(Path.Combine(_path, name));

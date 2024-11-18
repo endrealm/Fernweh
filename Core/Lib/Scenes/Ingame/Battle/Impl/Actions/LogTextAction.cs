@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using Core.Scenes.Ingame.Chat;
 using PipelineExtensionLibrary.Tokenizer.Chat;
 
 namespace Core.Scenes.Ingame.Battle.Impl.Actions;
@@ -27,5 +26,4 @@ public class LogTextAction : IBattleAction
     public int Priority => -1;
     public bool AllowDeath { get; } = true;
     public bool CausesStateCheck { get; } = false;
-
 }

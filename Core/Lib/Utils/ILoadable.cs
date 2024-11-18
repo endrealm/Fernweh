@@ -1,5 +1,4 @@
 ﻿using Core.Content;
-using Microsoft.Xna.Framework.Content;
 
 namespace Core.Utils;
 

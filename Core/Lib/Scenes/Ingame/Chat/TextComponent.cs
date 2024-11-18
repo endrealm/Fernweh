@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using Core.Scenes.Ingame.Chat.Effects;
 using Core.Scenes.Ingame.Chat.Effects.Default;
 using Core.Utils.Math;
@@ -9,20 +7,13 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Core.Scenes.Ingame.Chat;
 
-public class TextComponent: BaseComponent, IChatInlineComponent
+public class TextComponent : BaseComponent, IChatInlineComponent
 {
-    private readonly SpriteFont _font;
-    private float _width;
-    private float _maxWidth;
-    private string _message;
-    private readonly Color _textColor;
-    private ILetterAnimationEffect _letterAnimationEffect;
-    private ITextContentEffect _contentEffect;
+    private readonly ITextContentEffect _contentEffect;
+    private readonly ILetterAnimationEffect _letterAnimationEffect;
+    private readonly float _width;
     private float _firstLineOffset;
-
-    public Color TextColor => _textColor;
-    public SpriteFont Font => _font;
-    public string Message => _message;
+    private float _maxWidth;
 
     public TextComponent(
         SpriteFont font,
@@ -31,8 +22,10 @@ public class TextComponent: BaseComponent, IChatInlineComponent
         float maxWidth = -1,
         ILetterAnimationEffect animationEffect = null,
         ITextContentEffect contentEffect = null
-    ): this(font, message, Color.White, width, maxWidth, animationEffect, contentEffect) { }
-    
+    ) : this(font, message, Color.White, width, maxWidth, animationEffect, contentEffect)
+    {
+    }
+
     public TextComponent(
         SpriteFont font,
         string message,
@@ -43,22 +36,18 @@ public class TextComponent: BaseComponent, IChatInlineComponent
         ITextContentEffect contentEffect = null
     )
     {
-        _font = font;
+        Font = font;
         _width = width;
         _maxWidth = maxWidth;
-        _message = message;
-        _textColor = textColor;
+        Message = message;
+        TextColor = textColor;
 
         #region Content Effect
 
         if (contentEffect != null)
-        {
             _contentEffect = contentEffect;
-        }
         else
-        {
             _contentEffect = new StaticContentEffect();
-        }
         _contentEffect.Attach(this);
 
         #endregion
@@ -66,41 +55,23 @@ public class TextComponent: BaseComponent, IChatInlineComponent
         #region Letter Animation Effect
 
         if (animationEffect != null)
-        {
             _letterAnimationEffect = animationEffect;
-        }
         else
-        {
             _letterAnimationEffect = new StaticLetterAnimationEffect();
-        }
-        
+
         _letterAnimationEffect.Attach(this);
         _letterAnimationEffect.Recalculate();
 
         #endregion
     }
-    
-    public void ChangeMessage(string message)
-    {
-        _message = message;
-        Recalculate();
-        DirtyContent = true;
-    }
 
-    public void Recalculate()
-    {
-        _letterAnimationEffect?.Recalculate();
-    }
-    
-    protected override float CalculateHeight()
-    {
-        return _letterAnimationEffect.CalculateHeight();
-    }
+    public Color TextColor { get; }
 
-    protected override float CalculateWidth()
-    {
-        return _letterAnimationEffect.CalculateWidth();
-    }
+    public SpriteFont Font { get; }
+
+    public string Message { get; private set; }
+
+    public override float Width => _width;
 
     public override void Render(SpriteBatch spriteBatch, ChatRenderContext context)
     {
@@ -119,8 +90,8 @@ public class TextComponent: BaseComponent, IChatInlineComponent
     }
 
     /// <summary>
-    /// Shape starts at 0/0 of text not the world. Size is world coordinates, but you need to
-    /// consider the offset before performing any checks
+    ///     Shape starts at 0/0 of text not the world. Size is world coordinates, but you need to
+    ///     consider the offset before performing any checks
     /// </summary>
     public override IShape Shape => _letterAnimationEffect.Shape;
 
@@ -131,8 +102,9 @@ public class TextComponent: BaseComponent, IChatInlineComponent
     public float FirstLineOffset
     {
         get => _firstLineOffset;
-        set { 
-            _firstLineOffset = value; 
+        set
+        {
+            _firstLineOffset = value;
             Recalculate();
             DirtyContent = true;
         }
@@ -143,13 +115,34 @@ public class TextComponent: BaseComponent, IChatInlineComponent
 
     public override void SetOnDone(Action action)
     {
-        this._contentEffect.OnFinish.Add(action);
+        _contentEffect.OnFinish.Add(action);
     }
 
-    public override float Width => _width;
     public override void Update(float deltaTime, ChatUpdateContext context)
     {
         _contentEffect.Update(deltaTime, context);
         _letterAnimationEffect.Update(deltaTime, context);
+    }
+
+    public void ChangeMessage(string message)
+    {
+        Message = message;
+        Recalculate();
+        DirtyContent = true;
+    }
+
+    public void Recalculate()
+    {
+        _letterAnimationEffect?.Recalculate();
+    }
+
+    protected override float CalculateHeight()
+    {
+        return _letterAnimationEffect.CalculateHeight();
+    }
+
+    protected override float CalculateWidth()
+    {
+        return _letterAnimationEffect.CalculateWidth();
     }
 }

@@ -3,31 +3,29 @@ using NLua;
 
 namespace Core.Scenes.Ingame.Battle.Impl;
 
-public class LuaFriendlyParticipantsProvider: IFriendlyParticipantsProvider
+public class LuaFriendlyParticipantsProvider : IFriendlyParticipantsProvider
 {
     private readonly List<LuaFunction> _luaFunctions = new();
-    
-    
+
+
     public List<ParticipantConfig> Load()
     {
         ParticipantConfigBuilder CreateBuilder(string id)
         {
             return new ParticipantConfigBuilder(id);
         }
+
         LuaAbilityConfigBuilder CreateAbilityBuilder(string id)
         {
             return new LuaAbilityConfigBuilder(id);
         }
-        
+
         var participants = new List<ParticipantConfig>();
 
         foreach (var luaFunction in _luaFunctions)
         {
             var values = luaFunction.Call(CreateBuilder, CreateAbilityBuilder);
-            foreach (var value in values)
-            {
-                ReadValue(participants, value);
-            }
+            foreach (var value in values) ReadValue(participants, value);
         }
 
         return participants;
@@ -46,13 +44,7 @@ public class LuaFriendlyParticipantsProvider: IFriendlyParticipantsProvider
             return;
         }
 
-        if (value is not LuaTable table)
-        {
-            return;
-        }
-        foreach (var tableValue in table.Values)
-        {
-            ReadValue(participants, tableValue);
-        }
+        if (value is not LuaTable table) return;
+        foreach (var tableValue in table.Values) ReadValue(participants, tableValue);
     }
 }

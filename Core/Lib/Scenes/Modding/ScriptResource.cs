@@ -1,16 +1,15 @@
-﻿using System.Linq;
-using Core.Content;
+﻿using Core.Content;
 using Core.Scripting;
-using Core.States;
 
 namespace Core.Scenes.Modding;
 
-public class ScriptResource: IResource
+public class ScriptResource : IResource
 {
+    private readonly IArchiveLoader _loader;
     private readonly Namespace _parent;
     private readonly string _path;
-    private readonly IArchiveLoader _loader;
     private string _script;
+
     public ScriptResource(Namespace parent, string path, IArchiveLoader loader)
     {
         _parent = parent;
@@ -20,7 +19,7 @@ public class ScriptResource: IResource
 
     public void Load()
     {
-        _script = _loader.LoadFile(_path+".lua");
+        _script = _loader.LoadFile(_path + ".lua");
     }
 
     public void Clear()

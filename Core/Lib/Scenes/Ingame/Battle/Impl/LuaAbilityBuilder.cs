@@ -6,25 +6,28 @@ namespace Core.Scenes.Ingame.Battle.Impl;
 
 public class LuaAbilityBuilder
 {
-    [CanBeNull] private readonly Action<LuaAbility> _onAbilityBuild;
-    private LuaFunction _onReceiveDamage;
-    private LuaFunction _onDealDamage;
-    private LuaFunction _onTargetWithSpell;
-    private LuaFunction _onCalculateWeight;
-    private LuaFunction _onTargetedBySpell;
-    private LuaFunction _onCalculateStats;
-    private LuaFunction _onNextTurn;
-    private LuaFunction _onTurnEnd;
-    private LuaFunction _onUse;
+    private readonly string _id;
+
+    [CanBeNull]
+    private readonly Action<LuaAbility> _onAbilityBuild;
+
+    private bool _allowDeadTargets;
+    private bool _allowLivingTargets = true;
     private LuaFunction _canUse;
     private string _category = "ability";
-    private int _manaCost = 0;
-    private bool _allowDeadTargets = false;
-    private bool _allowLivingTargets = true;
-    private bool _hideBlocked = false;
-    private bool _hidden = false;
+    private bool _hidden;
+    private bool _hideBlocked;
+    private int _manaCost;
+    private LuaFunction _onCalculateStats;
+    private LuaFunction _onCalculateWeight;
+    private LuaFunction _onDealDamage;
+    private LuaFunction _onNextTurn;
+    private LuaFunction _onReceiveDamage;
+    private LuaFunction _onTargetedBySpell;
+    private LuaFunction _onTargetWithSpell;
+    private LuaFunction _onTurnEnd;
+    private LuaFunction _onUse;
     private AbilityTargetType _targetType = AbilityTargetType.EnemySingle;
-    private readonly string _id;
 
     public LuaAbilityBuilder(string id, Action<LuaAbility> onAbilityBuild = null)
     {
@@ -108,27 +111,28 @@ public class LuaAbilityBuilder
 
     public LuaAbilityBuilder TargetType(int targetType)
     {
-        _targetType = (AbilityTargetType)targetType;
+        _targetType = (AbilityTargetType) targetType;
         return this;
     }
-    
+
     public LuaAbilityBuilder AllowDeadTargets(bool allow)
     {
         _allowDeadTargets = allow;
         return this;
     }
-    
+
     public LuaAbilityBuilder HideBlocked(bool hide)
     {
         _hideBlocked = hide;
         return this;
     }
+
     public LuaAbilityBuilder Hidden(bool hide)
     {
         _hidden = hide;
         return this;
     }
-    
+
     public LuaAbilityBuilder AllowLivingTargets(bool allow)
     {
         _allowLivingTargets = allow;
@@ -137,7 +141,8 @@ public class LuaAbilityBuilder
 
     public IAbility Build()
     {
-        var ability = new LuaAbility(_onReceiveDamage, _onCalculateWeight, _onDealDamage, _onTargetWithSpell, _onTargetedBySpell,
+        var ability = new LuaAbility(_onReceiveDamage, _onCalculateWeight, _onDealDamage, _onTargetWithSpell,
+            _onTargetedBySpell,
             _onCalculateStats, _onNextTurn, _onUse, _canUse, _onTurnEnd, _category, _id, _manaCost, _targetType,
             _allowDeadTargets, _allowLivingTargets, _hideBlocked, _hidden);
         _onAbilityBuild?.Invoke(ability);

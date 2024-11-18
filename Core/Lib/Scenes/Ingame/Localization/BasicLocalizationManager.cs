@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using Core.Content;
 using Core.Scenes.Modding;
 using PipelineExtensionLibrary;
@@ -8,13 +7,12 @@ using PipelineExtensionLibrary.Tokenizer.Chat;
 
 namespace Core.Scenes.Ingame.Localization;
 
-public class BasicLocalizationManager: ILocalizationManager
+public class BasicLocalizationManager : ILocalizationManager
 {
-
-    private Language _language = Language.EN_US;
+    private readonly Language _language = Language.EN_US;
+    private readonly TranslationTextParser _parser = new();
     private readonly TranslationData _translationData;
-    private TranslationTextParser _parser = new();
-    
+
 
     public BasicLocalizationManager()
     {
@@ -37,7 +35,7 @@ public class BasicLocalizationManager: ILocalizationManager
         }
 
         parsed.Replace(replacements);
-        
+
         return parsed;
     }
 

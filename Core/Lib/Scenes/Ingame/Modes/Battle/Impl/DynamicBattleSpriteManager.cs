@@ -1,25 +1,21 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Core.Content;
-using Core.Scenes.Modding;
-using Core.Scripting;
-using Core.States;
-using Core.Utils;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Core.Scenes.Ingame.Modes.Battle.Impl;
 
-public class DynamicBattleSpriteManager: ISpriteManager
+public class DynamicBattleSpriteManager : ISpriteManager
 {
     //private Dictionary<string, Texture2D> _sprites = new();
-    private ContentRegistry _content;
+    private readonly ContentRegistry _content;
+
     public DynamicBattleSpriteManager(ContentRegistry content)
     {
-        if(content == null) return;
+        if (content == null) return;
         _content = content;
 
         if (!_content.pngs.ContainsKey("fallback") && _content.pngs.Count > 0)
-            _content.pngs.Add("fallback", _content.pngs[_content.pngs.First().Key.ToString()]);
+            _content.pngs.Add("fallback", _content.pngs[_content.pngs.First().Key]);
 
         //eventHandler.EmitLoadBattleSprites(this);
     }

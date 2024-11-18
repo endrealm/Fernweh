@@ -6,14 +6,14 @@ namespace Core.Scenes.Ingame.Battle;
 
 public class DamageData
 {
-    public int Damage { get; set; }
-    public Element Element { get; }
-
     public DamageData(int damage, Element element)
     {
         Damage = damage;
         Element = element;
     }
+
+    public int Damage { get; set; }
+    public Element Element { get; }
 
     public DamageData Clone()
     {
@@ -32,7 +32,6 @@ public class SpellData
     //add more data ofc
 }
 
-
 public struct DamageReceiveEvent
 {
     public IBattleParticipant Target;
@@ -49,10 +48,10 @@ public struct DamageReceiveEvent
 
 public class SpellTargetEvent
 {
-    public List<IBattleParticipant> Targets;
-    public IBattleParticipant Source;
-    public bool PreventReflect;
     public SpellData Data;
+    public bool PreventReflect;
+    public IBattleParticipant Source;
+    public List<IBattleParticipant> Targets;
 
     public SpellTargetEvent(List<IBattleParticipant> targets, IBattleParticipant source, bool preventReflect,
         SpellData data)

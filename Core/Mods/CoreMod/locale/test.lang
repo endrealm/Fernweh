@@ -1,42 +1,42 @@
 ﻿{
-  "button.accept": {
-    "translations": {
-      "EN_US": "  -> You <color=\"Green\">accept</color> the task"
+    "button.accept": {
+        "translations": {
+            "EN_US": "  -> You <color=\"Green\">accept</color> the task"
+        }
+    },
+    "button.battle": {
+        "translations": {
+            "EN_US": "  -> You pull out your <color=\"Red\">weapon</color> for battle!"
+        }
+    },
+    "button.battle.run": {
+        "translations": {
+            "EN_US": "  -> You run the heck away!"
+        }
+    },
+    "button.decline": {
+        "translations": {
+            "EN_US": "  -> You <color=\"Red\">decline</color> the offer"
+        }
+    },
+    "button.leave": {
+        "translations": {
+            "EN_US": "  -> You decide it's best to <color=\"Red\">go</color>"
+        }
+    },
+    "button.enter": {
+        "translations": {
+            "EN_US": "  -> You follow the entrance and <color=\"Green\">go inside</color>"
+        }
+    },
+    "button.continue": {
+        "translations": {
+            "EN_US": "  -> You <color=\"Green\">continue</color> your journey"
+        }
+    },
+    "button.reconsider": {
+        "translations": {
+            "EN_US": "  -> You change your mind"
+        }
     }
-  },
-  "button.battle": {
-    "translations": {
-      "EN_US": "  -> You pull out your <color=\"Red\">weapon</color> for battle!"
-    }
-  },
-  "button.battle.run": {
-    "translations": {
-      "EN_US": "  -> You run the heck away!"
-    }
-  },
-  "button.decline": {
-    "translations": {
-      "EN_US": "  -> You <color=\"Red\">decline</color> the offer"
-    }
-  },
-  "button.leave": {
-    "translations": {
-      "EN_US": "  -> You decide it's best to <color=\"Red\">go</color>"
-    }
-  },
-  "button.enter": {
-    "translations": {
-      "EN_US": "  -> You follow the entrance and <color=\"Green\">go inside</color>"
-    }
-  },
-  "button.continue": {
-    "translations": {
-      "EN_US": "  -> You <color=\"Green\">continue</color> your journey"
-    }
-  },
-  "button.reconsider": {
-    "translations": {
-      "EN_US": "  -> You change your mind"
-    }
-  }
 }

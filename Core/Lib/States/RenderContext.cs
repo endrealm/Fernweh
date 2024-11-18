@@ -2,24 +2,20 @@
 using System.Collections.Generic;
 using Core.Scenes.Ingame;
 using Core.Scenes.Ingame.Battle;
-using Core.Scenes.Ingame.Battle.Impl;
 using Core.Scenes.Ingame.Views;
-using NLua;
 using Microsoft.Xna.Framework;
+using NLua;
 
 namespace Core.States;
 
 public class RenderContext
 {
-    private readonly IStateManager _stateManager;
     private readonly GameManager _gameManager;
-    private WorldGameView _worldGameView;
-    public string PreviousStateId { get; }
-    public string ActiveStateId { get; }
-    public bool IsRunning { get; set; } = true;
-    public bool ExitEarly { get; private set; }
+    private readonly IStateManager _stateManager;
+    private readonly WorldGameView _worldGameView;
 
-    public RenderContext(IStateManager stateManager, GameManager gameManager, string previousStateId, string activeStateId)
+    public RenderContext(IStateManager stateManager, GameManager gameManager, string previousStateId,
+        string activeStateId)
     {
         _stateManager = stateManager;
         _gameManager = gameManager;
@@ -27,6 +23,11 @@ public class RenderContext
         PreviousStateId = previousStateId;
         _worldGameView = _gameManager.GetOverworldMode().worldGameView;
     }
+
+    public string PreviousStateId { get; }
+    public string ActiveStateId { get; }
+    public bool IsRunning { get; set; } = true;
+    public bool ExitEarly { get; private set; }
 
     public void ChangeState(string stateId)
     {
@@ -41,7 +42,8 @@ public class RenderContext
         }
     }
 
-    public void StartBattle(LuaTable enemies, string background, string victoryState = "null", string looseState = "null")
+    public void StartBattle(LuaTable enemies, string background, string victoryState = "null",
+        string looseState = "null")
     {
         List<string> enemiesString = new();
         foreach (var item in enemies.Values)
@@ -62,6 +64,7 @@ public class RenderContext
             ExitEarly = true;
             return;
         }
+
         _stateManager.LoadState("null");
     }
 
@@ -72,7 +75,7 @@ public class RenderContext
 
     public void TeleportPlayer(int x, int y)
     {
-        _worldGameView.player.TeleportPlayer(new Vector2(x,y));
+        _worldGameView.player.TeleportPlayer(new Vector2(x, y));
     }
 
     public void LoadMap(string name, int x, int y)

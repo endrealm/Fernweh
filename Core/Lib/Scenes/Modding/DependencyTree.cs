@@ -6,7 +6,7 @@ namespace Core.Scenes.Modding;
 
 public class DependencyGraph
 {
-    private List<DependencyNode> _roots = new List<DependencyNode>();
+    private readonly List<DependencyNode> _roots = new();
 
     public DependencyNode GetOrAdd(string id)
     {
@@ -20,7 +20,7 @@ public class DependencyGraph
         _roots.Add(node);
         return node;
     }
-    
+
     public DependencyNode Get(string id)
     {
         foreach (var root in _roots)
@@ -28,6 +28,7 @@ public class DependencyGraph
             var result = root.Find(id);
             if (result != null) return result;
         }
+
         return null;
     }
 
@@ -37,7 +38,7 @@ public class DependencyGraph
         for (var i = 0; i < _roots.Count; i++)
         {
             var thisNode = _roots[i];
-            for (var j = i+1; j < _roots.Count; j++)
+            for (var j = i + 1; j < _roots.Count; j++)
             {
                 if (thisNode.Find(_roots[j].Id) == null) continue;
                 mergeable.Add(j);
@@ -65,33 +66,31 @@ public class DependencyNode
 
     public void AddDependency(string dependency)
     {
-        if(dependency == Id) return;
+        if (dependency == Id) return;
 
         var otherTree = false;
         var node = Find(dependency);
-        
+
         if (node == null)
         {
             node = _graph.Get(dependency);
-            if(node != null) otherTree = true;
+            if (node != null) otherTree = true;
         }
+
         node ??= new DependencyNode(dependency, _graph);
-        
+
         Dependencies.Add(node);
         node.Dependents.Add(this);
-        
+
         // Attached node from another tree so we might be able to merge
-        if (otherTree)
-        {
-            _graph.MergeDangling();
-        }
+        if (otherTree) _graph.MergeDangling();
     }
 
     public DependencyNode Find(string id)
     {
         return FindInternal(id, new HashSet<string>());
     }
-    
+
     private DependencyNode FindInternal(string id, HashSet<string> visited)
     {
         if (Id == id) return this;
@@ -102,11 +101,13 @@ public class DependencyNode
             var result = node.FindInternal(id, visited);
             if (result != null) return result;
         }
+
         foreach (var node in Dependents)
         {
             var result = node.FindInternal(id, visited);
             if (result != null) return result;
         }
+
         return null;
     }
 
@@ -129,10 +130,8 @@ public class DependencyNode
         var parentSet = new HashSet<string>(parents) {Id};
 
         foreach (var dependency in Dependencies)
-        {
             list.AddRange(dependency.CollectFlatHierarchyInternal(visited, parentSet));
-        }
-        
+
         list.Add(this);
         return list;
     }

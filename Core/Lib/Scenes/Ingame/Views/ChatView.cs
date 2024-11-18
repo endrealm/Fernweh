@@ -5,7 +5,7 @@ using PipelineExtensionLibrary.Tokenizer.Chat;
 
 namespace Core.Scenes.Ingame.Views;
 
-public interface IChatView: IRenderer<IngameRenderContext>, IUpdate<IngameUpdateContext>, ILoadable
+public interface IChatView : IRenderer<IngameRenderContext>, IUpdate<IngameUpdateContext>, ILoadable
 {
     public IChatComponent AddText(string key, Action callback = null, params IReplacement[] replacements);
     public IChatComponent AddText(string key, params IReplacement[] replacements);

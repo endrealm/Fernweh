@@ -2,7 +2,7 @@
 
 namespace PipelineExtensionLibrary.Tokenizer.Chat;
 
-public class ColorWrapper: ChatWrapper
+public class ColorWrapper : ChatWrapper
 {
     public ColorWrapper(Color color)
     {
@@ -17,7 +17,7 @@ public class ColorWrapper: ChatWrapper
         merge.Color = Color;
         return merge;
     }
-    
+
     public override ChatWrapper Clone()
     {
         var wrapper = new ColorWrapper(Color);

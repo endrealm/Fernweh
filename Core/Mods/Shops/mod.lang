@@ -1,77 +1,77 @@
 ﻿{
-  "shop.buy": {
-    "translations": {
-      "EN_US": "-> Buy Items"
+    "shop.buy": {
+        "translations": {
+            "EN_US": "-> Buy Items"
+        }
+    },
+    "shop.sell": {
+        "translations": {
+            "EN_US": "-> Sell Items"
+        }
+    },
+    "shop.close": {
+        "translations": {
+            "EN_US": "<- Close Shop"
+        }
+    },
+    "shop.welcome": {
+        "translations": {
+            "EN_US": "Do you want to buy or sell something?"
+        }
+    },
+    "shop.back": {
+        "translations": {
+            "EN_US": "<- Back"
+        }
+    },
+    "shop.buy.title": {
+        "translations": {
+            "EN_US": "Buy? Current Balance: {balance}"
+        }
+    },
+    "shop.buy.item": {
+        "translations": {
+            "EN_US": "-> {item} ({price} {currency})"
+        }
+    },
+    "shop.buy.amount.title": {
+        "translations": {
+            "EN_US": "How many? Current Balance: {balance}"
+        }
+    },
+    "shop.buy.amount": {
+        "translations": {
+            "EN_US": "-> x{amount} ({price} {currency})"
+        }
+    },
+    "shop.buy.amount.insufficient_funds": {
+        "translations": {
+            "EN_US": "-> x{amount} (<color=\"Red\">{price}</color> {currency})"
+        }
+    },
+    "shop.sell.title": {
+        "translations": {
+            "EN_US": "Sell Item? Balance: {balance}"
+        }
+    },
+    "shop.sell.item": {
+        "translations": {
+            "EN_US": "-> {item} ({price} {currency})"
+        }
+    },
+    "shop.sell.amount.title": {
+        "translations": {
+            "EN_US": "Sell {item}?"
+        }
+    },
+    "shop.sell.amount.current": {
+        "translations": {
+            "EN_US": "You have {amount}"
+        }
+    },
+    "shop.sell.amount": {
+        "translations": {
+            "EN_US": "-> x{amount} ({price} {currency})"
+        }
     }
-  },
-  "shop.sell": {
-    "translations": {
-      "EN_US": "-> Sell Items"
-    }
-  },
-  "shop.close": {
-    "translations": {
-      "EN_US": "<- Close Shop"
-    }
-  },
-  "shop.welcome": {
-    "translations": {
-      "EN_US": "Do you want to buy or sell something?"
-    }
-  },
-  "shop.back": {
-    "translations": {
-      "EN_US": "<- Back"
-    }
-  },
-  "shop.buy.title": {
-    "translations": {
-      "EN_US": "Buy? Current Balance: {balance}"
-    }
-  },
-  "shop.buy.item": {
-    "translations": {
-      "EN_US": "-> {item} ({price} {currency})"
-    }
-  },
-  "shop.buy.amount.title": {
-    "translations": {
-      "EN_US": "How many? Current Balance: {balance}"
-    }
-  },
-  "shop.buy.amount": {
-    "translations": {
-      "EN_US": "-> x{amount} ({price} {currency})"
-    }
-  },
-  "shop.buy.amount.insufficient_funds": {
-    "translations": {
-      "EN_US": "-> x{amount} (<color=\"Red\">{price}</color> {currency})"
-    }
-  },
-  "shop.sell.title": {
-    "translations": {
-      "EN_US": "Sell Item? Balance: {balance}"
-    }
-  },
-  "shop.sell.item": {
-    "translations": {
-      "EN_US": "-> {item} ({price} {currency})"
-    }
-  },
-  "shop.sell.amount.title": {
-    "translations": {
-      "EN_US": "Sell {item}?"
-    }
-  },
-  "shop.sell.amount.current": {
-    "translations": {
-      "EN_US": "You have {amount}"
-    }
-  },
-  "shop.sell.amount": {
-    "translations": {
-      "EN_US": "-> x{amount} ({price} {currency})"
-    }
-  }
 }

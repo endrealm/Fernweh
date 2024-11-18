@@ -1,131 +1,127 @@
 ﻿{
-  "button.market.food": {
-    "translations": {
-      "EN_US": "-> Browse the food stand"
+    "button.market.food": {
+        "translations": {
+            "EN_US": "-> Browse the food stand"
+        }
+    },
+    "button.market.jewelery": {
+        "translations": {
+            "EN_US": "-> Browse the jewelery stand"
+        }
+    },
+    "button.market.crowd": {
+        "translations": {
+            "EN_US": "-> Examine the crowd in the center"
+        }
+    },
+    "button.inn.sleep": {
+        "translations": {
+            "EN_US": "-> Ask for a room <color=\"Yellow\">({cost}g)</color>"
+        }
+    },
+    "button.inn.enter_tavern": {
+        "translations": {
+            "EN_US": "-> Enter tavern looking for recruits"
+        }
+    },
+    "button.tavern.borof": {
+        "translations": {
+            "EN_US": "-> Attempt recruiting the mercenary"
+        }
+    },
+    "button.forge.weapons": {
+        "translations": {
+            "EN_US": "-> Look at the weapons displayed at the huts entrance"
+        }
+    },
+    "button.forge.armor": {
+        "translations": {
+            "EN_US": "-> Ask about the armor selection"
+        }
+    },
+    "enter.market": {
+        "translations": {
+            "EN_US": "You walk up to a market. Theres lots of people going between stands, as well some making conversation."
+        }
+    },
+    "jewelery.quest": {
+        "translations": {
+            "EN_US": "Crera the jeweler notices you browsing, \"You know, I used to carry diamond rings, however I lost my diamonds when travelling near a goblin camp. If you returned them to me I'd give a generous gold reward...\"."
+        }
+    },
+    "mugging.quest": {
+        "translations": {
+            "EN_US": "Reaching the middle of the crowd, you see a man on the floor trying to recover. The man notices you look like a mercenary, \"Sir, if you could get revenge on that bastard who mugged me, I'd be at peace!\"."
+        }
+    },
+    "mugging.quest.battle": {
+        "translations": {
+            "EN_US": "You notice a man matching the description of the bandit who mugged that inncocent man from the market. You plan an attack."
+        }
+    },
+    "mugging.quest.complete": {
+        "translations": {
+            "EN_US": "You feel satisfied with your revenge. Everyone in the tavern already seems to have forgotten the action, and have continued their chatting."
+        }
+    },
+    "leave.market": {
+        "translations": {
+            "EN_US": "The markets sound of people chattering fades into the distance."
+        }
+    },
+    "enter.forge": {
+        "translations": {
+            "EN_US": "You walk up to Hammer & Sickle. You hear clanking and air blasting from outside the forgers hut."
+        }
+    },
+    "forge.quest": {
+        "translations": {
+            "EN_US": "Rufir the blacksmith walks up to you and grunts, \"Hmph, I have a shortage of mythril ore right now, but if you can get me some I think I could forge a new sword for you. What do you say?\"."
+        }
+    },
+    "leave.forge": {
+        "translations": {
+            "EN_US": "Rufir the blacksmith doesn't seem to notice you leave."
+        }
+    },
+    "enter.inn": {
+        "translations": {
+            "EN_US": "Pulling the door open of the Friendly Fox inn, you see a check-in desk, as well a hallway to the tavern."
+        }
+    },
+    "enter.tavern": {
+        "translations": {
+            "EN_US": "The tavern is full of a range of people, all yelling about god knows what. You look around for potential recruits..."
+        }
+    },
+    "tavern.borof": {
+        "translations": {
+            "EN_US": "You see a man in the corner of the tavern carrying a sword. You consider asking for his help."
+        }
+    },
+    "tavern.borof.recruit": {
+        "translations": {
+            "EN_US": "Walking up to the man, he doesnt seem to notice you right away. In fact, he seems half-asleep. \"You want me to join your party eh? Ahh I've had everyone ask me that, I used to be known for my swordsmanship. Not so much anymore... Not since the inci- Ah fine ill spare you the details. You want me or not?\"."
+        }
+    },
+    "leave.inn": {
+        "translations": {
+            "EN_US": "The receptionist gives you a friendly wave as you leave, \"I hope you enjoyed your stay!\"."
+        }
+    },
+    "enter.hall": {
+        "translations": {
+            "EN_US": "You walk into the Town Hall. The receptionist directs you to Dolrom's office."
+        }
+    },
+    "leave.hall": {
+        "translations": {
+            "EN_US": "You thank the receptionist before you leave."
+        }
+    },
+    "leave.farcross": {
+        "translations": {
+            "EN_US": "You reach the entrance to Farcross. The door guard questions you, \"Will you be leaving now?\"."
+        }
     }
-  },
-  "button.market.jewelery": {
-    "translations": {
-      "EN_US": "-> Browse the jewelery stand"
-    }
-  },
-  "button.market.crowd": {
-    "translations": {
-      "EN_US": "-> Examine the crowd in the center"
-    }
-  },
-
-  "button.inn.sleep": {
-    "translations": {
-      "EN_US": "-> Ask for a room <color=\"Yellow\">({cost}g)</color>"
-    }
-  },
-  "button.inn.enter_tavern": {
-    "translations": {
-      "EN_US": "-> Enter tavern looking for recruits"
-    }
-  },
-  "button.tavern.borof": {
-    "translations": {
-      "EN_US": "-> Attempt recruiting the mercenary"
-    }
-  },
-
-  "button.forge.weapons": {
-    "translations": {
-      "EN_US": "-> Look at the weapons displayed at the huts entrance"
-    }
-  },
-  "button.forge.armor": {
-    "translations": {
-      "EN_US": "-> Ask about the armor selection"
-    }
-  },
-
-
-  "enter.market": {
-    "translations": {
-      "EN_US": "You walk up to a market. Theres lots of people going between stands, as well some making conversation."
-    }
-  },
-  "jewelery.quest": {
-    "translations": {
-      "EN_US": "Crera the jeweler notices you browsing, \"You know, I used to carry diamond rings, however I lost my diamonds when travelling near a goblin camp. If you returned them to me I'd give a generous gold reward...\"."
-    }
-  },
-  "mugging.quest": {
-    "translations": {
-      "EN_US": "Reaching the middle of the crowd, you see a man on the floor trying to recover. The man notices you look like a mercenary, \"Sir, if you could get revenge on that bastard who mugged me, I'd be at peace!\"."
-    }
-  },
-  "mugging.quest.battle": {
-    "translations": {
-      "EN_US": "You notice a man matching the description of the bandit who mugged that inncocent man from the market. You plan an attack."
-    }
-  },
-  "mugging.quest.complete": {
-    "translations": {
-      "EN_US": "You feel satisfied with your revenge. Everyone in the tavern already seems to have forgotten the action, and have continued their chatting."
-    }
-  },
-  "leave.market": {
-    "translations": {
-      "EN_US": "The markets sound of people chattering fades into the distance."
-    }
-  },
-  "enter.forge": {
-    "translations": {
-      "EN_US": "You walk up to Hammer & Sickle. You hear clanking and air blasting from outside the forgers hut."
-    }
-  },
-  "forge.quest": {
-    "translations": {
-      "EN_US": "Rufir the blacksmith walks up to you and grunts, \"Hmph, I have a shortage of mythril ore right now, but if you can get me some I think I could forge a new sword for you. What do you say?\"."
-    }
-  },
-  "leave.forge": {
-    "translations": {
-      "EN_US": "Rufir the blacksmith doesn't seem to notice you leave."
-    }
-  },
-  "enter.inn": {
-    "translations": {
-      "EN_US": "Pulling the door open of the Friendly Fox inn, you see a check-in desk, as well a hallway to the tavern."
-    }
-  },
-  "enter.tavern": {
-    "translations": {
-      "EN_US": "The tavern is full of a range of people, all yelling about god knows what. You look around for potential recruits..."
-    }
-  },
-  "tavern.borof": {
-    "translations": {
-      "EN_US": "You see a man in the corner of the tavern carrying a sword. You consider asking for his help."
-    }
-  },
-  "tavern.borof.recruit": {
-    "translations": {
-      "EN_US": "Walking up to the man, he doesnt seem to notice you right away. In fact, he seems half-asleep. \"You want me to join your party eh? Ahh I've had everyone ask me that, I used to be known for my swordsmanship. Not so much anymore... Not since the inci- Ah fine ill spare you the details. You want me or not?\"."
-    }
-  },
-  "leave.inn": {
-    "translations": {
-      "EN_US": "The receptionist gives you a friendly wave as you leave, \"I hope you enjoyed your stay!\"."
-    }
-  },
-  "enter.hall": {
-    "translations": {
-      "EN_US": "You walk into the Town Hall. The receptionist directs you to Dolrom's office."
-    }
-  },
-  "leave.hall": {
-    "translations": {
-      "EN_US": "You thank the receptionist before you leave."
-    }
-  },
-  "leave.farcross": {
-    "translations": {
-      "EN_US": "You reach the entrance to Farcross. The door guard questions you, \"Will you be leaving now?\"."
-    }
-  }
 }

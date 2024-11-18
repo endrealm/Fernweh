@@ -1,13 +1,19 @@
 {
-  "id": "core",
-  "type": "library",
-  "dependencies": ["essentials","inventory", "character_system", "shops", "quest_book"],
-  "scripts": [
-    "Scripts/effects.lua",
-    "Scripts/abilities.lua",
-    "Scripts/participants.lua",
-    "States/variableMaker.lua",
-    "States/variableReader.lua",
-    "data.lua"
-  ]
+    "id": "core",
+    "type": "library",
+    "dependencies": [
+        "essentials",
+        "inventory",
+        "character_system",
+        "shops",
+        "quest_book"
+    ],
+    "scripts": [
+        "Scripts/effects.lua",
+        "Scripts/abilities.lua",
+        "Scripts/participants.lua",
+        "States/variableMaker.lua",
+        "States/variableReader.lua",
+        "data.lua"
+    ]
 }

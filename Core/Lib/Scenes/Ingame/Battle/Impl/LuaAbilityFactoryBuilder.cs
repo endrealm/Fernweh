@@ -5,9 +5,9 @@ namespace Core.Scenes.Ingame.Battle.Impl;
 
 public class LuaAbilityFactoryBuilder
 {
-    private LuaFunction _instantiateAbility;
     private readonly string _id;
     private readonly Action<IAbilityFactory> _onBuild;
+    private LuaFunction _instantiateAbility;
 
     public LuaAbilityFactoryBuilder(string id, Action<IAbilityFactory> onBuild)
     {

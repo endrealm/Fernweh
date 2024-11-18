@@ -9,7 +9,6 @@ namespace CrossPlatformDesktop;
 
 public class FileLoader
 {
-    
     public IArchiveLoader LoadArchive(string archiveFolder)
     {
         var file = File.OpenRead(archiveFolder);
@@ -20,25 +19,22 @@ public class FileLoader
     {
         return new DirectoryLoader(directory);
     }
-    
 }
-
 
 public class ArchiveLoader : IArchiveLoader
 {
-
     private readonly ZipArchive _archive;
     private readonly FileStream _stream;
 
     public ArchiveLoader(ZipArchive archive, FileStream stream)
     {
-        this._archive = archive;
-        this._stream = stream;
+        _archive = archive;
+        _stream = stream;
     }
 
     public string LoadFile(string file)
     {
-        var entry = this._archive.GetEntry(file);
+        var entry = _archive.GetEntry(file);
         if (entry == null) throw new Exception("File " + file + " is missing");
         using (var sr = new StreamReader(entry.Open()))
         {
@@ -48,9 +44,9 @@ public class ArchiveLoader : IArchiveLoader
 
     public string[] LoadAllFiles(string name)
     {
-        List<string> files = new List<string>();
+        var files = new List<string>();
 
-        foreach (ZipArchiveEntry entry in _archive.Entries)
+        foreach (var entry in _archive.Entries)
             if (entry.Name.ToLower() == name)
                 files.Add(entry.Name);
         Console.WriteLine(files.Count);
@@ -60,33 +56,29 @@ public class ArchiveLoader : IArchiveLoader
 
     public Stream LoadFileAsStream(string file)
     {
-        var entry = this._archive.GetEntry(file);
+        var entry = _archive.GetEntry(file);
         if (entry == null) throw new Exception("File " + file + " is missing");
         return entry.Open();
     }
 
     public void Dispose()
     {
-        this._archive.Dispose();
-        this._stream.Dispose();
+        _archive.Dispose();
+        _stream.Dispose();
     }
-    
 }
-
 
 public class DirectoryLoader : IArchiveLoader
 {
-
     private readonly string _dir;
 
     public DirectoryLoader(string dir)
     {
         _dir = dir;
     }
-    
+
     public void Dispose()
     {
-        
     }
 
     public string LoadFile(string file)
@@ -104,7 +96,7 @@ public class DirectoryLoader : IArchiveLoader
 
     public Stream LoadFileAsStream(string file)
     {
-        return System.IO.File.OpenRead(GetPath(file));
+        return File.OpenRead(GetPath(file));
     }
 
     private string GetPath(string file)

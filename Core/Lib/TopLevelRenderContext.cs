@@ -5,12 +5,8 @@ using MonoGame.Extended;
 
 namespace Core;
 
-public class TopLevelRenderContext: IRenderContext
+public class TopLevelRenderContext : IRenderContext
 {
-    public GraphicsDevice GraphicsDevice { get; }
-    public OrthographicCamera Camera { get; }
-    public Vector2 BaseScreenSize { get; }
-
     public TopLevelRenderContext(
         GraphicsDevice graphicsDevice,
         OrthographicCamera camera,
@@ -21,4 +17,8 @@ public class TopLevelRenderContext: IRenderContext
         Camera = camera;
         BaseScreenSize = baseScreenSize;
     }
+
+    public GraphicsDevice GraphicsDevice { get; }
+    public OrthographicCamera Camera { get; }
+    public Vector2 BaseScreenSize { get; }
 }

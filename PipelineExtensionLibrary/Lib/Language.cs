@@ -1,7 +1,6 @@
-﻿namespace PipelineExtensionLibrary
+﻿namespace PipelineExtensionLibrary;
+
+public enum Language
 {
-    public enum Language
-    {
-        EN_US
-    }
+    EN_US
 }

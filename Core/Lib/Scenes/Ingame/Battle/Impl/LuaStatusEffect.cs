@@ -1,17 +1,16 @@
-﻿
-using System.Linq;
+﻿using System.Linq;
 using NLua;
 
 namespace Core.Scenes.Ingame.Battle.Impl;
 
-public class LuaStatusEffect: IStatusEffect
+public class LuaStatusEffect : IStatusEffect
 {
-    private readonly LuaFunction _onReceiveDamage;
-    private readonly LuaFunction _onDealDamage;
-    private readonly LuaFunction _onTargetWithSpell;
-    private readonly LuaFunction _onTargetedBySpell;
     private readonly LuaFunction _onCalculateStats;
+    private readonly LuaFunction _onDealDamage;
     private readonly LuaFunction _onNextTurn;
+    private readonly LuaFunction _onReceiveDamage;
+    private readonly LuaFunction _onTargetedBySpell;
+    private readonly LuaFunction _onTargetWithSpell;
     private readonly LuaFunction _onTryCleanse;
     private readonly LuaFunction _onTurnEnd;
 
@@ -57,10 +56,10 @@ public class LuaStatusEffect: IStatusEffect
     public void OnNextTurn(out bool skip)
     {
         skip = false;
-        if(_onNextTurn == null) return;
+        if (_onNextTurn == null) return;
         var results = _onNextTurn.Call();
-        if(results.Length == 0) return;
-        skip = (bool)results.First();
+        if (results.Length == 0) return;
+        skip = (bool) results.First();
     }
 
     public void OnTurnEnd()
@@ -71,10 +70,9 @@ public class LuaStatusEffect: IStatusEffect
     public void OnTryCleanse(out bool persist)
     {
         persist = false;
-        if(_onTryCleanse == null) return;
+        if (_onTryCleanse == null) return;
         var results = _onTryCleanse.Call();
-        if(results.Length == 0) return;
-        persist = (bool)results.First();
-        
+        if (results.Length == 0) return;
+        persist = (bool) results.First();
     }
 }

@@ -5,11 +5,10 @@ using MonoGame.Extended;
 
 namespace Core.Scenes.Ingame.Modes.Battle;
 
-public class StatBar: IRenderer<BarRenderContext>
+public class StatBar : IRenderer<BarRenderContext>
 {
-
-    private Color _primary;
-    private Color _secondary;
+    private readonly Color _primary;
+    private readonly Color _secondary;
 
     public StatBar(Color primary, Color secondary)
     {
@@ -18,9 +17,10 @@ public class StatBar: IRenderer<BarRenderContext>
     }
 
     public float Percentage { set; private get; }
+
     public void Render(SpriteBatch spriteBatch, BarRenderContext context)
     {
-        var fullRange = (int)(context.Width * Percentage);
+        var fullRange = (int) (context.Width * Percentage);
         for (var y = 0; y < 2; y++)
         {
             var basePos = context.Position + new Vector2(-y, y);
@@ -32,16 +32,16 @@ public class StatBar: IRenderer<BarRenderContext>
                 {
                     wasFilled = true;
                 }
-                else if(wasFilled)
+                else if (wasFilled)
                 {
                     wasFilled = false;
                     continue;
                 }
+
                 var localPos = basePos + new Vector2(x, 0);
                 spriteBatch.DrawPoint(localPos, filled ? _primary : _secondary);
             }
         }
-        
     }
 }
 

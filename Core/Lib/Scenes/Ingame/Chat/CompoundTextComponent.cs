@@ -13,28 +13,28 @@ public enum CompoundLayoutRule
     Center
 }
 
-public class CompoundTextComponent: BaseComponent, IChatInlineComponent, IChatContainerComponent
+public class CompoundTextComponent : BaseComponent, IChatInlineComponent, IChatContainerComponent
 {
+    private readonly List<IChatInlineComponent> _components;
+    private readonly List<Action> _onDone = new();
     protected readonly CompoundLayoutRule Layout;
-    private List<IChatInlineComponent> _components;
-    private float _maxWidth;
+    private float _calculatedHeight;
+    private float _calculatedWidth;
+    private float _firstLineOffset;
     private float _maxContentWidth = -1;
     private float _maxHeight = -1;
-    private float _calculatedWidth;
-    private float _calculatedHeight;
-    private List<Action> _onDone = new List<Action>();
+    private float _maxWidth;
     private IShape _shape = new CompoundShape(new List<IShape>());
-    private float _firstLineOffset;
 
     public CompoundTextComponent(
         List<IChatInlineComponent> components,
         float width = -1,
         float maxWidth = -1,
         CompoundLayoutRule layout = CompoundLayoutRule.TopLeft
-    ): this(component => components, width, maxWidth, layout)
+    ) : this(component => components, width, maxWidth, layout)
     {
     }
-    
+
     public CompoundTextComponent(
         Func<CompoundTextComponent, List<IChatInlineComponent>> construct,
         float width = -1,
@@ -50,14 +50,40 @@ public class CompoundTextComponent: BaseComponent, IChatInlineComponent, IChatCo
         Recalculate();
     }
 
-    protected override float CalculateHeight()
+    public override float Width { get; }
+
+    public float MaxContentWidth
     {
-        return _calculatedHeight;
+        get => _maxContentWidth;
+        set
+        {
+            _maxContentWidth = value;
+            Recalculate();
+            DirtyContent = true;
+        }
     }
 
-    protected override float CalculateWidth()
+    public float MaxHeight
     {
-        return _calculatedWidth;
+        get => _maxHeight;
+        set
+        {
+            _maxHeight = value;
+            Recalculate();
+            DirtyContent = true;
+        }
+    }
+
+    public void AppendComponents(List<IChatInlineComponent> chatInlineComponents)
+    {
+        _components.AddRange(chatInlineComponents);
+        Recalculate();
+        DirtyContent = true;
+    }
+
+    public void AppendComponent(IChatInlineComponent chatInlineComponents)
+    {
+        AppendComponents(new List<IChatInlineComponent> {chatInlineComponents});
     }
 
     public override void Render(SpriteBatch spriteBatch, ChatRenderContext context)
@@ -67,23 +93,17 @@ public class CompoundTextComponent: BaseComponent, IChatInlineComponent, IChatCo
 
         if (Layout == CompoundLayoutRule.Center)
         {
-            if (MaxWidth > _calculatedWidth)
-            {
-                xOffset = (MaxWidth - _calculatedWidth) / 2f;
-            }
+            if (MaxWidth > _calculatedWidth) xOffset = (MaxWidth - _calculatedWidth) / 2f;
 
-            if (MaxHeight > _calculatedHeight)
-            {
-                yOffset = (MaxHeight - _calculatedHeight) / 2f;
-            }
+            if (MaxHeight > _calculatedHeight) yOffset = (MaxHeight - _calculatedHeight) / 2f;
         }
-        
+
         foreach (var component in _components)
         {
             component.Render(spriteBatch, new ChatRenderContext(context.Position + new Vector2(xOffset, yOffset)));
             yOffset += component.Dimensions.Y - component.LastLineHeight;
         }
-        
+
         // Debug text shape
         // Shape.WithOffset(context.Position + new Vector2(xOffset, 0)).DebugDraw(spriteBatch, Color.Red);
     }
@@ -99,18 +119,59 @@ public class CompoundTextComponent: BaseComponent, IChatInlineComponent, IChatCo
         }
     }
 
-    public float MaxContentWidth
+    public override IShape Shape => _shape;
+
+    public override void SetOnDone(Action action)
     {
-        get => _maxContentWidth;
-        set
+        _onDone.Add(action);
+    }
+
+    public override void Update(float deltaTime, ChatUpdateContext context)
+    {
+        for (var index = 0; index < _components.Count; index++)
         {
-            _maxContentWidth = value;
+            var component = _components[index];
+            component.Update(deltaTime, context);
+        }
+
+        if (_components.Any(component => component.DirtyContent))
+        {
             Recalculate();
             DirtyContent = true;
         }
     }
 
-    public override IShape Shape => _shape;
+
+    public float LastLineRemainingSpace => _components.LastOrDefault()?.LastLineRemainingSpace ?? Width;
+
+    public float LastLength => _components.LastOrDefault()?.LastLength ?? 0;
+
+    public float LastLineHeight => _components.LastOrDefault()?.LastLineHeight ?? 0;
+
+    public float FirstLineOffset
+    {
+        get => _firstLineOffset;
+        set
+        {
+            _firstLineOffset = value;
+            Recalculate();
+            DirtyContent = true;
+        }
+    }
+
+    public bool DirtyContent { get; set; }
+
+    public bool EmptyLineEnd => _components.LastOrDefault()?.EmptyLineEnd ?? true;
+
+    protected override float CalculateHeight()
+    {
+        return _calculatedHeight;
+    }
+
+    protected override float CalculateWidth()
+    {
+        return _calculatedWidth;
+    }
 
     private void Recalculate()
     {
@@ -129,21 +190,12 @@ public class CompoundTextComponent: BaseComponent, IChatInlineComponent, IChatCo
             var (width, height) = component.Dimensions;
             shapeList.Add(component.Shape.WithOffset(new Vector2(xOffset, newCalcHeight)));
             newCalcHeight += height;
-            var isLastItem = index == (_components.Count - 1);
+            var isLastItem = index == _components.Count - 1;
 
-            if (component.LastLength != 0 && !isLastItem)
-            {
-                newCalcHeight -= component.LastLineHeight;
-            } 
-            if (isLastItem && component.EmptyLineEnd)
-            {
-                newCalcHeight += component.LastLineHeight;
-            }
+            if (component.LastLength != 0 && !isLastItem) newCalcHeight -= component.LastLineHeight;
+            if (isLastItem && component.EmptyLineEnd) newCalcHeight += component.LastLineHeight;
 
-            if (width + lineOffset > newCalcWidth)
-            {
-                newCalcWidth = width + lineOffset;
-            }
+            if (width + lineOffset > newCalcWidth) newCalcWidth = width + lineOffset;
         }
 
         _calculatedWidth = MaxContentWidth > 0 ? Math.Min(newCalcWidth, MaxContentWidth) : newCalcWidth;
@@ -156,84 +208,8 @@ public class CompoundTextComponent: BaseComponent, IChatInlineComponent, IChatCo
         return MaxContentWidth > 0 ? Math.Min(MaxWidth, MaxContentWidth) : MaxWidth;
     }
 
-    public override void SetOnDone(Action action)
-    {
-        this._onDone.Add(action);
-    }
-
-    public override float Width { get; }
-    public override void Update(float deltaTime, ChatUpdateContext context)
-    {
-        for (var index = 0; index < _components.Count; index++)
-        {
-            var component = _components[index];
-            component.Update(deltaTime, context);
-        }
-
-        if(_components.Any(component => component.DirtyContent))
-        {
-            Recalculate();
-            DirtyContent = true;
-        }
-    }
-
-    public float MaxHeight
-    {
-        get => _maxHeight;
-        set
-        {
-            _maxHeight = value;
-            Recalculate();
-            DirtyContent = true;
-        }
-    }
-    public void AppendComponents(List<IChatInlineComponent> chatInlineComponents)
-    {
-        _components.AddRange(chatInlineComponents);
-        Recalculate();
-        DirtyContent = true;
-    }
-    
-    public void AppendComponent(IChatInlineComponent chatInlineComponents)
-    {
-        AppendComponents(new List<IChatInlineComponent> {chatInlineComponents});
-    }
-
     public void Done()
     {
         _onDone.ForEach(action => action.Invoke());
-    }
-
-
-    public float LastLineRemainingSpace
-    {
-        get => _components.LastOrDefault()?.LastLineRemainingSpace ?? Width;
-    }
-
-    public float LastLength
-    {
-        get => _components.LastOrDefault()?.LastLength ?? 0;
-    }
-    public float LastLineHeight
-    {
-        get => _components.LastOrDefault()?.LastLineHeight ?? 0;
-    }
-
-    public float FirstLineOffset
-    {
-        get => _firstLineOffset;
-        set
-        {
-            _firstLineOffset = value;
-            Recalculate();
-            DirtyContent = true;
-        }
-    }
-
-    public bool DirtyContent { get; set; }
-
-    public bool EmptyLineEnd
-    {
-        get => _components.LastOrDefault()?.EmptyLineEnd ?? true;
     }
 }

@@ -9,28 +9,30 @@ public class BattleActionsLuaBridge
     {
         return new LogTextAction(key);
     }
-    
+
     public IBattleAction CreateAwaitNext()
     {
         return new AwaitNextAction();
     }
+
     public IBattleAction CreateDoNothing(IBattleParticipant participant)
     {
         return new DoNothingAction(participant);
     }
-    
+
     public IBattleAction CreateDamage(LuaTable data, IBattleParticipant actor, List<IBattleParticipant> targets)
     {
-        return new DealDamageAction(new DamageData((int)(long)data["Damage"], (Element)(int)(long)data["Element"]), actor, targets);
+        return new DealDamageAction(new DamageData((int) (long) data["Damage"], (Element) (int) (long) data["Element"]),
+            actor, targets);
     }
 
-    public IBattleAction HealHealth (LuaTable data, IBattleParticipant actor, List<IBattleParticipant> targets)
+    public IBattleAction HealHealth(LuaTable data, IBattleParticipant actor, List<IBattleParticipant> targets)
     {
-        return new HealHealthAction(actor, targets, (int)(long)data["Health"]);
+        return new HealHealthAction(actor, targets, (int) (long) data["Health"]);
     }
 
     public IBattleAction HealMana(LuaTable data, IBattleParticipant actor, List<IBattleParticipant> targets)
     {
-        return new HealManaAction(actor, targets, (int)(long)data["Mana"]);
+        return new HealManaAction(actor, targets, (int) (long) data["Mana"]);
     }
 }

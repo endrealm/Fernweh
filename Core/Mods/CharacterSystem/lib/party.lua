@@ -21,51 +21,50 @@ maxPartySize = 4
 function IsInParty(character)
     local name
 
-    if(type(character) == "string") then
+    if (type(character) == "string") then
         name = character
     else
         name = character.id
     end
-    
+
     for _, value in ipairs(currentParty) do
-        if(value.id == name) then
+        if (value.id == name) then
             return true
         end
     end
-    
+
     return false
 end
 
 function AddToParty(character)
-    if(character.id == nil) then
+    if (character.id == nil) then
         return false, "invalid_character"
     end
-    if(#currentParty >= maxPartySize) then
+    if (#currentParty >= maxPartySize) then
         return false, "party_full"
     end
-    if(IsInParty(character)) then
+    if (IsInParty(character)) then
         return false, "already_added"
     end
     table.insert(currentParty, character)
     return true
 end
 
-
 function RemoveFromParty(character)
-    if(character.id == nil) then
+    if (character.id == nil) then
         return false, "invalid_character"
     end
     local selected = -1
     for index, value in ipairs(currentParty) do
-        if(value.id == character.id) then
+        if (value.id == character.id) then
             selected = index
         end
     end
-    
-    if(selected == -1) then
+
+    if (selected == -1) then
         return false, "not_in_party"
     end
-    
+
     table.remove(currentParty, selected)
     return true
 end
@@ -76,7 +75,7 @@ end
 
 function GetMemberById(id)
     for index, value in ipairs(currentParty) do
-        if(id == value.id) then
+        if (id == value.id) then
             return value;
         end
     end
@@ -92,54 +91,56 @@ local lootReward
 local partySnapshot
 local xpGained = 0
 
-function SetPostBattleInfo(money, loot) -- will show exp gain, leveling, and any other info after battle
+function SetPostBattleInfo(money, loot)
+    -- will show exp gain, leveling, and any other info after battle
     moneyReward = money
     lootReward = loot
 end
 
 BlackListState("post_battle_overview")
 StateBuilder("post_battle_overview")
-    :Render(
-            function(renderer, context)
-                if(xpGained == 0 or partySnapshot == nil) then -- exit state if no info (usually if you load a game into this state)
-                    renderer:AddText("")
-                    context:Exit()
-                end
-
-                renderer:AddText("battle.win")
+        :Render(
+        function(renderer, context)
+            if (xpGained == 0 or partySnapshot == nil) then
+                -- exit state if no info (usually if you load a game into this state)
                 renderer:AddText("")
-
-                renderer:AddText("battle.details.exp", { { "reward", xpGained } })
-                if(moneyReward ~= nil) then
-                    renderer:AddText("battle.details.gold", { { "reward", moneyReward } })
-                end
-                if(lootReward ~= nil) then
-                    renderer:AddText("battle.details.loot")
-                    for _, l in ipairs(lootReward) do
-	                    renderer:AddText("battle.details.loot.item", { { "reward", l } })
-                    end
-                end
-                renderer:AddText("")
-
-                for i, character in ipairs(GetMembers()) do
-                -- if character and old character have the same level
-                    if(partySnapshot == nil or character.stats.level == partySnapshot[i]) then
-                        renderer:AddText("battle.details.player.level", { { "name", character.id }, { "level", character.stats.level } })
-                    else
-                        renderer:AddText("battle.details.player.levelup", { { "name", character.id }, { "level", character.stats.level }, { "old_level", partySnapshot[i] } })
-                    end
-                    renderer:AddText("battle.details.player.experience", { { "current", character.stats.experience }, { "max", character:GetExperienceForLevelUp() } })
-                end
-
-                renderer:AddAction(function()
-                    moneyReward = nil
-                    lootReward = nil
-                    partySnapshot = {}
-                    context:Exit() 
-                end, "button.continue")
+                context:Exit()
             end
-    )
-    :Build()
+
+            renderer:AddText("battle.win")
+            renderer:AddText("")
+
+            renderer:AddText("battle.details.exp", { { "reward", xpGained } })
+            if (moneyReward ~= nil) then
+                renderer:AddText("battle.details.gold", { { "reward", moneyReward } })
+            end
+            if (lootReward ~= nil) then
+                renderer:AddText("battle.details.loot")
+                for _, l in ipairs(lootReward) do
+                    renderer:AddText("battle.details.loot.item", { { "reward", l } })
+                end
+            end
+            renderer:AddText("")
+
+            for i, character in ipairs(GetMembers()) do
+                -- if character and old character have the same level
+                if (partySnapshot == nil or character.stats.level == partySnapshot[i]) then
+                    renderer:AddText("battle.details.player.level", { { "name", character.id }, { "level", character.stats.level } })
+                else
+                    renderer:AddText("battle.details.player.levelup", { { "name", character.id }, { "level", character.stats.level }, { "old_level", partySnapshot[i] } })
+                end
+                renderer:AddText("battle.details.player.experience", { { "current", character.stats.experience }, { "max", character:GetExperienceForLevelUp() } })
+            end
+
+            renderer:AddAction(function()
+                moneyReward = nil
+                lootReward = nil
+                partySnapshot = {}
+                context:Exit()
+            end, "button.continue")
+        end
+)
+        :Build()
 
 -- ============================
 -- Events
@@ -160,7 +161,7 @@ Global:AddOnPostBattle(function(victory, snapshot)
     end
 
     -- calc gained xp
-    for i=0,snapshot.Enemies.Count - 1 do
+    for i = 0, snapshot.Enemies.Count - 1 do
         xpGained = xpGained + snapshot.Enemies[i].Config.Stats.Health
     end
     xpGained = xpGained / 2
@@ -171,13 +172,13 @@ Global:AddOnPostBattle(function(victory, snapshot)
         local id = candidate.Config.Id
         local char = GetMemberById(id)
 
-        if(char ~= nil) then
+        if (char ~= nil) then
             char:SetCurrentHealth(candidate.Health)
             char:SetCurrentMana(candidate.Mana)
 
             -- add xp, then level up if needed
             char.stats.experience = char.stats.experience + xpGained
-            while(char.stats.experience >= char:GetExperienceForLevelUp() and char.stats.level < 100)
+            while (char.stats.experience >= char:GetExperienceForLevelUp() and char.stats.level < 100)
             do
                 char.stats.level = char.stats.level + 1
                 char.stats.experience = char.stats.experience - char:GetExperienceForLevelUp()
@@ -203,7 +204,7 @@ end)
 -- ============================
 
 SetDataLoader(function(data)
-    if(data == nil) then
+    if (data == nil) then
         return
     end
     currentParty = {}
@@ -217,9 +218,9 @@ SetDataSaver(function()
 
     for _, character in pairs(currentParty) do
         table.insert(data, {
-            type=character.type,
-            id=character.id,
-            data=character:Serialize(),
+            type = character.type,
+            id = character.id,
+            data = character:Serialize(),
         })
     end
 

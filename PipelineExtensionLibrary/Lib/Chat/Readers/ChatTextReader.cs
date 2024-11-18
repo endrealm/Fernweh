@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework.Content;
 
 namespace PipelineExtensionLibrary.Chat.Readers;
 
-public class ChatTextReader: IComponentReader
+public class ChatTextReader : IComponentReader
 {
     public int Id => 1;
+
     public bool Supports(IChatComponentData data)
     {
         return data is ChatTextData;
@@ -19,5 +19,4 @@ public class ChatTextReader: IComponentReader
 
         return new ChatTextData(color, text);
     }
-    
 }
