@@ -7,7 +7,7 @@ using Core.States;
 using Microsoft.Xna.Framework;
 using Newtonsoft.Json;
 
-namespace Core.Scenes.Ingame;
+namespace Core.Scenes.Ingame.Modes.Overworld;
 
 public class OverworldMode : IMode, IStateManager
 {
@@ -60,12 +60,12 @@ public class OverworldMode : IMode, IStateManager
         weakNextID = (string) data["WeakState"];
         Load(new ModeParameters().AppendData("state", (string) data["State"] ?? "null"));
         if (data.ContainsKey("LoadedMap"))
-            worldGameView.mapDataRegistry.LoadMap((string) data["LoadedMap"]);
+            worldGameView.MapDataRegistry.LoadMap((string) data["LoadedMap"]);
         if (data.ContainsKey("PlayerPosX") && data.ContainsKey("PlayerPosY"))
-            worldGameView.player.TeleportPlayer(new Vector2(int.Parse((string) data["PlayerPosX"]),
+            worldGameView.Player.TeleportPlayer(new Vector2(int.Parse((string) data["PlayerPosX"]),
                 int.Parse((string) data["PlayerPosY"])));
         if (data.ContainsKey("DiscoveredTiles"))
-            worldGameView.discoveredTiles =
+            worldGameView.DiscoveredTiles =
                 JsonConvert.DeserializeObject<Dictionary<string, List<Vector2>>>((string) data["DiscoveredTiles"]);
     }
 
@@ -73,10 +73,10 @@ public class OverworldMode : IMode, IStateManager
     {
         data.Add("State", LastSaveState);
         data.Add("WeakState", LastSaveStateWeak);
-        data.Add("LoadedMap", worldGameView.mapDataRegistry.GetLoadedMapName());
-        data.Add("PlayerPosX", (worldGameView.player.CurrentPos.X / 32).ToString());
-        data.Add("PlayerPosY", (worldGameView.player.CurrentPos.Y / 32).ToString());
-        data.Add("DiscoveredTiles", JsonConvert.SerializeObject(worldGameView.discoveredTiles));
+        data.Add("LoadedMap", worldGameView.MapDataRegistry.GetLoadedMapName());
+        data.Add("PlayerPosX", (worldGameView.Player.CurrentPos.X / 32).ToString());
+        data.Add("PlayerPosY", (worldGameView.Player.CurrentPos.Y / 32).ToString());
+        data.Add("DiscoveredTiles", JsonConvert.SerializeObject(worldGameView.DiscoveredTiles));
     }
 
     public string weakNextID

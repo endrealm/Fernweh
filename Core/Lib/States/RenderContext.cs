@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Core.Scenes.Ingame;
 using Core.Scenes.Ingame.Battle;
+using Core.Scenes.Ingame.Modes.Overworld;
 using Core.Scenes.Ingame.Views;
 using Microsoft.Xna.Framework;
 using NLua;
@@ -70,23 +71,23 @@ public class RenderContext
 
     public void MovePlayer(int x, int y)
     {
-        _worldGameView.player.MovePlayer(new Vector2(x, y));
+        _worldGameView.Player.MovePlayer(new Vector2(x, y));
     }
 
     public void TeleportPlayer(int x, int y)
     {
-        _worldGameView.player.TeleportPlayer(new Vector2(x, y));
+        _worldGameView.Player.TeleportPlayer(new Vector2(x, y));
     }
 
     public void LoadMap(string name, int x, int y)
     {
-        _worldGameView.mapDataRegistry.LoadMap(name);
-        _worldGameView.player.TeleportPlayer(new Vector2(x, y));
+        _worldGameView.MapDataRegistry.LoadMap(name);
+        _worldGameView.Player.TeleportPlayer(new Vector2(x, y));
     }
 
     public string GetLoadedMap()
     {
-        return _worldGameView.mapDataRegistry.GetLoadedMapName();
+        return _worldGameView.MapDataRegistry.GetLoadedMapName();
     }
 
     public void PlaySFX(string name)

@@ -25,6 +25,7 @@ public class BaseChatView : IChatView
     private bool _sticky = true;
     protected Queue<IChatComponent> QueuedComponents = new();
     protected int Width;
+    private Texture2D _divider;
 
     public BaseChatView(ILocalizationManager localizationManager, IFontManager fontManager)
     {
@@ -34,6 +35,7 @@ public class BaseChatView : IChatView
 
     public void Load(ContentLoader content)
     {
+        _divider = content.Load<Texture2D>("Sprites/divider.png");
     }
 
     public void Clear()
@@ -80,6 +82,8 @@ public class BaseChatView : IChatView
         // Draw UI here
         spriteBatch.FillRectangle(new Vector2(), new Size2(context.ChatWidth, context.BaseScreenSize.Y),
             context.BackgroundColor);
+        spriteBatch.Draw(_divider, new Rectangle(new Point(context.ChatWidth-3, 0), new Point(3, 224)), Color.White);
+        
         var offsetY = 0f + -_scrollOffset;
         RunningComponents.ForEach(component =>
         {

@@ -1,7 +1,8 @@
 ﻿using Core.Scenes.Ingame.Localization;
+using Core.Scenes.Ingame.Views;
 using Core.States;
 
-namespace Core.Scenes.Ingame.Views;
+namespace Core.Scenes.Ingame.Modes.Overworld;
 
 public class StateChatView : BaseChatView
 {

@@ -1,5 +1,6 @@
 using System;
 using Core.Content;
+using Core.Scenes.Ingame.Modes.Overworld;
 using Core.Scenes.Ingame.Views;
 using Core.States;
 using Core.Utils;
@@ -112,7 +113,7 @@ public class Player : IRenderer<IngameRenderContext>, IUpdate<IngameUpdateContex
 
     public void TeleportPlayer(Vector2 mapPos) // can be used to move to spawn
     {
-        if (_worldRenderer.mapDataRegistry.GetLoadedMap() == null) return; // cant move if no map loaded
+        if (_worldRenderer.MapDataRegistry.GetLoadedMap() == null) return; // cant move if no map loaded
         if (CurrentPos != _targetPos) return; // cant move if currently moving
         //if (_worldRenderer.mapDataRegistry.GetLoadedMap().GetTile(CurrentPos / 32) == null ||
         //    _worldRenderer.tileDataRegistry.GetTile(_worldRenderer.mapDataRegistry.GetLoadedMap().GetTile(CurrentPos / 32).name) == null) return; // cant move to what doesnt exist
@@ -126,16 +127,16 @@ public class Player : IRenderer<IngameRenderContext>, IUpdate<IngameUpdateContex
     public void MovePlayer(Vector2 direction)
     {
         if (!_gameManager.ActiveState.AllowMove) return; // cant move if... cant move
-        if (_worldRenderer.mapDataRegistry.GetLoadedMap() == null) return; // cant move if no map loaded
+        if (_worldRenderer.MapDataRegistry.GetLoadedMap() == null) return; // cant move if no map loaded
         if (CurrentPos != _targetPos) return; // cant move if currently moving
 
-        _previousTileData = _worldRenderer.mapDataRegistry.GetLoadedMap().GetTile(CurrentPos / 32);
-        _targetTileData = _worldRenderer.mapDataRegistry.GetLoadedMap().GetTile(CurrentPos / 32 + direction);
+        _previousTileData = _worldRenderer.MapDataRegistry.GetLoadedMap().GetTile(CurrentPos / 32);
+        _targetTileData = _worldRenderer.MapDataRegistry.GetLoadedMap().GetTile(CurrentPos / 32 + direction);
 
         if (_targetTileData == null) return; // cant move to what doesnt exist
 
-        var currentTile = _worldRenderer.tileDataRegistry.GetTile(_previousTileData.name);
-        var targetTile = _worldRenderer.tileDataRegistry.GetTile(_targetTileData.name);
+        var currentTile = _worldRenderer.TileDataRegistry.GetTile(_previousTileData.name);
+        var targetTile = _worldRenderer.TileDataRegistry.GetTile(_targetTileData.name);
 
         if (currentTile.AllowsDirection(direction) && // check both tiles allow the direction
             targetTile.AllowsDirection(direction * new Vector2(-1, -1)))
@@ -149,13 +150,13 @@ public class Player : IRenderer<IngameRenderContext>, IUpdate<IngameUpdateContex
 
     private void DiscoverTiles()
     {
-        if (!_worldRenderer.mapDataRegistry.GetLoadedMap().explorable)
+        if (!_worldRenderer.MapDataRegistry.GetLoadedMap().explorable)
             return; // dont save discovered tiles if map isnt explorable
 
         foreach (var offset in _discoverTileRadius)
-            if (!_worldRenderer.discoveredTiles[_worldRenderer.mapDataRegistry.GetLoadedMap().name]
+            if (!_worldRenderer.DiscoveredTiles[_worldRenderer.MapDataRegistry.GetLoadedMap().name]
                     .Contains(offset + CurrentPos / 32))
-                _worldRenderer.discoveredTiles[_worldRenderer.mapDataRegistry.GetLoadedMap().name]
+                _worldRenderer.DiscoveredTiles[_worldRenderer.MapDataRegistry.GetLoadedMap().name]
                     .Add(offset + CurrentPos / 32);
     }
 }
