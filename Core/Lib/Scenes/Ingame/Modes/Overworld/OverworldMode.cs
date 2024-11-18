@@ -62,11 +62,10 @@ public class OverworldMode : IMode, IStateManager
         if (data.ContainsKey("LoadedMap"))
             worldGameView.MapDataRegistry.LoadMap((string) data["LoadedMap"]);
         if (data.ContainsKey("PlayerPosX") && data.ContainsKey("PlayerPosY"))
-            worldGameView.Player.TeleportPlayer(new Vector2(int.Parse((string) data["PlayerPosX"]),
-                int.Parse((string) data["PlayerPosY"])));
-        if (data.ContainsKey("DiscoveredTiles"))
+            worldGameView.Player.TeleportPlayer(new Vector2((long) data["PlayerPosX"], (long) data["PlayerPosY"]));
+        if (data.TryGetValue("DiscoveredTiles", out var value))
             worldGameView.DiscoveredTiles =
-                JsonConvert.DeserializeObject<Dictionary<string, List<Vector2>>>((string) data["DiscoveredTiles"]);
+                JsonConvert.DeserializeObject<Dictionary<string, List<Vector2>>>((string) value);
     }
 
     public void Save(Dictionary<string, object> data)
@@ -74,8 +73,8 @@ public class OverworldMode : IMode, IStateManager
         data.Add("State", LastSaveState);
         data.Add("WeakState", LastSaveStateWeak);
         data.Add("LoadedMap", worldGameView.MapDataRegistry.GetLoadedMapName());
-        data.Add("PlayerPosX", (worldGameView.Player.CurrentPos.X / 32).ToString());
-        data.Add("PlayerPosY", (worldGameView.Player.CurrentPos.Y / 32).ToString());
+        data.Add("PlayerPosX", (long) worldGameView.Player.CurrentPos.X / 32);
+        data.Add("PlayerPosY", (long) worldGameView.Player.CurrentPos.Y / 32);
         data.Add("DiscoveredTiles", JsonConvert.SerializeObject(worldGameView.DiscoveredTiles));
     }
 
