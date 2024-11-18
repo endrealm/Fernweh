@@ -4,8 +4,15 @@ url: # Add your website address here
 branding:
   title: Fernweh
   label: Docs
+  logo: static/logo.ico
+favicon: static/logo.ico
 links:
+- text: Repository
+  link: https://github.com/endrealm/Fernweh
 - text: EndRealm
   link: https://endrealm.net
 footer:
   copyright: "&copy; Copyright {{ year }}. All rights reserved."
+edit:
+  repo: https://github.com/endrealm/Fernweh
+  base: /.docs
