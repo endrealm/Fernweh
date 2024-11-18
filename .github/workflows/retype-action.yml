@@ -22,8 +22,9 @@ jobs:
           dotnet-version: 7.0.x
 
       - uses: retypeapp/action-build@latest
+        with:
+          config: .docs
 
       - uses: retypeapp/action-github-pages@latest
         with:
-          config: .docs
           update-branch: true
