@@ -1,10 +1,18 @@
 ﻿# Fernweh
-Fernweh is a turn-based RPG combined with elements of text adventures. 
-Though on its own, Fernweh is only a framework. 
+Fernweh is an Engine/Emulator for text adventure RPG Games and turn based combat. Under the hood it is built on Monogame.
 
 We use Lua mods to create campaigns/games and add more functionality to Fernweh.
 Currently, we have a "Frostglade Tundra" Lua game you can try, 
-with all of the code open for you to edit and play with.
+with all the code open for you to edit and play with.
+
+# Short Term Goals
+- [ ] Remove MGCB for core game and mods
+- [ ] Cleanup code base and application flow
+- [ ] Complete example campaign "Frostglade Tundra"
+- [ ] Polish menus
+- [ ] Add settings for volume, text speed and window mode
+- [ ] Introduce alternative font for improved readability settings
+- [ ] Improve documentation
 
 # Future Plans
 We have a giant list of issues on our to-do board... 
@@ -55,3 +63,8 @@ You can change ``win-x64`` to ``linux-x64`` or ``osx-x64`` depending on your tar
 Make sure to create a "mods" folder as well, otherwise, the game won't run properly.
 
 More info here if needed: https://docs.monogame.net/articles/packaging_games.html
+
+# License
+- The code and binaries are licensed under the [EULA](./EULA.txt)
+- Mods located under Core/Mods can have different Licenses in their respective folders!
+- Third party libraries e.g. in ./PipelineAssemblies are distributed under their own license
